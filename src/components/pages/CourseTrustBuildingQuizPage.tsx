@@ -251,28 +251,27 @@ export default function CourseTrustBuildingQuizPage() {
                       else if (isUserChoice) extraCls = 'wrong';
                     }
                     return (
-                      <label
+                      <div
                         className={`option ${extraCls}`}
                         key={opt.letter}
-                        onClick={(e) => {
-                          if (graded) e.preventDefault();
-                          handleSelect(q.id, opt.letter);
+                        role="button"
+                        tabIndex={graded ? -1 : 0}
+                        onClick={() => handleSelect(q.id, opt.letter)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleSelect(q.id, opt.letter);
+                          }
                         }}
                       >
-                        <input
-                          type="radio"
-                          name={q.id}
-                          checked={isUserChoice}
-                          readOnly
-                        />
-                        <span className="option-bullet"></span>
+                        <span className={`option-bullet ${isUserChoice ? 'is-checked' : ''}`}></span>
                         <span className="option-text">{opt.text}</span>
                         {graded && (
                           <span className="option-marker">
                             {isCorrect ? 'Correct answer' : isUserChoice ? 'Your answer' : ''}
                           </span>
                         )}
-                      </label>
+                      </div>
                     );
                   })}
                 </div>

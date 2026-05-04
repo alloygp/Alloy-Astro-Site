@@ -1,44 +1,20 @@
-# Alloy Growth Partners — Astro Site
+# Trust Building Course — Style + Quiz Fixes (v5)
 
-Astro rewrite of the Alloy marketing site. **In progress.** See `MIGRATION_NOTES.md` for status, what's done, and what's left.
+## What's fixed
 
-## Quick start
+1. **Cover/lesson/quiz pages now use the purple SiteHeader** — added `headerTheme="purple"` to all three .astro files.
+2. **"FREE · AVAILABLE NOW" pill on /courses** — switched from purple text to white text on the pink background. No more purple-on-pink.
+3. **Quiz interactivity** — replaced the radio-input/label pattern with plain divs + onClick handlers. Selecting an answer now reliably updates the bullet, and Submit grades the quiz.
 
-```bash
-npm install
-npm run dev
+## Files in this drop (6)
+```
+src/components/pages/CourseTrustBuildingQuizPage.tsx   (quiz interaction fix)
+src/components/pages/CoursesPage.tsx                   (pill color fix)
+src/pages/courses/trust-building.astro                 (purple header)
+src/pages/courses/trust-building-lesson.astro          (purple header)
+src/pages/courses/trust-building-quiz.astro            (purple header)
+src/styles/courses.css                                 (option-bullet CSS)
 ```
 
-## Structure
-
-```
-astro/
-├── public/                  # static — assets, fonts, robots.txt, sitemap.xml
-├── src/
-│   ├── layouts/
-│   │   └── BaseLayout.astro # single shell for every page
-│   ├── components/
-│   │   ├── chrome/          # SiteHeader, SiteFooter
-│   │   ├── modules/         # SystemDiagram, AuditQuiz, ROICalculator, etc. (TODO)
-│   │   ├── pages/           # HomePage, ServicesPage, etc. (TODO)
-│   │   ├── Icon.tsx
-│   │   ├── AccentBar.tsx
-│   │   └── EngineLoop.tsx
-│   ├── lib/
-│   │   ├── tokens.ts        # brand color constants
-│   │   └── nav.ts           # site-wide navigation config
-│   ├── pages/               # one .astro file per route (TODO)
-│   └── styles/              # global CSS (verbatim from parent)
-├── astro.config.mjs
-├── package.json
-├── tsconfig.json
-└── vercel.json
-```
-
-## Key decisions
-
-- **Tweaks panel removed.** Default config baked in (`refined` hero, `split` layout, `deep` purple background, `editorial` density).
-- **No `window.ASSET` cache-buster.** Astro/Vite handle fingerprinting.
-- **Strict TS** via `astro/tsconfigs/strictest`.
-- **Static output** — every route pre-rendered to HTML at build.
-- **React islands** for interactive bits only (forms, calculators, accordions).
+## How to apply
+Drag `src/` into your local repo → **Merge** (do NOT replace). Push.

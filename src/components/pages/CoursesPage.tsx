@@ -51,7 +51,7 @@ export default function CoursesPage() {
                 opacity: c.available === false ? 0.78 : 1,
               }}>
                 {c.featured && (
-                  <div style={{ position: 'absolute', top: 16, right: 20, background: c.color, color: PURPLE, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>
+                  <div style={{ position: 'absolute', top: 16, right: 20, background: c.color, color: '#fff', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999 }}>
                     Free · Available now
                   </div>
                 )}

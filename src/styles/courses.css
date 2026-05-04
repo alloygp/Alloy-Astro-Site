@@ -1117,7 +1117,6 @@
   position: relative;
 }
 .course-page .option:hover { border-color: var(--alloy-pink); background: var(--alloy-pink-tint); }
-.course-page .option input { position: absolute; opacity: 0; pointer-events: none; }
 .course-page .option-bullet {
   width: 22px;
   height: 22px;
@@ -1127,18 +1126,18 @@
   transition: all 0.15s;
   position: relative;
 }
-.course-page .option input:checked + .option-bullet {
+.course-page .option-bullet.is-checked {
   border-color: var(--alloy-pink);
   background: var(--alloy-pink);
 }
-.course-page .option input:checked + .option-bullet::after {
+.course-page .option-bullet.is-checked::after {
   content: '';
   position: absolute;
   inset: 4px;
   background: #fff;
   border-radius: 999px;
 }
-.course-page .option input:checked ~ .option-text { color: var(--alloy-purple); font-weight: 600; }
+.course-page .option:has(.option-bullet.is-checked) .option-text { color: var(--alloy-purple); font-weight: 600; }
 .course-page .option-text {
   font-size: 15px;
   color: var(--alloy-purple);
