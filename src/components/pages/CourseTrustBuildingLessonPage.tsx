@@ -64,6 +64,7 @@ export default function CourseTrustBuildingLessonPage() {
       <div className="shell">
         {/* Sidebar curriculum */}
         <aside className="sidebar">
+         <div className="sidebar-inner">
           <div className="sidebar-head">
             <div className="sidebar-eyebrow">Building Trust</div>
             <div className="sidebar-title">Trust-Building for CAM Firms</div>
@@ -100,6 +101,7 @@ export default function CourseTrustBuildingLessonPage() {
             {lessonRow(9, <>From proof to persuasion</>, '6 min · Lesson')}
             {lessonRow(10, <>Check your learning</>, '5 min · Quiz', '/courses/trust-building-quiz')}
           </div>
+         </div>
         </aside>
 
         {/* Main content */}

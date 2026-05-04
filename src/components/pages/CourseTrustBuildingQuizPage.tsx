@@ -131,6 +131,7 @@ export default function CourseTrustBuildingQuizPage() {
     <div className="course-page">
       <div className="shell">
         <aside className="sidebar">
+         <div className="sidebar-inner">
           <div className="sidebar-head">
             <div className="sidebar-eyebrow">Building Trust</div>
             <div className="sidebar-title">Trust-Building for CAM Firms</div>
@@ -163,6 +164,7 @@ export default function CourseTrustBuildingQuizPage() {
             {sidebarRow('done', '✓', <>From proof to persuasion</>, '6 min · Lesson')}
             {sidebarRow(graded ? 'done' : 'active', graded ? '✓' : '★', <>Check your learning</>, '5 min · Quiz')}
           </div>
+         </div>
         </aside>
 
         <main className={`main ${graded ? 'graded' : ''}`}>
