@@ -129,22 +129,6 @@ export default function CourseTrustBuildingQuizPage() {
 
   return (
     <div className="course-page">
-      {/* Top bar */}
-      <header className="topbar">
-        <div className="topbar-left">
-          <div className="topbar-brand">Alloy<span className="dot">.</span></div>
-          <a className="topbar-back" href="/courses/trust-building">
-            <ArrowLeft />
-            Trust-Building for CAM Firms
-          </a>
-        </div>
-        <div className="topbar-progress">
-          <span>10 / 10</span>
-          <div className="topbar-progress-bar"><div className="topbar-progress-fill" style={{ width: graded ? '100%' : '90%' }}></div></div>
-          <span>{graded ? '100%' : '90%'}</span>
-        </div>
-      </header>
-
       <div className="shell">
         <aside className="sidebar">
           <div className="sidebar-head">

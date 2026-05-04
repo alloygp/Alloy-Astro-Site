@@ -45,11 +45,11 @@ export default function CourseTrustBuildingLessonPage() {
     setProgress({ count: 3, pct: 30 });
   };
 
-  const lessonRow = (idx: number, title: React.ReactNode, sub: string) => {
+  const lessonRow = (idx: number, title: React.ReactNode, sub: string, href = '#') => {
     const l = lessons[idx];
     const cls = `lesson-row ${l.status === 'active' ? 'active' : ''} ${l.status === 'done' ? 'done' : ''}`.trim();
     return (
-      <a className={cls} href="#" key={idx}>
+      <a className={cls} href={href} key={idx}>
         <div className="lesson-check">{l.check}</div>
         <div className="lesson-text">
           {title}
@@ -61,22 +61,6 @@ export default function CourseTrustBuildingLessonPage() {
 
   return (
     <div className="course-page">
-      {/* Top bar */}
-      <header className="topbar">
-        <div className="topbar-left">
-          <div className="topbar-brand">Alloy<span className="dot">.</span></div>
-          <a className="topbar-back" href="/courses/trust-building">
-            <ArrowLeft />
-            Trust-Building for CAM Firms
-          </a>
-        </div>
-        <div className="topbar-progress">
-          <span>{progress.count} / 10</span>
-          <div className="topbar-progress-bar"><div className="topbar-progress-fill" style={{ width: `${progress.pct}%` }}></div></div>
-          <span>{progress.pct}%</span>
-        </div>
-      </header>
-
       <div className="shell">
         {/* Sidebar curriculum */}
         <aside className="sidebar">
@@ -114,7 +98,7 @@ export default function CourseTrustBuildingLessonPage() {
             <div className="module-label">Module 5 · Wrap-up</div>
             {lessonRow(8, <>Recapping the 3 trust signals</>, '4 min · Lesson')}
             {lessonRow(9, <>From proof to persuasion</>, '6 min · Lesson')}
-            {lessonRow(10, <>Check your learning</>, '5 min · Quiz')}
+            {lessonRow(10, <>Check your learning</>, '5 min · Quiz', '/courses/trust-building-quiz')}
           </div>
         </aside>
 
