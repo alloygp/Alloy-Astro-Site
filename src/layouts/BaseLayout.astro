@@ -1,0 +1,126 @@
+---
+// src/layouts/BaseLayout.astro
+// Single layout for every Alloy page. Replaces the 24 nearly-identical
+// .html shells from the original SPA, plus the per-route <head> manager
+// that lived in app.jsx (applySeo).
+//
+// Usage:
+//   ---
+//   import BaseLayout from '~/layouts/BaseLayout.astro';
+//   ---
+//   <BaseLayout
+//     title="Services — One growth partner. Three engines."
+//     description="..."
+//     pageId="services"
+//   >
+//     ...page sections...
+//   </BaseLayout>
+
+import '~/styles/colors_and_type.css';
+import '~/styles/site.css';
+import '~/styles/chrome.css';
+import '~/styles/courses.css';
+
+import SiteHeader from '~/components/chrome/SiteHeader.tsx';
+import SiteFooter from '~/components/chrome/SiteFooter.tsx';
+
+interface Props {
+  title: string;
+  description: string;
+  /**
+   * Which top-level nav item should highlight as active.
+   * One of: home, about, services, boardsuite, approach, resources.
+   * Pass null/undefined to leave nothing highlighted.
+   */
+  pageId?: string | null;
+  /**
+   * Header visual theme. Defaults to 'light'. Use 'purple' on dense interior
+   * pages whose hero starts on a light background and needs a stronger
+   * header anchor (services, FAQ, resource hub, etc).
+   */
+  headerTheme?: 'light' | 'purple';
+  /**
+   * Disable the animated 5-color accent bar at the top of the footer.
+   * Defaults to true (enabled).
+   */
+  animatedBar?: boolean;
+}
+
+const {
+  title,
+  description,
+  pageId = null,
+  headerTheme = 'light',
+  animatedBar = true,
+} = Astro.props;
+
+const url = new URL(Astro.url.pathname, Astro.site ?? 'https://alloygp.co').toString();
+const ogImage = new URL('/assets/alloy-og.png', Astro.site ?? 'https://alloygp.co').toString();
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Alloy Growth Partners',
+  url: 'https://alloygp.co',
+  logo: 'https://alloygp.co/assets/alloy-logo-full-color.svg',
+  description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Austin',
+    addressRegion: 'TX',
+    addressCountry: 'US',
+  },
+  telephone: '+1-210-845-5989',
+  email: 'contact@alloygp.co',
+  areaServed: 'United States',
+  priceRange: '$$$',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/png" href="/assets/alloy-icon-1500.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Alloy Growth Partners" />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(orgLd)}
+    />
+  </head>
+  <body class="has-fixed-header">
+    <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter animatedBar={animatedBar} client:visible />
+  </body>
+</html>
