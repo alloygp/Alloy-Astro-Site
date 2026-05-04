@@ -163,8 +163,8 @@ export default function HomePage() {
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 80% 20%, rgba(217,53,110,0.30) 0%, transparent 60%)' }}></div>
         <div className="container-narrow" style={{ position: 'relative', textAlign: 'center' }}>
           <Eyebrow onDark noLine>Ready when you are</Eyebrow>
-          <h2 className="display-xl" style={{ margin: '16px auto 18px', color: '#fff', maxWidth: 900 }}>Stop growing by chance.<br/>Start engineering it.</h2>
-          <p className="lead on-dark" style={{ margin: '0 auto 32px' }}>Referrals, luck, and the occasional inbound aren't a growth plan — they're variance. 30 minutes. No pitch. Just a structured diagnostic on which engine is leaking and how to fix it. If your market's open, we'll lock it in.</p>
+          <h2 className="display-xl" style={{ margin: '16px auto 18px', color: '#fff', maxWidth: 1000 }}>Three engines. One playbook.<br/>Your market.</h2>
+          <p className="lead on-dark" style={{ margin: '0 auto 32px' }}>Attract, close, and keep — engineered as one connected system. 30 minutes tells you which engine to fix first. If your metro is open, we'll lock it in.</p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button variant="primary" arrow href="/strategic-review-request">Claim Your Market</Button>
             <Button variant="secondary" onDark href="/services">Explore the system</Button>

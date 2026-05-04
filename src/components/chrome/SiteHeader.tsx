@@ -12,9 +12,15 @@ export interface SiteHeaderProps {
    * One of: services, boardsuite, approach, resources, about
    */
   active?: string;
+  /**
+   * Visual theme. 'light' (default) = white/translucent; 'purple' = purple-deep
+   * background with white nav (used on dense interior pages where the page
+   * starts with a light hero and we want a stronger header anchor).
+   */
+  theme?: 'light' | 'purple';
 }
 
-export default function SiteHeader({ active }: SiteHeaderProps) {
+export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps) {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -50,7 +56,7 @@ export default function SiteHeader({ active }: SiteHeaderProps) {
 
   return (
     <header
-      className={`site-header ${hidden ? 'is-hidden' : ''} ${scrolled ? 'is-scrolled' : ''}`}
+      className={`site-header site-header--${theme} ${hidden ? 'is-hidden' : ''} ${scrolled ? 'is-scrolled' : ''}`}
       onMouseLeave={() => setOpenMenu(null)}
     >
       <div className="site-header-inner">

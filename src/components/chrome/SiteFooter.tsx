@@ -38,10 +38,10 @@ export default function SiteFooter({ animatedBar = true }: SiteFooterProps) {
               maxWidth: 380,
             }}
           >
-            Where growth is{' '}
-            <span style={{ color: 'var(--alloy-pink)' }}>engineered</span>,
+            Growth{' '}
+            <span style={{ color: 'var(--alloy-pink)' }}>engineered</span>
             <br />
-            not left to chance.
+            exclusively for CAM.
           </div>
           <div style={{ fontSize: 13, opacity: 0.7, marginTop: 22, lineHeight: 1.7 }}>
             Austin, TX · Serving CAM companies nationwide

@@ -33,6 +33,12 @@ interface Props {
    */
   pageId?: string | null;
   /**
+   * Header visual theme. Defaults to 'light'. Use 'purple' on dense interior
+   * pages whose hero starts on a light background and needs a stronger
+   * header anchor (services, FAQ, resource hub, etc).
+   */
+  headerTheme?: 'light' | 'purple';
+  /**
    * Disable the animated 5-color accent bar at the top of the footer.
    * Defaults to true (enabled).
    */
@@ -43,6 +49,7 @@ const {
   title,
   description,
   pageId = null,
+  headerTheme = 'light',
   animatedBar = true,
 } = Astro.props;
 
@@ -109,7 +116,7 @@ const orgLd = {
     />
   </head>
   <body class="has-fixed-header">
-    <SiteHeader active={pageId ?? undefined} client:load />
+    <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />
     <main>
       <slot />
     </main>

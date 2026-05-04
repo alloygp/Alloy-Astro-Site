@@ -57,8 +57,8 @@ interface CtaBandProps {
 }
 
 export function CtaBand({
-  headline = 'Stop growing by chance.',
-  sub = "Referrals and luck aren't a plan — they're variance. Get a structured 30-minute diagnostic. No pitch.",
+  headline = 'Three engines. One playbook. Your market.',
+  sub = 'Attract, close, and keep — engineered as one connected system. 30 minutes tells you which engine to fix first.',
   primary = 'Claim Your Market',
   primaryHref = '/strategic-review-request',
 }: CtaBandProps) {

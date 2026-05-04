@@ -16,33 +16,29 @@ export default function ContactPage() {
 
   return (
     <section style={{ background: PURPLE, minHeight: 'calc(100vh - 80px)', color: '#fff', padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 90% 10%, rgba(217,53,110,0.30) 0%, transparent 50%), radial-gradient(circle at 0% 90%, rgba(245,216,128,0.10) 0%, transparent 50%)' }}></div>
-      <div className="container" style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 80 }}>
-        <div>
-          <Eyebrow onDark>Claim Your Market</Eyebrow>
-          <h1 className="display-xl" style={{ margin: '16px 0 20px', color: '#fff' }}>30 minutes.<br/>No pitch.<br/><span style={{ color: YELLOW }}>Just diagnostic clarity.</span></h1>
-          <p className="lead on-dark" style={{ marginBottom: 36 }}>Tell us about your CAM firm. We'll confirm whether your metro is open and book a 30-minute diagnostic — where the leaks are, which engine to fix first, and what the next 18 months could look like.</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {[
-              { icon: 'phone', label: 'Direct', value: '210-845-5989' },
-              { icon: 'mail', label: 'Email', value: 'contact@alloygp.co' },
-              { icon: 'map-pin', label: 'HQ', value: 'Austin, TX · Nationwide' },
-              { icon: 'calendar', label: 'Hours', value: 'Mon–Fri · 8a–6p CT' },
-            ].map(c => (
-              <div key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(255,255,255,0.08)', display: 'grid', placeItems: 'center' }}>
-                  <Icon name={c.icon} size={18} color="#fff" />
-                </div>
-                <div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: YELLOW }}>{c.label}</div>
-                  <div style={{ fontSize: 16, color: '#fff', fontWeight: 500 }}>{c.value}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Subtle gradient — pulled WAY back so the field reads as deep purple, not pink-washed.
+          Pink hint is small and tucked into the corner; yellow ghost barely visible. */}
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 92% 8%, rgba(217,53,110,0.14) 0%, transparent 38%), radial-gradient(circle at 8% 95%, rgba(245,216,128,0.05) 0%, transparent 45%)' }}></div>
+
+      <div className="container" style={{ position: 'relative', maxWidth: 1080, margin: '0 auto' }}>
+
+        {/* Title block — centered above the form */}
+        <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 48px' }}>
+          <Eyebrow onDark noLine>Claim Your Market</Eyebrow>
+          <h1 className="display-xl" style={{ margin: '16px 0 20px', color: '#fff' }}>
+            30 minutes. No pitch.<br />
+            <span style={{ color: YELLOW }}>Just diagnostic clarity.</span>
+          </h1>
+          <p className="lead on-dark" style={{ margin: 0 }}>
+            Tell us about your CAM firm. We'll confirm whether your metro is open and book a
+            30-minute diagnostic — where the leaks are, which engine to fix first, and what the
+            next 18 months could look like.
+          </p>
         </div>
-        <div>
-          <div style={{ background: '#fff', borderRadius: 16, padding: 40, color: PURPLE }}>
+
+        {/* Form card — centered, single column */}
+        <div style={{ maxWidth: 760, margin: '0 auto' }}>
+          <div style={{ background: '#fff', borderRadius: 16, padding: 40, color: PURPLE, boxShadow: '0 24px 60px rgba(0,0,0,0.18)' }}>
             {submitted ? (
               <div className="reveal" style={{ textAlign: 'center', padding: '32px 0' }}>
                 <div style={{ width: 80, height: 80, borderRadius: 999, background: 'var(--alloy-green-tint)', color: '#2c6a62', margin: '0 auto 20px', display: 'grid', placeItems: 'center' }}>
@@ -75,6 +71,29 @@ export default function ContactPage() {
             )}
           </div>
         </div>
+
+        {/* Contact info — full-width row beneath the form */}
+        <div style={{ marginTop: 56, paddingTop: 40, borderTop: '1px solid rgba(255,255,255,0.12)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 32 }}>
+            {[
+              { icon: 'phone',    label: 'Direct', value: '210-845-5989' },
+              { icon: 'mail',     label: 'Email',  value: 'contact@alloygp.co' },
+              { icon: 'map-pin',  label: 'HQ',     value: 'Austin, TX · Nationwide' },
+              { icon: 'calendar', label: 'Hours',  value: 'Mon–Fri · 8a–6p CT' },
+            ].map(c => (
+              <div key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(255,255,255,0.08)', display: 'grid', placeItems: 'center', flex: '0 0 40px' }}>
+                  <Icon name={c.icon} size={18} color="#fff" />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: YELLOW }}>{c.label}</div>
+                  <div style={{ fontSize: 15, color: '#fff', fontWeight: 500 }}>{c.value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

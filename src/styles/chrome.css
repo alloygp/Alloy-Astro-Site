@@ -25,6 +25,51 @@
   box-shadow: 0 4px 20px rgba(56, 28, 79, 0.06);
 }
 
+/* ---------------------------------------------------------------------------
+   Purple header variant
+   Used on dense interior pages (services, faq, resource-hub, courses, about,
+   etc) where the page starts on a light background and the chrome needs a
+   stronger anchor. Inverts foreground colors and uses Alloy purple-deep.
+   --------------------------------------------------------------------------- */
+.site-header.site-header--purple {
+  background: var(--alloy-purple-deep);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+.site-header--purple.is-scrolled {
+  border-bottom-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+}
+.site-header--purple .site-logo img {
+  /* The full-color logo has a dark wordmark — invert it for the dark header */
+  filter: brightness(0) invert(1);
+}
+.site-header--purple .site-nav-link {
+  color: rgba(255, 255, 255, 0.86);
+}
+.site-header--purple .site-nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.site-header--purple .site-nav-link.active {
+  color: var(--alloy-yellow, #f5d880);
+}
+.site-header--purple .site-nav-link:hover .caret,
+.site-header--purple .site-nav-link.is-open .caret {
+  color: #fff;
+}
+.site-header--purple .site-header-burger {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+.site-header--purple .site-header-burger:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+}
+
 /* Spacer so fixed header doesn't sit on top of content */
 body.has-fixed-header {
   padding-top: 76px;
