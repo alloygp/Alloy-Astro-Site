@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /scraps/
+
+Sitemap: https://www.alloygp.co/sitemap.xml
