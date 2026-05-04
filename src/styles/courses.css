@@ -631,7 +631,14 @@
   margin-bottom: 8px;
   padding-bottom: 6px;
   overflow: hidden;
+  transition: background 0.2s var(--ease-standard), border-color 0.2s var(--ease-standard);
 }
+.course-page .module-block.done {
+  background: #eaf5ee;
+  border-color: #b8dcc4;
+}
+.course-page .module-block.done .module-label { color: #4a7355; }
+.course-page .module-block.done .module-label::before { background: var(--alloy-green); }
 .course-page .module-label {
   padding: 14px 18px 6px;
   font-family: var(--font-display);

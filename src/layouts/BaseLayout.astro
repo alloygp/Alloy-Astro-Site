@@ -44,6 +44,11 @@ interface Props {
    * Defaults to true (enabled).
    */
   animatedBar?: boolean;
+  /**
+   * Hide the global SiteHeader entirely (e.g. course lesson/quiz pages
+   * that ship their own contextual topbar).
+   */
+  hideHeader?: boolean;
 }
 
 const {
@@ -52,6 +57,7 @@ const {
   pageId = null,
   headerTheme = 'light',
   animatedBar = true,
+  hideHeader = false,
 } = Astro.props;
 
 const url = new URL(Astro.url.pathname, Astro.site ?? 'https://alloygp.co').toString();
@@ -116,8 +122,8 @@ const orgLd = {
       set:html={JSON.stringify(orgLd)}
     />
   </head>
-  <body class="has-fixed-header">
-    <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />
+  <body class={hideHeader ? '' : 'has-fixed-header'}>
+    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />}
     <main>
       <slot />
     </main>

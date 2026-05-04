@@ -59,6 +59,11 @@ export default function CourseTrustBuildingLessonPage() {
     );
   };
 
+  const moduleClass = (idxs: number[]) => {
+    const allDone = idxs.every((i) => lessons[i]?.status === 'done');
+    return `module-block ${allDone ? 'done' : ''}`.trim();
+  };
+
   return (
     <div className="course-page">
       <div className="shell">
@@ -71,31 +76,31 @@ export default function CourseTrustBuildingLessonPage() {
             <div className="sidebar-meta">10 lessons · 1 quiz · <strong>{progress.pct}% complete</strong></div>
           </div>
 
-          <div className="module-block" style={{ ['--module-color' as never]: '#381c4f' }}>
+          <div className={moduleClass([0, 1])} style={{ ['--module-color' as never]: '#381c4f' }}>
             <div className="module-label">Module 1 · Introduction</div>
             {lessonRow(0, <>Intro to <em>Trust-Building for CAM Firms</em></>, '4 min · Lesson')}
             {lessonRow(1, <>Why trust signals matter to HOA boards</>, '6 min · Lesson')}
           </div>
 
-          <div className="module-block" style={{ ['--module-color' as never]: '#d9356e' }}>
+          <div className={moduleClass([2, 3])} style={{ ['--module-color' as never]: '#d9356e' }}>
             <div className="module-label">Module 2 · Reviews</div>
             {lessonRow(2, <>What reviews are and why they carry weight</>, '7 min · Lesson')}
             {lessonRow(3, <>Reviews: extra factors that influence impact</>, '5 min · Lesson')}
           </div>
 
-          <div className="module-block" style={{ ['--module-color' as never]: '#f5d880' }}>
+          <div className={moduleClass([4, 5])} style={{ ['--module-color' as never]: '#f5d880' }}>
             <div className="module-label">Module 3 · Testimonials</div>
             {lessonRow(4, <>What testimonials are and why they stand out</>, '6 min · Lesson')}
             {lessonRow(5, <>Testimonials: extra factors that influence impact</>, '5 min · Lesson')}
           </div>
 
-          <div className="module-block" style={{ ['--module-color' as never]: '#aed7d0' }}>
+          <div className={moduleClass([6, 7])} style={{ ['--module-color' as never]: '#aed7d0' }}>
             <div className="module-label">Module 4 · Case studies</div>
             {lessonRow(6, <>What case studies are and why they convince</>, '7 min · Lesson')}
             {lessonRow(7, <>Case studies: extra factors that influence impact</>, '6 min · Lesson')}
           </div>
 
-          <div className="module-block" style={{ ['--module-color' as never]: '#381c4f' }}>
+          <div className={moduleClass([8, 9, 10])} style={{ ['--module-color' as never]: '#381c4f' }}>
             <div className="module-label">Module 5 · Wrap-up</div>
             {lessonRow(8, <>Recapping the 3 trust signals</>, '4 min · Lesson')}
             {lessonRow(9, <>From proof to persuasion</>, '6 min · Lesson')}

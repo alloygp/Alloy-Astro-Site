@@ -138,27 +138,27 @@ export default function CourseTrustBuildingQuizPage() {
             <div className="sidebar-meta">10 lessons · 1 quiz · <strong>{graded ? '100' : '90'}% complete</strong></div>
           </div>
 
-          <div className="module-block" style={{ ['--module-color' as never]: '#381c4f' }}>
+          <div className={`module-block done`} style={{ ['--module-color' as never]: '#381c4f' }}>
             <div className="module-label">Module 1 · Introduction</div>
             {sidebarRow('done', '✓', <>Intro to <em>Trust-Building for CAM Firms</em></>, '4 min · Lesson', '/courses/trust-building-lesson')}
             {sidebarRow('done', '✓', <>Why trust signals matter to HOA boards</>, '6 min · Lesson', '/courses/trust-building-lesson')}
           </div>
-          <div className="module-block" style={{ ['--module-color' as never]: '#d9356e' }}>
+          <div className={`module-block done`} style={{ ['--module-color' as never]: '#d9356e' }}>
             <div className="module-label">Module 2 · Reviews</div>
             {sidebarRow('done', '✓', <>What reviews are and why they carry weight</>, '7 min · Lesson')}
             {sidebarRow('done', '✓', <>Reviews: extra factors that influence impact</>, '5 min · Lesson')}
           </div>
-          <div className="module-block" style={{ ['--module-color' as never]: '#f5d880' }}>
+          <div className={`module-block done`} style={{ ['--module-color' as never]: '#f5d880' }}>
             <div className="module-label">Module 3 · Testimonials</div>
             {sidebarRow('done', '✓', <>What testimonials are and why they stand out</>, '6 min · Lesson')}
             {sidebarRow('done', '✓', <>Testimonials: extra factors that influence impact</>, '5 min · Lesson')}
           </div>
-          <div className="module-block" style={{ ['--module-color' as never]: '#aed7d0' }}>
+          <div className={`module-block done`} style={{ ['--module-color' as never]: '#aed7d0' }}>
             <div className="module-label">Module 4 · Case studies</div>
             {sidebarRow('done', '✓', <>What case studies are and why they convince</>, '7 min · Lesson')}
             {sidebarRow('done', '✓', <>Case studies: extra factors that influence impact</>, '6 min · Lesson')}
           </div>
-          <div className="module-block" style={{ ['--module-color' as never]: '#381c4f' }}>
+          <div className={`module-block ${graded ? 'done' : ''}`} style={{ ['--module-color' as never]: '#381c4f' }}>
             <div className="module-label">Module 5 · Wrap-up</div>
             {sidebarRow('done', '✓', <>Recapping the 3 trust signals</>, '4 min · Lesson')}
             {sidebarRow('done', '✓', <>From proof to persuasion</>, '6 min · Lesson')}
