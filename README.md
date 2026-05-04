@@ -1,17 +1,44 @@
-# Trust Building Course — Build Fix v5.1
+# Alloy Growth Partners — Astro Site
 
-## What's fixed
-The Vercel build failed with:
-`Rollup failed to resolve import "~/layouts/BaseLayout.astro"`
+Astro rewrite of the Alloy marketing site. **In progress.** See `MIGRATION_NOTES.md` for status, what's done, and what's left.
 
-The `~` path alias is misbehaving on Vercel for these specific course pages (which sit one level deeper at `src/pages/courses/`). Fix: switch to relative imports (`../../layouts/BaseLayout.astro`).
+## Quick start
 
-## Files in this drop (3 — only the imports changed)
-```
-src/pages/courses/trust-building.astro
-src/pages/courses/trust-building-lesson.astro
-src/pages/courses/trust-building-quiz.astro
+```bash
+npm install
+npm run dev
 ```
 
-## How to apply
-Drag `src/` into your local repo → **Merge** → push. Should build clean this time.
+## Structure
+
+```
+astro/
+├── public/                  # static — assets, fonts, robots.txt, sitemap.xml
+├── src/
+│   ├── layouts/
+│   │   └── BaseLayout.astro # single shell for every page
+│   ├── components/
+│   │   ├── chrome/          # SiteHeader, SiteFooter
+│   │   ├── modules/         # SystemDiagram, AuditQuiz, ROICalculator, etc. (TODO)
+│   │   ├── pages/           # HomePage, ServicesPage, etc. (TODO)
+│   │   ├── Icon.tsx
+│   │   ├── AccentBar.tsx
+│   │   └── EngineLoop.tsx
+│   ├── lib/
+│   │   ├── tokens.ts        # brand color constants
+│   │   └── nav.ts           # site-wide navigation config
+│   ├── pages/               # one .astro file per route (TODO)
+│   └── styles/              # global CSS (verbatim from parent)
+├── astro.config.mjs
+├── package.json
+├── tsconfig.json
+└── vercel.json
+```
+
+## Key decisions
+
+- **Tweaks panel removed.** Default config baked in (`refined` hero, `split` layout, `deep` purple background, `editorial` density).
+- **No `window.ASSET` cache-buster.** Astro/Vite handle fingerprinting.
+- **Strict TS** via `astro/tsconfigs/strictest`.
+- **Static output** — every route pre-rendered to HTML at build.
+- **React islands** for interactive bits only (forms, calculators, accordions).
