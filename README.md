@@ -1,29 +1,44 @@
-# Trust Building Course — Deployment (v4.1 — BUILD FIX)
+# Alloy Growth Partners — Astro Site
 
-## What changed in v4.1
-The Vercel build failed with:
-`Rollup failed to resolve import "~/styles/site.css" from "BaseLayout.astro"`
+Astro rewrite of the Alloy marketing site. **In progress.** See `MIGRATION_NOTES.md` for status, what's done, and what's left.
 
-The `~/` path alias is set in tsconfig but Vite/Rollup wasn't resolving it during the production build for CSS imports. Fix: switch BaseLayout's CSS and component imports to **relative paths** (`../styles/site.css` instead of `~/styles/site.css`). Same files, same behavior, just resolves cleanly through Rollup.
+## Quick start
 
-This is the **only** change vs v4 — one file: `src/layouts/BaseLayout.astro`.
-
-## How to apply
-Same as before — drag `src/` into your repo and merge. Then push.
-
-## All 8 files (unchanged from v4 except BaseLayout)
+```bash
+npm install
+npm run dev
 ```
-src/
-├── components/pages/
-│   ├── CourseTrustBuildingPage.tsx
-│   ├── CourseTrustBuildingLessonPage.tsx
-│   └── CourseTrustBuildingQuizPage.tsx
-├── layouts/
-│   └── BaseLayout.astro                  ← FIXED in v4.1 (relative imports)
-├── pages/courses/
-│   ├── trust-building.astro
-│   ├── trust-building-lesson.astro
-│   └── trust-building-quiz.astro
-└── styles/
-    └── courses.css
+
+## Structure
+
 ```
+astro/
+├── public/                  # static — assets, fonts, robots.txt, sitemap.xml
+├── src/
+│   ├── layouts/
+│   │   └── BaseLayout.astro # single shell for every page
+│   ├── components/
+│   │   ├── chrome/          # SiteHeader, SiteFooter
+│   │   ├── modules/         # SystemDiagram, AuditQuiz, ROICalculator, etc. (TODO)
+│   │   ├── pages/           # HomePage, ServicesPage, etc. (TODO)
+│   │   ├── Icon.tsx
+│   │   ├── AccentBar.tsx
+│   │   └── EngineLoop.tsx
+│   ├── lib/
+│   │   ├── tokens.ts        # brand color constants
+│   │   └── nav.ts           # site-wide navigation config
+│   ├── pages/               # one .astro file per route (TODO)
+│   └── styles/              # global CSS (verbatim from parent)
+├── astro.config.mjs
+├── package.json
+├── tsconfig.json
+└── vercel.json
+```
+
+## Key decisions
+
+- **Tweaks panel removed.** Default config baked in (`refined` hero, `split` layout, `deep` purple background, `editorial` density).
+- **No `window.ASSET` cache-buster.** Astro/Vite handle fingerprinting.
+- **Strict TS** via `astro/tsconfigs/strictest`.
+- **Static output** — every route pre-rendered to HTML at build.
+- **React islands** for interactive bits only (forms, calculators, accordions).
