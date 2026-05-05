@@ -233,11 +233,6 @@ export const NAV: NavItem[] = [
     href: '/boardsuite',
   },
   {
-    id: 'pricing',
-    label: 'Pricing',
-    href: '/pricing',
-  },
-  {
     id: 'approach',
     label: 'Our Approach',
     href: '/our-approach',
@@ -326,6 +321,12 @@ export const NAV: NavItem[] = [
         href: '/about/testimonials',
         subtitle: 'Real CAM partners on what changed',
         icon: 'chart',
+      },
+      {
+        label: 'Pricing',
+        href: '/pricing',
+        subtitle: 'Transparent all-in retainers — one CAM firm per market',
+        icon: 'calculator',
       },
       {
         label: 'We-Know-CAM™',
