@@ -81,16 +81,41 @@ const DEMO_ANSWERS: Record<string, string> = { q1: 'A', q2: 'C', q3: 'B', q4: 'D
 export default function CourseTrustBuildingQuizPage() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [graded, setGraded] = useState(false);
+  const [displayPct, setDisplayPct] = useState(0);
 
   // For demo: enable submit immediately so reviewers don't have to fill it out
   const submitDisabled = false;
   const answered = Object.keys(answers).length;
 
+  // Compute score
+  const correctCount = QUESTIONS.filter((q) => answers[q.id] === q.correct).length;
+  const total = QUESTIONS.length;
+  const pct = Math.round((correctCount / total) * 100);
+  const passed = pct >= 70;
+
+  // Ring color by tier
+  const ringColor = pct >= 90 ? '#22c55e' : pct >= 70 ? '#f5d880' : '#f97316';
+
   useEffect(() => {
     if (graded) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Animate ring from 0 → actual score
+      setDisplayPct(0);
+      const startTime = Date.now();
+      const duration = 900;
+      const tick = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const ease = 1 - Math.pow(1 - progress, 3);
+        setDisplayPct(Math.round(ease * pct));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    } else {
+      setDisplayPct(0);
     }
-  }, [graded]);
+  }, [graded, pct]);
 
   const handleSelect = (qid: string, letter: string) => {
     if (graded) return;
@@ -107,14 +132,9 @@ export default function CourseTrustBuildingQuizPage() {
   const handleRetake = () => {
     setAnswers({});
     setGraded(false);
+    setDisplayPct(0);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  // Compute score
-  const correctCount = QUESTIONS.filter((q) => answers[q.id] === q.correct).length;
-  const total = QUESTIONS.length;
-  const pct = Math.round((correctCount / total) * 100);
-  const passed = pct >= 70;
 
   // Sidebar lesson row helper
   const sidebarRow = (status: 'done' | 'active', check: string, title: React.ReactNode, sub: string, href = '#') => (
@@ -176,7 +196,9 @@ export default function CourseTrustBuildingQuizPage() {
             <span className="here">Knowledge check</span>
           </div>
 
-          <div className="quiz-counter">Final knowledge check</div>
+          <div className="pill-row" style={{ marginBottom: 16 }}>
+            <span className="pill quiz-counter-pill">★ Final knowledge check</span>
+          </div>
           <h1 className="quiz-h1">Check your learning.</h1>
           <p className="quiz-sub">Five questions on what you covered. Pass at 70%+. You can retake it as many times as you want.</p>
           <div className="quiz-meta">
@@ -203,9 +225,12 @@ export default function CourseTrustBuildingQuizPage() {
                   <h2 className="result-headline">{passed ? 'Nicely done — you passed.' : 'Close — review and retake.'}</h2>
                   <p className="result-sub">You got <strong>{correctCount} of {total}</strong> right. {passed ? "Review the ones you missed below — it's the difference between picking the right signal and picking the comfortable one." : 'Take another look at the explanations and give it another go.'}</p>
                 </div>
-                <div className="score-ring" style={{ background: `conic-gradient(var(--alloy-yellow) 0% ${pct}%, rgba(255,255,255,0.10) ${pct}% 100%)` }}>
+                <div
+                  className={`score-ring${passed && displayPct === pct ? ' score-ring--pass' : ''}`}
+                  style={{ background: `conic-gradient(${ringColor} 0% ${displayPct}%, rgba(255,255,255,0.10) ${displayPct}% 100%)` }}
+                >
                   <div className="score-ring-inner">
-                    <div className="score-ring-pct">{pct}%</div>
+                    <div className="score-ring-pct">{displayPct}%</div>
                     <div className="score-ring-frac">Score</div>
                   </div>
                 </div>
