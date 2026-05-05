@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 284" role="img" aria-label="Proposal Architect — Alloy Certified">
+  <title>Proposal Architect — Alloy Certified 2026 — No. 0224</title>
+  <defs>
+    <path id="cb-proposal-top" d="M 50 130 A 80 80 0 0 1 210 130" fill="none"></path>
+    <clipPath id="cb-proposal-stripeclip"><circle cx="130" cy="130" r="118"></circle></clipPath>
+  </defs>
+  
+  <circle cx="130" cy="130" r="124" fill="#381c4f"></circle>
+  
+  <g clip-path="url(#cb-proposal-stripeclip)">
+    <circle cx="130" cy="130" r="122" fill="none" stroke="#d9356e" stroke-width="2" stroke-dasharray="38 152" stroke-dashoffset="0"></circle>
+    <circle cx="130" cy="130" r="122" fill="none" stroke="#f5d880" stroke-width="2" stroke-dasharray="38 152" stroke-dashoffset="-38"></circle>
+    <circle cx="130" cy="130" r="122" fill="none" stroke="#a1c8e7" stroke-width="2" stroke-dasharray="38 152" stroke-dashoffset="-76"></circle>
+    <circle cx="130" cy="130" r="122" fill="none" stroke="#aed7d0" stroke-width="2" stroke-dasharray="38 152" stroke-dashoffset="-114"></circle>
+  </g>
+  
+  <circle cx="130" cy="130" r="108" fill="#ffffff"></circle>
+  <circle cx="130" cy="130" r="104" fill="none" stroke="#d9356e" stroke-width="4"></circle>
+  
+  <text fill="#381c4f" font-family="Gotham, Poppins, Helvetica, Arial, sans-serif" font-weight="700" font-size="10" letter-spacing="3">
+    <textPath href="#cb-proposal-top" startOffset="50%" text-anchor="middle">ALLOY CERTIFIED · 2026</textPath>
+  </text>
+  
+  <circle cx="130" cy="118" r="38" fill="#d9356e"></circle>
+  <g transform="translate(108 96)" fill="none" stroke="#381c4f" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="scale(1.833)"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M8 17c1.2-1.6 2.4-1.6 3.6 0s2.4 1.6 3.6 0"></path><path d="M8 13h4"></path></g>
+  </g>
+  
+  <g fill="#381c4f" opacity="0.85">
+    <g transform="translate(70 110) scale(0.5)"><path d="M12 2.5l2.78 6.07 6.62.78-4.9 4.55 1.34 6.5L12 17.1l-6.0 3.3 1.34-6.5L2.6 9.35l6.62-.78L12 2.5z" fill="#381c4f"></path></g>
+    <g transform="translate(178 110) scale(0.5)"><path d="M12 2.5l2.78 6.07 6.62.78-4.9 4.55 1.34 6.5L12 17.1l-6.0 3.3 1.34-6.5L2.6 9.35l6.62-.78L12 2.5z" fill="#381c4f"></path></g>
+  </g>
+  
+  <line x1="60" y1="168" x2="200" y2="168" stroke="#381c4f" stroke-width="1" opacity="0.15"></line>
+  
+  <text x="130" y="188" text-anchor="middle" fill="#381c4f" font-family="Gotham, Poppins, Helvetica, Arial, sans-serif" font-weight="800" font-size="14" letter-spacing="1.5">PROPOSAL</text>
+  <text x="130" y="206" text-anchor="middle" fill="#381c4f" font-family="Gotham, Poppins, Helvetica, Arial, sans-serif" font-weight="800" font-size="14" letter-spacing="1.5">ARCHITECT</text>
+  
+  <text x="130" y="222" text-anchor="middle" fill="#8a8395" font-family="Gotham, Poppins, Helvetica, Arial, sans-serif" font-weight="500" font-size="9" letter-spacing="3">NO. 0224</text>
+</svg>

@@ -1,112 +1,149 @@
 // src/components/pages/CoursesPage.tsx
-import { useState, useCallback, type CSSProperties } from 'react';
+import { useState, useEffect, useCallback, type CSSProperties } from 'react';
 import Button from '~/components/Button';
 import Eyebrow from '~/components/Eyebrow';
-import { CtaBand } from '~/components/sections/Shells';
+import { PageHero, CtaBand } from '~/components/sections/Shells';
 import { PURPLE, PINK, YELLOW, GREEN, BLUE } from '~/lib/tokens';
 
 // ─── Progress reset modal ────────────────────────────────────────────────────
 
 function CourseProgressControl() {
   const [open, setOpen] = useState(false);
-  const [done, setDone] = useState(false);
+  const [cleared, setCleared] = useState(false);
+  const [keyCount, setKeyCount] = useState(0);
+
+  const PREFIXES = ['alloy:course:', 'alloy:progress:', 'alloy:quiz:'];
 
   const countKeys = useCallback(() => {
     try {
-      return Object.keys(localStorage).filter(k =>
-        k.startsWith('alloy:course:') ||
-        k.startsWith('alloy:progress:') ||
-        k.startsWith('alloy:quiz:')
-      ).length;
+      let n = 0;
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && PREFIXES.some(p => k.startsWith(p))) n++;
+      }
+      return n;
     } catch { return 0; }
   }, []);
 
-  const handleClear = useCallback(() => {
-    try {
-      Object.keys(localStorage)
-        .filter(k =>
-          k.startsWith('alloy:course:') ||
-          k.startsWith('alloy:progress:') ||
-          k.startsWith('alloy:quiz:')
-        )
-        .forEach(k => localStorage.removeItem(k));
-    } catch { /* noop */ }
-    setDone(true);
-    setTimeout(() => { setOpen(false); setDone(false); }, 1600);
-  }, []);
+  useEffect(() => {
+    if (open) setKeyCount(countKeys());
+  }, [open, countKeys, cleared]);
 
-  const n = countKeys();
-  if (n === 0) return null;
+  const handleClear = () => {
+    try {
+      const toRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && PREFIXES.some(p => k.startsWith(p))) toRemove.push(k);
+      }
+      toRemove.forEach(k => localStorage.removeItem(k));
+      setCleared(true);
+      setTimeout(() => setCleared(false), 2400);
+    } catch { /* noop */ }
+  };
 
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
         style={{
-          background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-          fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 700,
-          letterSpacing: '0.12em', textTransform: 'uppercase', color: '#aaa',
+          background: 'transparent', border: 0, padding: 0, cursor: 'pointer',
+          fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 700,
+          letterSpacing: '0.06em', textTransform: 'uppercase',
+          color: '#888', textDecoration: 'underline', textUnderlineOffset: 4,
+          textDecorationColor: 'rgba(136,136,136,0.4)',
         }}
+        onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = PURPLE; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#888'; }}
       >
-        Reset progress ({n} saved)
+        Reset course progress
       </button>
 
       {open && (
         <div
-          onClick={() => setOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="reset-progress-title"
+          onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}
           style={{
-            position: 'fixed', inset: 0, background: 'rgba(24,10,38,0.55)',
-            backdropFilter: 'blur(4px)', zIndex: 9000,
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'rgba(56,28,79,0.55)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: 20, backdropFilter: 'blur(2px)',
           }}
         >
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{
-              background: '#fff', borderRadius: 16, padding: 36,
-              maxWidth: 400, width: '90%', textAlign: 'center',
-              boxShadow: '0 24px 64px rgba(56,28,79,0.22)',
-            }}
-          >
-            {done ? (
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: GREEN }}>
-                Progress cleared ✓
+          <div style={{
+            background: '#fff', borderRadius: 14, maxWidth: 520, width: '100%',
+            padding: 32, boxShadow: '0 24px 64px rgba(0,0,0,0.25)',
+            border: `4px solid ${YELLOW}`, position: 'relative',
+          }}>
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+              style={{
+                position: 'absolute', top: 14, right: 14,
+                background: 'transparent', border: 0, cursor: 'pointer',
+                fontSize: 20, color: '#888', lineHeight: 1, padding: 6,
+              }}
+            >×</button>
+            <Eyebrow>About course progress</Eyebrow>
+            <h3 id="reset-progress-title" className="display-md" style={{ fontSize: 24, color: PURPLE, margin: '10px 0 14px', lineHeight: 1.2 }}>
+              Your progress lives in <span style={{ color: PINK }}>this browser.</span>
+            </h3>
+            <p style={{ fontSize: 14, color: '#555', lineHeight: 1.6, marginBottom: 14 }}>
+              Lesson completion, quiz scores, and your last-viewed lesson are stored locally on this device — there's no account system yet. That means:
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                'Use the same browser on the same device to keep your progress.',
+                "Clearing your browser's site data will also clear it.",
+                'A different browser, device, or incognito window starts fresh.',
+              ].map(t => (
+                <li key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13.5, color: '#444', lineHeight: 1.55 }}>
+                  <span style={{
+                    width: 14, height: 14, borderRadius: 999, background: PINK, color: '#fff',
+                    fontSize: 9, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0, marginTop: 3, fontWeight: 800,
+                  }}>✓</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <div style={{
+              background: '#fafafa', border: '1px solid var(--border-subtle)',
+              borderRadius: 10, padding: 16, marginBottom: 18, fontSize: 13, color: '#555', lineHeight: 1.55,
+            }}>
+              <strong style={{ color: PURPLE }}>Want to keep your progress across devices?</strong> Accounts are coming. Until then, the safest path is to stay in one browser — or finish a course in a single sitting. They're built short for exactly that reason.
+            </div>
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14,
+              paddingTop: 16, borderTop: '1px solid var(--border-subtle)',
+            }}>
+              <div style={{ fontSize: 12, color: '#888', fontFamily: 'var(--font-display)', fontWeight: 600 }}>
+                {cleared
+                  ? <span style={{ color: GREEN }}>Cleared — progress reset.</span>
+                  : keyCount === 0
+                    ? <>No saved progress on this device.</>
+                    : <>{keyCount} progress {keyCount === 1 ? 'entry' : 'entries'} saved.</>
+                }
               </div>
-            ) : (
-              <>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: PURPLE, marginBottom: 12 }}>
-                  Reset all course progress?
-                </div>
-                <p style={{ fontSize: 14, color: '#666', lineHeight: 1.6, marginBottom: 24 }}>
-                  This will clear your lesson checkmarks, quiz scores, and completion badges
-                  for all {n} saved item{n !== 1 ? 's' : ''}. You can re-take any course afterward.
-                </p>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-                  <button
-                    onClick={() => setOpen(false)}
-                    style={{
-                      padding: '10px 22px', borderRadius: 8,
-                      border: '1.5px solid var(--border-subtle)',
-                      background: '#fff', fontFamily: 'var(--font-display)',
-                      fontWeight: 700, fontSize: 13, cursor: 'pointer', color: PURPLE,
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleClear}
-                    style={{
-                      padding: '10px 22px', borderRadius: 8,
-                      border: 'none', background: PINK,
-                      fontFamily: 'var(--font-display)', fontWeight: 700,
-                      fontSize: 13, cursor: 'pointer', color: '#fff',
-                    }}
-                  >
-                    Yes, reset
-                  </button>
-                </div>
-              </>
-            )}
+              <button
+                type="button"
+                onClick={handleClear}
+                disabled={keyCount === 0}
+                style={{
+                  background: keyCount === 0 ? '#eee' : PURPLE,
+                  color: keyCount === 0 ? '#aaa' : '#fff',
+                  border: 0, borderRadius: 8, padding: '10px 16px',
+                  fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13,
+                  letterSpacing: '0.04em', cursor: keyCount === 0 ? 'not-allowed' : 'pointer',
+                  transition: 'background 0.18s ease',
+                }}
+              >
+                {cleared ? 'Done' : 'Reset progress'}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -114,249 +151,15 @@ function CourseProgressControl() {
   );
 }
 
-// ─── SVG stripe pattern (decorative) ─────────────────────────────────────────
+// ─── Stripe pattern helper ────────────────────────────────────────────────────
 
-function StripePattern({ id, color }: { id: string; color: string }) {
+function StripeDefs({ id }: { id: string }) {
   return (
-    <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-      <defs>
-        <pattern id={id} x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect x="0" y="0" width="5" height="10" fill={color} fillOpacity="0.12" />
-        </pattern>
-      </defs>
-    </svg>
-  );
-}
-
-// ─── Card image band with optional pill ──────────────────────────────────────
-
-function CardImageBand({
-  color, pill, pillBg,
-}: { color: string; pill?: string; pillBg?: string }) {
-  return (
-    <div style={{
-      height: 120, background: color,
-      borderRadius: '12px 12px 0 0',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <StripePattern id={`stripe-${color.replace('#', '')}`} color="#fff" />
-      <rect
-        x="0" y="0" width="100%" height="100%"
-        fill={`url(#stripe-${color.replace('#', '')})`}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' } as CSSProperties}
-      />
-      {pill && (
-        <span style={{
-          position: 'absolute', bottom: 10, left: 14,
-          background: pillBg || 'rgba(0,0,0,0.35)',
-          color: '#fff', fontFamily: 'var(--font-display)',
-          fontWeight: 700, fontSize: 10, letterSpacing: '0.14em',
-          textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999,
-        }}>
-          {pill}
-        </span>
-      )}
-    </div>
-  );
-}
-
-// ─── Featured course card (hero right column) ─────────────────────────────────
-
-function FeaturedCard() {
-  return (
-    <div style={{
-      background: '#fff', borderRadius: 16,
-      overflow: 'hidden',
-      boxShadow: '0 12px 40px rgba(56,28,79,0.18)',
-    }}>
-      {/* Image band */}
-      <div style={{
-        height: 160, background: `linear-gradient(135deg, ${YELLOW} 0%, #e8c840 100%)`,
-        position: 'relative', overflow: 'hidden',
-      }}>
-        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-          <defs>
-            <pattern id="stripe-featured" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect x="0" y="0" width="5" height="10" fill="#fff" fillOpacity="0.15" />
-            </pattern>
-          </defs>
-        </svg>
-        <div style={{ position: 'absolute', inset: 0, background: 'url(#stripe-featured)' }} />
-        <div style={{
-          position: 'absolute', top: 14, right: 14,
-          background: PURPLE, color: '#fff',
-          fontFamily: 'var(--font-display)', fontWeight: 800,
-          fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
-          padding: '5px 12px', borderRadius: 999,
-        }}>
-          New course
-        </div>
-        <div style={{
-          position: 'absolute', bottom: 14, left: 16,
-          fontFamily: 'var(--font-display)', fontWeight: 900,
-          fontSize: 40, color: PURPLE, lineHeight: 1, opacity: 0.15,
-          letterSpacing: '-0.04em',
-        }}>
-          AI
-        </div>
-      </div>
-      {/* Body */}
-      <div style={{ padding: '20px 22px 22px' }}>
-        <div style={{
-          display: 'flex', gap: 8, marginBottom: 12, alignItems: 'center',
-          fontFamily: 'var(--font-display)', fontSize: 10, fontWeight: 700,
-          letterSpacing: '0.14em', textTransform: 'uppercase', color: '#999',
-        }}>
-          <span>Foundations</span>
-          <span style={{ width: 3, height: 3, background: '#ccc', borderRadius: 999, display: 'inline-block' }} />
-          <span>5 lessons</span>
-          <span style={{ width: 3, height: 3, background: '#ccc', borderRadius: 999, display: 'inline-block' }} />
-          <span>45 min</span>
-        </div>
-        <div style={{
-          fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 22,
-          color: PURPLE, lineHeight: 1.15, marginBottom: 10,
-        }}>
-          Outsmarting AI Search
-        </div>
-        <p style={{ fontSize: 13, color: '#666', lineHeight: 1.6, margin: '0 0 18px' }}>
-          From AI-search fundamentals to citation strategy. Built for CAM operators who want to be the answer ChatGPT cites.
-        </p>
-        <div style={{
-          display: 'inline-block',
-          background: 'rgba(245,216,128,0.25)', color: PURPLE,
-          fontFamily: 'var(--font-display)', fontWeight: 700,
-          fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase',
-          padding: '6px 14px', borderRadius: 999,
-        }}>
-          Coming soon — join waitlist
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Active course card ───────────────────────────────────────────────────────
-
-interface ActiveCourse {
-  title: string;
-  desc: string;
-  color: string;
-  level: string;
-  lessons: number;
-  time: string;
-  href: string | null;
-  pill?: string;
-}
-
-function ActiveCourseCard({ c }: { c: ActiveCourse }) {
-  const isLive = !!c.href;
-  const Wrapper = isLive ? 'a' : 'div';
-  const wrapperProps = isLive
-    ? { href: c.href as string, style: { textDecoration: 'none', display: 'block' } }
-    : { style: { display: 'block' } as CSSProperties };
-
-  return (
-    <Wrapper {...(wrapperProps as any)} className={isLive ? 'course-card-live' : undefined}>
-      <div style={{
-        background: '#fff', borderRadius: 14,
-        border: '1.5px solid var(--border-subtle)',
-        overflow: 'hidden',
-        boxShadow: '0 4px 16px rgba(56,28,79,0.07)',
-        display: 'flex', flexDirection: 'column',
-        transition: 'box-shadow 180ms, transform 180ms',
-        height: '100%',
-      }}
-        onMouseEnter={isLive ? e => {
-          (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 32px rgba(56,28,79,0.14)';
-          (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-        } : undefined}
-        onMouseLeave={isLive ? e => {
-          (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(56,28,79,0.07)';
-          (e.currentTarget as HTMLElement).style.transform = '';
-        } : undefined}
-      >
-        {/* Color band */}
-        <div style={{
-          height: 8, background: c.color,
-        }} />
-        <div style={{ padding: '18px 22px 22px', display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
-          <div style={{
-            display: 'flex', gap: 8, alignItems: 'center',
-            fontFamily: 'var(--font-display)', fontSize: 10, fontWeight: 700,
-            letterSpacing: '0.14em', textTransform: 'uppercase', color: '#aaa',
-          }}>
-            <span>{c.level}</span>
-            <span style={{ width: 3, height: 3, background: '#ddd', borderRadius: 999, display: 'inline-block' }} />
-            <span>{c.lessons} lessons</span>
-            <span style={{ width: 3, height: 3, background: '#ddd', borderRadius: 999, display: 'inline-block' }} />
-            <span>{c.time}</span>
-          </div>
-          <div style={{
-            fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20,
-            color: PURPLE, lineHeight: 1.2,
-          }}>
-            {c.title}
-          </div>
-          <p style={{ fontSize: 13, color: '#666', lineHeight: 1.6, margin: 0, flex: 1 }}>
-            {c.desc}
-          </p>
-          <div style={{ paddingTop: 4 }}>
-            {isLive ? (
-              <span style={{
-                fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 12,
-                color: c.color, letterSpacing: '0.06em',
-              }}>
-                Start course →
-              </span>
-            ) : (
-              <span style={{
-                fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11,
-                letterSpacing: '0.12em', textTransform: 'uppercase', color: '#bbb',
-              }}>
-                Launching soon
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-    </Wrapper>
-  );
-}
-
-// ─── Coming-soon card ─────────────────────────────────────────────────────────
-
-function ComingSoonCard({ title, category }: { title: string; category: string }) {
-  return (
-    <div
-      aria-disabled="true"
-      style={{
-        background: '#fafafa', borderRadius: 12,
-        border: '1.5px dashed var(--border-subtle)',
-        padding: '20px 22px', display: 'flex', flexDirection: 'column', gap: 8,
-        opacity: 0.72,
-      }}
-    >
-      <div style={{
-        fontFamily: 'var(--font-display)', fontSize: 10, fontWeight: 700,
-        letterSpacing: '0.14em', textTransform: 'uppercase', color: '#bbb',
-      }}>
-        {category}
-      </div>
-      <div style={{
-        fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15,
-        color: '#999', lineHeight: 1.3,
-      }}>
-        {title}
-      </div>
-      <div style={{
-        fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10,
-        letterSpacing: '0.12em', textTransform: 'uppercase', color: '#ccc',
-        marginTop: 4,
-      }}>
-        In production
-      </div>
-    </div>
+    <defs>
+      <pattern id={id} width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="14" stroke={PURPLE} strokeWidth="1" />
+      </pattern>
+    </defs>
   );
 }
 
@@ -364,237 +167,369 @@ function ComingSoonCard({ title, category }: { title: string; category: string }
 
 export default function CoursesPage() {
 
-  const activeCourses: ActiveCourse[] = [
+  const courses = [
     {
-      title: 'Building Trust as a CAM',
-      desc: "Why trust — not service quality — decides which CAM firms boards renew, refer, and rave about. Six tight lessons plus a knowledge check.",
-      color: PINK,
+      title: 'Trust-Building for CAM Firms',
+      color: PURPLE,
+      lessons: 10,
+      time: '55 min',
       level: 'Foundations',
-      lessons: 6,
-      time: '40 min',
+      badge: 'Trust Operator',
+      free: true,
+      imgLabel: 'Reviews · testimonials · case studies',
+      badgeImg: '/assets/badges/badge-citation.svg',
+      desc: 'Why trust — not service quality — decides which CAM firms boards renew, refer, and rave about. Ten lessons plus a knowledge check.',
       href: '/courses/trust-building',
     },
     {
       title: 'Proposal Anatomy That Wins',
-      desc: 'The 7-section RFP framework that flips your win rate. Templates, narrative builds, and pricing presentation.',
-      color: GREEN,
-      level: 'Intermediate',
+      color: PINK,
       lessons: 7,
       time: '75 min',
-      href: null,
+      level: 'Intermediate',
+      badge: 'Proposal Architect',
+      free: false,
+      imgLabel: 'RFP framework breakdown',
+      badgeImg: '/assets/badges/badge-proposal.svg',
+      desc: 'The 7-section RFP framework that flips your win rate. Templates, narrative builds, and pricing presentation.',
+      href: '/courses/proposal-anatomy',
     },
     {
       title: 'Build a Board Education Engine',
-      desc: 'How to launch a branded learning library that boards return to — and how to use it as a retention engine.',
-      color: BLUE,
-      level: 'Foundations',
+      color: GREEN,
       lessons: 6,
       time: '60 min',
-      href: null,
+      level: 'Foundations',
+      badge: 'Board Educator',
+      free: false,
+      imgLabel: 'Learning library mockup',
+      badgeImg: '/assets/badges/badge-board.svg',
+      desc: 'How to launch a branded learning library that boards return to — and how to use it as a retention engine.',
+      href: '/courses/board-education-engine',
     },
     {
       title: 'The Manager-Transition Playbook',
-      desc: 'Reduce manager-turnover-driven churn with a transition checklist, comms cadence, and 90-day plan.',
-      color: YELLOW,
-      level: 'Practical',
+      color: BLUE,
       lessons: 4,
       time: '35 min',
-      href: null,
+      level: 'Practical',
+      badge: 'Retention Specialist',
+      free: false,
+      imgLabel: 'Transition checklist',
+      badgeImg: '/assets/badges/badge-retention.svg',
+      desc: 'Reduce manager-turnover-driven churn with a transition checklist, comms cadence, and 90-day plan.',
+      href: '/courses/manager-transition',
     },
   ];
 
+  const featured = {
+    title: 'Outsmarting AI Search',
+    color: YELLOW,
+    lessons: 5,
+    time: '45 min',
+    level: 'Foundations',
+    badge: 'Citation Strategist',
+    imgLabel: 'AI search citation diagram',
+    badgeImg: '/assets/badges/badge-citation.svg',
+    desc: 'From AI-search fundamentals to citation strategy. Built for CAM operators who want to be the answer ChatGPT cites.',
+    href: '/courses/outsmarting-ai-search',
+  };
+
   const comingSoon = [
-    { title: 'Reputation Management for CAM Firms', category: 'Marketing' },
-    { title: 'Running a High-Trust Annual Meeting', category: 'Operations' },
-    { title: 'Google Business Profile Mastery', category: 'Marketing' },
-    { title: 'The Board Onboarding Experience', category: 'Retention' },
-    { title: 'Writing HOA Newsletters That Get Read', category: 'Content' },
-    { title: 'Setting the Right Expectations at Takeover', category: 'Operations' },
-    { title: 'Using Data to Retain Associations', category: 'Strategy' },
-    { title: 'Social Media for CAM: What Actually Works', category: 'Marketing' },
-    { title: 'The Annual Report as a Retention Tool', category: 'Retention' },
+    { title: 'Property Management SEO Foundations', color: YELLOW, level: 'Foundations', time: '60 min', lessons: 6, badge: 'Search Operator', desc: "The technical + content fundamentals that get a CAM firm ranking in board-stage searches across a metro.", imgLabel: 'SEO architecture map' },
+    { title: 'Lead Generation for Board Stage', color: YELLOW, level: 'Intermediate', time: '70 min', lessons: 7, badge: 'Pipeline Engineer', desc: "Build a multi-touch intake system designed for the way boards actually shortlist — not the way ad platforms think they do.", imgLabel: 'Lead funnel diagram' },
+    { title: 'The Newsletter Operating System', color: YELLOW, level: 'Practical', time: '45 min', lessons: 5, badge: 'Newsletter Operator', desc: "A repeatable production cadence for the monthly newsletter that boards forward instead of delete.", imgLabel: 'Newsletter calendar' },
+    { title: 'RFP Response in 14 Days', color: PINK, level: 'Practical', time: '55 min', lessons: 5, badge: 'Response Operator', desc: "The done-for-you sequence — kickoff to delivery — for a proposal that lands inside two weeks without burning the team.", imgLabel: '14-day RFP timeline' },
+    { title: 'Sales Messaging That Closes Boards', color: PINK, level: 'Intermediate', time: '65 min', lessons: 6, badge: 'Messaging Architect', desc: "Reframe your value prop, talk track, and proposal narrative around the four objections boards actually voice.", imgLabel: 'Messaging framework' },
+    { title: 'Groundwork: Fractional BD for CAM', color: PINK, level: 'Advanced', time: '80 min', lessons: 8, badge: 'Business Developer', desc: "How to run a fractional business development motion that books qualified board meetings — without a full-time hire.", imgLabel: 'BD pipeline board' },
+    { title: 'Reputation Management for CAM', color: GREEN, level: 'Foundations', time: '50 min', lessons: 5, badge: 'Reputation Operator', desc: "A practical reputation system: review velocity, response cadence, and the board-facing dashboard that proves it's working.", imgLabel: 'Review velocity chart' },
+    { title: 'The Annual Report as Retention Asset', color: GREEN, level: 'Practical', time: '55 min', lessons: 6, badge: 'Reporting Architect', desc: "Turn the annual report from a compliance artifact into a renewal-stage retention tool boards re-read every spring.", imgLabel: 'Annual report spread' },
+    { title: 'Branding for CAM', color: BLUE, level: 'Foundations', time: '60 min', lessons: 6, badge: 'Brand Operator', desc: "What a brand system looks like for a community management firm — and how to build one without burning a year of comms.", imgLabel: 'Brand system grid' },
   ];
 
   const metrics = [
-    { value: '30–90', label: 'Minutes per course', color: PINK },
-    { value: '100%', label: 'Free to start', color: YELLOW },
-    { value: 'CAM', label: 'Industry-specific', color: GREEN },
-    { value: 'Field', label: 'Tested frameworks', color: BLUE },
+    { color: PINK, k: '92%', v: 'of operators who finish a course ship a change to their playbook within 30 days.' },
+    { color: YELLOW, k: '47 min', v: 'average time to complete a course — built for the gap between two board calls.' },
+    { color: GREEN, k: '3.4×', v: 'more proposal wins reported by operators who finish Proposal Anatomy.' },
+    { color: BLUE, k: '1,200+', v: 'CAM operators have earned at least one Alloy badge since launch.' },
   ];
+
+  // Featured course card — rendered in the hero right column (dark-mode variant)
+  const featuredCard = (
+    <a
+      href={featured.href}
+      style={{
+        display: 'block',
+        background: 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.10)',
+        borderTop: `5px solid ${featured.color}`,
+        borderRadius: 12,
+        overflow: 'hidden',
+        textDecoration: 'none',
+        color: '#fff',
+        transition: 'transform 0.18s ease, border-color 0.18s ease, background 0.18s ease',
+      }}
+    >
+      {/* Image band */}
+      <div style={{
+        position: 'relative',
+        background: `linear-gradient(135deg, ${featured.color} 0%, ${featured.color}cc 100%)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        minHeight: 160, overflow: 'hidden',
+      }}>
+        <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.35 } as CSSProperties} aria-hidden="true">
+          <StripeDefs id="stripes-featured" />
+          <rect width="100%" height="100%" fill="url(#stripes-featured)" />
+        </svg>
+        <div style={{
+          position: 'relative',
+          fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
+          fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
+          color: PURPLE, background: 'rgba(255,255,255,0.85)',
+          padding: '6px 10px', borderRadius: 4, fontWeight: 600,
+          textAlign: 'center', maxWidth: '80%',
+        }}>
+          {featured.imgLabel}
+        </div>
+        <div style={{
+          position: 'absolute', top: 12, left: 12,
+          background: PURPLE, color: featured.color,
+          fontFamily: 'var(--font-display)', fontWeight: 800,
+          fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
+          padding: '5px 10px', borderRadius: 999,
+        }}>Free</div>
+      </div>
+      {/* Text */}
+      <div style={{ padding: '24px 26px 22px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: 'rgba(255,255,255,0.55)' }}>
+          <span>{featured.level}</span>
+          <span style={{ width: 3, height: 3, background: 'rgba(255,255,255,0.4)', borderRadius: 999 }} />
+          <span>{featured.lessons} lessons</span>
+          <span style={{ width: 3, height: 3, background: 'rgba(255,255,255,0.4)', borderRadius: 999 }} />
+          <span>{featured.time}</span>
+        </div>
+        <div className="display-md" style={{ fontSize: 24, color: '#fff', lineHeight: 1.15 }}>{featured.title}</div>
+        <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.72)', lineHeight: 1.55 }}>{featured.desc}</div>
+        <div style={{ marginTop: 6, paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+            <span style={{
+              width: 18, height: 18, borderRadius: 999, background: featured.color,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 10, color: PURPLE, fontWeight: 800,
+            }}>★</span>
+            <span>Earns: {featured.badge}</span>
+          </div>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13, color: featured.color }}>
+            Start the course →
+          </span>
+        </div>
+      </div>
+    </a>
+  );
 
   return (
     <>
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="hero bg-ivory">
-        <div className="hero-bg-grid" />
-        <div className="hero-inner">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0,1.5fr) minmax(0,1fr)',
-            gap: 64, alignItems: 'center',
-          }}>
-            {/* Left */}
-            <div>
-              <div style={{
-                display: 'flex', alignItems: 'center',
-                justifyContent: 'space-between', marginBottom: 4,
-              }}>
-                <Eyebrow>Alloy Academy</Eyebrow>
-                <CourseProgressControl />
-              </div>
-              <h1 className="display-xl" style={{ margin: '16px 0 22px', color: PURPLE }}>
-                Free micro-courses for{' '}
-                <span style={{ color: PINK }}>CAM operators.</span>
-              </h1>
-              <p className="lead" style={{ color: '#555', maxWidth: 600, marginBottom: 32 }}>
-                Tight, practical, and built around field-tested frameworks. Each course is 30–90 minutes — designed for owners and operators who don't have an afternoon to spare.
-              </p>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <Button variant="primary" arrow href="/courses/trust-building">
-                  Start free course
-                </Button>
-                <Button variant="secondary" href="#courses">
-                  Browse all courses
-                </Button>
-              </div>
-            </div>
-            {/* Right — featured card */}
-            <FeaturedCard />
-          </div>
-        </div>
-        {/* accent bar */}
-        <div style={{ height: 6, display: 'flex' }}>
-          {[PINK, YELLOW, BLUE, GREEN, PURPLE].map(c => (
-            <div key={c} style={{ flex: 1, background: c }} />
-          ))}
-        </div>
-      </section>
-
-      {/* ── Metrics strip ─────────────────────────────────────────────────── */}
-      <section style={{
-        background: PURPLE, padding: '28px 0',
-      }}>
-        <div className="container">
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 0, textAlign: 'center',
-          }}>
-            {metrics.map((m, i) => (
-              <div key={i} style={{
-                padding: '12px 0',
-                borderRight: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none',
-              }}>
-                <div style={{
-                  fontFamily: 'var(--font-display)', fontWeight: 900,
-                  fontSize: 32, color: m.color, letterSpacing: '-0.03em',
-                  lineHeight: 1,
-                }}>
-                  {m.value}
-                </div>
-                <div style={{
-                  fontFamily: 'var(--font-display)', fontSize: 11,
-                  fontWeight: 700, letterSpacing: '0.12em',
-                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)',
-                  marginTop: 6,
-                }}>
-                  {m.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PageHero
+        dark
+        eyebrow="Courses"
+        h1={<>Free and premium micro-courses<br />for <span style={{ color: PINK }}>CAM operators.</span></>}
+        sub="Tight, practical, and built around field-tested frameworks. Each course is 30–90 minutes total — designed for owners and operators who don't have an afternoon to spare."
+        sideStat={featuredCard}
+        sideStatRaw
+      />
 
       {/* ── Live courses ──────────────────────────────────────────────────── */}
-      <section id="courses" className="section section-white">
+      <section className="section section-white">
         <div className="container">
-          <div style={{ marginBottom: 48 }}>
-            <Eyebrow>Live courses</Eyebrow>
-            <h2 className="display-lg" style={{ color: PURPLE, margin: '12px 0 0' }}>
-              Start learning today
-            </h2>
+          {/* Section header */}
+          <div style={{ marginBottom: 28, display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
+            <div>
+              <Eyebrow>The current catalog</Eyebrow>
+              <h2 className="display-lg" style={{ margin: '12px 0 0', color: PURPLE }}>
+                Live courses, <span style={{ color: PINK }}>shipping now.</span>
+              </h2>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, maxWidth: 360 }}>
+              <p style={{ color: '#666', fontSize: 14, lineHeight: 1.55, margin: 0, textAlign: 'right' }}>
+                Three premium courses built around the frameworks we run inside paid engagements. The free intro course lives in the hero above.
+              </p>
+              <CourseProgressControl />
+            </div>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 24,
-          }}>
-            {activeCourses.map(c => (
-              <ActiveCourseCard key={c.title} c={c} />
+          {/* 3-col grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {courses.map((c, i) => (
+              <a
+                key={c.title}
+                href={c.href}
+                style={{
+                  display: 'flex', flexDirection: 'column',
+                  background: '#fff',
+                  border: '1px solid var(--border-subtle)',
+                  borderTop: `5px solid ${c.color}`,
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  position: 'relative',
+                  transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-3px)';
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 12px 32px rgba(56,28,79,0.13)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.transform = '';
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = '';
+                }}
+              >
+                {/* Image band */}
+                <div style={{
+                  position: 'relative',
+                  background: `linear-gradient(135deg, ${c.color} 0%, ${c.color}cc 100%)`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  minHeight: 160, overflow: 'hidden',
+                }}>
+                  <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.35 } as CSSProperties} aria-hidden="true">
+                    <StripeDefs id={`stripes-${i}`} />
+                    <rect width="100%" height="100%" fill={`url(#stripes-${i})`} />
+                  </svg>
+                  <div style={{
+                    position: 'relative',
+                    fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
+                    fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
+                    color: PURPLE, background: 'rgba(255,255,255,0.85)',
+                    padding: '6px 10px', borderRadius: 4, fontWeight: 600,
+                    textAlign: 'center', maxWidth: '80%',
+                  }}>
+                    {c.imgLabel}
+                  </div>
+                  {c.free && (
+                    <div style={{
+                      position: 'absolute', top: 12, left: 12,
+                      background: PURPLE, color: c.color === PURPLE ? YELLOW : c.color,
+                      fontFamily: 'var(--font-display)', fontWeight: 800,
+                      fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
+                      padding: '5px 10px', borderRadius: 999,
+                    }}>Free</div>
+                  )}
+                </div>
+
+                {/* Text */}
+                <div style={{ padding: '26px 28px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: '#888' }}>
+                    <span>{c.level}</span>
+                    <span style={{ width: 3, height: 3, background: '#bbb', borderRadius: 999 }} />
+                    <span>{c.lessons} lessons</span>
+                    <span style={{ width: 3, height: 3, background: '#bbb', borderRadius: 999 }} />
+                    <span>{c.time}</span>
+                  </div>
+                  <div className="display-md" style={{ fontSize: 24, color: PURPLE, lineHeight: 1.15 }}>{c.title}</div>
+                  <div style={{ fontSize: 14, color: '#555', lineHeight: 1.6 }}>{c.desc}</div>
+                  <div style={{ marginTop: 'auto', paddingTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: PURPLE, fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+                      <span style={{
+                        width: 18, height: 18, borderRadius: 999,
+                        background: c.color,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 10, color: PURPLE, fontWeight: 800,
+                      }}>★</span>
+                      <span>Earns: {c.badge}</span>
+                    </div>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13, color: PURPLE }}>
+                      Start the course →
+                    </span>
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── Coming soon grid ──────────────────────────────────────────────── */}
-      <section className="section section-ivory">
-        <div className="container">
-          <div style={{ marginBottom: 40 }}>
-            <Eyebrow>In production</Eyebrow>
-            <h2 className="display-lg" style={{ color: PURPLE, margin: '12px 0 8px' }}>
-              More courses on the way
-            </h2>
-            <p style={{ color: '#666', fontSize: 15, lineHeight: 1.6, maxWidth: 560 }}>
-              We're building curriculum around every stage of the CAM growth cycle — from winning boards to keeping them.
+          {/* ── Coming soon catalog ──────────────────────────────────────── */}
+          <div style={{ marginTop: 80, marginBottom: 28, display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
+            <div>
+              <Eyebrow>The roadmap</Eyebrow>
+              <h2 className="display-lg" style={{ margin: '12px 0 0', color: PURPLE }}>
+                Coming soon — <span style={{ color: PINK }}>one course per service area.</span>
+              </h2>
+            </div>
+            <p style={{ color: '#666', fontSize: 14, maxWidth: 380, lineHeight: 1.55, margin: 0 }}>
+              One headline course for every active service inside the Alloy system — built around the same field-tested frameworks. Drops staggered through the year.
             </p>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 16,
-          }}>
-            {comingSoon.map(cs => (
-              <ComingSoonCard key={cs.title} title={cs.title} category={cs.category} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Alloy Certified section ───────────────────────────────────────── */}
-      <section className="section section-white">
-        <div className="container-narrow" style={{ textAlign: 'center' }}>
-          <Eyebrow noLine>Alloy Certified</Eyebrow>
-          <h2 className="display-lg" style={{ color: PURPLE, margin: '14px auto 16px', maxWidth: 600 }}>
-            Earn your badge. Show boards you've done the work.
-          </h2>
-          <p style={{ color: '#666', fontSize: 15, lineHeight: 1.6, maxWidth: 520, margin: '0 auto 40px' }}>
-            Complete a course and pass the quiz to earn a shareable Alloy Certified badge — built for CAM owners who want to signal expertise without a brochure.
-          </p>
-
-          {/* Badge cluster */}
-          <div style={{
-            display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap',
-          }}>
-            {[
-              { label: 'Board Trust', color: PINK },
-              { label: 'AI Search', color: YELLOW },
-              { label: 'Proposal Pro', color: GREEN },
-              { label: 'Board Ed', color: BLUE },
-            ].map(b => (
-              <div key={b.label} style={{
-                width: 100, height: 100,
-                borderRadius: '50%',
-                border: `4px solid ${b.color}`,
-                background: `${b.color}18`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexDirection: 'column', gap: 4,
-              }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {comingSoon.map((c, i) => (
+              <div
+                key={c.title}
+                aria-disabled="true"
+                style={{
+                  display: 'flex', flexDirection: 'column',
+                  background: '#fafafa',
+                  border: '1px solid var(--border-subtle)',
+                  borderTop: `5px solid ${c.color}`,
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  cursor: 'default',
+                  filter: 'grayscale(0.85)',
+                  opacity: 0.78,
+                }}
+              >
+                {/* Image band */}
                 <div style={{
-                  fontFamily: 'var(--font-display)', fontWeight: 900,
-                  fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
-                  color: PURPLE, textAlign: 'center', lineHeight: 1.2,
-                  padding: '0 8px',
+                  position: 'relative',
+                  background: `linear-gradient(135deg, ${c.color} 0%, ${c.color}cc 100%)`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  minHeight: 160, overflow: 'hidden',
                 }}>
-                  {b.label}
+                  <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.35 } as CSSProperties} aria-hidden="true">
+                    <StripeDefs id={`stripes-cs-${i}`} />
+                    <rect width="100%" height="100%" fill={`url(#stripes-cs-${i})`} />
+                  </svg>
+                  <div style={{
+                    position: 'relative',
+                    fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
+                    fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
+                    color: PURPLE, background: 'rgba(255,255,255,0.85)',
+                    padding: '6px 10px', borderRadius: 4, fontWeight: 600,
+                    textAlign: 'center', maxWidth: '80%',
+                  }}>
+                    {c.imgLabel}
+                  </div>
+                  <div style={{
+                    position: 'absolute', top: 12, left: 12,
+                    background: '#9a9a9a', color: '#fff',
+                    fontFamily: 'var(--font-display)', fontWeight: 800,
+                    fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
+                    padding: '5px 10px', borderRadius: 999,
+                  }}>Coming Soon</div>
                 </div>
-                <div style={{
-                  fontFamily: 'var(--font-display)', fontWeight: 800,
-                  fontSize: 8, letterSpacing: '0.18em', textTransform: 'uppercase',
-                  color: b.color,
-                }}>
-                  Alloy Certified
+                {/* Text */}
+                <div style={{ padding: '26px 28px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: '#888' }}>
+                    <span>{c.level}</span>
+                    <span style={{ width: 3, height: 3, background: '#bbb', borderRadius: 999 }} />
+                    <span>{c.lessons} lessons</span>
+                    <span style={{ width: 3, height: 3, background: '#bbb', borderRadius: 999 }} />
+                    <span>{c.time}</span>
+                  </div>
+                  <div className="display-md" style={{ fontSize: 22, color: PURPLE, lineHeight: 1.18 }}>{c.title}</div>
+                  <div style={{ fontSize: 14, color: '#555', lineHeight: 1.6 }}>{c.desc}</div>
+                  <div style={{ marginTop: 'auto', paddingTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#888', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+                      <span style={{
+                        width: 18, height: 18, borderRadius: 999, background: '#cfcfcf',
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 10, color: '#fff', fontWeight: 800,
+                      }}>★</span>
+                      <span>Earns: {c.badge}</span>
+                    </div>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 12, color: '#999', letterSpacing: '0.02em' }}>
+                      In production
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -602,13 +537,114 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* ── CTA ────────────────────────────────────────────────────────────── */}
-      <CtaBand
-        headline="Start with the trust course. It's free."
-        sub="Six tight lessons plus a quiz. Designed for CAM owners and operators who want to lead with credibility — not just service delivery."
-        primary="Start Building Trust"
-        primaryHref="/courses/trust-building"
-      />
+      {/* ── Metrics ───────────────────────────────────────────────────────── */}
+      <section className="section section-ivory">
+        <div className="container">
+          <div style={{ marginBottom: 40, maxWidth: 720 }}>
+            <Eyebrow>Why take the time</Eyebrow>
+            <h2 className="display-lg" style={{ margin: '14px 0 14px', color: PURPLE }}>
+              An hour now. <span style={{ color: PINK }}>Months of compounding</span> later.
+            </h2>
+            <p style={{ color: '#555', fontSize: 17, lineHeight: 1.6 }}>
+              These courses aren't theory. They're the same frameworks we run inside paid engagements — distilled, sequenced, and timed for operators who already have a full calendar.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+            {metrics.map(s => (
+              <div key={s.k} style={{ borderTop: `4px solid ${s.color}`, paddingTop: 18 }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 56, color: PURPLE, lineHeight: 0.95, letterSpacing: '-0.025em', marginBottom: 10 }}>{s.k}</div>
+                <div style={{ fontSize: 14, color: '#555', lineHeight: 1.5 }}>{s.v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Alloy Certified ───────────────────────────────────────────────── */}
+      <section className="section section-white">
+        <div className="container">
+          <div style={{
+            background: '#fff',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: 16,
+            padding: 56,
+            display: 'grid',
+            gridTemplateColumns: '1.1fr 1fr',
+            gap: 56,
+            alignItems: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div>
+              <Eyebrow>Coming soon · Alloy Certified</Eyebrow>
+              <h2 className="display-lg" style={{ margin: '14px 0 16px', color: PURPLE }}>
+                Stack badges.<br />Become <span style={{ color: PINK }}>Alloy Certified.</span>
+              </h2>
+              <p style={{ color: '#555', fontSize: 16, lineHeight: 1.65, marginBottom: 22 }}>
+                Each course earns a focused badge — proof you've put a specific framework into your operating practice. Collect the four core badges and you're{' '}
+                <strong style={{ color: PURPLE }}>Alloy Certified</strong>: a shorthand for CAM operators who run engineered, not accidental, growth.
+              </p>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[
+                  'A verifiable badge for your LinkedIn and email signature.',
+                  'Listing on the Alloy Certified operator directory.',
+                  'Early access to new course drops and field-tested templates.',
+                ].map(t => (
+                  <li key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, color: '#444', lineHeight: 1.55 }}>
+                    <span style={{ width: 16, height: 16, borderRadius: 999, background: PINK, color: '#fff', fontSize: 10, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2, fontWeight: 800 }}>✓</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button variant="primary" arrow href="/strategic-review-request">Start your first course</Button>
+            </div>
+
+            {/* Badge cluster */}
+            <div style={{ position: 'relative', minHeight: 360, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <style>{`
+                @keyframes badgeFloat0 { 0%,100% { transform: translate(0,0) rotate(-8deg); } 50% { transform: translate(-5px,-7px) rotate(-6deg); } }
+                @keyframes badgeFloat1 { 0%,100% { transform: translate(0,0) rotate(6deg); } 50% { transform: translate(6px,-5px) rotate(8deg); } }
+                @keyframes badgeFloat2 { 0%,100% { transform: translate(0,0) rotate(4deg); } 50% { transform: translate(-4px,6px) rotate(2deg); } }
+                @keyframes badgeFloat3 { 0%,100% { transform: translate(0,0) rotate(-6deg); } 50% { transform: translate(7px,5px) rotate(-4deg); } }
+              `}</style>
+              <div style={{ position: 'relative', width: 360, height: 360 }}>
+                {([
+                  { label: 'Citation Strategist', x: 0, y: 0, rot: -8, img: '/assets/badges/badge-citation.svg' },
+                  { label: 'Proposal Architect', x: 180, y: 20, rot: 6, img: '/assets/badges/badge-proposal.svg' },
+                  { label: 'Board Educator', x: 30, y: 180, rot: 4, img: '/assets/badges/badge-board.svg' },
+                  { label: 'Retention Specialist', x: 200, y: 200, rot: -6, img: '/assets/badges/badge-retention.svg' },
+                ] as const).map((b, i) => (
+                  <div key={b.label} style={{
+                    position: 'absolute',
+                    left: b.x, top: b.y,
+                    width: 150, height: 164,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    filter: 'drop-shadow(0 10px 20px rgba(56,28,79,0.18))',
+                    animation: `badgeFloat${i} ${7 + i}s ease-in-out ${i * 0.4}s infinite`,
+                    transformOrigin: 'center',
+                  }}>
+                    <img src={b.img} alt={b.label + ' badge'} style={{ width: '100%', height: '100%' }} />
+                  </div>
+                ))}
+                {/* Center seal */}
+                <div style={{
+                  position: 'absolute',
+                  left: '50%', top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 140, height: 154,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  filter: 'drop-shadow(0 14px 32px rgba(56,28,79,0.30))',
+                  zIndex: 2,
+                }}>
+                  <img src="/assets/badges/badge-certified.svg" alt="Alloy Certified" style={{ width: '100%', height: '100%' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand />
     </>
   );
 }
