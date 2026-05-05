@@ -130,12 +130,91 @@ export default function CoursesPage() {
     },
   ];
 
+  const featuredCard = (
+    <a href="/courses/trust-building" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+      {/* Top accent bar in pink */}
+      <div style={{ height: 3, background: PINK, borderRadius: '3px 3px 0 0', margin: '-32px -32px 24px' }} />
+
+      {/* Badge + number row */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <span style={{
+          background: PINK,
+          color: '#fff',
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
+          fontSize: 10,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          padding: '4px 10px',
+          borderRadius: 999,
+        }}>
+          Live now
+        </span>
+        <span style={{
+          fontFamily: 'var(--font-display)',
+          fontWeight: 900,
+          fontSize: 42,
+          color: 'rgba(255,255,255,0.08)',
+          lineHeight: 1,
+          letterSpacing: '-0.04em',
+        }}>01</span>
+      </div>
+
+      {/* Title */}
+      <div style={{
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 20,
+        lineHeight: 1.2,
+        color: '#fff',
+        marginBottom: 10,
+        letterSpacing: '-0.01em',
+      }}>
+        Building Trust as a CAM
+      </div>
+
+      {/* Desc */}
+      <p style={{ fontSize: 13, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', margin: '0 0 20px' }}>
+        Reviews, testimonials, and case studies — what each signal does and exactly when boards rely on it.
+      </p>
+
+      {/* Stats row */}
+      <div style={{
+        display: 'flex',
+        gap: 16,
+        borderTop: '1px solid rgba(255,255,255,0.10)',
+        paddingTop: 16,
+        marginBottom: 18,
+      }}>
+        {[['10', 'lessons'], ['~60', 'min'], ['Free', 'always']].map(([val, lab]) => (
+          <div key={lab}>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: '#fff', lineHeight: 1 }}>{val}</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>{lab}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div style={{
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 13,
+        color: PINK,
+        letterSpacing: '0.02em',
+      }}>
+        Start the course →
+      </div>
+    </a>
+  );
+
   return (
     <>
       <PageHero
+        dark
         eyebrow="Courses"
         h1={<>Free micro-courses<br />for <span style={{ color: PINK }}>CAM operators.</span></>}
         sub="Tight, practical, and built around field-tested frameworks. Each course is 30–90 minutes total — designed for owners and operators who don't have an afternoon to spare."
+        sideStat={featuredCard}
       />
 
       {/* Course grid */}
@@ -167,13 +246,13 @@ export default function CoursesPage() {
 
                   <div style={{ display: 'flex', flexDirection: 'column', padding: '24px 26px', gap: 10, flex: 1, minWidth: 0 }}>
                     {/* Top row: meta + badge */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, color: '#999', flexWrap: 'wrap' }}>
-                        <span>{c.level}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 700, color: '#999', flexWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden', minWidth: 0 }}>
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', flexShrink: 1 }}>{c.level}</span>
                         {DOT}
-                        <span>{c.lessons} lessons</span>
+                        <span style={{ flexShrink: 0 }}>{c.lessons} lessons</span>
                         {DOT}
-                        <span>{c.time}</span>
+                        <span style={{ flexShrink: 0 }}>{c.time}</span>
                       </div>
                       {c.featured && (
                         <span style={{ background: c.color, color: c.color === YELLOW ? '#6b4c00' : '#fff', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, flexShrink: 0 }}>

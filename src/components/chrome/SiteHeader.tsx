@@ -165,6 +165,10 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
         </nav>
 
         <div className="site-header-cta">
+          <a href="/login" className="btn-login">
+            <img src="/assets/alloy-icon-1500.png" alt="" aria-hidden="true" />
+            Log In
+          </a>
           <a
             href="/strategic-review-request"
             className="btn btn-primary btn-sm btn-arrow"

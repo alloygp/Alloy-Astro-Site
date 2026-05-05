@@ -307,6 +307,39 @@ body.has-fixed-header {
 .site-header-cta {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+/* Login button */
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px 8px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-subtle);
+  background: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--alloy-purple-deep);
+  text-decoration: none;
+  transition: border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.btn-login:hover {
+  border-color: var(--alloy-purple);
+  color: var(--alloy-purple);
+  box-shadow: 0 2px 10px rgba(56,28,79,0.12);
+}
+.btn-login img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: block;
 }
 
 /* Burger */
