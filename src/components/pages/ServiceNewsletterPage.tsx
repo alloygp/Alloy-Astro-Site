@@ -10,22 +10,22 @@ const DELIVERABLES = [
   {
     icon: 'pencil',
     title: 'Content writing',
-    desc: 'Every issue researched and written for you — community news, industry insights, board-relevant tips. No blank page, no last-minute scramble.',
+    desc: 'Every issue researched and written by Alloy — board-relevant topics, industry updates, and community management insights. No blank page, no deadline scramble for your team.',
   },
   {
     icon: 'layout',
     title: 'Branded design',
-    desc: 'A newsletter template built in your brand — colors, logo, fonts. Each issue is designed to look like it came from a company that has its act together.',
+    desc: 'A newsletter template built in your brand — colors, logo, typography. Each issue is designed to look like it came from a company that takes communication seriously.',
   },
   {
     icon: 'send',
     title: 'Send management',
-    desc: 'List management, scheduling, and deliverability handled for you. Newsletters go out on time, every time, without living on your to-do list.',
+    desc: 'List hygiene, scheduling, and deliverability handled end to end. Your newsletter reaches boards on time every month without living on your team\'s to-do list.',
   },
   {
     icon: 'bar-chart',
     title: 'Performance reporting',
-    desc: 'Monthly open rates, click data, and list health delivered in plain language. You always know whether your boards are reading.',
+    desc: 'Open rates, click data, and list health delivered in plain language each month. You always know whether your boards are reading — and what they\'re clicking.',
   },
 ];
 
@@ -33,17 +33,35 @@ const STEPS = [
   {
     num: '01',
     title: 'Brand match',
-    desc: 'We build your newsletter template in your brand identity — colors, typography, logo placement. One-time setup, used every issue.',
+    desc: 'We build your newsletter template in your visual identity — colors, typography, logo placement. One-time setup that every future issue uses.',
   },
   {
     num: '02',
-    title: 'Monthly content',
-    desc: 'Our team researches, writes, and designs each issue. You review, approve, and send us any community-specific updates. We handle the rest.',
+    title: 'Monthly production',
+    desc: 'Alloy researches, writes, and designs each issue. You review, approve, and flag any community-specific updates. We handle the rest.',
   },
   {
     num: '03',
     title: 'Send & report',
-    desc: 'We manage scheduling and distribution. Each month you receive a plain-language performance report with open rates and takeaways.',
+    desc: 'We manage scheduling and distribution. Each month you receive a plain-language performance report — open rates, list health, takeaways.',
+  },
+];
+
+const CAM_TRUTHS = [
+  {
+    stat: '12 vs. 2',
+    label: 'Touchpoints per year',
+    desc: 'A monthly newsletter puts your brand in front of boards 12 times a year. Most CAM companies manage two — renewal time and when something goes wrong.',
+  },
+  {
+    stat: 'The gap',
+    label: 'Between manager and company',
+    desc: 'When a manager leaves, boards start questioning everything. A company-level newsletter keeps your brand stable when individual relationships shift.',
+  },
+  {
+    stat: 'Seen first',
+    label: 'Before the RFP',
+    desc: 'Boards rarely cold-search for a new management company. They choose the firm they\'ve already been hearing from. Newsletters build that position before renewal season starts.',
   },
 ];
 
@@ -54,7 +72,7 @@ export default function ServiceNewsletterPage() {
         bg={BLUE_DEEP}
         eyebrow="BoardReach™ · Content"
         h1={<>Done-for-you HOA newsletters<br />your boards actually read.</>}
-        sub="Most CAM companies know they should be sending regular newsletters. Few have time to produce them consistently. Alloy handles content, design, and delivery — so your firm shows up every month without adding to the team's plate."
+        sub="Most CAM companies know they should be communicating with their boards between meetings. Few have time to do it consistently. Alloy handles content, design, and delivery — so your firm shows up every month without adding to your team's plate."
       />
 
       {/* Deliverables */}
@@ -65,10 +83,10 @@ export default function ServiceNewsletterPage() {
               What's included
             </p>
             <h2 className="display-lg" style={{ color: PURPLE, margin: '0 0 16px' }}>
-              Everything it takes to run a professional HOA newsletter program.
+              Everything it takes to run a professional newsletter program for your boards.
             </h2>
             <p style={{ fontSize: 17, color: '#555', lineHeight: 1.65 }}>
-              One subscription covers the full production cycle — from a blank calendar to a delivered issue in your boards' inboxes.
+              One engagement covers the full production cycle — from a blank calendar to a delivered issue in your boards' inboxes each month.
             </p>
           </div>
 
@@ -94,47 +112,49 @@ export default function ServiceNewsletterPage() {
         </div>
       </section>
 
-      {/* The business case */}
+      {/* Why it matters — CAM truths */}
       <section className="section" style={{ background: 'var(--bg-ivory)' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+
+            {/* Left: positioning copy */}
             <div>
               <p style={{ fontSize: 13, fontFamily: 'var(--font-display)', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: PINK, marginBottom: 12 }}>
                 Why it matters
               </p>
               <h2 className="display-md" style={{ color: PURPLE, margin: '0 0 20px' }}>
-                Boards renew managers they hear from. Not just managers they remember.
+                Boards renew the management company they've been hearing from — not just the one they remember.
               </h2>
               <p style={{ fontSize: 16, color: '#555', lineHeight: 1.7, marginBottom: 16 }}>
-                A monthly HOA newsletter does something your proposal can't: it keeps your firm present between contracts. Boards that regularly receive helpful, well-produced communication from their management company are more likely to renew — and more likely to refer.
+                A monthly newsletter does something your proposal can't: it keeps your company present between contracts. Boards that receive consistent, professionally produced communication from their management company enter renewal season already inclined to stay.
               </p>
               <p style={{ fontSize: 16, color: '#555', lineHeight: 1.7, marginBottom: 32 }}>
-                Most CAM companies intend to send newsletters. They start, miss a month, lose the rhythm, and stop. Alloy's production model removes the execution burden entirely. Your newsletter goes out whether your team is slammed or not.
+                Most CAM companies intend to send newsletters. They start, miss a month, lose the rhythm, and stop. Alloy's production model removes that execution burden entirely. Your newsletter goes out whether your team is slammed or not.
               </p>
               <Button variant="primary" arrow href="/strategic-review-request">Add this to your program</Button>
             </div>
 
-            {/* Stat block */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {[
-                { val: '200+', label: 'Monthly searches for "HOA newsletter"', sub: 'Boards and CAM companies are actively looking for newsletter help. Your service page can intercept that search.' },
-                { val: 'Zero', label: 'Competitors with a dedicated HOA newsletter page', sub: 'KD 0. No other marketing agency has staked a claim on this keyword. That window closes when someone builds the page.' },
-                { val: '12×', label: 'Annual board touchpoints', sub: 'A monthly newsletter means 12 branded touchpoints per year — more than most CAM firms create in two contract cycles.' },
-              ].map((s, i) => (
-                <div key={i} style={{
+            {/* Right: CAM truths */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              {CAM_TRUTHS.map((t, i) => (
+                <div key={t.stat} style={{
                   background: '#fff',
                   border: '1px solid var(--border-subtle)',
-                  borderRadius: i === 0 ? '12px 12px 0 0' : i === 2 ? '0 0 12px 12px' : 0,
+                  borderRadius: i === 0 ? '12px 12px 0 0' : i === CAM_TRUTHS.length - 1 ? '0 0 12px 12px' : 0,
                   borderTop: i > 0 ? 'none' : undefined,
                   padding: '24px 28px',
                   display: 'flex',
                   gap: 20,
                   alignItems: 'flex-start',
                 }}>
-                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 32, color: BLUE_DEEP, lineHeight: 1, flexShrink: 0, minWidth: 64 }}>{s.val}</div>
+                  <div style={{ flexShrink: 0, minWidth: 72 }}>
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 26, color: YELLOW, lineHeight: 1, background: PURPLE, padding: '6px 10px', borderRadius: 8, display: 'inline-block', whiteSpace: 'nowrap' }}>
+                      {t.stat}
+                    </div>
+                  </div>
                   <div>
-                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, color: PURPLE, marginBottom: 4 }}>{s.label}</div>
-                    <div style={{ fontSize: 13, color: '#777', lineHeight: 1.55 }}>{s.sub}</div>
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13, color: PURPLE, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{t.label}</div>
+                    <div style={{ fontSize: 13, color: '#666', lineHeight: 1.6 }}>{t.desc}</div>
                   </div>
                 </div>
               ))}
@@ -155,11 +175,11 @@ export default function ServiceNewsletterPage() {
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 40 }}>
             {STEPS.map((s) => (
               <div key={s.num} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <div style={{
-                  fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 48,
+                  fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 52,
                   color: 'var(--alloy-blue-tint)', lineHeight: 1, letterSpacing: '-0.04em',
                 }}>
                   {s.num}
@@ -174,26 +194,10 @@ export default function ServiceNewsletterPage() {
         </div>
       </section>
 
-      {/* Part of BoardReach */}
-      <section className="section" style={{ background: BLUE_DEEP, color: '#fff' }}>
-        <div className="container-narrow" style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: 13, fontFamily: 'var(--font-display)', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: BLUE, marginBottom: 16 }}>
-            Part of BoardReach™
-          </p>
-          <h2 className="display-md" style={{ color: '#fff', margin: '0 0 18px' }}>
-            Newsletter production is one piece of a larger system.
-          </h2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: 'rgba(255,255,255,0.72)', margin: '0 auto 32px', maxWidth: 640 }}>
-            Alloy's BoardReach engine combines SEO, content, social, email, and newsletter into a single coordinated program — built exclusively for CAM companies competing for management contracts in a defined metro.
-          </p>
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button variant="primary" arrow href="/strategic-review-request">See if your market is available</Button>
-            <Button variant="secondary" onDark href="/our-approach/boardreach">How BoardReach works</Button>
-          </div>
-        </div>
-      </section>
-
-      <CtaBand />
+      <CtaBand
+        headline="The CAM companies boards remember are the ones that showed up all year."
+        sub="Newsletter production is part of Alloy's BoardReach engine — a full program for getting your firm found, heard, and selected by the right boards in your market."
+      />
     </>
   );
 }

@@ -9,5 +9,5 @@ export const PURPLE = '#381c4f';
 export const PINK = '#d9356e';
 export const YELLOW = '#f5d880';
 export const BLUE = '#a1c8e7';
-export const BLUE_DEEP = '#0f2d4a'; // Service page hero background
+export const BLUE_DEEP = '#0d2d45'; // Service page hero — dark of the Alloy blue hue
 export const GREEN = '#aed7d0';
