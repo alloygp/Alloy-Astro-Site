@@ -293,6 +293,18 @@ export const NAV: NavItem[] = [
         subtitle: 'Why category fluency beats generic agency speak',
         icon: 'graduation',
       },
+      {
+        label: 'Partners',
+        href: '/partners',
+        subtitle: 'The CAM tech stack and referral networks we work with',
+        icon: 'handshake',
+      },
+      {
+        label: 'Careers',
+        href: '/careers',
+        subtitle: 'Join the team building the CAM marketing engine',
+        icon: 'users',
+      },
     ],
     feature: {
       eyebrow: 'Operator Review',
