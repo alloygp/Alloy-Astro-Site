@@ -2,6 +2,7 @@
 // Ported from pages.jsx BoardReachPage().
 import Eyebrow from '~/components/Eyebrow';
 import Button from '~/components/Button';
+import Icon from '~/components/Icon';
 import AccentBar from '~/components/AccentBar';
 import EngineLoop from '~/components/EngineLoop';
 import { BigStat } from '~/components/sections/Hero';
@@ -49,18 +50,29 @@ export default function BoardReachPage() {
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24 }}>
             {[
-              { h: 'Local SEO & GEO', d: 'Per-location optimization, GBP buildout, AI search citation strategy across Perplexity, ChatGPT, Gemini, and Google AI Overviews.' },
+              { h: 'Local SEO & GEO', d: 'Per-location optimization, GBP buildout, AI search citation strategy across Perplexity, ChatGPT, Gemini, and Google AI Overviews.', href: '/property-management-seo' },
               { h: 'Authority content', d: 'Pillar pages, micro-courses, and SEO blog content engineered for board-stage search intent. Educate boards before competitors do.' },
               { h: 'Paid acquisition', d: 'Google Ads, retargeting, and conversion-rate optimization. Setup, ongoing management, and quarterly rebalancing.' },
-              { h: 'Email & newsletter', d: 'Branded templates, segmentation, drip nurtures, and an editorial calendar that keeps your CAM firm in front of every prospect.' },
-              { h: 'Social cadence', d: 'Founder thought-leadership ghostwriting, ~20 posts/month across channels, content repurposing from every long-form piece.' },
+              { h: 'Email & newsletter', d: 'Branded templates, segmentation, drip nurtures, and an editorial calendar that keeps your CAM firm in front of every prospect.', href: '/boardreach/email-marketing' },
+              { h: 'Social cadence', d: 'Founder thought-leadership ghostwriting, ~20 posts/month across channels, content repurposing from every long-form piece.', href: '/services/social-media-marketing-for-hoa-management-companies' },
               { h: 'Demand gen assets', d: 'Lead magnets, mailers, tradeshow suites, video scripts and explainer reels. Every asset is built for board-stage decision-making.' },
-            ].map((c, i) => (
-              <div key={i} className="card card-pad pillar-card pillar-card-reach" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div className="display-md" style={{ fontSize: 24, color: PURPLE, lineHeight: 1.2 }}>{c.h}</div>
-                <div style={{ fontSize: 14, color: '#555', lineHeight: 1.6 }}>{c.d}</div>
-              </div>
-            ))}
+              { h: 'Brand identity', d: 'Logo, visual system, messaging architecture, and brand guidelines. The foundation every other marketing investment runs on.', href: '/boardreach/hoa-management-branding' },
+            ].map((c, i) => {
+              const inner = (
+                <div className="card card-pad pillar-card pillar-card-reach" style={{ display: 'flex', flexDirection: 'column', gap: 12, height: '100%' }}>
+                  <div className="display-md" style={{ fontSize: 24, color: PURPLE, lineHeight: 1.2 }}>{c.h}</div>
+                  <div style={{ fontSize: 14, color: '#555', lineHeight: 1.6, flex: 1 }}>{c.d}</div>
+                  {c.href && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13, fontWeight: 700, color: PINK, fontFamily: 'var(--font-display)', letterSpacing: '0.02em', marginTop: 4 }}>
+                      Learn more <Icon name="arrow-right" size={14} color={PINK} strokeWidth={2.5} />
+                    </div>
+                  )}
+                </div>
+              );
+              return c.href
+                ? <a key={i} href={c.href} style={{ textDecoration: 'none', display: 'block' }}>{inner}</a>
+                : <div key={i}>{inner}</div>;
+            })}
           </div>
         </div>
       </section>

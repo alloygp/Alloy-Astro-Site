@@ -1,9 +1,10 @@
 // src/components/pages/BoardRetainPage.tsx
 import Eyebrow from '~/components/Eyebrow';
 import Button from '~/components/Button';
+import Icon from '~/components/Icon';
 import AccentBar from '~/components/AccentBar';
 import EngineLoop from '~/components/EngineLoop';
-import { CtaBand, ServiceList } from '~/components/sections/Shells';
+import { CtaBand } from '~/components/sections/Shells';
 import { PURPLE, GREEN } from '~/lib/tokens';
 
 export default function BoardRetainPage() {
@@ -53,14 +54,32 @@ export default function BoardRetainPage() {
       </section>
       <section className="section section-ivory">
         <div className="container">
-          <ServiceList color={GREEN} items={[
-            { h: 'Board education', d: 'Branded learning programs for new and seated directors. The CAM firm boards trust to teach them is the one they keep.' },
-            { h: 'Satisfaction & feedback', d: 'Quarterly NPS surveys, structured feedback collection, and at-risk-account alerting before contracts come up.' },
-            { h: 'SOP creation', d: 'Documented service standards — boards see consistency across every manager and every season.' },
-            { h: 'Reputation management', d: 'Review-generation system + response playbook. Make happy boards loud and dissatisfied boards heard early.' },
-            { h: 'Communication strategy', d: 'Board-facing newsletters, quarterly portfolio reports, and proactive comms that keep you top-of-mind between meetings.' },
-            { h: 'Manager onboarding', d: 'Compress new-manager ramp-time and reduce client churn caused by manager transitions.' },
-          ]} />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24 }}>
+            {[
+              { h: 'Board education', d: 'Branded learning programs for new and seated directors. The CAM firm boards trust to teach them is the one they keep.', href: '/hoa-board-education-programs' },
+              { h: 'Satisfaction & feedback', d: 'Quarterly NPS surveys, structured feedback collection, and at-risk-account alerting before contracts come up.' },
+              { h: 'SOP creation', d: 'Documented service standards — boards see consistency across every manager and every season.' },
+              { h: 'Reputation management', d: 'Review-generation system + response playbook. Make happy boards loud and dissatisfied boards heard early.', href: '/boardretain/reputation-management' },
+              { h: 'Communication strategy', d: 'Board-facing newsletters, quarterly portfolio reports, and proactive comms that keep you top-of-mind between meetings.', href: '/services/hoa-newsletter-production' },
+              { h: 'Manager onboarding', d: 'Compress new-manager ramp-time and reduce client churn caused by manager transitions.' },
+              { h: 'Annual report', d: 'Designed annual reports — narrative, charts, photography, multi-channel delivery. The most-forwarded board artifact you ship all year.', href: '/boardretain/annual-report-production' },
+            ].map((c, i) => {
+              const inner = (
+                <div className="card card-pad pillar-card pillar-card-retain" style={{ display: 'flex', flexDirection: 'column', gap: 12, height: '100%' }}>
+                  <div className="display-md" style={{ fontSize: 24, color: PURPLE, lineHeight: 1.2 }}>{c.h}</div>
+                  <div style={{ fontSize: 14, color: '#555', lineHeight: 1.6, flex: 1 }}>{c.d}</div>
+                  {c.href && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13, fontWeight: 700, color: GREEN, fontFamily: 'var(--font-display)', letterSpacing: '0.02em', marginTop: 4 }}>
+                      Learn more <Icon name="arrow-right" size={14} color={GREEN} strokeWidth={2.5} />
+                    </div>
+                  )}
+                </div>
+              );
+              return c.href
+                ? <a key={i} href={c.href} style={{ textDecoration: 'none', display: 'block' }}>{inner}</a>
+                : <div key={i}>{inner}</div>;
+            })}
+          </div>
         </div>
       </section>
       <CtaBand headline="Stop losing accounts to manager turnover." sub="30 minutes. We'll audit your current retention motion and the leaks costing you." />
