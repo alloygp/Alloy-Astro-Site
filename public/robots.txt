@@ -3,4 +3,4 @@ Allow: /
 Disallow: /assets/
 Disallow: /scraps/
 
-Sitemap: https://www.alloygp.co/sitemap.xml
+Sitemap: https://alloygp.co/sitemap.xml

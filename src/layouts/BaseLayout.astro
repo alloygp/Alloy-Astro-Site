@@ -50,6 +50,16 @@ interface Props {
    * that ship their own contextual topbar).
    */
   hideHeader?: boolean;
+  /**
+   * Override og:type. Defaults to 'website'. Use 'article' for resource hub pages.
+   */
+  ogType?: 'website' | 'article';
+  /**
+   * Optional page-specific JSON-LD schema object(s) injected alongside the
+   * base Organization schema. Pass a single object or an array.
+   * E.g. FAQPage schema, Article schema, Service schema.
+   */
+  pageSchema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -59,6 +69,8 @@ const {
   headerTheme = 'light',
   animatedBar = true,
   hideHeader = false,
+  ogType = 'website',
+  pageSchema,
 } = Astro.props;
 
 const url = new URL(Astro.url.pathname, Astro.site ?? 'https://alloygp.co').toString();
@@ -100,14 +112,22 @@ const orgLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Alloy Growth Partners" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Alloy Growth Partners — The growth system for CAM companies" />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@alloygp" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Alloy Growth Partners — The growth system for CAM companies" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -117,11 +137,12 @@ const orgLd = {
       rel="stylesheet"
     />
 
-    <!-- JSON-LD -->
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(orgLd)}
-    />
+    <!-- JSON-LD: Organization (every page) -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <!-- JSON-LD: Page-specific schema (optional) -->
+    {pageSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+    )}
 
     <ViewTransitions />
   </head>
