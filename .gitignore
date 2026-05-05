@@ -5,3 +5,7 @@ node_modules/
 dist/
 .vercel/
 .astro/
+
+# macOS
+.DS_Store
+**/.DS_Store

@@ -21,6 +21,8 @@ export default defineConfig({
     '/strategic-review-request.html': '/strategic-review-request',
     '/services.html': '/services',
     '/hoa-cam-marketing-services.html': '/hoa-cam-marketing-services',
+    '/services/newsletter-production-for-hoa-management': '/services/hoa-newsletter-production',
+    '/services/newsletter-production-for-hoa-management/': '/services/hoa-newsletter-production',
     '/property-management-seo.html': '/property-management-seo',
     '/hoa-board-education-programs.html': '/hoa-board-education-programs',
     '/groundwork.html': '/groundwork',
