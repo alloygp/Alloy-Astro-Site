@@ -46,14 +46,15 @@ export default function ContactPage({ variant = 'lead' }: Props) {
 
     try {
       const res = await fetch(endpoint, { method: 'POST', body: fd });
-      const json = await res.json();
+      let json: Record<string, string> = {};
+      try { json = await res.json(); } catch { /* non-JSON body */ }
       if (!res.ok) {
-        setError(json.error ?? 'Something went wrong. Please try again.');
+        setError(json.error ?? `Server error (${res.status}). Please try again.`);
       } else {
         setSubmitted(true);
       }
-    } catch {
-      setError('Network error. Please check your connection and try again.');
+    } catch (err) {
+      setError(`Network error: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }
