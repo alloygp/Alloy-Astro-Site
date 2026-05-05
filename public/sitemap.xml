@@ -3,8 +3,9 @@
   <!-- Core -->
   <url><loc>https://alloygp.co/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://alloygp.co/boardsuite</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/strategic-review-request</loc><priority>0.95</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/get-started</loc><priority>0.95</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/contact</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/pricing</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
 
   <!-- Our Approach -->
   <url><loc>https://alloygp.co/our-approach</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
@@ -12,14 +13,27 @@
   <url><loc>https://alloygp.co/our-approach/boardmatch</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/our-approach/boardretain</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
 
-  <!-- Services -->
+  <!-- Services overview -->
   <url><loc>https://alloygp.co/services</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/hoa-cam-marketing-services</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+
+  <!-- BoardReach services -->
+  <url><loc>https://alloygp.co/boardreach</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/property-management-seo</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/hoa-board-education-programs</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/groundwork</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/services/hoa-newsletter-production</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardreach/local-pack-optimization</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardreach/google-ads-ppc</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardreach/property-management-lead-generation</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardreach/email-marketing</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardreach/print-production</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/services/social-media-marketing-for-hoa-management-companies</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+
+  <!-- BoardMatch services -->
+  <url><loc>https://alloygp.co/boardmatch/groundwork</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+
+  <!-- BoardRetain services -->
+  <url><loc>https://alloygp.co/boardretain/newsletter-production</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardretain/board-education</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardretain/annual-report-production</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/boardretain/reputation-management</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
 
   <!-- Results -->
   <url><loc>https://alloygp.co/results</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
@@ -28,20 +42,20 @@
   <!-- About -->
   <url><loc>https://alloygp.co/about</loc><priority>0.75</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/about/testimonials</loc><priority>0.75</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/we-know-cam</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/about/we-know-cam</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 
   <!-- Tools -->
   <url><loc>https://alloygp.co/growth-modeled</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 
   <!-- Resources -->
-  <url><loc>https://alloygp.co/resource-hub</loc><priority>0.75</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://alloygp.co/resources</loc><priority>0.75</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://alloygp.co/resource-hub/ai-search-for-cam</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/resource-hub/cam-marketing-strategy</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://alloygp.co/faq</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 
   <!-- Courses -->
-  <url><loc>https://alloygp.co/courses</loc><priority>0.65</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/courses/trust-building</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/resources/courses</loc><priority>0.65</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/resources/courses/trust-building</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 
   <!-- Legal -->
   <url><loc>https://alloygp.co/terms-conditions</loc><priority>0.3</priority></url>
