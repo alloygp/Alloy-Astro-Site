@@ -141,7 +141,7 @@ export default function ServiceSocialMediaPage() {
   const stats = [
     { color: PINK,   k: '71%',   v: 'of homeowners say they get HOA news from a community Facebook group — not from board emails or notices.', src: 'Industry homeowner survey, n=2,108, 2025' },
     { color: YELLOW, k: '3.6×',  v: "median lift in board-perceived 'manager visibility' when social is published on a schedule for 90 days.", src: 'Alloy benchmark cohort' },
-    { color: GREEN,  k: '≈4 hrs', v: "saved per association per week — manager and board hours redirected from 'who's posting?' to actual property work.", src: 'Apex CMG* operator interviews' },
+    { color: GREEN,  k: ‘≈4 hrs’, v: "saved per association per week — manager and board hours redirected from ‘who’s posting?’ to actual property work.", src: ‘Apex CMG* operator interviews’ },
     { color: BLUE,   k: '1 day', v: "average comment-to-response time when Alloy moderates — vs. 3+ days when posts come from the board secretary's personal account.", src: 'Alloy moderation logs' },
   ];
 
