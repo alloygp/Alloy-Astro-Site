@@ -103,7 +103,7 @@ export default function ROICalculator() {
         <div style={{ fontSize: 12, opacity: 0.6, maxWidth: '60%', lineHeight: 1.5 }}>
           Estimates use Alloy's modeled lift (3.2× new wins, 30% churn reduction) on an average 12% baseline churn rate. Real outcomes depend on engagement scope and market.
         </div>
-        <Button variant="primary" arrow>Build my model</Button>
+        <Button variant="primary" arrow href="/strategic-review-request">Build my model</Button>
       </div>
     </div>
   );

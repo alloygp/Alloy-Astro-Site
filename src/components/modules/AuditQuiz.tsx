@@ -45,10 +45,10 @@ export default function AuditQuiz() {
   const pct = Math.round((score / maxScore) * 100);
 
   const verdict = score >= 10
-    ? { tag: 'Engineered', color: GREEN, msg: "Your growth engine is mostly built. We'd zero in on the weakest of the three pillars and accelerate.", cta: 'Talk to us about scale-mode' }
+    ? { tag: 'Engineered', color: GREEN, msg: "Your growth engine is mostly built. We'd zero in on the weakest of the three pillars and accelerate.", cta: 'Talk to us about scale-mode', href: '/strategic-review-request' }
     : score >= 6
-    ? { tag: 'Mixed', color: YELLOW, msg: "You've got pieces — referrals, reputation, maybe a strong manager team — but no connected system. That's where the leaks are.", cta: 'Get the BoardAttract™ Audit' }
-    : { tag: 'Accidental', color: PINK, msg: "You're in the majority — most CAM companies grow by accident. Good news: every gap you flagged is something we engineer.", cta: 'Claim your market' };
+    ? { tag: 'Mixed', color: YELLOW, msg: "You've got pieces — referrals, reputation, maybe a strong manager team — but no connected system. That's where the leaks are.", cta: 'Get the BoardAttract™ Audit', href: '/strategic-review-request' }
+    : { tag: 'Accidental', color: PINK, msg: "You're in the majority — most CAM companies grow by accident. Good news: every gap you flagged is something we engineer.", cta: 'Claim your market', href: '/strategic-review-request' };
 
   const reset = () => { setStep(0); setAnswers({}); };
 
@@ -78,7 +78,7 @@ export default function AuditQuiz() {
             </h3>
             <p style={{ color: '#555', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: '55ch' }}>{verdict.msg}</p>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <Button variant="primary" arrow>{verdict.cta}</Button>
+              <Button variant="primary" arrow href={verdict.href}>{verdict.cta}</Button>
               <Button variant="ghost" onClick={reset}>Retake</Button>
             </div>
           </div>
