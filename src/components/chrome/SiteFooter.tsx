@@ -29,6 +29,7 @@ const INVENTORY: {
       { label: 'HOA Website Design',          href: '/boardreach/hoa-website-design' },
       { label: 'Branding for CAM',            href: '/boardreach/hoa-management-branding' },
       { label: 'Print + Marketing Materials', href: '/boardreach/print-production' },
+      { label: 'Lead Generation',             href: '/boardreach/property-management-lead-generation' },
     ],
   },
   match: {
@@ -57,6 +58,7 @@ const INVENTORY: {
     accent: '#FFFFFF',
     items: [
       { label: 'About',         href: '/about' },
+      { label: 'Pricing',       href: '/pricing' },
       { label: 'Testimonials',  href: '/about/testimonials' },
       { label: 'We Know CAM',   href: '/we-know-cam' },
       { label: 'Our Approach',  href: '/our-approach' },

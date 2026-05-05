@@ -1,0 +1,11 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import PricingPage from '~/components/pages/PricingPage';
+---
+<BaseLayout
+  title="Pricing — BoardSuite Plans | Alloy GP"
+  description="Transparent, all-in pricing for CAM growth. Three BoardSuite tiers — Foundation, Growth, Scale — one CAM firm per market. No rate cards, no surprise fees."
+  pageId="services"
+>
+  <PricingPage client:load />
+</BaseLayout>

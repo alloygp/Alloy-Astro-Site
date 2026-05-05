@@ -86,6 +86,8 @@ src/
 │   │   ├── ServiceReputationManagementPage.tsx # /boardretain/reputation-management
 │   │   ├── ServiceSocialMediaPage.tsx   # /services/social-media-marketing-for-hoa-management-companies
 │   │   ├── ServicesPage.tsx         # /services (overview)
+│   │   ├── PricingPage.tsx              # /pricing
+│   │   ├── ServiceLeadGenerationPage.tsx # /boardreach/property-management-lead-generation
 │   │   ├── TestimonialsPage.tsx     # /about/testimonials
 │   │   └── WeKnowCamPage.tsx        # /we-know-cam
 │   │
@@ -112,6 +114,7 @@ src/
     ├── hoa-cam-marketing-services.astro   → CamMarketingPage
     ├── index.astro                  → HomePage
     ├── our-approach.astro           → ApproachPage
+    ├── pricing.astro                → PricingPage
     ├── privacy-policy.astro         → LegalPages
     ├── property-management-seo.astro → SeoPage
     ├── resource-hub.astro           → ResourceHubPage
@@ -138,7 +141,8 @@ src/
     ├── boardreach/
 │   │   ├── branding.astro           → ServiceBrandingPage
 │   │   ├── email-marketing.astro    → ServiceEmailMarketingPage
-│   │   └── print-production.astro  → ServicePrintProductionPage
+│   │   ├── print-production.astro  → ServicePrintProductionPage
+│   └── property-management-lead-generation.astro → ServiceLeadGenerationPage
 │   ├── boardretain/
 │   │   ├── annual-report-production.astro → ServiceAnnualReportPage
 │   │   └── reputation-management.astro    → ServiceReputationManagementPage
@@ -688,4 +692,6 @@ When adding new service pages that replace old Claude Design URLs, add redirects
 | 2026-05 | Expanded Services nav to 4 items per pillar; moved Social Media to BoardReach |
 | 2026-05 | Added 6 icon cases to `SiteHeader.tsx` `ResourceIcon` switch |
 | 2026-05 | Added `ServiceSocialMediaPage.tsx` + `ServiceReputationManagementPage.tsx` + `ServiceEmailMarketingPage.tsx` + `ServiceBrandingPage.tsx` + `ServiceAnnualReportPage.tsx` + `ServicePrintProductionPage.tsx` |
+| 2026-05 | Added `PricingPage.tsx` + `src/pages/pricing.astro` (`/pricing`) |
+| 2026-05 | Added `ServiceLeadGenerationPage.tsx` + `src/pages/boardreach/property-management-lead-generation.astro` |
 | 2026-05 | Added `boardreach/` + `boardretain/` route subdirectories with 5 new Astro routes |

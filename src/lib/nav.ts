@@ -136,6 +136,13 @@ export const NAV: NavItem[] = [
             isNew: true,
             icon: 'archive',
           },
+          {
+            label: 'Lead Generation',
+            href: '/boardreach/property-management-lead-generation',
+            subtitle: 'Five channels, scored leads, briefed handoffs — live in 60 days',
+            isNew: true,
+            icon: 'target',
+          },
         ],
       },
       {
@@ -224,6 +231,11 @@ export const NAV: NavItem[] = [
     id: 'boardsuite',
     label: 'BoardSuite™',
     href: '/boardsuite',
+  },
+  {
+    id: 'pricing',
+    label: 'Pricing',
+    href: '/pricing',
   },
   {
     id: 'approach',
