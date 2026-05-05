@@ -10,33 +10,43 @@ mailchimp.setConfig({
 });
 
 export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
-  const email = data.get("email")?.toString().trim();
-  const firstName = data.get("firstName")?.toString().trim() ?? "";
-
-  if (!email) {
-    return new Response(JSON.stringify({ error: "Email is required." }), { status: 400 });
-  }
-
   try {
-    await mailchimp.lists.addListMember(import.meta.env.MAILCHIMP_AUDIENCE_ID, {
-      email_address: email,
-      status: "subscribed",
-      merge_fields: { FNAME: firstName },
-    });
-  } catch (err: any) {
-    const alreadyExists = err?.response?.body?.title === "Member Exists";
-    if (!alreadyExists) {
-      return new Response(JSON.stringify({ error: "Could not subscribe. Please try again." }), { status: 500 });
+    const data = await request.formData();
+    const email = data.get("email")?.toString().trim();
+    const firstName = data.get("firstName")?.toString().trim() ?? "";
+
+    if (!email) {
+      return new Response(JSON.stringify({ error: "Email is required." }), { status: 400 });
     }
+
+    try {
+      await mailchimp.lists.addListMember(import.meta.env.MAILCHIMP_AUDIENCE_ID, {
+        email_address: email,
+        status: "subscribed",
+        merge_fields: { FNAME: firstName },
+      });
+    } catch (err: any) {
+      const alreadyExists = err?.response?.body?.title === "Member Exists";
+      if (!alreadyExists) {
+        console.error("Mailchimp subscribe error:", err?.response?.body ?? err);
+        return new Response(JSON.stringify({ error: "Could not subscribe. Please try again." }), { status: 500 });
+      }
+    }
+
+    try {
+      await resend.emails.send({
+        from: "Alloy Growth Partners <hello@alloygp.co>",
+        to: email,
+        subject: "You're on the list — welcome to Alloy.",
+        html: `<p>Hi${firstName ? ` ${firstName}` : ""},</p><p>Thanks for subscribing. We'll be in touch with insights built specifically for HOA and CAM companies looking to grow.</p><p>— The Alloy Team</p>`,
+      });
+    } catch (err) {
+      console.error("Resend welcome error:", err);
+    }
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (err) {
+    console.error("Subscribe API error:", err);
+    return new Response(JSON.stringify({ error: "Something went wrong. Please try again." }), { status: 500 });
   }
-
-  await resend.emails.send({
-    from: "Alloy Growth Partners <hello@alloygp.co>",
-    to: email,
-    subject: "You're on the list — welcome to Alloy.",
-    html: `<p>Hi${firstName ? ` ${firstName}` : ""},</p><p>Thanks for subscribing. We'll be in touch with insights built specifically for HOA and CAM companies looking to grow.</p><p>— The Alloy Team</p>`,
-  });
-
-  return new Response(JSON.stringify({ success: true }), { status: 200 });
 };
