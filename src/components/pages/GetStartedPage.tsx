@@ -11,42 +11,113 @@ import Icon from '~/components/Icon';
 import { CtaBand } from '~/components/sections/Shells';
 import { PURPLE, PINK, YELLOW, BLUE, GREEN } from '~/lib/tokens';
 
+// ─── Client locations (from GBP export, May 2026) ────────────────────────────
+// One entry per distinct metro. Duplicates and suspended profiles included
+// where the market is still effectively held.
+const CLIENT_LOCATIONS = [
+  { metro: 'Baltimore/Owings Mills, MD', lat: 39.4198, lng: -76.7775 },
+  { metro: 'Lewes, DE',                  lat: 38.7737, lng: -75.1396 },
+  { metro: 'San Antonio, TX',            lat: 29.6195, lng: -98.4896 },
+  { metro: 'League City, TX',            lat: 29.5074, lng: -95.0949 },
+  { metro: 'Houston, TX',                lat: 29.7414, lng: -95.3970 },
+  { metro: 'Austin, TX',                 lat: 30.2672, lng: -97.7431 },
+  { metro: 'The Woodlands, TX',          lat: 30.1658, lng: -95.4613 },
+  { metro: 'Fredericksburg, VA',         lat: 38.3032, lng: -77.4605 },
+  { metro: 'Venice, FL',                 lat: 27.0506, lng: -82.3932 },
+  { metro: 'Lafayette/Carencro, LA',     lat: 30.3188, lng: -92.0490 },
+  { metro: 'Denham Springs, LA',         lat: 30.4877, lng: -90.9590 },
+  { metro: 'Shreveport, LA',             lat: 32.5252, lng: -93.7502 },
+  { metro: 'Biloxi, MS',                 lat: 30.3960, lng: -88.8853 },
+  { metro: 'Daphne/Mobile, AL',          lat: 30.6035, lng: -87.9036 },
+  { metro: 'Manchester, NH',             lat: 42.9956, lng: -71.4548 },
+  { metro: 'Orlando, FL',                lat: 28.5488, lng: -81.3640 },
+  { metro: 'New Haven, CT',              lat: 41.3083, lng: -72.9279 },
+];
+
+// Haversine distance in miles between two lat/lng points
+function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 3958.8;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 // ─── Market check card ────────────────────────────────────────────────────────
+type CheckStatus = 'idle' | 'loading' | 'claimed' | 'available' | 'error';
+
 function MarketCheckCard() {
   const [zip, setZip] = useState('');
-  const [checked, setChecked] = useState(false);
-  const claimed = zip.length === 5 && parseInt(zip[0] ?? '0') % 2 === 0;
+  const [status, setStatus] = useState<CheckStatus>('idle');
+  const [cityLabel, setCityLabel] = useState('');
+
+  const checkMarket = async () => {
+    if (zip.length !== 5) return;
+    setStatus('loading');
+    setCityLabel('');
+    try {
+      const res = await fetch(`https://api.zippopotam.us/us/${zip}`);
+      if (!res.ok) { setStatus('error'); return; }
+      const data = await res.json() as { places?: Array<{ latitude: string; longitude: string; 'place name': string; 'state abbreviation': string }> };
+      const place = data.places?.[0];
+      if (!place) { setStatus('error'); return; }
+      const userLat = parseFloat(place.latitude);
+      const userLng = parseFloat(place.longitude);
+      setCityLabel(`${place['place name']}, ${place['state abbreviation']}`);
+      const isClaimed = CLIENT_LOCATIONS.some(c => haversine(userLat, userLng, c.lat, c.lng) <= 30);
+      setStatus(isClaimed ? 'claimed' : 'available');
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
     <div style={{ background: '#fff', borderRadius: 16, padding: 28, boxShadow: '0 30px 80px rgba(0,0,0,0.20), 0 6px 16px rgba(0,0,0,0.10)', border: `1px solid ${BLUE}30` }}>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: PINK, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 8 }}>Step 0 · Market check</div>
       <div className="display-md" style={{ fontSize: 24, color: PURPLE, marginBottom: 6, lineHeight: 1.15 }}>Is your market still open?</div>
-      <p style={{ fontSize: 13, color: '#666', marginBottom: 18, lineHeight: 1.55 }}>One CAM company per metro. Type your ZIP — we'll show you in real time.</p>
+      <p style={{ fontSize: 13, color: '#666', marginBottom: 18, lineHeight: 1.55 }}>One CAM company per metro. Enter your ZIP — we check against our active client footprint.</p>
       <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
         <input
           type="text"
           inputMode="numeric"
           maxLength={5}
           value={zip}
-          onChange={(e) => { setZip(e.target.value.replace(/\D/g, '')); setChecked(false); }}
+          onChange={(e) => { setZip(e.target.value.replace(/\D/g, '')); setStatus('idle'); }}
+          onKeyDown={(e) => e.key === 'Enter' && checkMarket()}
           placeholder="78701"
           style={{ flex: 1, padding: '14px 16px', borderRadius: 8, border: '1.5px solid #e2e2e2', fontSize: 16, fontFamily: 'var(--font-mono)', letterSpacing: '0.08em' } as CSSProperties}
         />
         <button
-          onClick={() => zip.length === 5 && setChecked(true)}
-          disabled={zip.length !== 5}
-          style={{ padding: '0 22px', background: zip.length === 5 ? PURPLE : '#ddd', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, cursor: zip.length === 5 ? 'pointer' : 'not-allowed', letterSpacing: '0.02em' } as CSSProperties}
-        >Check</button>
+          onClick={checkMarket}
+          disabled={zip.length !== 5 || status === 'loading'}
+          style={{ padding: '0 22px', background: zip.length === 5 ? PURPLE : '#ddd', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, cursor: zip.length === 5 ? 'pointer' : 'not-allowed', letterSpacing: '0.02em', minWidth: 80 } as CSSProperties}
+        >{status === 'loading' ? '…' : 'Check'}</button>
       </div>
-      {checked && (
-        <div style={{ background: claimed ? `${PINK}10` : `${GREEN}30`, borderLeft: `3px solid ${claimed ? PINK : '#1a8c4a'}`, padding: '14px 16px', borderRadius: 4 }}>
-          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, color: claimed ? PINK : '#1a6b3a', marginBottom: 4 }}>
-            {claimed ? 'This market is claimed.' : 'This market is available.'}
+      {status === 'claimed' && (
+        <div style={{ background: `${PINK}10`, borderLeft: `3px solid ${PINK}`, padding: '14px 16px', borderRadius: 4 }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, color: PINK, marginBottom: 4 }}>
+            {cityLabel ? `${cityLabel} is claimed.` : 'This market is claimed.'}
           </div>
           <div style={{ fontSize: 12, color: '#444', lineHeight: 1.5 }}>
-            {claimed
-              ? "We're already working with a CAM firm in this ZIP. Submit anyway — we maintain a waitlist as engagements rotate."
-              : "No CAM firm currently holds exclusivity for this ZIP. The Strategic Review will lock your spot for 30 days while we diagnose."}
+            {"We're already working with a CAM firm within 30 miles of this ZIP. Submit anyway — we maintain a waitlist as engagements rotate."}
+          </div>
+        </div>
+      )}
+      {status === 'available' && (
+        <div style={{ background: `${GREEN}30`, borderLeft: `3px solid #1a8c4a`, padding: '14px 16px', borderRadius: 4 }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, color: '#1a6b3a', marginBottom: 4 }}>
+            {cityLabel ? `${cityLabel} is available.` : 'This market is available.'}
+          </div>
+          <div style={{ fontSize: 12, color: '#444', lineHeight: 1.5 }}>
+            {"No Alloy client holds exclusivity within 30 miles of this ZIP. The Strategic Review will lock your spot for 30 days while we diagnose."}
+          </div>
+        </div>
+      )}
+      {status === 'error' && (
+        <div style={{ background: '#fff8e1', borderLeft: `3px solid ${YELLOW}`, padding: '14px 16px', borderRadius: 4 }}>
+          <div style={{ fontSize: 12, color: '#555', lineHeight: 1.5 }}>
+            {"We couldn't look up that ZIP. Double-check the number, or skip this step and submit the form — we'll verify your market manually."}
           </div>
         </div>
       )}
