@@ -838,9 +838,9 @@ body.has-fixed-header {
   margin: 0 0 22px;
 }
 .nav-mega-about-items {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
 }
 .nav-mega-about-item {
   display: flex;
