@@ -9,12 +9,51 @@ import { PURPLE, PINK, YELLOW, BLUE, GREEN } from '~/lib/tokens';
 
 export default function ServicesPage() {
   const pillars = [
-    { id: 'boardreach', color: PINK, colorTint: 'var(--alloy-pink-tint)', icon: 'binoculars', brand: 'BoardReach™', label: 'Attract', h: 'Get found before boards start shopping.',
-      services: ['Local SEO & GEO (AI search)', 'Content marketing & pillar pages', 'Google Ads / PPC', 'Website development', 'Email & newsletter', 'Social media cadence', 'Lead magnets', 'Mailers & print'] },
-    { id: 'boardmatch', color: YELLOW, colorTint: 'var(--alloy-yellow-tint)', icon: 'file-sig', brand: 'BoardMatch™', label: 'Close', h: 'Turn conversations into signed contracts.',
-      services: ['Proposal optimization', 'Sales messaging & UVP', 'BD training sessions', 'Follow-up email sequences', 'Shared board portal', 'RFP system & templates', 'Touch-point audit', 'Referral network development'] },
-    { id: 'boardretain', color: GREEN, colorTint: 'var(--alloy-green-tint)', icon: 'shield', brand: 'BoardRetain™', label: 'Keep', h: 'Protect the portfolio you have.',
-      services: ['Board education programs', 'Satisfaction & feedback systems', 'SOP creation', 'Reputation management', 'Communication strategy', 'Staff onboarding', 'Role-based training', 'Homeowner Happiness Plans'] },
+    {
+      id: 'boardreach', color: PINK, colorTint: 'var(--alloy-pink-tint)', icon: 'binoculars',
+      brand: 'BoardReach™', label: 'Attract', h: 'Get found before boards start shopping.',
+      exploreHref: '/our-approach/boardreach',
+      services: [
+        { label: 'Local SEO & GEO (AI search)',    href: '/property-management-seo' },
+        { label: 'Content marketing & pillar pages' },
+        { label: 'Google Ads / PPC' },
+        { label: 'Website development' },
+        { label: 'Email & newsletter',              href: '/boardreach/email-marketing' },
+        { label: 'Social media cadence',            href: '/services/social-media-marketing-for-hoa-management-companies' },
+        { label: 'Lead magnets' },
+        { label: 'Mailers & print',                 href: '/boardreach/print-production' },
+      ],
+    },
+    {
+      id: 'boardmatch', color: YELLOW, colorTint: 'var(--alloy-yellow-tint)', icon: 'file-sig',
+      brand: 'BoardMatch™', label: 'Close', h: 'Turn conversations into signed contracts.',
+      exploreHref: '/our-approach/boardmatch',
+      services: [
+        { label: 'Proposal optimization' },
+        { label: 'Sales messaging & UVP' },
+        { label: 'BD training sessions',            href: '/groundwork' },
+        { label: 'Follow-up email sequences' },
+        { label: 'Shared board portal' },
+        { label: 'RFP system & templates' },
+        { label: 'Touch-point audit' },
+        { label: 'Referral network development' },
+      ],
+    },
+    {
+      id: 'boardretain', color: GREEN, colorTint: 'var(--alloy-green-tint)', icon: 'shield',
+      brand: 'BoardRetain™', label: 'Keep', h: 'Protect the portfolio you have.',
+      exploreHref: '/our-approach/boardretain',
+      services: [
+        { label: 'Board education programs',        href: '/hoa-board-education-programs' },
+        { label: 'Satisfaction & feedback systems' },
+        { label: 'SOP creation' },
+        { label: 'Reputation management',           href: '/boardretain/reputation-management' },
+        { label: 'Communication strategy',          href: '/services/hoa-newsletter-production' },
+        { label: 'Staff onboarding' },
+        { label: 'Role-based training' },
+        { label: 'Homeowner Happiness Plans' },
+      ],
+    },
   ];
 
   return (
@@ -44,14 +83,17 @@ export default function ServicesPage() {
                 <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 18, color: PURPLE, lineHeight: 1.3 }}>{p.h}</div>
                 <ul style={{ listStyle: 'none', padding: 0, margin: '12px 0 0', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {p.services.map(s => (
-                    <li key={s} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, color: '#555' }}>
+                    <li key={s.label} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, color: '#555' }}>
                       <Icon name="check" size={16} color={p.color} strokeWidth={2.5} style={{ flexShrink: 0, marginTop: 2 }} />
-                      <span>{s}</span>
+                      {s.href
+                        ? <a href={s.href} style={{ color: '#555', textDecoration: 'none', fontWeight: 500 }} onMouseOver={e => (e.currentTarget.style.color = p.color)} onMouseOut={e => (e.currentTarget.style.color = '#555')}>{s.label}</a>
+                        : <span>{s.label}</span>
+                      }
                     </li>
                   ))}
                 </ul>
                 <div style={{ marginTop: 'auto', paddingTop: 16 }}>
-                  <Button variant="ghost" arrow href="/our-approach/boardreach" size="sm">Explore {p.brand}</Button>
+                  <Button variant="ghost" arrow href={p.exploreHref} size="sm">Explore {p.brand}</Button>
                 </div>
               </div>
             ))}
