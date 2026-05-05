@@ -91,7 +91,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
             return (
               <div
                 key={it.id}
-                className="nav-item-wrap"
+                className={`nav-item-wrap ${it.mega || it.megaServices ? 'has-mega' : ''}`}
                 onMouseEnter={() => setOpenMenu(hasFlyout ? it.id : null)}
               >
                 <a
@@ -135,12 +135,11 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
                             </div>
                             <div className="nav-mega-services-pillar-head">
                               <div
-                                className="nav-mega-stage"
-                                style={{ color: p.color, fontSize: 10 }}
+                                className="nav-mega-services-pillar-title"
+                                style={{ color: p.color }}
                               >
-                                {p.stageWord}
+                                {p.title}
                               </div>
-                              <div className="nav-mega-services-pillar-title">{p.title}</div>
                             </div>
                           </a>
                           <ul className="nav-mega-services-list">

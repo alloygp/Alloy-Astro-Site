@@ -96,9 +96,13 @@ body.has-fixed-header {
   gap: 4px;
   position: relative;
 }
-/* Static so absolutely-positioned mega panels anchor to .site-nav-desktop
-   (centered) instead of the rightmost nav item. Prevents off-screen overflow. */
+/* Wraps stay relative so plain dropdowns (.nav-dropdown) anchor to their own
+   nav item. The mega panels override this with `.has-mega` to escape and
+   center on the nav as a whole. */
 .nav-item-wrap {
+  position: relative;
+}
+.nav-item-wrap.has-mega {
   position: static;
 }
 .site-nav-link {
@@ -387,7 +391,7 @@ body.has-fixed-header {
 /* Dropdown */
 .nav-dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 40px);
   left: 50%;
   transform: translateX(-50%);
   min-width: 280px;
@@ -407,8 +411,8 @@ body.has-fixed-header {
   position: absolute;
   left: 0;
   right: 0;
-  top: -8px;
-  height: 10px;
+  top: -44px;
+  height: 46px;
 }
 @keyframes navFade {
   from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
