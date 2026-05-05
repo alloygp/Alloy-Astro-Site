@@ -16,8 +16,10 @@ interface Course {
   desc: string;
 }
 
+interface BadgeProps { text: string; color: string; textColor: string; }
+
 // Decorative thumbnail panel — abstract geometry in course color
-function CourseThumbnail({ color, colorRgb, num }: { color: string; colorRgb: string; num: string }) {
+function CourseThumbnail({ color, colorRgb, num, badge }: { color: string; colorRgb: string; num: string; badge?: BadgeProps }) {
   return (
     <div style={{
       width: 172,
@@ -49,6 +51,29 @@ function CourseThumbnail({ color, colorRgb, num }: { color: string; colorRgb: st
       <div style={{ position: 'absolute', width: 40, height: 40, borderRadius: '50%', border: `1.5px solid rgba(${colorRgb},0.22)`, bottom: 24, right: 40 }} />
       {/* Center dot */}
       <div style={{ width: 10, height: 10, borderRadius: '50%', background: color, opacity: 0.6, position: 'relative', zIndex: 1 }} />
+      {/* Floating badge at bottom */}
+      {badge && (
+        <span style={{
+          position: 'absolute',
+          bottom: 12,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: badge.color,
+          color: badge.textColor,
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
+          fontSize: 9,
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          padding: '3px 9px',
+          borderRadius: 999,
+          whiteSpace: 'nowrap',
+          zIndex: 2,
+          boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+        }}>
+          {badge.text}
+        </span>
+      )}
     </div>
   );
 }
@@ -228,6 +253,12 @@ export default function CoursesPage() {
                 ? { href: c.href, style: { textDecoration: 'none', color: 'inherit', cursor: 'pointer' } as React.CSSProperties }
                 : { style: {} as React.CSSProperties };
 
+              const badge: BadgeProps | undefined = c.featured
+                ? { text: 'Live now', color: c.color, textColor: c.color === YELLOW ? '#6b4c00' : '#fff' }
+                : !isAvailable
+                  ? { text: 'Coming soon', color: '#e8e8e8', textColor: '#888' }
+                  : undefined;
+
               return (
                 <CardEl
                   key={c.title}
@@ -242,28 +273,16 @@ export default function CoursesPage() {
                     minHeight: 180,
                   }}
                 >
-                  <CourseThumbnail color={c.color} colorRgb={c.colorRgb} num={c.num} />
+                  <CourseThumbnail color={c.color} colorRgb={c.colorRgb} num={c.num} {...(badge ? { badge } : {})} />
 
                   <div style={{ display: 'flex', flexDirection: 'column', padding: '24px 26px', gap: 10, flex: 1, minWidth: 0 }}>
-                    {/* Top row: meta + badge */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, minWidth: 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 700, color: '#999', flexWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden', minWidth: 0 }}>
-                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', flexShrink: 1 }}>{c.level}</span>
-                        {DOT}
-                        <span style={{ flexShrink: 0 }}>{c.lessons} lessons</span>
-                        {DOT}
-                        <span style={{ flexShrink: 0 }}>{c.time}</span>
-                      </div>
-                      {c.featured && (
-                        <span style={{ background: c.color, color: c.color === YELLOW ? '#6b4c00' : '#fff', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, flexShrink: 0 }}>
-                          Live now
-                        </span>
-                      )}
-                      {!isAvailable && (
-                        <span style={{ background: '#f0f0f0', color: '#999', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, flexShrink: 0 }}>
-                          Coming soon
-                        </span>
-                      )}
+                    {/* Meta row — full width, no badge competing for space */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 700, color: '#999', whiteSpace: 'nowrap' }}>
+                      <span>{c.level}</span>
+                      {DOT}
+                      <span>{c.lessons} lessons</span>
+                      {DOT}
+                      <span>{c.time}</span>
                     </div>
 
                     {/* Title */}
