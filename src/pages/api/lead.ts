@@ -10,12 +10,12 @@ mailchimp.setConfig({
 });
 
 export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
-  const name = data.get("name")?.toString().trim() ?? "";
-  const email = data.get("email")?.toString().trim() ?? "";
-  const company = data.get("company")?.toString().trim() ?? "";
-  const units = data.get("units")?.toString().trim() ?? "";
-  const goal = data.get("goal")?.toString().trim() ?? "";
+  const data = await request.json();
+  const name = (data.name ?? "").toString().trim();
+  const email = (data.email ?? "").toString().trim();
+  const company = (data.company ?? "").toString().trim();
+  const units = (data.units ?? "").toString().trim();
+  const goal = (data.goal ?? "").toString().trim();
 
   if (!email || !name) {
     return new Response(JSON.stringify({ error: "Name and email are required." }), { status: 400 });

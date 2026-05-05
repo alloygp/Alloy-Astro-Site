@@ -28,24 +28,17 @@ export default function ContactPage({ variant = 'lead' }: Props) {
     setLoading(true);
     setError('');
 
-    const fd = new FormData();
     const endpoint = variant === 'contact' ? '/api/contact' : '/api/lead';
-
-    if (variant === 'contact') {
-      fd.append('name', contactForm.name);
-      fd.append('email', contactForm.email);
-      fd.append('message', contactForm.message);
-      fd.append('subscribe', contactForm.subscribe ? 'true' : 'false');
-    } else {
-      fd.append('name', leadForm.name);
-      fd.append('email', leadForm.email);
-      fd.append('company', leadForm.company);
-      fd.append('units', leadForm.units);
-      fd.append('goal', leadForm.goal);
-    }
+    const payload = variant === 'contact'
+      ? { name: contactForm.name, email: contactForm.email, message: contactForm.message, subscribe: contactForm.subscribe ? 'true' : 'false' }
+      : { name: leadForm.name, email: leadForm.email, company: leadForm.company, units: leadForm.units, goal: leadForm.goal };
 
     try {
-      const res = await fetch(endpoint, { method: 'POST', body: fd });
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
       const json = await res.json();
       if (!res.ok) {
         setError(json.error ?? 'Something went wrong. Please try again.');

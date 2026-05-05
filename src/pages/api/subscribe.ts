@@ -10,9 +10,9 @@ mailchimp.setConfig({
 });
 
 export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
-  const email = data.get("email")?.toString().trim();
-  const firstName = data.get("firstName")?.toString().trim() ?? "";
+  const data = await request.json();
+  const email = (data.email ?? "").toString().trim() || undefined;
+  const firstName = (data.firstName ?? "").toString().trim();
 
   if (!email) {
     return new Response(JSON.stringify({ error: "Email is required." }), { status: 400 });

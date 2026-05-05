@@ -10,11 +10,11 @@ mailchimp.setConfig({
 });
 
 export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
-  const name = data.get("name")?.toString().trim() ?? "";
-  const email = data.get("email")?.toString().trim() ?? "";
-  const message = data.get("message")?.toString().trim() ?? "";
-  const subscribe = data.get("subscribe") === "true";
+  const data = await request.json();
+  const name = (data.name ?? "").toString().trim();
+  const email = (data.email ?? "").toString().trim();
+  const message = (data.message ?? "").toString().trim();
+  const subscribe = data.subscribe === "true" || data.subscribe === true;
 
   if (!email || !name || !message) {
     return new Response(JSON.stringify({ error: "All fields are required." }), { status: 400 });
