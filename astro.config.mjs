@@ -9,6 +9,7 @@ export default defineConfig({
   adapter: vercel(),
   trailingSlash: 'never',
   integrations: [react()],
+  prefetch: { prefetchAll: true },
   build: {
     inlineStylesheets: 'auto',
   },

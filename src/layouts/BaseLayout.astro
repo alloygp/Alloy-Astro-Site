@@ -21,6 +21,7 @@ import '../styles/site.css';
 import '../styles/chrome.css';
 import '../styles/courses.css';
 
+import { ViewTransitions } from 'astro:transitions';
 import SiteHeader from '../components/chrome/SiteHeader.tsx';
 import SiteFooter from '../components/chrome/SiteFooter.tsx';
 
@@ -121,9 +122,11 @@ const orgLd = {
       type="application/ld+json"
       set:html={JSON.stringify(orgLd)}
     />
+
+    <ViewTransitions />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
-    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />}
+    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load transition:persist />}
     <main>
       <slot />
     </main>
