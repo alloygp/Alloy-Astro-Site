@@ -78,7 +78,13 @@ src/
 │   │   ├── ResultsPage.tsx          # /results
 │   │   ├── RiseDeepCaseStudy.tsx    # /results/rise-amg
 │   │   ├── SeoPage.tsx              # /property-management-seo
-│   │   ├── ServiceNewsletterPage.tsx # /services/hoa-newsletter-production  ← NEW
+│   │   ├── ServiceAnnualReportPage.tsx  # /boardretain/annual-report-production
+│   │   ├── ServiceBrandingPage.tsx      # /boardreach/branding
+│   │   ├── ServiceEmailMarketingPage.tsx # /boardreach/email-marketing
+│   │   ├── ServiceNewsletterPage.tsx    # /services/hoa-newsletter-production
+│   │   ├── ServicePrintProductionPage.tsx # /boardreach/print-production
+│   │   ├── ServiceReputationManagementPage.tsx # /boardretain/reputation-management
+│   │   ├── ServiceSocialMediaPage.tsx   # /services/social-media-marketing-for-hoa-management-companies
 │   │   ├── ServicesPage.tsx         # /services (overview)
 │   │   ├── TestimonialsPage.tsx     # /about/testimonials
 │   │   └── WeKnowCamPage.tsx        # /we-know-cam
@@ -129,8 +135,16 @@ src/
     │   └── cam-marketing-strategy.astro → MarketingStrategyArticle
     ├── results/
     │   └── rise-amg.astro           → RiseDeepCaseStudy
-    └── services/                    ← NEW subdirectory for service detail pages
-        └── hoa-newsletter-production.astro → ServiceNewsletterPage
+    ├── boardreach/
+│   │   ├── branding.astro           → ServiceBrandingPage
+│   │   ├── email-marketing.astro    → ServiceEmailMarketingPage
+│   │   └── print-production.astro  → ServicePrintProductionPage
+│   ├── boardretain/
+│   │   ├── annual-report-production.astro → ServiceAnnualReportPage
+│   │   └── reputation-management.astro    → ServiceReputationManagementPage
+    └── services/
+        ├── hoa-newsletter-production.astro → ServiceNewsletterPage
+        └── social-media-marketing-for-hoa-management-companies.astro → ServiceSocialMediaPage
 ```
 
 ---
@@ -159,7 +173,7 @@ import YourPageName from '~/components/pages/YourPageName';
 
 **`pageId`** controls which nav item highlights as active. Valid values: `home`, `about`, `services`, `boardsuite`, `approach`, `resources`.
 
-**Service detail pages** live under `src/pages/services/` (e.g., `services/hoa-newsletter-production.astro`).
+**Service detail pages** live under pillar subdirectories: `src/pages/boardreach/`, `src/pages/boardretain/`. Legacy paths under `src/pages/services/` remain for backwards compatibility.
 
 ---
 
@@ -671,3 +685,7 @@ When adding new service pages that replace old Claude Design URLs, add redirects
 | 2026-05 | Added `bg` prop to `PageHero` in `Shells.tsx` |
 | 2026-05 | Added `.DS_Store` to `.gitignore` |
 | 2026-05 | Added login button to `SiteHeader.tsx` + `.btn-login` to `chrome.css` |
+| 2026-05 | Expanded Services nav to 4 items per pillar; moved Social Media to BoardReach |
+| 2026-05 | Added 6 icon cases to `SiteHeader.tsx` `ResourceIcon` switch |
+| 2026-05 | Added `ServiceSocialMediaPage.tsx` + `ServiceReputationManagementPage.tsx` + `ServiceEmailMarketingPage.tsx` + `ServiceBrandingPage.tsx` + `ServiceAnnualReportPage.tsx` + `ServicePrintProductionPage.tsx` |
+| 2026-05 | Added `boardreach/` + `boardretain/` route subdirectories with 5 new Astro routes |
