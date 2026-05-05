@@ -1,0 +1,11 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import ContactPage from '~/components/pages/ContactPage';
+---
+<BaseLayout
+  title="Get Started — Request a Strategic Review | Alloy"
+  description="Tell us about your CAM company. We'll map out a growth strategy built around your market, your goals, and your gaps."
+  pageId="about"
+>
+  <ContactPage client:load />
+</BaseLayout>
