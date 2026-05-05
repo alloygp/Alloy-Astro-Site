@@ -153,6 +153,8 @@ function NewsletterSignup() {
     }
   };
 
+  const succeeded = status === 'ok';
+
   return (
     <div className="site-footer-newsletter">
       <div className="site-footer-newsletter-pitch">
@@ -163,33 +165,90 @@ function NewsletterSignup() {
           fluff, no spam, unsubscribe anytime.
         </p>
       </div>
-      <form onSubmit={onSubmit} noValidate>
-        <input
-          type="email"
-          name="EMAIL"
-          placeholder="you@yourcamcompany.com"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (status === 'err') setStatus('idle');
+
+      {/* Crossfade container — form fades out, success panel fades in */}
+      <div style={{ position: 'relative', minHeight: 52 }}>
+
+        <form
+          onSubmit={onSubmit}
+          noValidate
+          style={{
+            transition: 'opacity 350ms ease, transform 350ms ease',
+            opacity: succeeded ? 0 : 1,
+            transform: succeeded ? 'translateY(-6px)' : 'translateY(0)',
+            pointerEvents: succeeded ? 'none' : 'auto',
           }}
-          aria-label="Email address"
-          required
-        />
-        <button type="submit" disabled={status === 'submitting'}>
-          {status === 'submitting'
-            ? 'Subscribing…'
-            : status === 'ok'
-              ? 'Subscribed ✓'
-              : 'Subscribe'}
-        </button>
-        <div
-          className="site-footer-newsletter-msg"
-          style={{ color: status === 'err' ? '#ffb3c7' : 'var(--alloy-yellow)' }}
         >
-          {msg}
+          <input
+            type="email"
+            name="EMAIL"
+            placeholder="you@yourcamcompany.com"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (status === 'err') setStatus('idle');
+            }}
+            aria-label="Email address"
+            required
+          />
+          <button
+            type="submit"
+            disabled={status === 'submitting'}
+            style={{ transition: 'opacity 200ms ease', opacity: status === 'submitting' ? 0.55 : 1 }}
+          >
+            {status === 'submitting' ? 'Subscribing…' : 'Subscribe'}
+          </button>
+          <div
+            className="site-footer-newsletter-msg"
+            style={{ color: status === 'err' ? '#ffb3c7' : 'var(--alloy-yellow)' }}
+          >
+            {msg}
+          </div>
+        </form>
+
+        {/* Success panel */}
+        <div
+          aria-live="polite"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 14,
+            transition: 'opacity 400ms ease 200ms, transform 400ms ease 200ms',
+            opacity: succeeded ? 1 : 0,
+            transform: succeeded ? 'translateY(0)' : 'translateY(6px)',
+            pointerEvents: succeeded ? 'auto' : 'none',
+          }}
+        >
+          <div style={{
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.18)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: '0 0 36px',
+            color: 'var(--alloy-yellow)',
+            fontSize: 16,
+          }}>
+            ✓
+          </div>
+          <div>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: '#fff', marginBottom: 3 }}>
+              You're in.
+            </div>
+            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.4 }}>
+              First Alloy briefing lands soon.
+            </div>
+          </div>
         </div>
-      </form>
+
+      </div>
     </div>
   );
 }
