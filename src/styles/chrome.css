@@ -3,6 +3,190 @@
    Loaded after site.css; overrides where needed.
    ============================================================================ */
 
+/* ── Search button in header CTA ──────────────────────────────────────────── */
+.site-header-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--fg-2);
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+  flex-shrink: 0;
+}
+.site-header-search:hover {
+  background: var(--alloy-purple-tint);
+  border-color: var(--border-strong);
+  color: var(--alloy-purple);
+}
+.site-header--purple .site-header-search {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+.site-header--purple .site-header-search:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+/* ── Search overlay + modal ───────────────────────────────────────────────── */
+.alloy-search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(26, 10, 38, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: clamp(48px, 12vh, 112px);
+  animation: alloy-search-fade-in 120ms var(--ease-standard) both;
+}
+@keyframes alloy-search-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.alloy-search-modal {
+  width: min(640px, calc(100vw - 32px));
+  background: #fff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(56, 28, 79, 0.08);
+  overflow: hidden;
+  animation: alloy-search-slide-in 160ms var(--ease-emphasis) both;
+}
+@keyframes alloy-search-slide-in {
+  from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Input row */
+.alloy-search-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.alloy-search-input-icon {
+  color: var(--fg-muted);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.alloy-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--fg-1);
+  background: transparent;
+}
+.alloy-search-input::placeholder {
+  color: var(--fg-muted);
+}
+.alloy-search-close {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--alloy-off-white);
+  color: var(--fg-muted);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 120ms ease;
+  line-height: 1;
+}
+.alloy-search-close:hover {
+  background: var(--alloy-light-gray);
+}
+
+/* Results */
+.alloy-search-results {
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.alloy-search-group {
+  padding: 0 0 4px;
+}
+.alloy-search-group-label {
+  padding: 10px 16px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  font-family: var(--font-display);
+}
+.alloy-search-hit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px;
+  text-decoration: none;
+  color: var(--fg-1);
+  transition: background 80ms ease;
+  cursor: pointer;
+}
+.alloy-search-hit:hover,
+.alloy-search-hit.is-active {
+  background: var(--alloy-purple-tint);
+}
+.alloy-search-hit-title {
+  font-size: 14px;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+.alloy-search-hit-arrow {
+  font-size: 13px;
+  color: var(--fg-muted);
+  opacity: 0;
+  transition: opacity 80ms ease;
+}
+.alloy-search-hit:hover .alloy-search-hit-arrow,
+.alloy-search-hit.is-active .alloy-search-hit-arrow {
+  opacity: 1;
+}
+
+.alloy-search-empty {
+  padding: 28px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--fg-3);
+  line-height: 1.6;
+}
+
+/* Footer hint row */
+.alloy-search-footer {
+  display: flex;
+  gap: 16px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--alloy-off-white);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+.alloy-search-footer kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  background: #fff;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-2);
+  margin-right: 3px;
+}
+
 .site-header {
   position: fixed;
   top: 0;

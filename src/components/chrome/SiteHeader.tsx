@@ -2,11 +2,177 @@
 // Hide-on-scroll-down / show-on-scroll-up header.
 // Includes Services mega-menu (intro + 3-column by pillar), Approach mega-menu,
 // Resources mega-menu, About mega-menu, and standard dropdowns.
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { CSSProperties } from 'react';
 import Icon from '~/components/Icon';
 import EngineLoop from '~/components/EngineLoop';
 import { NAV } from '~/lib/nav';
+
+// ── Search index — every navigable page on the site ────────────────────────
+const SEARCH_INDEX = [
+  { t: 'Our Approach',                h: '/our-approach',                                          g: 'Approach', k: 'system framework boardreach boardmatch boardretain attract close keep' },
+  { t: 'BoardReach — Attract',        h: '/our-approach/boardreach',                               g: 'Approach', k: 'marketing seo demand generation leads attract' },
+  { t: 'BoardMatch — Close',          h: '/our-approach/boardmatch',                               g: 'Approach', k: 'proposal rfp sales close win conversion' },
+  { t: 'BoardRetain — Keep',          h: '/our-approach/boardretain',                              g: 'Approach', k: 'retention reputation board education renewal keep' },
+  { t: 'BoardSuite',                  h: '/boardsuite',                                            g: 'Approach', k: 'platform suite tools software' },
+  { t: 'CAM Marketing Services',      h: '/hoa-cam-marketing-services',                            g: 'Reach',    k: 'cam hoa marketing pillar service' },
+  { t: 'Property Management SEO',     h: '/property-management-seo',                               g: 'Reach',    k: 'seo search engine optimization rankings google' },
+  { t: 'Social Media Marketing',      h: '/services/social-media-marketing-for-hoa-management-companies', g: 'Reach', k: 'social media linkedin facebook instagram content' },
+  { t: 'HOA Email Marketing',         h: '/boardreach/email-marketing',                            g: 'Reach',    k: 'email marketing nurture campaigns drip' },
+  { t: 'Newsletter Production',       h: '/services/hoa-newsletter-production',                    g: 'Reach',    k: 'newsletter email content community' },
+  { t: 'HOA Website Design',          h: '/boardreach/hoa-website-design',                         g: 'Reach',    k: 'website design development cam hoa site core web vitals' },
+  { t: 'Branding for CAM',            h: '/boardreach/hoa-management-branding',                    g: 'Reach',    k: 'branding identity logo visual system' },
+  { t: 'Print + Marketing Materials', h: '/boardreach/print-production',                           g: 'Reach',    k: 'print collateral brochures flyers proposals' },
+  { t: 'Proposal Optimization',       h: '/boardmatch/proposal-optimization',                      g: 'Match',    k: 'proposal optimization rebuild template winrate' },
+  { t: 'RFP Response (14-day)',        h: '/boardmatch/rfp-response-system',                        g: 'Match',    k: 'rfp response done for you sprint concierge' },
+  { t: 'Sales Messaging',             h: '/boardmatch/sales-messaging',                            g: 'Match',    k: 'positioning sales narrative messaging pitch bd' },
+  { t: 'Groundwork — Fractional BD',  h: '/groundwork',                                            g: 'Match',    k: 'groundwork business development fractional bd outbound' },
+  { t: 'Thought Leadership',          h: '/boardretain/thought-leadership',                        g: 'Retain',   k: 'thought leadership essays speaking research industry voice' },
+  { t: 'Reputation Management',       h: '/boardretain/reputation-management',                     g: 'Retain',   k: 'reputation reviews google ratings online presence' },
+  { t: 'Board Education',             h: '/hoa-board-education-programs',                          g: 'Retain',   k: 'board education training homeowner workshops' },
+  { t: 'Annual Report Production',    h: '/boardretain/annual-report-production',                  g: 'Retain',   k: 'annual report design board renewal' },
+  { t: 'Courses',                     h: '/courses',                                               g: 'Retain',   k: 'courses training education learning' },
+  { t: 'About Alloy',                 h: '/about',                                                 g: 'Company',  k: 'about team founders story' },
+  { t: 'Testimonials',               h: '/about/testimonials',                                    g: 'Company',  k: 'testimonials reviews quotes partners' },
+  { t: 'We Know CAM',                 h: '/we-know-cam',                                           g: 'Company',  k: 'we know cam expertise specialists experience' },
+  { t: 'Results & Case Studies',      h: '/results',                                               g: 'Company',  k: 'results case studies portfolio outcomes proof' },
+  { t: 'Careers',                     h: '/careers',                                               g: 'Company',  k: 'careers jobs hiring team join' },
+  { t: 'Partners',                    h: '/partners',                                              g: 'Company',  k: 'partners partnerships referral network' },
+  { t: 'Resource Hub',                h: '/resource-hub',                                          g: 'Resources', k: 'resources guides articles library knowledge' },
+  { t: 'FAQ',                         h: '/faq',                                                   g: 'Resources', k: 'faq questions answers help support' },
+  { t: 'Strategic Review',            h: '/strategic-review-request',                             g: 'Resources', k: 'strategic review request audit assessment consultation' },
+  { t: 'Contact',                     h: '/contact',                                               g: 'Resources', k: 'contact email phone reach out' },
+] as const;
+
+type SearchItem = { t: string; h: string; g: string; k: string };
+
+// ── Search icon ─────────────────────────────────────────────────────────────
+function SearchIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="9" cy="9" r="6.25" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M14 14L18 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// ── Search modal (portaled to document.body) ─────────────────────────────────
+function SearchModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [q, setQ] = useState('');
+  const [active, setActive] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      setQ('');
+      setActive(0);
+      setTimeout(() => inputRef.current?.focus(), 30);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  const results = useMemo<SearchItem[]>(() => {
+    const term = q.trim().toLowerCase();
+    if (!term) return (SEARCH_INDEX as unknown as SearchItem[]).slice(0, 12);
+    const tokens = term.split(/\s+/);
+    const scored = (SEARCH_INDEX as unknown as SearchItem[]).map(item => {
+      const hay = (item.t + ' ' + item.g + ' ' + item.k).toLowerCase();
+      let score = 0;
+      for (const tok of tokens) {
+        if (item.t.toLowerCase().startsWith(tok)) score += 10;
+        else if (item.t.toLowerCase().includes(tok)) score += 6;
+        else if (hay.includes(tok)) score += 2;
+        else return null;
+      }
+      return { item, score };
+    }).filter((x): x is { item: SearchItem; score: number } => x !== null);
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 20).map(s => s.item);
+  }, [q]);
+
+  useEffect(() => { setActive(0); }, [q]);
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') { onClose(); return; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive(a => Math.min(a + 1, results.length - 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(a => Math.max(a - 1, 0)); }
+    else if (e.key === 'Enter') {
+      const hit = results[active];
+      if (hit) { window.location.href = hit.h; }
+    }
+  };
+
+  const grouped: Record<string, SearchItem[]> = {};
+  results.forEach(r => { (grouped[r.g] = grouped[r.g] || []).push(r); });
+
+  if (!open) return null;
+  let runningIdx = -1;
+
+  const modal = (
+    <div className="alloy-search-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label="Site search">
+      <div className="alloy-search-modal" onClick={e => e.stopPropagation()}>
+        <div className="alloy-search-input-row">
+          <span className="alloy-search-input-icon"><SearchIcon size={20} /></span>
+          <input
+            ref={inputRef}
+            type="text"
+            className="alloy-search-input"
+            placeholder="Search services, pages, topics…"
+            value={q}
+            onChange={e => setQ(e.target.value)}
+            onKeyDown={onKeyDown}
+            autoComplete="off"
+          />
+          <button className="alloy-search-close" onClick={onClose} aria-label="Close search">
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.08em', opacity: 0.55, marginRight: 8 }}>ESC</span>
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div className="alloy-search-results">
+          {results.length === 0 ? (
+            <div className="alloy-search-empty">
+              No matches for &ldquo;{q}&rdquo;.<br />
+              <span style={{ opacity: 0.6 }}>Try &ldquo;proposal&rdquo;, &ldquo;seo&rdquo;, &ldquo;newsletter&rdquo;, or &ldquo;rfp&rdquo;.</span>
+            </div>
+          ) : (
+            Object.keys(grouped).map(g => (
+              <div key={g} className="alloy-search-group">
+                <div className="alloy-search-group-label">{g}</div>
+                {(grouped[g] ?? []).map(item => {
+                  runningIdx++;
+                  const isActive = runningIdx === active;
+                  const idx = runningIdx;
+                  return (
+                    <a
+                      key={item.h}
+                      href={item.h}
+                      className={`alloy-search-hit${isActive ? ' is-active' : ''}`}
+                      onMouseEnter={() => setActive(idx)}
+                    >
+                      <span className="alloy-search-hit-title">{item.t}</span>
+                      <span className="alloy-search-hit-arrow" aria-hidden="true">↵</span>
+                    </a>
+                  );
+                })}
+              </div>
+            ))
+          )}
+        </div>
+        <div className="alloy-search-footer">
+          <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+          <span><kbd>↵</kbd> open</span>
+          <span><kbd>esc</kbd> close</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  return createPortal(modal, document.body);
+}
 
 // Small icon set used in the mega panels (Resources, About, Services).
 // Inline SVGs so we have no additional bundle dependency.
@@ -179,6 +345,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const lastY = useRef(0);
 
   useEffect(() => {
@@ -194,6 +361,18 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Cmd-K / Ctrl-K keyboard shortcut opens search modal.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(s => !s);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   // Close mega menu and mobile nav on Astro View Transitions page navigation.
@@ -619,6 +798,14 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
         </nav>
 
         <div className="site-header-cta">
+          <button
+            className="site-header-search"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search site (⌘K)"
+            title="Search (⌘K)"
+          >
+            <SearchIcon size={18} />
+          </button>
           <a href="/strategic-review-request" className="btn btn-primary btn-sm btn-arrow">
             Claim Your Market
           </a>
@@ -645,6 +832,8 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
           <Icon name={mobileOpen ? 'x' : 'menu'} size={22} strokeWidth={2} />
         </button>
       </div>
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {mobileOpen && (
         <div className="site-nav-mobile">
