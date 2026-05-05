@@ -18,8 +18,6 @@ Paste this at the start of any Claude Design session before building a page.
   - Any CSS file (`site.css`, `colors_and_type.css`, `chrome.css`, `courses.css`)
   - `tokens.ts`, `nav.ts`
 
-If a page needs something a shared component doesn't support, implement it inline in the page file and add a comment: `// TODO: extract to shared component`.
-
 > **Exception — header/nav iteration:** When the user is iterating on the header or mega-panel structure (e.g. "add the resources mega panel," "make About look like Approach"), edits to `_chrome.jsx` and `chrome.css` in this prototype project are expected. Those changes get hand-ported by Cowork into `SiteHeader.tsx` and `astro-port/src/styles/chrome.css` after the prototype is approved. Don't edit those files speculatively — only when the user has asked for nav work.
 
 ---
