@@ -44,7 +44,7 @@ export default function CourseTrustBuildingPage() {
               <div className="enroll-card-price">$0</div>
               <div className="enroll-card-price-note">No card. No upsell. Just the course.</div>
 
-              <a href="/courses/trust-building-lesson" className="btn btn-primary">Start the course →</a>
+              <a href="/courses/trust-building/lessons/intro" className="btn btn-primary">Start the course →</a>
 
               <ul className="enroll-includes">
                 <li><Check />10 short, focused lessons</li>
@@ -111,12 +111,12 @@ export default function CourseTrustBuildingPage() {
                 <div className="module-meta">2 lessons</div>
               </div>
               <div className="module-body">
-                <a className="lesson" href="/courses/trust-building-lesson">
+                <a className="lesson" href="/courses/trust-building/lessons/intro">
                   <span className="lesson-num">01</span>
                   <span className="lesson-title">Intro to <em>Trust-Building for CAM Firms</em></span>
                   <span className="lesson-type"><span className="dot"></span>Lesson · 4 min</span>
                 </a>
-                <a className="lesson" href="/courses/trust-building-lesson">
+                <a className="lesson" href="/courses/trust-building/lessons/why-trust-signals-matter">
                   <span className="lesson-num">02</span>
                   <span className="lesson-title">Why trust signals matter to HOA boards</span>
                   <span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span>
@@ -135,8 +135,8 @@ export default function CourseTrustBuildingPage() {
                 <div className="module-meta">2 lessons</div>
               </div>
               <div className="module-body">
-                <a className="lesson" href="#"><span className="lesson-num">03</span><span className="lesson-title">What reviews are and why they carry weight</span><span className="lesson-type"><span className="dot"></span>Lesson · 7 min</span></a>
-                <a className="lesson" href="#"><span className="lesson-num">04</span><span className="lesson-title">Reviews: extra factors that influence impact</span><span className="lesson-type"><span className="dot"></span>Lesson · 5 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/what-reviews-are"><span className="lesson-num">03</span><span className="lesson-title">What reviews are and why they carry weight</span><span className="lesson-type"><span className="dot"></span>Lesson · 7 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/reviews-extra-factors"><span className="lesson-num">04</span><span className="lesson-title">Reviews: extra factors that influence impact</span><span className="lesson-type"><span className="dot"></span>Lesson · 5 min</span></a>
               </div>
             </div>
 
@@ -151,8 +151,8 @@ export default function CourseTrustBuildingPage() {
                 <div className="module-meta">2 lessons</div>
               </div>
               <div className="module-body">
-                <a className="lesson" href="#"><span className="lesson-num">05</span><span className="lesson-title">What testimonials are and why they stand out</span><span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span></a>
-                <a className="lesson" href="#"><span className="lesson-num">06</span><span className="lesson-title">Testimonials: extra factors that influence impact</span><span className="lesson-type"><span className="dot"></span>Lesson · 5 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/what-testimonials-are"><span className="lesson-num">05</span><span className="lesson-title">What testimonials are and why they stand out</span><span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/testimonials-extra-factors"><span className="lesson-num">06</span><span className="lesson-title">Testimonials: extra factors that influence impact</span><span className="lesson-type"><span className="dot"></span>Lesson · 5 min</span></a>
               </div>
             </div>
 
@@ -167,8 +167,8 @@ export default function CourseTrustBuildingPage() {
                 <div className="module-meta">2 lessons</div>
               </div>
               <div className="module-body">
-                <a className="lesson" href="#"><span className="lesson-num">07</span><span className="lesson-title">What case studies are and why they convince</span><span className="lesson-type"><span className="dot"></span>Lesson · 7 min</span></a>
-                <a className="lesson" href="#"><span className="lesson-num">08</span><span className="lesson-title">Case studies: extra factors that influence impact</span><span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/what-case-studies-are"><span className="lesson-num">07</span><span className="lesson-title">What case studies are and why they convince</span><span className="lesson-type"><span className="dot"></span>Lesson · 7 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/case-studies-extra-factors"><span className="lesson-num">08</span><span className="lesson-title">Case studies: extra factors that influence impact</span><span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span></a>
               </div>
             </div>
 
@@ -183,8 +183,8 @@ export default function CourseTrustBuildingPage() {
                 <div className="module-meta">2 lessons + quiz</div>
               </div>
               <div className="module-body">
-                <a className="lesson" href="#"><span className="lesson-num">09</span><span className="lesson-title">Recapping the 3 trust signals</span><span className="lesson-type"><span className="dot"></span>Lesson · 4 min</span></a>
-                <a className="lesson" href="#"><span className="lesson-num">10</span><span className="lesson-title">From proof to persuasion: using trust signals effectively</span><span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/recapping-trust-signals"><span className="lesson-num">09</span><span className="lesson-title">Recapping the 3 trust signals</span><span className="lesson-type"><span className="dot"></span>Lesson · 4 min</span></a>
+                <a className="lesson" href="/courses/trust-building/lessons/from-proof-to-persuasion"><span className="lesson-num">10</span><span className="lesson-title">From proof to persuasion: using trust signals effectively</span><span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span></a>
                 <a className="lesson quiz" href="/courses/trust-building-quiz">
                   <span className="lesson-num">★</span>
                   <span className="lesson-title">Check your learning — Trust-Building knowledge check</span>
@@ -203,7 +203,7 @@ export default function CourseTrustBuildingPage() {
           <h2>Show the right proof at the right moment.</h2>
           <p>10 lessons. ~60 minutes. No card, no upsell. Just the framework — and a knowledge check at the end.</p>
           <div className="final-cta-actions">
-            <a href="/courses/trust-building-lesson" className="btn btn-primary-on-dark">Start the course →</a>
+            <a href="/courses/trust-building/lessons/intro" className="btn btn-primary-on-dark">Start the course →</a>
             <a href="/courses" className="btn btn-secondary-on-dark">Browse all courses</a>
           </div>
         </div>
