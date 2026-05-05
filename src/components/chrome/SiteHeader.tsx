@@ -41,7 +41,7 @@ const SEARCH_INDEX = [
   { t: 'Partners',                    h: '/partners',                                              g: 'Company',  k: 'partners partnerships referral network' },
   { t: 'Resource Hub',                h: '/resource-hub',                                          g: 'Resources', k: 'resources guides articles library knowledge' },
   { t: 'FAQ',                         h: '/faq',                                                   g: 'Resources', k: 'faq questions answers help support' },
-  { t: 'Strategic Review',            h: '/strategic-review-request',                             g: 'Resources', k: 'strategic review request audit assessment consultation' },
+  { t: 'Get Started',                  h: '/get-started',                                          g: 'Resources', k: 'get started strategic review request audit assessment consultation' },
   { t: 'Contact',                     h: '/contact',                                               g: 'Resources', k: 'contact email phone reach out' },
 ] as const;
 
@@ -806,7 +806,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
           >
             <SearchIcon size={18} />
           </button>
-          <a href="/strategic-review-request" className="btn btn-primary btn-sm btn-arrow">
+          <a href="/get-started" className="btn btn-primary btn-sm btn-arrow">
             Claim Your Market
           </a>
           <a
@@ -871,7 +871,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
               </div>
             );
           })}
-          <a href="/strategic-review-request" className="btn btn-primary mobile-cta">
+          <a href="/get-started" className="btn btn-primary mobile-cta">
             Claim Your Market
           </a>
           <a href="/login" className="mobile-login-link">
