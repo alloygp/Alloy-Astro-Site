@@ -17,30 +17,37 @@ interface PageHeroProps {
   h1: ReactNode;
   sub?: ReactNode;
   dark?: boolean;
+  bg?: string;
   accent?: string;
   image?: string;
   sideStat?: ReactNode;
+  /** When true, sideStat renders without the card wrapper (use when sideStat is already a fully styled card). */
+  sideStatRaw?: boolean;
 }
 
-export function PageHero({ eyebrow, h1, sub, dark = false, sideStat, image }: PageHeroProps) {
+export function PageHero({ eyebrow, h1, sub, dark = false, bg, sideStat, sideStatRaw = false, image }: PageHeroProps) {
+  const isDark = dark || !!bg;
+  const bgStyle: CSSProperties = bg ? { background: bg, color: '#fff' } : isDark ? { background: PURPLE, color: '#fff' } : {};
   return (
-    <section className={`hero ${dark ? '' : 'bg-ivory'}`} style={dark ? { background: PURPLE, color: '#fff' } : {}}>
+    <section className={`hero ${isDark ? '' : 'bg-ivory'}`} style={bgStyle}>
       <div className="hero-bg-grid"></div>
       <div className="hero-inner">
         <div style={{ display: 'grid', gridTemplateColumns: sideStat || image ? '1.4fr 1fr' : '1fr', gap: 64, alignItems: 'center' }}>
           <div>
-            <Eyebrow onDark={dark}>{eyebrow}</Eyebrow>
-            <h1 className="display-xl" style={{ margin: '16px 0 22px', color: dark ? '#fff' : PURPLE }}>{h1}</h1>
-            {sub && <p className="lead" style={{ color: dark ? 'rgba(255,255,255,0.78)' : '#555', maxWidth: 720 }}>{sub}</p>}
+            <Eyebrow onDark={isDark}>{eyebrow}</Eyebrow>
+            <h1 className="display-xl" style={{ margin: '16px 0 22px', color: isDark ? '#fff' : PURPLE }}>{h1}</h1>
+            {sub && <p className="lead" style={{ color: isDark ? 'rgba(255,255,255,0.78)' : '#555', maxWidth: 720 }}>{sub}</p>}
           </div>
           {sideStat && (
-            <div style={{
-              background: dark ? 'rgba(255,255,255,0.04)' : '#fff',
-              border: dark ? '1px solid rgba(255,255,255,0.10)' : '1px solid var(--border-subtle)',
-              borderRadius: 16, padding: 32,
-            }}>
-              {sideStat}
-            </div>
+            sideStatRaw ? sideStat : (
+              <div style={{
+                background: isDark ? 'rgba(255,255,255,0.04)' : '#fff',
+                border: isDark ? '1px solid rgba(255,255,255,0.10)' : '1px solid var(--border-subtle)',
+                borderRadius: 16, padding: 32,
+              }}>
+                {sideStat}
+              </div>
+            )
           )}
         </div>
       </div>
