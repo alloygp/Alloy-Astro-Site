@@ -1,112 +1,164 @@
 // src/components/pages/CourseTrustBuildingLessonPage.tsx
-// Lesson view (Module 1, Lesson 2 — "Why trust signals matter to HOA boards")
-import { useState } from 'react';
+// Data-driven lesson page for the Trust-Building course.
+// Accepts a lessonSlug prop from the Astro page.
+import { useState, useEffect, useCallback } from 'react';
+import {
+  LESSONS,
+  SIDEBAR_MODULES,
+  COURSE_STORAGE_KEY,
+  QUIZ_URL,
+  COURSE_URL,
+  getLessonBySlug,
+  getPrevLesson,
+  getNextLesson,
+} from '~/data/courseTrustBuilding';
 
 const ArrowLeft = ({ size = 14 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5" /><path d="M12 19l-7-7 7-7" /></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+  </svg>
 );
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
+  </svg>
 );
 
-type LessonState = { check: string; status: 'pending' | 'active' | 'done' };
+function loadCompleted(): Set<string> {
+  if (typeof window === 'undefined') return new Set();
+  try {
+    const raw = localStorage.getItem(COURSE_STORAGE_KEY);
+    if (!raw) return new Set();
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? new Set(arr) : new Set();
+  } catch {
+    return new Set();
+  }
+}
 
-const initialLessons: LessonState[] = [
-  { check: '✓', status: 'done' }, // L1
-  { check: '2', status: 'active' }, // L2 (current)
-  { check: '3', status: 'pending' },
-  { check: '4', status: 'pending' },
-  { check: '5', status: 'pending' },
-  { check: '6', status: 'pending' },
-  { check: '7', status: 'pending' },
-  { check: '8', status: 'pending' },
-  { check: '9', status: 'pending' },
-  { check: '10', status: 'pending' },
-  { check: '★', status: 'pending' },
-];
+function saveCompleted(slugs: Set<string>) {
+  try {
+    localStorage.setItem(COURSE_STORAGE_KEY, JSON.stringify([...slugs]));
+  } catch {
+    // silently fail
+  }
+}
 
-export default function CourseTrustBuildingLessonPage() {
-  const [lessons, setLessons] = useState<LessonState[]>(initialLessons);
-  const [progress, setProgress] = useState({ count: 2, pct: 20 });
+interface Props {
+  lessonSlug: string;
+}
 
-  const handleComplete = () => {
-    setLessons((prev) => {
-      const next = prev.map((l) => ({ ...l }));
-      const activeIdx = next.findIndex((l) => l.status === 'active');
-      if (activeIdx >= 0) {
-        next[activeIdx].status = 'done';
-        next[activeIdx].check = '✓';
-        if (activeIdx + 1 < next.length) {
-          next[activeIdx + 1].status = 'active';
-        }
-      }
+export default function CourseTrustBuildingLessonPage({ lessonSlug }: Props) {
+  const lesson = getLessonBySlug(lessonSlug);
+  const prevLesson = getPrevLesson(lessonSlug);
+  const nextLesson = getNextLesson(lessonSlug);
+
+  const [completed, setCompleted] = useState<Set<string>>(new Set());
+  const [justCompleted, setJustCompleted] = useState(false);
+
+  // Load progress from localStorage on mount
+  useEffect(() => {
+    setCompleted(loadCompleted());
+  }, []);
+
+  const handleMarkComplete = useCallback(() => {
+    setCompleted((prev) => {
+      const next = new Set(prev);
+      next.add(lessonSlug);
+      saveCompleted(next);
       return next;
     });
-    setProgress({ count: 3, pct: 30 });
-  };
+    setJustCompleted(true);
+    // Navigate to next destination after brief delay
+    setTimeout(() => {
+      const dest = nextLesson
+        ? `/courses/trust-building/lessons/${nextLesson.slug}`
+        : QUIZ_URL;
+      window.location.href = dest;
+    }, 280);
+  }, [lessonSlug, nextLesson]);
 
-  const lessonRow = (idx: number, title: React.ReactNode, sub: string, href = '#') => {
-    const l = lessons[idx];
-    const cls = `lesson-row ${l.status === 'active' ? 'active' : ''} ${l.status === 'done' ? 'done' : ''}`.trim();
+  if (!lesson) {
     return (
-      <a className={cls} href={href} key={idx}>
-        <div className="lesson-check">{l.check}</div>
-        <div className="lesson-text">
-          {title}
-          <small>{sub}</small>
+      <div className="course-page">
+        <div className="shell">
+          <main className="main">
+            <p>Lesson not found.</p>
+            <a href={COURSE_URL}>← Back to course</a>
+          </main>
         </div>
-      </a>
+      </div>
     );
-  };
+  }
 
-  const moduleClass = (idxs: number[]) => {
-    const allDone = idxs.every((i) => lessons[i]?.status === 'done');
-    return `module-block ${allDone ? 'done' : ''}`.trim();
+  // Progress calculation
+  const completedCount = completed.size;
+  const totalItems = LESSONS.length + 1; // 10 lessons + quiz
+  const progressPct = Math.round((completedCount / totalItems) * 100);
+
+  // Sidebar state helpers
+  const isCompleted = (slug: string) => completed.has(slug);
+  const isActive = (slug: string) => slug === lessonSlug;
+
+  const getLessonCheck = (slug: string) => {
+    if (isCompleted(slug)) return '✓';
+    const idx = LESSONS.findIndex((l) => l.slug === slug);
+    return String(idx + 1);
   };
 
   return (
     <div className="course-page">
       <div className="shell">
-        {/* Sidebar curriculum */}
+        {/* Sidebar */}
         <aside className="sidebar">
-         <div className="sidebar-inner">
-          <div className="sidebar-head">
-            <div className="sidebar-eyebrow">Building Trust</div>
-            <div className="sidebar-title">Trust-Building for CAM Firms</div>
-            <div className="sidebar-meta">10 lessons · 1 quiz · <strong>{progress.pct}% complete</strong></div>
-          </div>
+          <div className="sidebar-inner">
+            <div className="sidebar-head">
+              <div className="sidebar-eyebrow">Building Trust</div>
+              <div className="sidebar-title">Trust-Building for CAM Firms</div>
+              <div className="sidebar-meta">
+                10 lessons · 1 quiz · <strong>{progressPct}% complete</strong>
+              </div>
+            </div>
 
-          <div className={moduleClass([0, 1])} style={{ ['--module-color' as never]: '#381c4f' }}>
-            <div className="module-label">Module 1 · Introduction</div>
-            {lessonRow(0, <>Intro to <em>Trust-Building for CAM Firms</em></>, '4 min · Lesson')}
-            {lessonRow(1, <>Why trust signals matter to HOA boards</>, '6 min · Lesson')}
-          </div>
+            {SIDEBAR_MODULES.map((mod, mi) => {
+              const modLessons = mod.lessons.map((i) => LESSONS[i]).filter((l): l is NonNullable<typeof l> => l != null);
+              const allDone = modLessons.every((l) => isCompleted(l.slug));
+              const isLastModule = mi === SIDEBAR_MODULES.length - 1;
 
-          <div className={moduleClass([2, 3])} style={{ ['--module-color' as never]: '#d9356e' }}>
-            <div className="module-label">Module 2 · Reviews</div>
-            {lessonRow(2, <>What reviews are and why they carry weight</>, '7 min · Lesson')}
-            {lessonRow(3, <>Reviews: extra factors that influence impact</>, '5 min · Lesson')}
+              return (
+                <div
+                  key={mi}
+                  className={`module-block${allDone ? ' done' : ''}`}
+                  style={{ ['--module-color' as never]: mod.color }}
+                >
+                  <div className="module-label">{mod.label}</div>
+                  {modLessons.map((l) => (
+                    <a
+                      key={l.slug}
+                      className={`lesson-row${isActive(l.slug) ? ' active' : ''}${isCompleted(l.slug) ? ' done' : ''}`}
+                      href={`/courses/trust-building/lessons/${l.slug}`}
+                    >
+                      <div className="lesson-check">{getLessonCheck(l.slug)}</div>
+                      <div className="lesson-text">
+                        {l.title}
+                        <small>{l.duration} · Lesson</small>
+                      </div>
+                    </a>
+                  ))}
+                  {/* Add quiz row to last module */}
+                  {isLastModule && (
+                    <a className="lesson-row" href={QUIZ_URL}>
+                      <div className="lesson-check">★</div>
+                      <div className="lesson-text">
+                        Check your learning
+                        <small>5 min · Quiz</small>
+                      </div>
+                    </a>
+                  )}
+                </div>
+              );
+            })}
           </div>
-
-          <div className={moduleClass([4, 5])} style={{ ['--module-color' as never]: '#f5d880' }}>
-            <div className="module-label">Module 3 · Testimonials</div>
-            {lessonRow(4, <>What testimonials are and why they stand out</>, '6 min · Lesson')}
-            {lessonRow(5, <>Testimonials: extra factors that influence impact</>, '5 min · Lesson')}
-          </div>
-
-          <div className={moduleClass([6, 7])} style={{ ['--module-color' as never]: '#aed7d0' }}>
-            <div className="module-label">Module 4 · Case studies</div>
-            {lessonRow(6, <>What case studies are and why they convince</>, '7 min · Lesson')}
-            {lessonRow(7, <>Case studies: extra factors that influence impact</>, '6 min · Lesson')}
-          </div>
-
-          <div className={moduleClass([8, 9, 10])} style={{ ['--module-color' as never]: '#381c4f' }}>
-            <div className="module-label">Module 5 · Wrap-up</div>
-            {lessonRow(8, <>Recapping the 3 trust signals</>, '4 min · Lesson')}
-            {lessonRow(9, <>From proof to persuasion</>, '6 min · Lesson')}
-            {lessonRow(10, <>Check your learning</>, '5 min · Quiz', '/courses/trust-building-quiz')}
-          </div>
-         </div>
         </aside>
 
         {/* Main content */}
@@ -114,25 +166,31 @@ export default function CourseTrustBuildingLessonPage() {
           <div className="crumbs">
             <a href="/courses">Courses</a>
             <span className="sep">/</span>
-            <a href="/courses/trust-building">Trust-Building for CAM Firms</a>
+            <a href={COURSE_URL}>Trust-Building for CAM Firms</a>
             <span className="sep">/</span>
-            <span className="here">Module 1 · Lesson 2</span>
+            <span className="here">{lesson.moduleLabel} · Lesson {lesson.index}</span>
           </div>
 
-          <div className="lesson-counter">Lesson 02 of 10</div>
-          <h1 className="lesson-h1">Why trust signals matter to HOA boards</h1>
+          <div className="lesson-counter">Lesson {String(lesson.index).padStart(2, '0')} of 10</div>
+          <h1 className="lesson-h1">{lesson.title}</h1>
 
           <div className="lesson-meta">
             <span className="lesson-meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-              6 minutes
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+              </svg>
+              {lesson.duration}
             </span>
             <span className="lesson-meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2" /></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+              </svg>
               Video + transcript
             </span>
             <span className="lesson-meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
               Foundations
             </span>
           </div>
@@ -140,73 +198,81 @@ export default function CourseTrustBuildingLessonPage() {
           {/* Video placeholder */}
           <div className="video">
             <button className="video-play" aria-label="Play lesson video">
-              <svg width="32" height="32" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+              <svg width="32" height="32" viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
             </button>
-            <div className="video-caption">Lesson 2 · 6 min · Tap to play</div>
+            <div className="video-caption">Lesson {lesson.index} · {lesson.duration} · Tap to play</div>
           </div>
 
-          {/* Lesson body */}
-          <div className="lesson-body">
-            <p>Every CAM firm sells the same thing on paper: experienced managers, responsive service, fair pricing, the right software. By the time a board reaches the proposal stage, they've heard those four claims a dozen times. The thing that separates a firm that gets considered from a firm that gets <em>chosen</em> is proof — and not all proof is created equal.</p>
-
-            <h2>Boards don't decide on features. They decide on confidence.</h2>
-            <p>HOA board decisions are high-stakes and slow-moving. The community's finances, property values, and quality of life are riding on whether they pick the right partner. Most boards aren't in management — they're volunteers, evaluating something they don't do for a living. They lean heavily on signals from people they trust to <em>de-risk</em> the choice.</p>
-
-            <div className="pull-quote">
-              Boards don't pick the firm with the best pitch. They pick the firm whose proof feels least risky.
-            </div>
-
-            <p>That's why trust signals — reviews, testimonials, and case studies — sit at the center of every winning CAM marketing system. They aren't decoration on a website. They're the evidence boards reach for when they're trying to confirm what they already suspect: that you're the safer choice.</p>
-
-            <h2>Three signals, three jobs</h2>
-            <p>Each signal does a different job at a different stage of the board's journey:</p>
-
-            <ul>
-              <li><strong>Reviews</strong> — Volume and recency. Show the board you have an active, satisfied homeowner base. They check this <em>before</em> they reach out.</li>
-              <li><strong>Testimonials</strong> — A specific board member or homeowner saying a specific thing. They check this <em>during</em> the consideration phase.</li>
-              <li><strong>Case studies</strong> — A community like theirs, a problem like theirs, a measurable result. They check this <em>before</em> they vote.</li>
-            </ul>
-
-            <p>Showing the wrong signal at the wrong moment is the single most common mistake CAM firms make in their marketing. The rest of this course unpacks each signal, what makes it work, and the small things that double or halve its impact.</p>
-
-            <div className="takeaways">
-              <div className="takeaways-eyebrow">Key takeaways</div>
-              <div className="takeaways-title">Before you move on —</div>
-              <ul>
-                <li>Boards default to the <strong>safer</strong> firm, not the better-pitched one.</li>
-                <li>Reviews, testimonials, and case studies aren't interchangeable — each works at a specific stage of the board's decision.</li>
-                <li>Showing the right proof at the right moment is what trust-building means in practice.</li>
-              </ul>
-            </div>
-
-            <p>In the next module, we'll zero in on reviews — what makes them count for HOA boards, why volume matters more than perfect star averages, and the extra factors that change how much weight a board gives them.</p>
-          </div>
+          {/* Lesson body rendered from HTML */}
+          <div
+            className="lesson-body"
+            dangerouslySetInnerHTML={{ __html: lesson.bodyHtml }}
+          />
 
           {/* Lesson footer / nav */}
           <div className="lesson-foot">
             <div className="complete-row">
-              <button className="btn btn-primary" onClick={handleComplete}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-                Mark complete &amp; continue
+              <button
+                className={`btn btn-primary${justCompleted ? ' btn-success' : ''}`}
+                onClick={handleMarkComplete}
+                disabled={justCompleted}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {justCompleted
+                  ? 'Marked complete!'
+                  : isCompleted(lessonSlug)
+                    ? 'Continue to next lesson →'
+                    : 'Mark complete & continue'}
               </button>
-              <a href="#" className="btn btn-ghost">Skip for now →</a>
+              {nextLesson ? (
+                <a href={`/courses/trust-building/lessons/${nextLesson.slug}`} className="btn btn-ghost">
+                  Skip for now →
+                </a>
+              ) : (
+                <a href={QUIZ_URL} className="btn btn-ghost">Skip to quiz →</a>
+              )}
             </div>
 
             <div className="nav-row">
-              <a className="nav-card" href="#">
-                <div className="nav-card-label">
-                  <ArrowLeft size={12} />
-                  Previous lesson
-                </div>
-                <div className="nav-card-title">Intro to <em>Trust-Building for CAM Firms</em></div>
-              </a>
-              <a className="nav-card next" href="#">
-                <div className="nav-card-label">
-                  Next lesson · Module 2
-                  <ArrowRight size={12} />
-                </div>
-                <div className="nav-card-title">What reviews are and why they carry weight</div>
-              </a>
+              {prevLesson ? (
+                <a className="nav-card" href={`/courses/trust-building/lessons/${prevLesson.slug}`}>
+                  <div className="nav-card-label">
+                    <ArrowLeft size={12} />
+                    Previous lesson
+                  </div>
+                  <div className="nav-card-title">{prevLesson.title}</div>
+                </a>
+              ) : (
+                <a className="nav-card" href={COURSE_URL}>
+                  <div className="nav-card-label">
+                    <ArrowLeft size={12} />
+                    Back to course
+                  </div>
+                  <div className="nav-card-title">Trust-Building for CAM Firms</div>
+                </a>
+              )}
+
+              {nextLesson ? (
+                <a className="nav-card next" href={`/courses/trust-building/lessons/${nextLesson.slug}`}>
+                  <div className="nav-card-label">
+                    Next lesson · {nextLesson.moduleLabel}
+                    <ArrowRight size={12} />
+                  </div>
+                  <div className="nav-card-title">{nextLesson.title}</div>
+                </a>
+              ) : (
+                <a className="nav-card next" href={QUIZ_URL}>
+                  <div className="nav-card-label">
+                    Up next · Module 5
+                    <ArrowRight size={12} />
+                  </div>
+                  <div className="nav-card-title">Check your learning — knowledge quiz</div>
+                </a>
+              )}
             </div>
           </div>
         </main>
