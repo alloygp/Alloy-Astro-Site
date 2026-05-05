@@ -1,5 +1,4 @@
 // src/components/pages/ContactPage.tsx
-// Ported from pages.jsx ContactPage() + Field helper.
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
 import Eyebrow from '~/components/Eyebrow';
@@ -7,32 +6,83 @@ import Button from '~/components/Button';
 import Icon from '~/components/Icon';
 import { PURPLE, PINK, YELLOW } from '~/lib/tokens';
 
-interface FormState { name: string; company: string; email: string; market: string; associations: string; challenge: string; }
+interface ContactFormState { name: string; email: string; message: string; subscribe: boolean; }
+interface LeadFormState { name: string; email: string; company: string; units: string; goal: string; }
+interface Props { variant?: 'contact' | 'lead'; }
 
-export default function ContactPage() {
+export default function ContactPage({ variant = 'lead' }: Props) {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState<FormState>({ name: '', company: '', email: '', market: '', associations: '', challenge: '' });
-  const update = (k: keyof FormState, v: string) => setForm({ ...form, [k]: v });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [contactForm, setContactForm] = useState<ContactFormState>({ name: '', email: '', message: '', subscribe: false });
+  const [leadForm, setLeadForm] = useState<LeadFormState>({ name: '', email: '', company: '', units: '', goal: '' });
+
+  const updateContact = (k: keyof ContactFormState, v: string | boolean) =>
+    setContactForm(f => ({ ...f, [k]: v }));
+  const updateLead = (k: keyof LeadFormState, v: string) =>
+    setLeadForm(f => ({ ...f, [k]: v }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const fd = new FormData();
+    const endpoint = variant === 'contact' ? '/api/contact' : '/api/lead';
+
+    if (variant === 'contact') {
+      fd.append('name', contactForm.name);
+      fd.append('email', contactForm.email);
+      fd.append('message', contactForm.message);
+      fd.append('subscribe', contactForm.subscribe ? 'true' : 'false');
+    } else {
+      fd.append('name', leadForm.name);
+      fd.append('email', leadForm.email);
+      fd.append('company', leadForm.company);
+      fd.append('units', leadForm.units);
+      fd.append('goal', leadForm.goal);
+    }
+
+    try {
+      const res = await fetch(endpoint, { method: 'POST', body: fd });
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error ?? 'Something went wrong. Please try again.');
+      } else {
+        setSubmitted(true);
+      }
+    } catch {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const isContact = variant === 'contact';
 
   return (
     <section style={{ background: PURPLE, minHeight: 'calc(100vh - 80px)', color: '#fff', padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
-      {/* Subtle gradient — pulled WAY back so the field reads as deep purple, not pink-washed.
-          Pink hint is small and tucked into the corner; yellow ghost barely visible. */}
+      {/* Subtle gradient — pulled WAY back so the field reads as deep purple, not pink-washed. */}
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 92% 8%, rgba(217,53,110,0.14) 0%, transparent 38%), radial-gradient(circle at 8% 95%, rgba(245,216,128,0.05) 0%, transparent 45%)' }}></div>
 
       <div className="container" style={{ position: 'relative', maxWidth: 1080, margin: '0 auto' }}>
 
         {/* Title block — centered above the form */}
         <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 48px' }}>
-          <Eyebrow onDark noLine>Claim Your Market</Eyebrow>
+          <Eyebrow onDark noLine>{isContact ? 'Get In Touch' : 'Claim Your Market'}</Eyebrow>
           <h1 className="display-xl" style={{ margin: '16px 0 20px', color: '#fff' }}>
-            30 minutes. No pitch.<br />
-            <span style={{ color: YELLOW }}>Just diagnostic clarity.</span>
+            {isContact ? (
+              <>Let's talk.<br /><span style={{ color: YELLOW }}>Real humans, real replies.</span></>
+            ) : (
+              <>30 minutes. No pitch.<br /><span style={{ color: YELLOW }}>Just diagnostic clarity.</span></>
+            )}
           </h1>
           <p className="lead on-dark" style={{ margin: 0 }}>
-            Tell us about your CAM firm. We'll confirm whether your metro is open and book a
-            30-minute diagnostic — where the leaks are, which engine to fix first, and what the
-            next 18 months could look like.
+            {isContact
+              ? "Have a question or just want to connect? Send us a message and we'll get back to you within one business day."
+              : "Tell us about your CAM firm. We'll confirm whether your metro is open and book a 30-minute diagnostic — where the leaks are, which engine to fix first, and what the next 18 months could look like."
+            }
           </p>
         </div>
 
@@ -44,27 +94,71 @@ export default function ContactPage() {
                 <div style={{ width: 80, height: 80, borderRadius: 999, background: 'var(--alloy-green-tint)', color: '#2c6a62', margin: '0 auto 20px', display: 'grid', placeItems: 'center' }}>
                   <Icon name="check" size={40} strokeWidth={2.5} />
                 </div>
-                <h2 className="display-md" style={{ color: PURPLE, margin: '0 0 12px' }}>Got it. We'll be in touch within one business day.</h2>
-                <p style={{ color: '#555', lineHeight: 1.6 }}>If your market is still open, we'll send a calendar link for the 30-minute diagnostic. If it's already claimed, we'll add you to the waitlist and let you know if it opens.</p>
+                <h2 className="display-md" style={{ color: PURPLE, margin: '0 0 12px' }}>
+                  Got it. We'll be in touch within one business day.
+                </h2>
+                <p style={{ color: '#555', lineHeight: 1.6 }}>
+                  {isContact
+                    ? "Thanks for reaching out. We typically respond within 1 business day."
+                    : "If your market is still open, we'll send a calendar link for the 30-minute diagnostic. If it's already claimed, we'll add you to the waitlist and let you know if it opens."
+                  }
+                </p>
               </div>
             ) : (
               <>
-                <div className="display-md" style={{ color: PURPLE, fontSize: 24, marginBottom: 6 }}>Tell us about your firm</div>
-                <p style={{ color: '#888', fontSize: 14, marginBottom: 28 }}>30 seconds. Five fields. Real human reply within one business day.</p>
-                <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} style={{ display: 'grid', gap: 16 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                    <Field label="Your name" value={form.name} onChange={v => update('name', v)} required />
-                    <Field label="CAM company" value={form.company} onChange={v => update('company', v)} required />
+                <div className="display-md" style={{ color: PURPLE, fontSize: 24, marginBottom: 6 }}>
+                  {isContact ? 'Send us a message' : 'Tell us about your firm'}
+                </div>
+                <p style={{ color: '#888', fontSize: 14, marginBottom: 28 }}>
+                  {isContact
+                    ? 'Real human reply within one business day.'
+                    : '30 seconds. Five fields. Real human reply within one business day.'
+                  }
+                </p>
+
+                {error && (
+                  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 8, padding: '12px 14px', color: '#b91c1c', fontSize: 14, marginBottom: 16 }}>
+                    {error}
                   </div>
-                  <Field label="Work email" type="email" value={form.email} onChange={v => update('email', v)} required />
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 16 }}>
-                    <Field label="Primary metro" value={form.market} placeholder="City, State" onChange={v => update('market', v)} required />
-                    <Field label="Associations under management" value={form.associations} placeholder="e.g. 120" onChange={v => update('associations', v)} />
-                  </div>
-                  <Field label="Biggest growth challenge" value={form.challenge} onChange={v => update('challenge', v)} multiline placeholder="One sentence is fine." />
+                )}
+
+                <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 16 }}>
+                  {isContact ? (
+                    <>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <Field label="Your name" value={contactForm.name} onChange={v => updateContact('name', v)} required />
+                        <Field label="Work email" type="email" value={contactForm.email} onChange={v => updateContact('email', v)} required />
+                      </div>
+                      <Field label="Message" value={contactForm.message} onChange={v => updateContact('message', v)} required multiline placeholder="What's on your mind?" />
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
+                        <input
+                          type="checkbox"
+                          checked={contactForm.subscribe}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => updateContact('subscribe', e.target.checked)}
+                          style={{ width: 16, height: 16, accentColor: PURPLE }}
+                        />
+                        <span style={{ fontSize: 13, color: '#555' }}>Keep me in the loop with Alloy's growth insights</span>
+                      </label>
+                    </>
+                  ) : (
+                    <>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <Field label="Your name" value={leadForm.name} onChange={v => updateLead('name', v)} required />
+                        <Field label="Work email" type="email" value={leadForm.email} onChange={v => updateLead('email', v)} required />
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <Field label="CAM company" value={leadForm.company} onChange={v => updateLead('company', v)} required />
+                        <Field label="Associations under management" value={leadForm.units} placeholder="e.g. 120" onChange={v => updateLead('units', v)} />
+                      </div>
+                      <Field label="Primary growth goal" value={leadForm.goal} onChange={v => updateLead('goal', v)} multiline placeholder="One sentence is fine." />
+                    </>
+                  )}
+
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 16, flexWrap: 'wrap' }}>
                     <div style={{ fontSize: 12, color: '#888', maxWidth: '60%' }}>By submitting, you agree to a real conversation. We won't spam you.</div>
-                    <Button variant="primary" arrow>Request my diagnostic</Button>
+                    <Button variant="primary" arrow>
+                      {loading ? 'Sending…' : isContact ? 'Send message' : 'Request my diagnostic'}
+                    </Button>
                   </div>
                 </form>
               </>

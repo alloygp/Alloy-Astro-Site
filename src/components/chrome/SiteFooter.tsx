@@ -117,13 +117,6 @@ function FooterCol({ title, items }: FooterColProps) {
   );
 }
 
-// Newsletter signup — Mailchimp embedded form (JSONP, no redirect).
-// To wire up: replace MAILCHIMP_ACTION + MAILCHIMP_HONEYPOT_NAME with the
-// real values from your Mailchimp audience's embedded form code.
-const MAILCHIMP_ACTION =
-  'https://alloygp.us21.list-manage.com/subscribe/post?u=REPLACE_USER_ID&id=REPLACE_LIST_ID&f_id=REPLACE_F_ID';
-const MAILCHIMP_HONEYPOT_NAME = 'b_REPLACE_USER_ID_REPLACE_LIST_ID';
-
 type Status = 'idle' | 'submitting' | 'ok' | 'err';
 
 function NewsletterSignup() {
@@ -131,7 +124,7 @@ function NewsletterSignup() {
   const [status, setStatus] = useState<Status>('idle');
   const [msg, setMsg] = useState('');
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       setStatus('err');
@@ -139,42 +132,23 @@ function NewsletterSignup() {
       return;
     }
     setStatus('submitting');
-    const cbName = 'alloyMcCb_' + Date.now();
-    const url =
-      MAILCHIMP_ACTION.replace('/post?', '/post-json?') +
-      '&EMAIL=' +
-      encodeURIComponent(email) +
-      '&' +
-      MAILCHIMP_HONEYPOT_NAME +
-      '=&c=' +
-      cbName;
-    const w = window as unknown as Record<string, (resp: { result?: string; msg?: string }) => void>;
-    let script: HTMLScriptElement | null = null;
-    w[cbName] = (resp) => {
-      if (resp && resp.result === 'success') {
+    try {
+      const fd = new FormData();
+      fd.append('email', email);
+      const res = await fetch('/api/subscribe', { method: 'POST', body: fd });
+      const json = await res.json();
+      if (res.ok) {
         setStatus('ok');
         setMsg("You're in. First Alloy briefing lands soon.");
         setEmail('');
       } else {
         setStatus('err');
-        setMsg(
-          resp && resp.msg
-            ? String(resp.msg).replace(/<[^>]+>/g, '')
-            : 'Something went wrong. Try again?',
-        );
+        setMsg(json.error ?? 'Something went wrong. Try again?');
       }
-      delete w[cbName];
-      script?.remove();
-    };
-    script = document.createElement('script');
-    script.src = url;
-    script.onerror = () => {
+    } catch {
       setStatus('err');
       setMsg("Couldn't reach the list. Try again in a moment.");
-      delete w[cbName];
-      script?.remove();
-    };
-    document.body.appendChild(script);
+    }
   };
 
   return (
@@ -200,10 +174,6 @@ function NewsletterSignup() {
           aria-label="Email address"
           required
         />
-        {/* Mailchimp honeypot */}
-        <div style={{ position: 'absolute', left: -5000 }} aria-hidden="true">
-          <input type="text" name={MAILCHIMP_HONEYPOT_NAME} tabIndex={-1} defaultValue="" />
-        </div>
         <button type="submit" disabled={status === 'submitting'}>
           {status === 'submitting'
             ? 'Subscribing…'
