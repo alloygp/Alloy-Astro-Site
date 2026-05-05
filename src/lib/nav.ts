@@ -17,6 +17,7 @@ export interface NavPillarItem {
   href: string;
   subtitle?: string;
   isNew?: boolean;
+  icon?: string;
 }
 
 export interface NavPillar {
@@ -29,14 +30,49 @@ export interface NavPillar {
   items: NavPillarItem[];
 }
 
+/** Items used in Resources and About mega panels */
+export interface NavMegaItem {
+  label: string;
+  href: string;
+  subtitle?: string;
+  icon?: string;
+}
+
+/** Feature card that appears on the right side of Resources / About mega panels */
+export interface NavFeature {
+  eyebrow: string;
+  href: string;
+  cta: string;
+  tag?: string;
+  // Course / resource card fields
+  title?: string;
+  sub?: string;
+  // Operator review card fields
+  quote?: string;
+  name?: string;
+  role?: string;
+}
+
 export interface NavItem {
   id: string;
   label: string;
   href: string;
+  /** Our Approach mega panel (EngineLoop cards) */
   mega?: boolean;
+  /** Services mega panel (3-pillar columns) */
   megaServices?: boolean;
+  /** Resources mega panel (icon items + feature card) */
+  megaResources?: boolean;
+  /** About mega panel (icon items + quote card) */
+  megaAbout?: boolean;
+  /** Pillar columns for megaServices */
   pillars?: NavPillar[];
+  /** Children for mega (Our Approach) or plain dropdown */
   children?: NavChild[];
+  /** Items for megaResources / megaAbout left column */
+  items?: NavMegaItem[];
+  /** Feature card for megaResources / megaAbout right column */
+  feature?: NavFeature;
 }
 
 export const NAV: NavItem[] = [
@@ -58,11 +94,13 @@ export const NAV: NavItem[] = [
             label: 'CAM Marketing Services',
             href: '/hoa-cam-marketing-services',
             subtitle: 'Full-funnel marketing built for HOA management',
+            icon: 'megaphone',
           },
           {
-            label: 'Property Management SEO & AI Search',
+            label: 'CAM SEO & AI Search',
             href: '/property-management-seo',
             subtitle: 'Rank where boards search — Google and ChatGPT',
+            icon: 'search',
           },
         ],
       },
@@ -78,6 +116,7 @@ export const NAV: NavItem[] = [
             label: 'Groundwork — Fractional BD',
             href: '/groundwork',
             subtitle: 'Senior BD muscle without the senior BD salary',
+            icon: 'handshake',
           },
         ],
       },
@@ -93,18 +132,21 @@ export const NAV: NavItem[] = [
             label: 'HOA Board Education Programs',
             href: '/hoa-board-education-programs',
             subtitle: 'Educate boards so they renew with confidence',
+            icon: 'graduation',
           },
           {
-            label: 'Newsletter Production for HOA Management',
-            href: '/services/newsletter-production-for-hoa-management',
+            label: 'Newsletter Production',
+            href: '/services/hoa-newsletter-production',
             subtitle: 'Done-for-you newsletters boards actually read',
             isNew: true,
+            icon: 'newsletter',
           },
           {
-            label: 'Social Media Marketing for HOA Management',
+            label: 'Social Media Marketing for HOA',
             href: '/services/social-media-marketing-for-hoa-management-companies',
             subtitle: 'Stay visible between renewal conversations',
             isNew: true,
+            icon: 'social',
           },
         ],
       },
@@ -151,21 +193,75 @@ export const NAV: NavItem[] = [
     id: 'resources',
     label: 'Resources',
     href: '/resource-hub',
-    children: [
-      { label: 'Resource Hub', href: '/resource-hub' },
-      { label: 'Courses', href: '/courses' },
-      { label: 'Results & Case Studies', href: '/results' },
-      { label: 'FAQ', href: '/faq' },
+    megaResources: true,
+    items: [
+      {
+        label: 'Resource Hub',
+        href: '/resource-hub',
+        subtitle: 'Guides, frameworks, and tools for CAM growth',
+        icon: 'library',
+      },
+      {
+        label: 'Courses',
+        href: '/courses',
+        subtitle: 'Self-paced training for boards and CAM teams',
+        icon: 'graduation',
+      },
+      {
+        label: 'Results & Case Studies',
+        href: '/results',
+        subtitle: 'Real outcomes from real CAM companies',
+        icon: 'chart',
+      },
+      {
+        label: 'FAQ',
+        href: '/faq',
+        subtitle: 'Common questions about working with Alloy',
+        icon: 'help',
+      },
     ],
+    feature: {
+      eyebrow: 'Featured Course',
+      title: 'Trust Building',
+      sub: 'A compact program for boards on what to expect from a great management partner — and how to spot a great one.',
+      tag: 'Self-paced · 4 lessons',
+      href: '/courses/trust-building',
+      cta: 'Open course',
+    },
   },
   {
     id: 'about',
     label: 'About',
     href: '/about',
-    children: [
-      { label: 'About', href: '/about' },
-      { label: 'Testimonials', href: '/about/testimonials' },
-      { label: 'We-Know-CAM™', href: '/we-know-cam' },
+    megaAbout: true,
+    items: [
+      {
+        label: 'About Alloy',
+        href: '/about',
+        subtitle: 'The operators-turned-marketers behind the system',
+        icon: 'library',
+      },
+      {
+        label: 'Testimonials',
+        href: '/about/testimonials',
+        subtitle: 'Real CAM partners on what changed',
+        icon: 'chart',
+      },
+      {
+        label: 'We-Know-CAM™',
+        href: '/we-know-cam',
+        subtitle: 'Why category fluency beats generic agency speak',
+        icon: 'graduation',
+      },
     ],
+    feature: {
+      eyebrow: 'Operator Review',
+      quote: 'Alloy has been such a valuable partner for our HOA management company. Skyler, Justin, and the whole team are not only incredibly talented but also genuinely invested in our success.',
+      name: 'Rim E.',
+      role: 'HOA Management Operator',
+      tag: '5 stars · Verified partner',
+      href: '/about/testimonials',
+      cta: 'Read more testimonials',
+    },
   },
 ];
