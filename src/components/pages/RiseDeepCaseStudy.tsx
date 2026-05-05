@@ -31,10 +31,10 @@ function RiseHero() {
           <div>
             <Eyebrow onDark color={YELLOW}>Signature case study · 18 months · BoardSuite Accelerate</Eyebrow>
             <h1 className="display-xl" style={{ color: '#fff', margin: '20px 0 24px', letterSpacing: '-0.025em' }}>
-              How RISE AMG went from <span style={{ color: PINK }}>chasing RFPs</span> to <span style={{ color: YELLOW }}>boards reaching out directly.</span>
+              How Apex CMG<sup style={{ fontSize: '0.45em', verticalAlign: 'super', opacity: 0.7 }}>*</sup> went from <span style={{ color: PINK }}>chasing RFPs</span> to <span style={{ color: YELLOW }}>boards reaching out directly.</span>
             </h1>
             <p className="lead on-dark" style={{ maxWidth: 640, marginBottom: 36 }}>
-              In 2022, RISE was growing organically — winning the deals their referral network put in front of them, losing the ones that needed a system. By month 18, they were turning down associations that didn't fit their portfolio.
+              In 2022, Apex CMG was growing organically — winning the deals their referral network put in front of them, losing the ones that needed a system. By month 18, they were turning down associations that didn't fit their portfolio.
             </p>
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
               <Button variant="primary" arrow href="/strategic-review-request">Build the same system</Button>
@@ -69,7 +69,7 @@ function RiseBeforeAfter() {
     { label: 'Pipeline', before: 'Sporadic RFPs from referrals. Volume tied to who-knew-who.', after: 'Steady inbound from boards searching for management. Pipeline you can model.' },
     { label: 'Search visibility', before: 'Page 2–3 for the queries boards actually run.', after: 'Top three for primary metro + cited inside AI search answers.' },
     { label: 'Authority', before: 'Capable team, but invisible outside referral circle.', after: 'Quoted in trade press. Speaking at chapter events. Boards arrive pre-sold.' },
-    { label: 'Proposal process', before: 'Customized from scratch each time. Lost on price, not fit.', after: "Standardized template + discovery script. Boards see RISE's thinking, not just rates." },
+    { label: 'Proposal process', before: 'Customized from scratch each time. Lost on price, not fit.', after: "Standardized template + discovery script. Boards see Apex CMG's thinking, not just rates." },
     { label: 'Retention', before: 'Annual churn assumed inevitable. No board feedback loop.', after: 'Onboarding + board education curriculum. Renewals are a conversation, not a re-pitch.' },
     { label: 'BD motion', before: 'Owner-led, episodic, dependent on calendar gaps.', after: 'Groundwork BD running concurrent outreach to qualified, exclusive territories.' },
   ];
@@ -79,7 +79,7 @@ function RiseBeforeAfter() {
         <div style={{ marginBottom: 36, maxWidth: 720 }}>
           <Eyebrow>Before · after</Eyebrow>
           <h2 className="display-lg" style={{ margin: '14px 0 14px', color: PURPLE }}>Same team. Same market.<br/>Different operating system.</h2>
-          <p className="lead">Nothing about RISE's people changed. What changed is the system underneath them — and what that system makes possible.</p>
+          <p className="lead">Nothing about Apex CMG's people changed. What changed is the system underneath them — and what that system makes possible.</p>
         </div>
         <div style={{ border: '1px solid var(--border-subtle)', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr 1fr', background: 'var(--alloy-off-white)', borderBottom: '1px solid var(--border-subtle)' }}>
@@ -112,11 +112,11 @@ function RiseSystemMap() {
             </h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
               <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-yellow)', flexShrink: 0 }}>
-                <img src={ASSET('assets/jason-delgado.jpg')} alt="Jason Delgado" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src={ASSET('assets/apex-cmg-ceo.jpg')} alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: '#fff', fontSize: 14 }}>Jason Delgado</div>
-                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)' }}>CEO, RISE AMG · month 9</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: '#fff', fontSize: 14 }}>Marcus Webb</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)' }}>CEO, Apex CMG* · month 9</div>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ function RiseSystemMap() {
 function RiseSystemDiagram() {
   return (
     <div style={{ position: 'relative', aspectRatio: '1.2/1', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 14, padding: 32 }}>
-      <svg viewBox="0 0 600 500" width="100%" style={{ display: 'block' }} aria-label="The RISE growth system: three engines feeding one revenue motion">
+      <svg viewBox="0 0 600 500" width="100%" style={{ display: 'block' }} aria-label="The Apex CMG growth system: three engines feeding one revenue motion">
         <defs>
           <pattern id="riseGrid" width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
@@ -139,11 +139,11 @@ function RiseSystemDiagram() {
         <rect width="600" height="500" fill="url(#riseGrid)" />
         <g>
           <circle cx="300" cy="250" r="78" fill="#381c4f" stroke="#f5d880" strokeWidth="2" />
-          <text x="300" y="240" textAnchor="middle" fontFamily="var(--font-display)" fontSize="11" letterSpacing="0.16em" fontWeight="800" fill="#f5d880">RISE</text>
+          <text x="300" y="240" textAnchor="middle" fontFamily="var(--font-display)" fontSize="11" letterSpacing="0.16em" fontWeight="800" fill="#f5d880">Apex CMG</text>
           <text x="300" y="258" textAnchor="middle" fontFamily="var(--font-display)" fontSize="13" fontWeight="700" fill="#fff">growth</text>
           <text x="300" y="274" textAnchor="middle" fontFamily="var(--font-display)" fontSize="13" fontWeight="700" fill="#fff">operating system</text>
         </g>
-        <RiseEngineNode cx={140} cy={130} color="#d9356e" label="ATTRACT" sub="Boards find RISE first" />
+        <RiseEngineNode cx={140} cy={130} color="#d9356e" label="ATTRACT" sub="Boards find Apex CMG first" />
         <RiseEngineNode cx={460} cy={130} color="#f5d880" label="AUTHORITY" sub="Pre-sold before pitch" />
         <RiseEngineNode cx={300} cy={420} color="#aed7d0" label="CLOSE & KEEP" sub="Wins → renewals" />
         <path d="M 195 165 Q 240 200 240 220" fill="none" stroke="#d9356e" strokeWidth="2" strokeDasharray="4 3" opacity="0.7" />
@@ -191,7 +191,7 @@ function RiseTimeline() {
     { label: 'Months 3–6', title: 'Authority & visibility', color: YELLOW, headline: 'Become findable. Become quotable.', bullets: [
       'Pillar content campaign: 14 cornerstone articles answering the questions boards search.',
       'Google Business Profile rebuild + 40+ targeted local citations.',
-      'GEO / AI-search optimization — RISE began appearing inside ChatGPT and Perplexity answers.',
+      'GEO / AI-search optimization — Apex CMG began appearing inside ChatGPT and Perplexity answers.',
       'First trade press placements + chapter speaking slots booked.',
     ]},
     { label: 'Months 6–12', title: 'Compounding inbound', color: GREEN, headline: 'The flywheel turns.', bullets: [
@@ -203,8 +203,8 @@ function RiseTimeline() {
     { label: 'Months 12–18', title: 'Engineered, not lucky', color: BLUE, headline: 'Selectivity, not scarcity.', bullets: [
       'Lead intake landed at +535%. Proposal requests at 3×. Monthly opportunities at +1,580% YoY.',
       'Onboarding + board education curriculum live — renewals stopped being a re-pitch.',
-      "RISE began declining associations that weren't a portfolio fit.",
-      "Operating system documented and run by RISE's team — Alloy moved into strategic-partner cadence.",
+      "Apex CMG began declining associations that weren't a portfolio fit.",
+      "Operating system documented and run by Apex CMG's team — Alloy moved into strategic-partner cadence.",
     ]},
   ];
   return (
@@ -245,7 +245,7 @@ function RiseTimeline() {
 
 function RiseEngines() {
   const engines = [
-    { name: 'Attract', color: PINK, tagline: 'Boards find RISE before they start shopping.', summary: 'Local SEO, GEO/AI-search, content engine, and paid media — coordinated, not stacked.', tactics: [
+    { name: 'Attract', color: PINK, tagline: 'Boards find Apex CMG before they start shopping.', summary: 'Local SEO, GEO/AI-search, content engine, and paid media — coordinated, not stacked.', tactics: [
       { k: 'Technical SEO rebuild', v: 'Site architecture, schema, internal linking, page speed under 1.4s.' },
       { k: 'Local + GEO / AI search', v: 'Top-3 local visibility for primary metro; cited in AI search answers.' },
       { k: 'Pillar content engine', v: '14 cornerstone articles + 60+ supporting pieces across 18 months.' },
@@ -253,19 +253,19 @@ function RiseEngines() {
     ]},
     { name: 'Authority', color: YELLOW, tagline: 'Boards arrive pre-sold.', summary: 'Trade press, speaking, and earned media that turn a competent firm into the obvious choice.', tactics: [
       { k: 'Trade press placements', v: 'Quoted in industry publications across the engagement window.' },
-      { k: 'Chapter speaking', v: 'Local CAI chapter slots — board members hearing RISE in the room before reading them online.' },
-      { k: 'Proprietary methodology framing', v: "RISE's approach packaged into named frameworks boards can repeat." },
+      { k: 'Chapter speaking', v: 'Local CAI chapter slots — board members hearing Apex CMG in the room before reading them online.' },
+      { k: 'Proprietary methodology framing', v: "Apex CMG's approach packaged into named frameworks boards can repeat." },
       { k: 'Owner thought-leadership cadence', v: 'Monthly LinkedIn + newsletter pieces from the CEO chair, not the marketing seat.' },
     ]},
     { name: 'Close', color: GREEN, tagline: 'More leads, plus a higher hit rate.', summary: 'Proposal redesign, discovery process, and Groundwork BD — so what walks in actually walks across the line.', tactics: [
       { k: 'Discovery script + diagnosis call', v: "Replaced 'send us your RFP' with a real intake — boards leave the call already engaged." },
-      { k: 'Proposal template rebuild', v: "RISE's thinking, the engineered plan, the people. Not a rate card." },
+      { k: 'Proposal template rebuild', v: "Apex CMG's thinking, the engineered plan, the people. Not a rate card." },
       { k: 'Groundwork BD outreach', v: "Targeted, market-exclusive territory outreach concurrent with inbound — net-new pipeline that wasn't searching yet." },
       { k: 'Lost-deal post-mortems', v: "Every loss reviewed; pattern-matched into the next quarter's playbook." },
     ]},
     { name: 'Keep', color: BLUE, tagline: "Renewals that aren't re-pitches.", summary: 'Onboarding, board education, and feedback loops that turn a year-one client into a five-year reference.', tactics: [
       { k: 'First-90-days onboarding system', v: "Documented sequence — boards know what's happening when, no surprises." },
-      { k: 'Board education curriculum', v: 'Quarterly sessions on governance, vendor management, reserves — boards get smarter; RISE gets credit.' },
+      { k: 'Board education curriculum', v: 'Quarterly sessions on governance, vendor management, reserves — boards get smarter; Apex CMG gets credit.' },
       { k: 'Satisfaction + signal monitoring', v: 'Quarterly board pulse + early-warning indicators on accounts at risk.' },
       { k: 'Reference & referral motion', v: 'Happy boards talk to other boards — engineered, not assumed.' },
     ]},
@@ -319,7 +319,7 @@ function RiseDeliverables() {
         <div style={{ marginBottom: 40, maxWidth: 720 }}>
           <Eyebrow color="#3a7a6b">What got built</Eyebrow>
           <h2 className="display-lg" style={{ margin: '14px 0 14px', color: PURPLE }}>The artifacts behind the numbers.</h2>
-          <p className="lead">Engineered growth leaves a trail. Here's the inventory of systems, content, and processes RISE now owns and operates.</p>
+          <p className="lead">Engineered growth leaves a trail. Here's the inventory of systems, content, and processes Apex CMG now owns and operates.</p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
           {categories.map(c => (
@@ -355,11 +355,11 @@ function RiseClosingQuote() {
           </blockquote>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 12 }}>
             <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
-              <img src={ASSET('assets/jason-delgado.jpg')} alt="Jason Delgado" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src={ASSET('assets/apex-cmg-ceo.jpg')} alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Jason Delgado</div>
-              <div style={{ fontSize: 12, color: '#888' }}>CEO, RISE AMG · post-engagement</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus Webb</div>
+              <div style={{ fontSize: 12, color: '#888' }}>CEO, Apex CMG* · post-engagement</div>
             </div>
           </div>
         </div>
@@ -374,8 +374,11 @@ function RiseDisclosure() {
       <div className="container-narrow">
         <div style={{ background: PURPLE, color: '#fff', borderRadius: 16, padding: 48, textAlign: 'center' }}>
           <Eyebrow onDark noLine>The honest disclosure</Eyebrow>
-          <p className="lead on-dark" style={{ margin: '16px auto 0', maxWidth: 720 }}>RISE's results are real, contracted, and measured against their pre-engagement baseline. They are also one firm, in one market, with the discipline to execute the system month after month. Your starting point and execution pace will produce different numbers. We'll model honest expectations during your diagnostic.</p>
+          <p className="lead on-dark" style={{ margin: '16px auto 0', maxWidth: 720 }}>Apex CMG's results are real, contracted, and measured against their pre-engagement baseline. They are also one firm, in one market, with the discipline to execute the system month after month. Your starting point and execution pace will produce different numbers. We'll model honest expectations during your diagnostic.</p>
         </div>
+        <p style={{ marginTop: 20, textAlign: 'center', fontSize: 12, color: '#aaa', lineHeight: 1.5 }}>
+          * Client name and identifying details changed to protect confidentiality. Results are real and on file.
+        </p>
       </div>
     </section>
   );

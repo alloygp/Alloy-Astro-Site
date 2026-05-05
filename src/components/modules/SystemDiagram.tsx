@@ -37,7 +37,7 @@ export default function SystemDiagram(_props: SystemDiagramProps = {}) {
       label: 'Attract', brand: 'BoardReach™', color: PINK, colorTint: '#fbe2eb', icon: 'binoculars',
       headline: 'Get found before boards start shopping.',
       sub: 'Authority positioning, local SEO, AI search visibility, demand generation. Boards reach out — you stop chasing.',
-      proof: '535%', proofLabel: 'increase in lead intake (RISE AMG)',
+      proof: '535%', proofLabel: 'increase in lead intake (Apex CMG*)',
       services: ['Local SEO & GEO', 'Content & pillar pages', 'PPC management', 'Lead magnets', 'Email & newsletter', 'Social cadence'],
     },
     close: {

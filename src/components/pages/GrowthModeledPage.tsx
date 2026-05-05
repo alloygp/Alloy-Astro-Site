@@ -21,7 +21,7 @@ export default function GrowthModeledPage() {
       <section className="section section-ivory">
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32 }}>
-            <ModelNote color={PINK} num="01" title="The lift assumption" body="3.2× new contracts is modeled on RISE AMG's 535% lead intake increase, normalized to a typical CAM close rate. Conservative against our top quartile." />
+            <ModelNote color={PINK} num="01" title="The lift assumption" body="3.2× new contracts is modeled on Apex CMG*'s 535% lead intake increase, normalized to a typical CAM close rate. Conservative against our top quartile." />
             <ModelNote color={GREEN} num="02" title="The retention assumption" body="A 30% reduction on a 12% baseline churn rate. Engineered through BoardRetain — board education, satisfaction systems, reputation, communications cadence." />
             <ModelNote color={YELLOW} num="03" title="The fee assumption" body="Annual fee = doors × cost-per-door × 12. Tune each slider to match your portfolio. Most CAM firms run between $14–$28 per door per month." />
           </div>

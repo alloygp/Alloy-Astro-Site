@@ -17,7 +17,7 @@ const items: ResourceItem[] = [
   { type: 'Micro-course', color: 'yellow', icon: 'sparkles', title: 'Outsmarting AI Search: How Micro-Courses Drive Clicks, Credibility, & Conversions', meta: '5 lessons · Free', featured: true },
   { type: 'Field guide', color: 'blue', icon: 'book', title: 'The CAM Proposal Audit: 12 things boards actually evaluate', meta: 'PDF · 18 min read' },
   { type: 'Article', color: 'pink', icon: 'trending', title: 'Why referrals stop scaling at 80 associations — and what replaces them', meta: 'Insight · 7 min read' },
-  { type: 'Case study', color: 'green', icon: 'shield', title: 'How RISE AMG flipped from chasing RFPs to inbound', meta: 'Long-form · 12 min' },
+  { type: 'Case study', color: 'green', icon: 'shield', title: 'How Apex CMG flipped from chasing RFPs to inbound', meta: 'Long-form · 12 min' },
 ];
 
 export default function ResourceHub() {

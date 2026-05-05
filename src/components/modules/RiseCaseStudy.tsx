@@ -1,5 +1,5 @@
 // src/components/modules/RiseCaseStudy.tsx
-// RISE AMG case study card (full + compact). Ported from modules.jsx.
+// Apex CMG case study card (full + compact). Ported from modules.jsx.
 import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import Eyebrow from '~/components/Eyebrow';
@@ -23,18 +23,18 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
             <div style={{ width: 44, height: 44, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
-              <img src="/assets/jason-delgado.jpg" alt="Jason Delgado" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src="/assets/apex-cmg-ceo.jpg" alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 13 }}>Jason Delgado</div>
-              <div style={{ fontSize: 11.5, color: '#888' }}>CEO, RISE AMG</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 13 }}>Marcus Webb</div>
+              <div style={{ fontSize: 11.5, color: '#888' }}>CEO, Apex CMG*</div>
             </div>
           </div>
           <p style={{ color: '#555', fontSize: 14, lineHeight: 1.6, margin: '0 0 16px' }}>
             BoardSuite Accelerate. Full-cycle system: local SEO + authority content + proposal redesign + Groundwork BD.
           </p>
           <div style={{ marginTop: 'auto' }}>
-            <Button variant="secondary" arrow href="/results/rise-amg" size="sm">Read the full story</Button>
+            <Button variant="secondary" arrow href="/results/apex-cmg" size="sm">Read the full story</Button>
           </div>
         </div>
         <div style={{ background: 'linear-gradient(160deg, #381c4f 0%, #290d41 100%)', color: '#fff', padding: '26px 32px 26px', position: 'relative', overflow: 'hidden' }}>
@@ -61,17 +61,17 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
     <div className="case-study-card" style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 60px rgba(56,28,79,0.14)', border: '1px solid var(--border-subtle)' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr' }}>
         <div style={{ padding: '44px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Eyebrow noLine>Signature client · RISE AMG</Eyebrow>
+          <Eyebrow noLine>Signature client · Apex CMG*</Eyebrow>
           <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 32, lineHeight: 1.15, letterSpacing: '-0.02em', color: PURPLE, margin: '14px 0 18px' }}>
             "We went from chasing RFPs to having boards reach out directly."
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
             <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
-              <img src="/assets/jason-delgado.jpg" alt="Jason Delgado" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src="/assets/apex-cmg-ceo.jpg" alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Jason Delgado</div>
-              <div style={{ fontSize: 12, color: '#888' }}>CEO, RISE AMG</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus Webb</div>
+              <div style={{ fontSize: 12, color: '#888' }}>CEO, Apex CMG*</div>
             </div>
           </div>
           <p style={{ color: '#555', fontSize: 15, lineHeight: 1.65, margin: '0 0 18px', maxWidth: '48ch' }}>
@@ -91,7 +91,7 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             ))}
           </ul>
           <div>
-            <Button variant="secondary" arrow href="/results/rise-amg">Read the full story</Button>
+            <Button variant="secondary" arrow href="/results/apex-cmg">Read the full story</Button>
           </div>
         </div>
         <div style={{ background: 'linear-gradient(160deg, #381c4f 0%, #290d41 100%)', color: '#fff', padding: '36px 40px 32px', position: 'relative', overflow: 'hidden' }}>
@@ -167,7 +167,7 @@ export function RiseGrowthChart() {
 
   return (
     <div>
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: 'block' }} aria-label="RISE AMG growth from 2016 to 2025, with Alloy engagement starting 2023">
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: 'block' }} aria-label="Apex CMG growth from 2016 to 2025, with Alloy engagement starting 2023">
         <rect x={padL} y={padT} width={alloyX - padL} height={innerH} fill="rgba(255,255,255,0.025)" />
         {gridYs.map((g) => (
           <g key={g}>
@@ -196,7 +196,7 @@ export function RiseGrowthChart() {
         </g>
         <g transform={`translate(${x(0) + 6}, ${padT + 2})`} opacity={progress > 0.05 ? 1 : 0} style={{ transition: 'opacity 300ms ease' }}>
           <rect x="0" y="0" width="86" height="20" rx="4" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.20)" />
-          <text x="9" y="13.5" fontFamily="var(--font-display)" fontWeight="700" fontSize="10" fill="rgba(255,255,255,0.85)" letterSpacing="0.06em">RISE FOUNDED</text>
+          <text x="9" y="13.5" fontFamily="var(--font-display)" fontWeight="700" fontSize="10" fill="rgba(255,255,255,0.85)" letterSpacing="0.06em">Apex CMG FOUNDED</text>
         </g>
         {hoverIdx !== null && (
           <line x1={x(hoverIdx)} y1={padT} x2={x(hoverIdx)} y2={padT + innerH} stroke="rgba(255,255,255,0.30)" strokeWidth="1" strokeDasharray="2 2" pointerEvents="none" />

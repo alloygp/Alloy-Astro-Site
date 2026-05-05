@@ -23,7 +23,7 @@
 
   <!-- Results -->
   <url><loc>https://alloygp.co/results</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://alloygp.co/results/rise-amg</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://alloygp.co/results/apex-cmg</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
 
   <!-- About -->
   <url><loc>https://alloygp.co/about</loc><priority>0.75</priority><changefreq>monthly</changefreq></url>

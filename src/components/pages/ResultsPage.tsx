@@ -61,8 +61,8 @@ export default function ResultsPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
             {[
-              { color: PINK, k: '535%', v: 'Lead intake increase, RISE AMG, 3 years' },
-              { color: YELLOW, k: '3×', v: 'Proposal request growth, RISE AMG' },
+              { color: PINK, k: '535%', v: 'Lead intake increase, Apex CMG*, 3 years' },
+              { color: YELLOW, k: '3×', v: 'Proposal request growth, Apex CMG*' },
               { color: GREEN, k: '+405%', v: 'Monthly inquiries growth, MicroHOA, 7 months' },
               { color: BLUE, k: '40‑60%', v: 'Groundwork qualified-to-close conversion' },
             ].map(s => (

@@ -33,7 +33,7 @@ export default function BoardReachPage() {
               </div>
             </div>
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 16, padding: 32 }}>
-              <Eyebrow onDark>RISE AMG · 18 months</Eyebrow>
+              <Eyebrow onDark>Apex CMG* · 18 months</Eyebrow>
               <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 22 }}>
                 <BigStat color={PINK} label="Lead intake" value="535%" sub="vs prior baseline" onDark />
                 <BigStat color={YELLOW} label="Proposal requests" value="3×" sub="growth" onDark />

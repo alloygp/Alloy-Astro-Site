@@ -51,7 +51,7 @@ export default function Hero({
     proof: {
       eyebrow: 'What engineered growth looks like',
       h1: <><span style={{ color: isDark ? YELLOW : PINK }}>535%</span> more leads.<br/><span style={{ color: isDark ? YELLOW : PINK }}>3×</span> the proposals.<br/>One CAM growth partner.</>,
-      sub: "RISE AMG's results in 18 months — without adding a sales hire. We don't promise growth. We engineer it.",
+      sub: "Apex CMG*'s results in 18 months — without adding a sales hire. We don't promise growth. We engineer it.",
     },
     exclusivity: {
       eyebrow: 'Market exclusivity',
@@ -77,7 +77,7 @@ export default function Hero({
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, paddingTop: 40, borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'var(--border-subtle)'}` }}>
-            <BigStat color={PINK} label="Lead intake (RISE AMG)" value="535%" sub="vs prior baseline" onDark={isDark} />
+            <BigStat color={PINK} label="Lead intake (Apex CMG*)" value="535%" sub="vs prior baseline" onDark={isDark} />
             <BigStat color={YELLOW} label="Proposal requests" value="3×" sub="growth in 18 months" onDark={isDark} />
             <BigStat color={BLUE} label="Groundwork conversion" value="40‑60%" sub="qualified to closed" onDark={isDark} />
             <BigStat color={GREEN} label="CAM industry years" value="35+" sub="across three partners" onDark={isDark} />

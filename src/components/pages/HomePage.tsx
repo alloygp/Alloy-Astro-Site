@@ -23,7 +23,7 @@ export default function HomePage() {
         <div className="container" style={{ padding: '32px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
           <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: PURPLE }}>Trusted by CAM operators across</div>
           <div style={{ display: 'flex', gap: 36, alignItems: 'center', flexWrap: 'wrap', color: '#888', fontWeight: 600 }}>
-            {['RISE AMG', 'BBB Accredited', 'CAI Member', 'Austin · Phoenix · Denver', '35+ years CAM ops'].map((s) => (
+            {['Apex CMG*', 'BBB Accredited', 'CAI Member', 'Austin · Phoenix · Denver', '35+ years CAM ops'].map((s) => (
               <div key={s} style={{ fontFamily: 'var(--font-display)', fontSize: 14, color: PURPLE, fontWeight: 600, letterSpacing: '-0.005em' }}>{s}</div>
             ))}
           </div>
@@ -49,13 +49,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* RISE Case Study */}
+      {/* Apex CMG Case Study */}
       <section className="section section-white">
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'end', marginBottom: 48 }}>
             <div>
               <Eyebrow>Proof, not promises</Eyebrow>
-              <h2 className="display-lg" style={{ margin: '16px 0 0', color: PURPLE }}>What 18 months looked like for RISE AMG.</h2>
+              <h2 className="display-lg" style={{ margin: '16px 0 0', color: PURPLE }}>What 18 months looked like for Apex CMG*.</h2>
             </div>
             <p className="lead">A regional CAM firm. A broken growth engine. One BoardSuite Accelerate engagement. Numbers don't lie — and they're not statistical outliers, they're what engineered growth produces.</p>
           </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
             <div style={{ position: 'relative' }}>
               <Eyebrow onDark noLine>Engineered growth, modeled</Eyebrow>
               <h2 className="display-lg" style={{ margin: '16px 0 16px', color: '#fff' }}>What does year one look like for your portfolio?</h2>
-              <p className="lead on-dark" style={{ marginBottom: 24, opacity: 0.85 }}>Three sliders — associations, doors, cost-per-door. Watch new contracts, churn prevented, and year-one revenue reshape in real time. Modeled on RISE AMG benchmarks.</p>
+              <p className="lead on-dark" style={{ marginBottom: 24, opacity: 0.85 }}>Three sliders — associations, doors, cost-per-door. Watch new contracts, churn prevented, and year-one revenue reshape in real time. Modeled on Apex CMG* benchmarks.</p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <Button variant="primary" arrow href="/growth-modeled">See your model</Button>
                 <Button variant="secondary" onDark href="/strategic-review-request">Build the real one</Button>

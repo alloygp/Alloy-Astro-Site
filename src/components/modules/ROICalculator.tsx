@@ -97,7 +97,7 @@ export default function ROICalculator() {
       <div style={{ background: 'rgba(0,0,0,0.18)', padding: '32px 44px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24 }}>
         <ResultCell color={PINK} label="New contracts (Yr 1)" value={`+${newWinsAlloy}`} sub={`vs ~${newWinsToday} today (3.2× lift modeled)`} />
         <ResultCell color={GREEN} label="Churn prevented" value={`+${churnSaved}`} sub="associations retained vs 12% baseline" />
-        <ResultCell color={YELLOW} label="Year-one revenue impact" value={fmtBig(yearOneRevenue)} sub="based on RISE AMG benchmarks" />
+        <ResultCell color={YELLOW} label="Year-one revenue impact" value={fmtBig(yearOneRevenue)} sub="based on Apex CMG* benchmarks" />
       </div>
       <div style={{ padding: '24px 44px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div style={{ fontSize: 12, opacity: 0.6, maxWidth: '60%', lineHeight: 1.5 }}>

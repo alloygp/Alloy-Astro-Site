@@ -160,8 +160,8 @@ export default function ServiceNewsletterPage() {
 
   const stats = [
     { color: PINK,   k: '63%',   v: "of board members say their management firm 'rarely' communicates outside of meetings.", src: 'Industry survey, n=412 board members, 2025' },
-    { color: YELLOW, k: '4.2×',  v: "median lift in board-perceived 'manager responsiveness' when newsletters arrive on a published schedule.", src: 'Alloy benchmark, RISE AMG cohort' },
-    { color: GREEN,  k: '≈3 hrs', v: 'saved per association per month — manager time redirected from layout to actual property work.', src: 'RISE AMG operator interviews' },
+    { color: YELLOW, k: '4.2×',  v: "median lift in board-perceived 'manager responsiveness' when newsletters arrive on a published schedule.", src: 'Alloy benchmark, Apex CMG* cohort' },
+    { color: GREEN,  k: '≈3 hrs', v: 'saved per association per month — manager time redirected from layout to actual property work.', src: 'Apex CMG* operator interviews' },
     { color: BLUE,   k: '$0',    v: "extra software cost. Newsletters live inside BoardSuite — no separate Mailchimp, no separate design tool.", src: '—' },
   ];
 

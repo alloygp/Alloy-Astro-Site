@@ -41,8 +41,8 @@ export default function SeoPage() {
               <div style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 600, marginBottom: 22, padding: 16, background: 'rgba(255,255,255,0.05)', borderRadius: 8, lineHeight: 1.4 }}>"What's the best CAM firm for a 200-unit HOA in Phoenix?"</div>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: 12, opacity: 0.6, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 10 }}>Cited sources</div>
               {[
-                { n: '1', name: 'RISE AMG · About', color: YELLOW },
-                { n: '2', name: 'RISE AMG · Service area', color: YELLOW },
+                { n: '1', name: 'Apex CMG · About', color: YELLOW },
+                { n: '2', name: 'Apex CMG · Service area', color: YELLOW },
                 { n: '3', name: 'Phoenix HOA blog · 2024', color: PINK },
                 { n: '4', name: 'BBB Accredited business listing', color: BLUE },
               ].map(s => (
