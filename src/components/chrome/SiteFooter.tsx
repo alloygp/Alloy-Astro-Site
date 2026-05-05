@@ -56,13 +56,14 @@ const INVENTORY: {
     label: 'Company',
     accent: '#FFFFFF',
     items: [
-      { label: 'About',        href: '/about' },
-      { label: 'We Know CAM', href: '/we-know-cam' },
-      { label: 'Our Approach', href: '/our-approach' },
-      { label: 'BoardSuite',   href: '/boardsuite' },
-      { label: 'Results',      href: '/results' },
-      { label: 'Careers',      href: '/careers' },
-      { label: 'Partners',     href: '/partners' },
+      { label: 'About',         href: '/about' },
+      { label: 'Testimonials',  href: '/about/testimonials' },
+      { label: 'We Know CAM',   href: '/we-know-cam' },
+      { label: 'Our Approach',  href: '/our-approach' },
+      { label: 'BoardSuite',    href: '/boardsuite' },
+      { label: 'Results',       href: '/results' },
+      { label: 'Careers',       href: '/careers' },
+      { label: 'Partners',      href: '/partners' },
     ],
   },
   resources: {
@@ -71,6 +72,8 @@ const INVENTORY: {
     items: [
       { label: 'Resource Hub',     href: '/resource-hub' },
       { label: 'Case Studies',     href: '/results' },
+      { label: 'Courses',          href: '/courses' },
+      { label: 'Growth Modeled',   href: '/growth-modeled' },
       { label: 'FAQ',              href: '/faq' },
       { label: 'Strategic Review', href: '/strategic-review-request' },
       { label: 'Contact',          href: '/contact' },
@@ -81,7 +84,7 @@ const INVENTORY: {
 // ── Content cards (heavy-hitter links shown in some layouts) ──────────────────
 const CONTENT_CARDS = [
   { eyebrow: 'Guide',      t: 'The CAM Growth Playbook',        href: '/resource-hub',             desc: 'How CAM operators build durable demand without burning out their team.' },
-  { eyebrow: 'Case Study', t: 'Apex CMG · 47% pipeline growth', href: '/results/rise-amg',         desc: 'From referral-only to engineered growth in 9 months.' },
+  { eyebrow: 'Case Study', t: 'Apex CMG · 47% pipeline growth', href: '/results/apex-cmg',         desc: 'From referral-only to engineered growth in 9 months.' },
   { eyebrow: 'Tool',       t: 'Strategic Review',               href: '/strategic-review-request', desc: '60-minute audit of your growth engine. No pitch.' },
   { eyebrow: 'Article',    t: 'Why CAM is winnable',            href: '/we-know-cam',              desc: 'What incumbents miss about how boards actually buy.' },
 ];
