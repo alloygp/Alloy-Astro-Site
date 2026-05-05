@@ -81,17 +81,43 @@ export default function MarketChecker() {
   const [waitEmail, setWaitEmail] = useState('');
   const [waitCo, setWaitCo] = useState('');
   const [waitSubmitted, setWaitSubmitted] = useState(false);
+  const [waitLoading, setWaitLoading] = useState(false);
+  const [waitError, setWaitError] = useState('');
 
-  const onWaitlistSubmit = (e: React.FormEvent) => {
+  const onWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!waitEmail.trim() || !waitCo.trim()) return;
-    setWaitSubmitted(true);
+    setWaitLoading(true);
+    setWaitError('');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: waitEmail,
+          company: waitCo,
+          market: result?.nearLabel || result?.label || '',
+        }),
+      });
+      const json = await res.json();
+      if (res.ok) {
+        setWaitSubmitted(true);
+      } else {
+        setWaitError(json.error ?? 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setWaitError('Network error. Please try again.');
+    } finally {
+      setWaitLoading(false);
+    }
   };
 
   useEffect(() => {
     setWaitSubmitted(false);
     setWaitEmail('');
     setWaitCo('');
+    setWaitLoading(false);
+    setWaitError('');
   }, [result?.label, result?.status]);
 
   const DECOY_METROS = [
@@ -216,8 +242,11 @@ export default function MarketChecker() {
                     style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--border-strong)', fontSize: 14, fontFamily: 'var(--font-body)', color: PURPLE, outline: 'none' }} />
                   <input type="text" required value={waitCo} onChange={(e) => setWaitCo(e.target.value)} placeholder="Company name"
                     style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--border-strong)', fontSize: 14, fontFamily: 'var(--font-body)', color: PURPLE, outline: 'none' }} />
-                  <Button variant="primary" type="submit" size="sm">Notify me</Button>
+                  <Button variant="primary" type="submit" size="sm">{waitLoading ? 'Sending…' : 'Notify me'}</Button>
                 </div>
+                {waitError && (
+                  <div style={{ marginTop: 8, fontSize: 13, color: PINK }}>{waitError}</div>
+                )}
               </form>
             )}
             {result.status === 'claimed' && waitSubmitted && (
