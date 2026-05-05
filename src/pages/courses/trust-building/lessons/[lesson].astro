@@ -1,0 +1,30 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import CourseTrustBuildingLessonPage from '~/components/pages/CourseTrustBuildingLessonPage';
+
+const { lesson } = Astro.params;
+
+// Map slugs to human-readable lesson titles for the <title> tag
+const lessonTitles: Record<string, string> = {
+  'intro': 'Intro to Trust-Building for CAM Firms',
+  'why-trust-signals-matter': 'Why Trust Signals Matter to HOA Boards',
+  'what-reviews-are': 'What Reviews Are and Why They Carry Weight',
+  'reviews-extra-factors': 'Reviews: Extra Factors That Influence Impact',
+  'what-testimonials-are': 'What Testimonials Are and Why They Stand Out',
+  'testimonials-extra-factors': 'Testimonials: Extra Factors That Influence Impact',
+  'what-case-studies-are': 'What Case Studies Are and Why They Convince',
+  'case-studies-extra-factors': 'Case Studies: Extra Factors That Influence Impact',
+  'recapping-trust-signals': 'Recapping the 3 Trust Signals',
+  'from-proof-to-persuasion': 'From Proof to Persuasion',
+};
+
+const title = lessonTitles[lesson ?? ''] ?? 'Lesson';
+---
+<BaseLayout
+  title={`${title} — Trust-Building for CAM Firms | Alloy Growth Partners`}
+  description="A lesson from the Trust-Building for CAM Firms course at Alloy Growth Partners."
+  pageId="resources"
+  hideHeader={true}
+>
+  <CourseTrustBuildingLessonPage client:load />
+</BaseLayout>
