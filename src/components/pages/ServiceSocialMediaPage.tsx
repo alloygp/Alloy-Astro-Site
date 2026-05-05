@@ -119,7 +119,7 @@ export default function ServiceSocialMediaPage() {
   const includes = [
     { icon: 'edit',    h: 'Content calendar',        d: "Weekly post calendar mapped to your portfolio's seasonality — meetings, reserve cycles, community events, weather risk, dues notices." },
     { icon: 'feather', h: 'Original copy & creative', d: "CAM-fluent writers and designers — not generalists. Every post drafted in your firm's voice and visual system, not stock-template slop." },
-    { icon: 'layout',  h: 'Brand-system design',      d: 'One visual system that flexes per association. Your firm's identity stays consistent; each community sees its own name, colors, and feed.' },
+    { icon: 'layout',  h: 'Brand-system design',      d: "One visual system that flexes per association. Your firm's identity stays consistent; each community sees its own name, colors, and feed." },
     { icon: 'layers',  h: 'Per-association feeds',    d: "Facebook page, Instagram, Nextdoor (where it makes sense). One production run, dozens of customized feeds, one approval workflow." },
     { icon: 'shield',  h: 'Compliance pre-clearance', d: 'Every post screened for fair-housing, election-period rules, reserve-disclosure language, and state-specific notice requirements before it goes live.' },
     { icon: 'send',    h: 'Scheduling & publishing',  d: "Posts queued in advance, published on schedule, archived for the record. Managers don't touch Hootsuite, Buffer, or Meta Business Suite." },
@@ -141,7 +141,7 @@ export default function ServiceSocialMediaPage() {
   const stats = [
     { color: PINK,   k: '71%',   v: 'of homeowners say they get HOA news from a community Facebook group — not from board emails or notices.', src: 'Industry homeowner survey, n=2,108, 2025' },
     { color: YELLOW, k: '3.6×',  v: "median lift in board-perceived 'manager visibility' when social is published on a schedule for 90 days.", src: 'Alloy benchmark cohort' },
-    { color: GREEN,  k: '≈4 hrs', v: 'saved per association per week — manager and board hours redirected from 'who's posting?' to actual property work.', src: 'RISE AMG operator interviews' },
+    { color: GREEN,  k: '≈4 hrs', v: "saved per association per week — manager and board hours redirected from 'who’s posting?' to actual property work.", src: 'RISE AMG operator interviews' },
     { color: BLUE,   k: '1 day', v: "average comment-to-response time when Alloy moderates — vs. 3+ days when posts come from the board secretary's personal account.", src: 'Alloy moderation logs' },
   ];
 
