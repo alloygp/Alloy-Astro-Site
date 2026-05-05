@@ -10,6 +10,7 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [react()],
   prefetch: { prefetchAll: true },
+  security: { checkOrigin: false },
   build: {
     inlineStylesheets: 'auto',
   },
