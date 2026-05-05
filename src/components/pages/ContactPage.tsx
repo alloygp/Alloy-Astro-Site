@@ -156,7 +156,7 @@ export default function ContactPage({ variant = 'lead' }: Props) {
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 16, flexWrap: 'wrap' }}>
                     <div style={{ fontSize: 12, color: '#888', maxWidth: '60%' }}>By submitting, you agree to a real conversation. We won't spam you.</div>
-                    <Button variant="primary" arrow>
+                    <Button variant="primary" arrow type="submit">
                       {loading ? 'Sending…' : isContact ? 'Send message' : 'Request my diagnostic'}
                     </Button>
                   </div>
