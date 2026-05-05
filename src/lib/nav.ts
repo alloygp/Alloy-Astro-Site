@@ -9,23 +9,6 @@ export interface NavChild {
   color?: string;
   pillar?: 'reach' | 'match' | 'retain';
   stageWord?: string;
-  isNew?: boolean;
-}
-
-export interface NavPillarItem {
-  label: string;
-  href: string;
-  isNew?: boolean;
-}
-
-export interface NavPillar {
-  pillar: 'reach' | 'match' | 'retain';
-  stageWord: string;
-  color: string;
-  title: string;
-  sub: string;
-  href: string;
-  items: NavPillarItem[];
 }
 
 export interface NavItem {
@@ -33,8 +16,6 @@ export interface NavItem {
   label: string;
   href: string;
   mega?: boolean;
-  megaServices?: boolean;
-  pillars?: NavPillar[];
   children?: NavChild[];
 }
 
@@ -43,52 +24,11 @@ export const NAV: NavItem[] = [
     id: 'services',
     label: 'Services',
     href: '/services',
-    megaServices: true,
-    pillars: [
-      {
-        stageWord: 'Attract',
-        pillar: 'reach',
-        color: '#ED1968',
-        title: 'BoardReach™',
-        sub: 'Get found before boards start shopping.',
-        href: '/our-approach/boardreach',
-        items: [
-          { label: 'CAM Marketing Services', href: '/hoa-cam-marketing-services' },
-          { label: 'Property Management SEO & AI Search', href: '/property-management-seo' },
-        ],
-      },
-      {
-        stageWord: 'Close',
-        pillar: 'match',
-        color: '#FFCC33',
-        title: 'BoardMatch™',
-        sub: 'Turn conversations into signed contracts.',
-        href: '/our-approach/boardmatch',
-        items: [
-          { label: 'Groundwork — Fractional BD', href: '/groundwork' },
-        ],
-      },
-      {
-        stageWord: 'Keep',
-        pillar: 'retain',
-        color: '#4FC2B5',
-        title: 'BoardRetain™',
-        sub: 'Make boards never want to leave.',
-        href: '/our-approach/boardretain',
-        items: [
-          { label: 'HOA Board Education Programs', href: '/hoa-board-education-programs' },
-          {
-            label: 'Newsletter Production for HOA Management',
-            href: '/services/newsletter-production-for-hoa-management',
-            isNew: true,
-          },
-          {
-            label: 'Social Media Marketing for HOA Management',
-            href: '/services/social-media-marketing-for-hoa-management-companies',
-            isNew: true,
-          },
-        ],
-      },
+    children: [
+      { label: 'CAM Marketing Services', href: '/hoa-cam-marketing-services' },
+      { label: 'SEO & AI Search', href: '/property-management-seo' },
+      { label: 'HOA Board Education', href: '/hoa-board-education-programs' },
+      { label: 'Groundwork — Fractional BD', href: '/groundwork' },
     ],
   },
   {

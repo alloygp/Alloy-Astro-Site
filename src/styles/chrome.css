@@ -27,6 +27,9 @@
 
 /* ---------------------------------------------------------------------------
    Purple header variant
+   Used on dense interior pages (services, faq, resource-hub, courses, about,
+   etc) where the page starts on a light background and the chrome needs a
+   stronger anchor. Inverts foreground colors and uses Alloy purple-deep.
    --------------------------------------------------------------------------- */
 .site-header.site-header--purple {
   background: var(--alloy-purple-deep);
@@ -39,6 +42,7 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
 }
 .site-header--purple .site-logo img {
+  /* The full-color logo has a dark wordmark — invert it for the dark header */
   filter: brightness(0) invert(1);
 }
 .site-header--purple .site-nav-link {
@@ -96,14 +100,8 @@ body.has-fixed-header {
   gap: 4px;
   position: relative;
 }
-/* Wraps stay relative so plain dropdowns (.nav-dropdown) anchor to their own
-   nav item. The mega panels override this with `.has-mega` to escape and
-   center on the nav as a whole. */
 .nav-item-wrap {
   position: relative;
-}
-.nav-item-wrap.has-mega {
-  position: static;
 }
 .site-nav-link {
   display: inline-flex;
@@ -159,16 +157,6 @@ body.has-fixed-header {
   gap: 28px;
   z-index: 1000;
   animation: navMegaIn 220ms var(--ease-standard);
-}
-/* Hover bridge — fills the 6px gap between link and panel so hover doesn't drop */
-.nav-mega::before,
-.nav-mega-services::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -10px;
-  height: 12px;
 }
 @keyframes navMegaIn {
   from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
@@ -277,121 +265,10 @@ body.has-fixed-header {
   .nav-mega { display: none; }
 }
 
-/* ============================================================
-   Mega-dropdown — Services (3-column by pillar)
-   ============================================================ */
-.nav-mega-services {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(960px, 94vw);
-  background: #fff;
-  border: 1px solid var(--border-subtle);
-  border-radius: 18px;
-  box-shadow: 0 24px 60px rgba(38, 22, 70, 0.18), 0 6px 20px rgba(38, 22, 70, 0.06);
-  padding: 22px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  z-index: 1000;
-  animation: navMegaIn 220ms var(--ease-standard);
-}
-.nav-mega-services-col {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 6px;
-  border-radius: 12px;
-  background: transparent;
-  transition: background 140ms var(--ease-standard);
-}
-.nav-mega-services-col:hover {
-  background: #faf7f2;
-}
-.nav-mega-services-pillar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  border-bottom: 1px solid var(--border-subtle);
-  margin-bottom: 4px;
-}
-.nav-mega-services-pillar-icon {
-  flex-shrink: 0;
-}
-.nav-mega-services-pillar-head {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.nav-mega-services-pillar-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--alloy-purple);
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-}
-.nav-mega-services-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.nav-mega-services-list a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--alloy-purple);
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 1.3;
-  transition: background 120ms var(--ease-standard), color 120ms var(--ease-standard);
-}
-.nav-mega-services-list a:hover {
-  background: #fff;
-  color: var(--alloy-pink);
-}
-.nav-mega-services-bullet {
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-.nav-mega-services-label {
-  flex: 1;
-  min-width: 0;
-}
-.nav-mega-services-new {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  background: var(--alloy-green-tint);
-  color: #2c6a62;
-  padding: 2px 7px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 980px) {
-  .nav-mega-services { display: none; }
-}
-
 /* Dropdown */
 .nav-dropdown {
   position: absolute;
-  top: calc(100% + 40px);
+  top: calc(100% + 4px);
   left: 50%;
   transform: translateX(-50%);
   min-width: 280px;
@@ -405,14 +282,6 @@ body.has-fixed-header {
   gap: 2px;
   z-index: 110;
   animation: navFade 160ms var(--ease-standard);
-}
-.nav-dropdown::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -44px;
-  height: 46px;
 }
 @keyframes navFade {
   from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
@@ -438,39 +307,6 @@ body.has-fixed-header {
 .site-header-cta {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-/* Login button */
-.btn-login {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 16px 8px 10px;
-  border-radius: 999px;
-  border: 1.5px solid var(--border-subtle);
-  background: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: var(--alloy-purple-deep);
-  text-decoration: none;
-  transition: border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.btn-login:hover {
-  border-color: var(--alloy-purple);
-  color: var(--alloy-purple);
-  box-shadow: 0 2px 10px rgba(56,28,79,0.12);
-}
-.btn-login img {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: block;
 }
 
 /* Burger */
@@ -525,47 +361,6 @@ body.has-fixed-header {
   padding: 6px 0;
 }
 .mobile-children a:hover { color: var(--alloy-pink); }
-
-/* Mobile pillar grouping (under Services) */
-.mobile-pillar-group {
-  padding: 6px 0 8px;
-}
-.mobile-pillar-group + .mobile-pillar-group {
-  border-top: 1px solid var(--border-subtle);
-  margin-top: 4px;
-  padding-top: 10px;
-}
-.mobile-pillar-label {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.mobile-child-pillar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-size: 14px;
-  color: #444;
-  text-decoration: none;
-  padding: 6px 0;
-}
-.mobile-child-pillar:hover { color: var(--alloy-pink); }
-.mobile-child-new {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  background: var(--alloy-green-tint);
-  color: #2c6a62;
-  padding: 2px 6px;
-  border-radius: 999px;
-}
-
 .mobile-cta { margin-top: 12px; justify-content: center; }
 
 /* Responsive */
