@@ -57,31 +57,31 @@ src/
 │   │   ├── AISearchArticle.tsx      # /resource-hub/ai-search-for-cam
 │   │   ├── ApproachPage.tsx         # /our-approach (overview)
 │   │   ├── ArticleShell.tsx         # Shared shell for long-form resource hub articles
-│   │   ├── BoardEdPage.tsx          # /hoa-board-education-programs
+│   │   ├── BoardEdPage.tsx          # /boardretain/board-education
 │   │   ├── BoardMatchPage.tsx       # /our-approach/boardmatch
 │   │   ├── BoardReachPage.tsx       # /our-approach/boardreach
 │   │   ├── BoardRetainPage.tsx      # /our-approach/boardretain
 │   │   ├── BoardSuitePage.tsx       # /boardsuite
-│   │   ├── CamMarketingPage.tsx     # /hoa-cam-marketing-services
-│   │   ├── ContactPage.tsx          # /contact
-│   │   ├── CoursesPage.tsx          # /courses (listing)
-│   │   ├── CourseTrustBuildingPage.tsx       # /courses/trust-building
+│   │   ├── CamMarketingPage.tsx     # /boardreach (canonical); /hoa-cam-marketing-services → redirect
+│   │   ├── ContactPage.tsx          # /contact + /get-started
+│   │   ├── CoursesPage.tsx          # /resources/courses (listing)
+│   │   ├── CourseTrustBuildingPage.tsx       # /resources/courses/trust-building
 │   │   ├── CourseTrustBuildingLessonPage.tsx # /courses/trust-building-lesson
 │   │   ├── CourseTrustBuildingQuizPage.tsx   # /courses/trust-building-quiz
 │   │   ├── FAQPage.tsx              # /faq
-│   │   ├── GroundworkPage.tsx       # /groundwork
+│   │   ├── GroundworkPage.tsx       # /boardmatch/groundwork (canonical); /groundwork → redirect
 │   │   ├── GrowthModeledPage.tsx    # /growth-modeled
 │   │   ├── HomePage.tsx             # /
 │   │   ├── LegalPages.tsx           # /privacy-policy, /terms-conditions
 │   │   ├── MarketingStrategyArticle.tsx # /resource-hub/cam-marketing-strategy
-│   │   ├── ResourceHubPage.tsx      # /resource-hub
+│   │   ├── ResourceHubPage.tsx      # /resources (canonical); /resource-hub → redirect
 │   │   ├── ResultsPage.tsx          # /results
 │   │   ├── RiseDeepCaseStudy.tsx    # /results/rise-amg
 │   │   ├── SeoPage.tsx              # /property-management-seo
 │   │   ├── ServiceAnnualReportPage.tsx  # /boardretain/annual-report-production
 │   │   ├── ServiceBrandingPage.tsx      # /boardreach/branding
 │   │   ├── ServiceEmailMarketingPage.tsx # /boardreach/email-marketing
-│   │   ├── ServiceNewsletterPage.tsx    # /services/hoa-newsletter-production
+│   │   ├── ServiceNewsletterPage.tsx    # /boardretain/newsletter-production (canonical)
 │   │   ├── ServicePrintProductionPage.tsx # /boardreach/print-production
 │   │   ├── ServiceReputationManagementPage.tsx # /boardretain/reputation-management
 │   │   ├── ServiceSocialMediaPage.tsx   # /services/social-media-marketing-for-hoa-management-companies
@@ -89,7 +89,7 @@ src/
 │   │   ├── PricingPage.tsx              # /pricing
 │   │   ├── ServiceLeadGenerationPage.tsx # /boardreach/property-management-lead-generation
 │   │   ├── TestimonialsPage.tsx     # /about/testimonials
-│   │   └── WeKnowCamPage.tsx        # /we-know-cam
+│   │   └── WeKnowCamPage.tsx        # /about/we-know-cam (canonical); /we-know-cam → redirect
 │   │
 │   │   # Shared UI atoms (used inside page components and shells)
 │   ├── AccentBar.tsx                # Five-color horizontal stripe (pink/yellow/blue/green/purple)
@@ -106,27 +106,37 @@ src/
     ├── about.astro                  → AboutPage
     ├── boardsuite.astro             → BoardSuitePage
     ├── contact.astro                → ContactPage
-    ├── courses.astro                → CoursesPage
     ├── faq.astro                    → FAQPage
-    ├── groundwork.astro             → GroundworkPage
+    ├── get-started.astro            → ContactPage  (replaces /strategic-review-request)
     ├── growth-modeled.astro         → GrowthModeledPage
-    ├── hoa-board-education-programs.astro → BoardEdPage
-    ├── hoa-cam-marketing-services.astro   → CamMarketingPage
+    ├── hoa-cam-marketing-services.astro   → (legacy; redirects to /boardreach)
     ├── index.astro                  → HomePage
     ├── our-approach.astro           → ApproachPage
     ├── pricing.astro                → PricingPage
     ├── privacy-policy.astro         → LegalPages
     ├── property-management-seo.astro → SeoPage
-    ├── resource-hub.astro           → ResourceHubPage
     ├── results.astro                → ResultsPage
     ├── services.astro               → ServicesPage
-    ├── strategic-review-request.astro
+    ├── strategic-review-request.astro  (legacy; redirects to /get-started)
     ├── terms-conditions.astro       → LegalPages
-    ├── we-know-cam.astro            → WeKnowCamPage
     ├── about/
-    │   └── testimonials.astro       → TestimonialsPage
+    │   ├── testimonials.astro       → TestimonialsPage
+    │   └── we-know-cam.astro        → WeKnowCamPage  (canonical)
+    ├── boardreach/
+    │   ├── index.astro              → CamMarketingPage  (canonical /boardreach)
+    │   ├── branding.astro           → ServiceBrandingPage
+    │   ├── email-marketing.astro    → ServiceEmailMarketingPage
+    │   ├── print-production.astro   → ServicePrintProductionPage
+    │   └── property-management-lead-generation.astro → ServiceLeadGenerationPage
+    ├── boardmatch/
+    │   └── groundwork.astro         → GroundworkPage  (canonical)
+    ├── boardretain/
+    │   ├── annual-report-production.astro → ServiceAnnualReportPage
+    │   ├── board-education.astro    → BoardEdPage  (canonical)
+    │   ├── newsletter-production.astro → ServiceNewsletterPage  (canonical)
+    │   └── reputation-management.astro → ServiceReputationManagementPage
     ├── courses/
-    │   ├── trust-building.astro     → CourseTrustBuildingPage
+    │   ├── trust-building.astro     → (legacy; redirects to /resources/courses/trust-building)
     │   ├── trust-building-lesson.astro → CourseTrustBuildingLessonPage
     │   └── trust-building-quiz.astro   → CourseTrustBuildingQuizPage
     ├── our-approach/
@@ -136,18 +146,15 @@ src/
     ├── resource-hub/
     │   ├── ai-search-for-cam.astro  → AISearchArticle
     │   └── cam-marketing-strategy.astro → MarketingStrategyArticle
+    ├── resources/
+    │   ├── index.astro              → ResourceHubPage  (canonical)
+    │   └── courses/
+    │       ├── index.astro          → CoursesPage  (canonical)
+    │       └── trust-building.astro → CourseTrustBuildingPage  (canonical)
     ├── results/
     │   └── rise-amg.astro           → RiseDeepCaseStudy
-    ├── boardreach/
-│   │   ├── branding.astro           → ServiceBrandingPage
-│   │   ├── email-marketing.astro    → ServiceEmailMarketingPage
-│   │   ├── print-production.astro  → ServicePrintProductionPage
-│   └── property-management-lead-generation.astro → ServiceLeadGenerationPage
-│   ├── boardretain/
-│   │   ├── annual-report-production.astro → ServiceAnnualReportPage
-│   │   └── reputation-management.astro    → ServiceReputationManagementPage
     └── services/
-        ├── hoa-newsletter-production.astro → ServiceNewsletterPage
+        ├── hoa-newsletter-production.astro → (legacy; redirects to /boardretain/newsletter-production)
         └── social-media-marketing-for-hoa-management-companies.astro → ServiceSocialMediaPage
 ```
 
@@ -694,4 +701,8 @@ When adding new service pages that replace old Claude Design URLs, add redirects
 | 2026-05 | Added `ServiceSocialMediaPage.tsx` + `ServiceReputationManagementPage.tsx` + `ServiceEmailMarketingPage.tsx` + `ServiceBrandingPage.tsx` + `ServiceAnnualReportPage.tsx` + `ServicePrintProductionPage.tsx` |
 | 2026-05 | Added `PricingPage.tsx` + `src/pages/pricing.astro` (`/pricing`) |
 | 2026-05 | Added `ServiceLeadGenerationPage.tsx` + `src/pages/boardreach/property-management-lead-generation.astro` |
-| 2026-05 | Added `boardreach/` + `boardretain/` route subdirectories with 5 new Astro routes |
+| 2026-05 | Added `boardreach/` + `boardretain/` + `boardmatch/` route subdirectories with 7 new Astro routes |
+| 2026-05 | Rewrote `nav.ts` to align with sitemap canonical URLs; updated `SiteHeader.tsx` CTA to `/get-started` |
+| 2026-05 | Moved Pricing into About nav dropdown; removed as standalone nav item |
+| 2026-05 | Added canonical routes: `/boardreach/`, `/boardmatch/groundwork`, `/boardretain/board-education`, `/boardretain/newsletter-production`, `/about/we-know-cam`, `/resources/`, `/resources/courses/`, `/resources/courses/trust-building`, `/get-started` |
+| 2026-05 | Added redirects in `astro.config.mjs` from all legacy URLs to new canonical paths |
