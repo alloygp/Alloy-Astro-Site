@@ -14,7 +14,7 @@ export default function ServicesPage() {
       brand: 'BoardReach™', label: 'Attract', h: 'Get found before boards start shopping.',
       exploreHref: '/our-approach/boardreach',
       services: [
-        { label: 'Local SEO & GEO (AI search)',    href: '/property-management-seo' },
+        { label: 'Local SEO & GEO (AI search)' },
         { label: 'Content marketing & pillar pages' },
         { label: 'Google Ads / PPC' },
         { label: 'Website development' },

@@ -6,7 +6,7 @@ import { PURPLE, PINK } from '~/lib/tokens';
 
 export default function CamMarketingPage() {
   const services = [
-    { h: 'Local SEO & GEO',       d: 'Per-location optimization, GBP buildout, AI-search citation strategy across Perplexity, ChatGPT, Gemini, Google AI Overviews.',                     href: '/property-management-seo' },
+    { h: 'Local SEO & GEO',       d: 'Per-location optimization, GBP buildout, AI-search citation strategy across Perplexity, ChatGPT, Gemini, Google AI Overviews.' },
     { h: 'Content marketing',      d: 'Pillar pages, board-stage SEO blogs, micro-courses. Educate boards before competitors do.' },
     { h: 'Paid acquisition',       d: 'Google Ads, retargeting, conversion-rate optimization. Setup, ongoing management, quarterly rebalancing.' },
     { h: 'Email & newsletter',     d: 'Branded templates, segmentation, drip nurtures, editorial calendar that keeps you in front of prospects.',                                            href: '/boardreach/email-marketing' },
