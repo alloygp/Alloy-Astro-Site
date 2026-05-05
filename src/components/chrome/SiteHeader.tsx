@@ -158,30 +158,29 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
                 {hasFlyout && openMenu === it.id && (
                   it.megaServices && it.pillars ? (
                     <div className="nav-mega-services" role="menu">
-                      <div className="nav-mega-intro">
-                        <div className="nav-mega-eyebrow">Services</div>
-                        <h3 className="nav-mega-headline">
-                          The full
-                          <br />
-                          board lifecycle.
-                        </h3>
-                        <p className="nav-mega-sub">
-                          Engineered services for every stage — attract, close, and keep.
-                          Every service maps to one of the three engines.
-                        </p>
-                        <a href="/services" className="nav-mega-overview">
-                          See all services →
-                        </a>
-                      </div>
                       <div className="nav-mega-services-groups">
                         {it.pillars.map((p) => (
                           <div key={p.pillar} className="nav-mega-services-group">
                             <a
                               href={p.href}
-                              className="nav-mega-services-grouphead"
-                              style={{ color: p.color }}
+                              className="nav-mega-services-grouphead-link"
                             >
-                              {p.title}
+                              <span
+                                className="nav-mega-services-pillardot"
+                                style={{ background: p.color }}
+                                aria-hidden="true"
+                              ></span>
+                              <span className="nav-mega-services-grouphead-stack">
+                                <span
+                                  className="nav-mega-services-stage"
+                                  style={{ color: p.color }}
+                                >
+                                  {p.stageWord.toUpperCase()}
+                                </span>
+                                <span className="nav-mega-services-grouphead">
+                                  {p.title}
+                                </span>
+                              </span>
                             </a>
                             <div className="nav-mega-services-items">
                               {p.items.map((c) => (
@@ -191,6 +190,11 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
                                   className="nav-mega-services-item"
                                   role="menuitem"
                                 >
+                                  <span
+                                    className="nav-mega-services-itemdot"
+                                    style={{ background: p.color }}
+                                    aria-hidden="true"
+                                  ></span>
                                   <div className="nav-mega-services-item-body">
                                     <div className="nav-mega-services-item-head">
                                       <span className="nav-mega-services-item-title">
@@ -205,9 +209,6 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
                                         {c.subtitle}
                                       </div>
                                     )}
-                                  </div>
-                                  <div className="nav-mega-arrow" aria-hidden="true">
-                                    →
                                   </div>
                                 </a>
                               ))}

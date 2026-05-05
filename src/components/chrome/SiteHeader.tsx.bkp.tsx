@@ -44,9 +44,14 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close on Escape, on click outside header, or when mouse leaves header DOM tree.
-  // (We can't use header onMouseLeave because the mega panels are positioned
-  //  visually outside the header rect, so they fire mouseleave on the parent.)
+  // Close on Escape, on click outside header, or when cursor leaves both the
+  // header band AND the open mega panel rect. Small grace timeout to avoid
+  // flicker as the cursor crosses the gap between the trigger link and the
+  // mega panel (which is positioned visually outside the header rect).
+  const openMenuRef = useRef<string | null>(null);
+  useEffect(() => {
+    openMenuRef.current = openMenu;
+  }, [openMenu]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -54,27 +59,57 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
         setMobileOpen(false);
       }
     };
-    const onDocMove = (e: MouseEvent) => {
-      if (!openMenu) return;
-      const t = e.target as Element | null;
-      if (!t || !t.closest) return;
-      if (!t.closest('.site-header')) setOpenMenu(null);
-    };
     const onClick = (e: MouseEvent) => {
-      if (!openMenu) return;
+      if (!openMenuRef.current) return;
       const t = e.target as Element | null;
       if (!t || !t.closest) return;
-      if (!t.closest('.site-header')) setOpenMenu(null);
+      const header = t.closest('.site-header');
+      const mega = t.closest('.nav-mega') || t.closest('.nav-mega-services');
+      if (!header && !mega) setOpenMenu(null);
+    };
+    let closeTimer: ReturnType<typeof setTimeout> | null = null;
+    const onMove = (e: MouseEvent) => {
+      if (!openMenuRef.current) return;
+      const header = document.querySelector('.site-header');
+      const mega = document.querySelector('.nav-mega-services, .nav-mega');
+      const x = e.clientX;
+      const y = e.clientY;
+      const inHeader =
+        !!header &&
+        (() => {
+          const r = (header as HTMLElement).getBoundingClientRect();
+          return x >= r.left && x <= r.right && y >= r.top - 4 && y <= r.bottom + 4;
+        })();
+      const inMega =
+        !!mega &&
+        (() => {
+          const r = (mega as HTMLElement).getBoundingClientRect();
+          return (
+            x >= r.left - 8 && x <= r.right + 8 && y >= r.top - 12 && y <= r.bottom + 8
+          );
+        })();
+      if (inHeader || inMega) {
+        if (closeTimer) {
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+      } else if (!closeTimer) {
+        closeTimer = setTimeout(() => {
+          closeTimer = null;
+          if (openMenuRef.current) setOpenMenu(null);
+        }, 120);
+      }
     };
     window.addEventListener('keydown', onKey);
-    document.addEventListener('mousemove', onDocMove);
     document.addEventListener('click', onClick);
+    document.addEventListener('mousemove', onMove);
     return () => {
       window.removeEventListener('keydown', onKey);
-      document.removeEventListener('mousemove', onDocMove);
       document.removeEventListener('click', onClick);
+      document.removeEventListener('mousemove', onMove);
+      if (closeTimer) clearTimeout(closeTimer);
     };
-  }, [openMenu]);
+  }, []);
 
   return (
     <header

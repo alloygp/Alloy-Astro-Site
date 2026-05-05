@@ -4,6 +4,24 @@ Paste this at the start of any Claude Design session before building a page.
 
 ---
 
+## Workflow rules — read first
+
+**Your job is to draft new page components only.** Claude Cowork handles all merges into the real Astro codebase.
+
+- ✅ Create new page files (e.g. `page-newsletter-production.jsx`)
+- ✅ Use the components and tokens listed below by name/reference
+- ❌ Never modify these shared files — they are maintained separately and your version will be out of date:
+  - `SiteHeader.tsx` / `SiteFooter.tsx`
+  - `BaseLayout.astro`
+  - `Shells.tsx` (PageHero, CtaBand, PillarCard, ServiceList)
+  - `Button.tsx`, `Icon.tsx`, `Tag.tsx`, `Eyebrow.tsx`, `AccentBar.tsx`, `PillarMark.tsx`, `EngineLoop.tsx`, `AnimatedNumber.tsx`
+  - Any CSS file (`site.css`, `colors_and_type.css`, `chrome.css`, `courses.css`)
+  - `tokens.ts`, `nav.ts`
+
+If a page needs something a shared component doesn't support, implement it inline in the page file and add a comment: `// TODO: extract to shared component`.
+
+---
+
 ## Colors
 
 | Name | Hex | Use |
