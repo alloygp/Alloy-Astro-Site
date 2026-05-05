@@ -115,9 +115,9 @@ export default function PricingPage() {
   ];
 
   const philosophy = [
-    { c: PINK,   h: 'One CAM firm per market.',       d: 'We don't run identical playbooks for two competing firms in the same metro. Period. When you hire us, your competitor can't.' },
+    { c: PINK,   h: 'One CAM firm per market.',       d: "We don't run identical playbooks for two competing firms in the same metro. Period. When you hire us, your competitor can't." },
     { c: YELLOW, h: 'All-in pricing.',                d: 'Retainer covers all listed deliverables. No per-project line items, no surprise scope fees, no rate cards. The number you see is the number you pay.' },
-    { c: GREEN,  h: '12-month commitment.',           d: 'Marketing compounds. We don't take month-to-month engagements because the math doesn't work — for you or for us. Real systems take 12 months minimum to mature.' },
+    { c: GREEN,  h: '12-month commitment.',           d: "Marketing compounds. We don't take month-to-month engagements because the math doesn't work — for you or for us. Real systems take 12 months minimum to mature." },
     { c: BLUE,   h: 'Outcomes, not deliverables.',   d: 'Every quarter we report against a small set of board-level outcomes (lead volume, win rate, retention) — not how many blog posts we shipped.' },
   ];
 

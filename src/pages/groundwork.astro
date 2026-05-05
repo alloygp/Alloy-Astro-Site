@@ -1,11 +1,3 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import GroundworkPage from '~/components/pages/GroundworkPage';
+return Astro.redirect('/boardmatch/groundwork', 301);
 ---
-<BaseLayout
-  title="Groundwork — Fractional Business Development for CAM — Alloy"
-  description="Alloy actively prospects on your behalf, qualifies board leads, and hands them off ready to close. Targeted 40–60% qualified-to-close rate."
-  pageId="services"
->
-  <GroundworkPage client:load />
-</BaseLayout>

@@ -1,11 +1,3 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import CamMarketingPage from '~/components/pages/CamMarketingPage';
+return Astro.redirect('/boardreach', 301);
 ---
-<BaseLayout
-  title="HOA & CAM Marketing Services — Alloy"
-  description="Authority positioning, content, paid acquisition, and demand generation engineered for community association management firms."
-  pageId="services"
->
-  <CamMarketingPage client:load />
-</BaseLayout>

@@ -46,10 +46,10 @@ export default function ServiceGBPLocalPackPage() {
   ];
 
   const stats = [
-    { color: PINK,   k: '44%',   v: 'of board-relevant queries return a local pack as the first organic result. If you're not in it, you're not in the conversation.',                 src: 'Alloy SERP analysis, 2026' },
-    { color: YELLOW, k: '$0',    v: 'media spend. The local pack is unpaid real estate — but you have to earn it. We build the signal stack that gets you there.',                     src: 'Google Local Pack' },
-    { color: GREEN,  k: '10+',   v: 'reviews per quarter target — the velocity that signals "active firm" to both Google\'s algorithm and the board reading them.',                   src: 'Alloy benchmark' },
-    { color: BLUE,   k: '60+',   v: 'surfaces audited for NAP consistency. One mismatched phone number on a forgotten directory is enough to suppress the entire profile.',           src: 'Alloy NAP audit' },
+    { color: PINK,   k: '44%',   v: "of board-relevant queries return a local pack as the first organic result. If you're not in it, you're not in the conversation.",                src: 'Alloy SERP analysis, 2026' },
+    { color: YELLOW, k: '$0',    v: "media spend. The local pack is unpaid real estate — but you have to earn it. We build the signal stack that gets you there.",                    src: 'Google Local Pack' },
+    { color: GREEN,  k: '10+',   v: "reviews per quarter target — the velocity that signals 'active firm' to both Google's algorithm and the board reading them.",                    src: 'Alloy benchmark' },
+    { color: BLUE,   k: '60+',   v: "surfaces audited for NAP consistency. One mismatched phone number on a forgotten directory is enough to suppress the entire profile.",          src: 'Alloy NAP audit' },
   ];
 
   const process = [

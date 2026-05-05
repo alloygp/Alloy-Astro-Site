@@ -1,11 +1,3 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import ServiceNewsletterPage from '~/components/pages/ServiceNewsletterPage';
+return Astro.redirect('/boardretain/newsletter-production', 301);
 ---
-<BaseLayout
-  title="HOA Newsletter Production for CAM Companies | Alloy"
-  description="Done-for-you HOA newsletter production for CAM companies. Alloy ghost-writes, designs, and delivers branded association newsletters every month."
-  pageId="services"
->
-  <ServiceNewsletterPage client:load />
-</BaseLayout>

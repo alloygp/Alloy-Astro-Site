@@ -41,14 +41,14 @@ export default function ServiceGoogleAdsPPCPage() {
     { icon: 'compass',   h: 'Landing-page alignment',      d: "Each campaign points at a purpose-built landing page — RFP-track, market-expansion, replace-firm — with the conversion path designed for board directors. Not your homepage. Conversion lifts 3–5× from this alone." },
     { icon: 'trending',  h: 'Bid + budget management',     d: 'Daily bid management, geo-targeting tuned to your service areas, dayparting around board-meeting cycles. Budget allocated against pipeline value, not arbitrary monthly cap.' },
     { icon: 'shield',    h: 'LinkedIn Ads (when it fits)', d: "Targeted board-member outreach via LinkedIn — but only when your portfolio target justifies it. Most CAM firms shouldn't run LinkedIn Ads. We say so when that's true." },
-    { icon: 'repeat',    h: 'Retargeting + nurture',       d: 'Display + search retargeting against board researchers who didn't convert. Sequenced creative — case studies, FAQ, RFP guide — over a 90-day window matched to typical board decision cycles.' },
+    { icon: 'repeat',    h: 'Retargeting + nurture',       d: "Display + search retargeting against board researchers who didn't convert. Sequenced creative — case studies, FAQ, RFP guide — over a 90-day window matched to typical board decision cycles." },
     { icon: 'bar-chart', h: 'Pipeline-tied reporting',     d: 'Cost per qualified lead, cost per RFP invite, cost per signed contract — not just CTR and CPC. Wired into your CRM or BoardSuite. The dashboard your CFO can read without you in the room.' },
   ];
 
   const stats = [
-    { color: PINK,   k: '$6+',   v: 'average CPC for board-stage HOA-management queries. High CPC means high intent — and most CAM firms aren't bidding at all.',                      src: 'Keyword data, May 2026' },
-    { color: YELLOW, k: '60%',   v: 'of CAM PPC budgets we audit are spent on queries that don't convert — homeowner support, resident questions, branded competitor terms.',          src: 'Alloy audit benchmark' },
-    { color: GREEN,  k: '$200K', v: 'median ACV of a single signed contract from a paid lead. Justifies a $300–$500 CPL — the math most CAM operators haven't run.',                  src: 'Alloy client benchmark' },
+    { color: PINK,   k: '$6+',   v: "average CPC for board-stage HOA-management queries. High CPC means high intent — and most CAM firms aren't bidding at all.",                     src: 'Keyword data, May 2026' },
+    { color: YELLOW, k: '60%',   v: "of CAM PPC budgets we audit are spent on queries that don't convert — homeowner support, resident questions, branded competitor terms.",         src: 'Alloy audit benchmark' },
+    { color: GREEN,  k: '$200K', v: "median ACV of a single signed contract from a paid lead. Justifies a $300–$500 CPL — the math most CAM operators haven't run.",                 src: 'Alloy client benchmark' },
     { color: BLUE,   k: '30',    v: 'days to a stable account: built, launched, optimized through first conversion data. Most agencies take 90+ to do less.',                          src: 'Alloy launch standard' },
   ];
 

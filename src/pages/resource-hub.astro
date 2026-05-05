@@ -1,11 +1,3 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import ResourceHubPage from '~/components/pages/ResourceHubPage';
+return Astro.redirect('/resources', 301);
 ---
-<BaseLayout
-  title="Resource Hub — CAM Growth Guides & Courses — Alloy"
-  description="Field-tested playbooks, micro-courses, and frameworks for CAM operators. Built by people who've run growth inside management firms."
-  pageId="resources"
->
-  <ResourceHubPage client:load />
-</BaseLayout>
