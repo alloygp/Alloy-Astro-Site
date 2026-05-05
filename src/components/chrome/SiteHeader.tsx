@@ -142,6 +142,16 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mega menu and mobile nav on Astro View Transitions page navigation.
+  useEffect(() => {
+    const onPageLoad = () => {
+      setOpenMenu(null);
+      setMobileOpen(false);
+    };
+    document.addEventListener('astro:page-load', onPageLoad);
+    return () => document.removeEventListener('astro:page-load', onPageLoad);
+  }, []);
+
   // Close on Escape, on click outside header, or when cursor leaves both the
   // header band AND the open mega panel rect.
   const openMenuRef = useRef<string | null>(null);
