@@ -866,6 +866,7 @@ img { max-width: 100%; display: block; }
 
 /* GetStartedPage hero grid — desktop default (mobile override in 720px block below) */
 .gs-hero-grid { grid-template-columns: 1.15fr 1fr; gap: 72px; }
+.gs-hero-grid > * { min-width: 0; }
 
 /* ============================================================================
    Mobile — global layout + homepage overrides
