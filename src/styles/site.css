@@ -795,6 +795,10 @@ img { max-width: 100%; display: block; }
   .alloy-footer-sitemap,
   .alloy-footer-editorial,
   .alloy-footer-cols-5         { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Content cards — single column on small phones */
+  .alloy-footer-stacked-cards .alloy-footer-cards,
+  .alloy-footer-cards          { grid-template-columns: 1fr; }
 }
 
 /* ----------------------------------------------------------------------------
@@ -909,4 +913,11 @@ img { max-width: 100%; display: block; }
 
   /* Trust band items — tighter gap so they wrap cleanly */
   .home-trust-items { gap: 14px !important; }
+
+  /* Footer — reduce padding on narrow viewports */
+  .alloy-footer-inner-v2 { padding: 48px 20px 28px; }
+  .site-footer-bottom    { padding: 16px 20px; }
+
+  /* Newsletter signup — stack pitch above form */
+  .site-footer-newsletter { grid-template-columns: 1fr; gap: 24px; }
 }
