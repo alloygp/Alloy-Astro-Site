@@ -923,4 +923,9 @@ img { max-width: 100%; display: block; }
 
   /* System diagram — stack tabs above detail panel */
   .system-diagram { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  /* Audit quiz — reduce card padding, stack circle above text on results */
+  .audit-quiz-card { padding: 28px 20px !important; }
+  .audit-quiz-result-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .audit-quiz-circle { margin: 0 auto; }
 }
