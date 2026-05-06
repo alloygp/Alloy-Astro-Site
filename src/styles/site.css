@@ -967,6 +967,8 @@ img { max-width: 100%; display: block; }
 
   /* GetStartedPage — hero, step cards, all grids */
   .gs-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .gs-zip-input { padding: 10px 12px !important; font-size: 15px !important; }
+  .gs-zip-btn { padding: 0 14px !important; min-width: 60px !important; font-size: 13px !important; }
   .gs-step-card { padding: 24px 20px !important; }
   .gs-size-grid { grid-template-columns: 1fr 1fr !important; }
   .gs-stage-grid { grid-template-columns: 1fr 1fr !important; }

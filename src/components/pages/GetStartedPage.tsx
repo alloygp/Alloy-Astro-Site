@@ -77,7 +77,7 @@ function MarketCheckCard() {
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: PINK, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 8 }}>Step 0 · Market check</div>
       <div className="display-md" style={{ fontSize: 24, color: PURPLE, marginBottom: 6, lineHeight: 1.15 }}>Is your market still open?</div>
       <p style={{ fontSize: 13, color: '#666', marginBottom: 18, lineHeight: 1.55 }}>One CAM company per metro. Enter your ZIP — we check against our active client footprint.</p>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
+      <div className="gs-zip-row" style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
         <input
           type="text"
           inputMode="numeric"
@@ -86,11 +86,13 @@ function MarketCheckCard() {
           onChange={(e) => { setZip(e.target.value.replace(/\D/g, '')); setStatus('idle'); }}
           onKeyDown={(e) => e.key === 'Enter' && checkMarket()}
           placeholder="78701"
+          className="gs-zip-input"
           style={{ flex: 1, padding: '14px 16px', borderRadius: 8, border: '1.5px solid #e2e2e2', fontSize: 16, fontFamily: 'var(--font-mono)', letterSpacing: '0.08em' } as CSSProperties}
         />
         <button
           onClick={checkMarket}
           disabled={zip.length !== 5 || status === 'loading'}
+          className="gs-zip-btn"
           style={{ padding: '0 22px', background: zip.length === 5 ? PURPLE : '#ddd', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, cursor: zip.length === 5 ? 'pointer' : 'not-allowed', letterSpacing: '0.02em', minWidth: 80 } as CSSProperties}
         >{status === 'loading' ? '…' : 'Check'}</button>
       </div>
