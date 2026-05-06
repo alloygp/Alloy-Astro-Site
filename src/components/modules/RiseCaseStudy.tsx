@@ -22,11 +22,11 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             "We went from chasing RFPs to having boards reach out directly."
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 999, border: '2px solid var(--alloy-pink)', flexShrink: 0, background: 'var(--alloy-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, color: '#fff', letterSpacing: '0.04em' }}>MG</span>
+            <div style={{ width: 44, height: 44, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
+              <img src="/assets/apex-cmg-ceo.jpg" alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 13 }}>Marcus G.</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 13 }}>Marcus Webb</div>
               <div style={{ fontSize: 11.5, color: '#888' }}>CEO, Apex CMG*</div>
             </div>
           </div>
@@ -46,7 +46,7 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             </div>
             <RiseGrowthChart />
             <div style={{ height: 1, background: 'rgba(255,255,255,0.10)', margin: '18px 0 16px' }}></div>
-            <div className="case-study-stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
               <RiseStatCompact color={PINK} label="Lead intake" value={<AnimatedNumber value={535} prefix="+" suffix="%" />} />
               <RiseStatCompact color={YELLOW} label="Proposals" value={<AnimatedNumber value={3} suffix="×" />} />
               <RiseStatCompact color={GREEN} label="YoY opps" value={<AnimatedNumber value={1580} prefix="+" suffix="%" />} />
@@ -59,18 +59,18 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
 
   return (
     <div className="case-study-card" style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 60px rgba(56,28,79,0.14)', border: '1px solid var(--border-subtle)' }}>
-      <div className="case-study-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr' }}>
-        <div className="case-study-panel-left" style={{ padding: '44px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr' }}>
+        <div style={{ padding: '44px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Eyebrow noLine>Signature client · Apex CMG*</Eyebrow>
           <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 32, lineHeight: 1.15, letterSpacing: '-0.02em', color: PURPLE, margin: '14px 0 18px' }}>
             "We went from chasing RFPs to having boards reach out directly."
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
-            <div style={{ width: 56, height: 56, borderRadius: 999, border: '2px solid var(--alloy-pink)', flexShrink: 0, background: 'var(--alloy-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 17, color: '#fff', letterSpacing: '0.04em' }}>MG</span>
+            <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
+              <img src="/assets/apex-cmg-ceo.jpg" alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus G.</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus Webb</div>
               <div style={{ fontSize: 12, color: '#888' }}>CEO, Apex CMG*</div>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             <Button variant="secondary" arrow href="/results/apex-cmg">Read the full story</Button>
           </div>
         </div>
-        <div className="case-study-panel-right" style={{ background: 'linear-gradient(160deg, #381c4f 0%, #290d41 100%)', color: '#fff', padding: '36px 40px 32px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ background: 'linear-gradient(160deg, #381c4f 0%, #290d41 100%)', color: '#fff', padding: '36px 40px 32px', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
           <div style={{ position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 }}>
@@ -103,7 +103,7 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             </div>
             <RiseGrowthChart />
             <div style={{ height: 1, background: 'rgba(255,255,255,0.10)', margin: '24px 0 22px' }}></div>
-            <div className="case-study-stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 18 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 18 }}>
               <RiseStatCompact color={PINK} label="Lead intake" value={<AnimatedNumber value={535} prefix="+" suffix="%" />} />
               <RiseStatCompact color={YELLOW} label="Proposals" value={<AnimatedNumber value={3} suffix="×" />} />
               <RiseStatCompact color={GREEN} label="YoY opportunities" value={<AnimatedNumber value={1580} prefix="+" suffix="%" />} />

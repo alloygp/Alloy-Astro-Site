@@ -1333,8 +1333,6 @@ body.has-fixed-header {
   border-radius: 8px;
   cursor: pointer;
   color: var(--alloy-purple-deep);
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
 }
 .site-header-burger:hover { background: var(--alloy-pink-tint); border-color: var(--alloy-pink); color: var(--alloy-pink); }
 
@@ -1440,7 +1438,7 @@ body.has-fixed-header {
 @media (max-width: 980px) {
   .site-nav-desktop { display: none; }
   .site-header-cta { display: none; }
-  .site-header-burger { display: inline-flex; grid-column: 3; }
+  .site-header-burger { display: inline-flex; }
   .site-header-inner { grid-template-columns: auto 1fr auto; }
   .site-nav-mobile { display: flex; }
   body.has-fixed-header { padding-top: 70px; }

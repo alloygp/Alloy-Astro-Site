@@ -22,7 +22,7 @@ export default function HomePage() {
       <section style={{ background: '#fff', borderBottom: '1px solid var(--border-subtle)' }}>
         <div className="container" style={{ padding: '32px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
           <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: PURPLE }}>Trusted by CAM operators across</div>
-          <div className="home-trust-items" style={{ display: 'flex', gap: 36, alignItems: 'center', flexWrap: 'wrap', color: '#888', fontWeight: 600 }}>
+          <div style={{ display: 'flex', gap: 36, alignItems: 'center', flexWrap: 'wrap', color: '#888', fontWeight: 600 }}>
             {['Apex CMG*', 'BBB Accredited', 'CAI Member', 'Austin · Phoenix · Denver', '35+ years CAM ops'].map((s) => (
               <div key={s} style={{ fontFamily: 'var(--font-display)', fontSize: 14, color: PURPLE, fontWeight: 600, letterSpacing: '-0.005em' }}>{s}</div>
             ))}
@@ -33,14 +33,14 @@ export default function HomePage() {
       {/* The system */}
       <section className="section section-ivory">
         <div className="container">
-          <div className="home-2col-intro" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'end', marginBottom: 40 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'end', marginBottom: 40 }}>
             <div>
               <Eyebrow>The Alloy system</Eyebrow>
               <h2 className="display-lg" style={{ color: PURPLE, margin: '16px 0 0' }}>Three engines.<br/>One growth partner.</h2>
             </div>
             <p className="lead">Most agencies sell one lever. Alloy engineers all three — attract, close, keep — into a connected system, and runs them as one playbook for one CAM company per market.</p>
           </div>
-          <div className="home-system-card" style={{ background: PURPLE, borderRadius: 16, padding: '48px 44px', boxShadow: '0 24px 60px rgba(56,28,79,0.20)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ background: PURPLE, borderRadius: 16, padding: '48px 44px', boxShadow: '0 24px 60px rgba(56,28,79,0.20)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none' }}></div>
             <div style={{ position: 'relative' }}>
               <SystemDiagram onLearn="/our-approach/boardreach" />
@@ -52,7 +52,7 @@ export default function HomePage() {
       {/* Apex CMG Case Study */}
       <section className="section section-white">
         <div className="container">
-          <div className="home-2col-intro" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'end', marginBottom: 48 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'end', marginBottom: 48 }}>
             <div>
               <Eyebrow>Proof, not promises</Eyebrow>
               <h2 className="display-lg" style={{ margin: '16px 0 0', color: PURPLE }}>What 18 months looked like for Apex CMG*.</h2>
@@ -78,7 +78,7 @@ export default function HomePage() {
       {/* Market Exclusivity */}
       <section className="section section-white">
         <div className="container">
-          <div className="home-2col-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
             <div>
               <Eyebrow>Market exclusivity</Eyebrow>
               <h2 className="display-lg" style={{ margin: '16px 0 20px', color: PURPLE }}>One CAM company per metro.<br/>Yours, or your competitor's.</h2>
@@ -103,7 +103,7 @@ export default function HomePage() {
       {/* ROI teaser */}
       <section className="section section-ivory">
         <div className="container">
-          <div className="home-roi-card" style={{ background: PURPLE, borderRadius: 16, padding: '56px 56px', color: '#fff', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center', boxShadow: '0 24px 60px rgba(56,28,79,0.20)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ background: PURPLE, borderRadius: 16, padding: '56px 56px', color: '#fff', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center', boxShadow: '0 24px 60px rgba(56,28,79,0.20)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 90% 10%, rgba(217,53,110,0.25) 0%, transparent 55%)', pointerEvents: 'none' }}></div>
             <div style={{ position: 'relative' }}>
               <Eyebrow onDark noLine>Engineered growth, modeled</Eyebrow>

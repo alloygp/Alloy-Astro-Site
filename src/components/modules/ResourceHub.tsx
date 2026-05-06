@@ -22,7 +22,7 @@ const items: ResourceItem[] = [
 
 export default function ResourceHub() {
   return (
-    <div className="resource-hub-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 20 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 20 }}>
       {items.map((it, i) => (
         <div key={i} className={`card card-pad card-accent-${it.color}`} style={{
           gridColumn: it.featured ? 'span 1' : 'auto',

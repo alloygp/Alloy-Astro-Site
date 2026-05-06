@@ -143,7 +143,7 @@ export default function MarketChecker() {
   };
 
   return (
-    <div className="market-checker-card" style={{ background: '#fff', borderRadius: 16, padding: 40, boxShadow: '0 16px 48px rgba(56,28,79,0.12)', border: '1px solid var(--border-subtle)' }}>
+    <div style={{ background: '#fff', borderRadius: 16, padding: 40, boxShadow: '0 16px 48px rgba(56,28,79,0.12)', border: '1px solid var(--border-subtle)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 24 }}>
         <div style={{ width: 48, height: 48, borderRadius: 10, background: 'var(--alloy-pink-tint)', display: 'grid', placeItems: 'center', color: PINK, flexShrink: 0 }}>
           <Icon name="map-pin" size={24} />
@@ -183,10 +183,10 @@ export default function MarketChecker() {
           : `Within ${LOCK_RADIUS_MI} miles of ${result.nearLabel || result.label}. Get on the waitlist — we'll alert you the moment it opens.`;
         return (
           <>
-            <div className="reveal market-checker-result" style={{
+            <div className="reveal" style={{
               marginTop: 20, padding: '18px 22px', borderRadius: 10,
               background: bg, border: `1px solid ${border}`,
-              display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
+              display: 'flex', alignItems: 'center', gap: 14,
             }}>
               <div style={{ width: 32, height: 32, borderRadius: 999, background: iconBg, color: '#fff', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
                 <Icon name={iconName} size={18} strokeWidth={2.5} />
@@ -211,7 +211,7 @@ export default function MarketChecker() {
                 <div style={{ fontSize: 13, color: '#666', lineHeight: 1.5, marginBottom: 14 }}>
                   We'll alert you the moment {result.nearLabel || result.label} opens up.
                 </div>
-                <div className="market-checker-waitlist-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 10 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 10 }}>
                   <input type="email" required value={waitEmail} onChange={(e) => setWaitEmail(e.target.value)} placeholder="Work email"
                     style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--border-strong)', fontSize: 14, fontFamily: 'var(--font-body)', color: PURPLE, outline: 'none' }} />
                   <input type="text" required value={waitCo} onChange={(e) => setWaitCo(e.target.value)} placeholder="Company name"

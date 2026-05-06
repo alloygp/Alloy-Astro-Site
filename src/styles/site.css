@@ -9,7 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-html { overflow-x: hidden; }
 * { box-sizing: border-box; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
@@ -796,10 +795,6 @@ img { max-width: 100%; display: block; }
   .alloy-footer-sitemap,
   .alloy-footer-editorial,
   .alloy-footer-cols-5         { grid-template-columns: 1fr; gap: 28px; }
-
-  /* Content cards — single column on small phones */
-  .alloy-footer-stacked-cards .alloy-footer-cards,
-  .alloy-footer-cards          { grid-template-columns: 1fr; }
 }
 
 /* ----------------------------------------------------------------------------
@@ -863,94 +858,3 @@ img { max-width: 100%; display: block; }
 
 /* Tweaks-panel positioning override (for our site) */
 .tweaks-panel { font-family: var(--font-body) !important; }
-
-/* ============================================================================
-   Mobile — global layout + homepage overrides
-   ============================================================================ */
-@media (max-width: 720px) {
-  /* Containers — less horizontal padding on narrow viewports */
-  .container,
-  .container-narrow { padding-left: 20px; padding-right: 20px; }
-
-  /* Section vertical rhythm — reduce from 96px */
-  .section        { padding-top: 60px; padding-bottom: 60px; }
-  .section-tight  { padding-top: 40px; padding-bottom: 40px; }
-
-  /* Hero inner — shorter vertical padding, narrower sides */
-  .hero-inner { padding: 56px 20px 56px; }
-
-  /* Hero split layout — stack copy above visual */
-  .hero-grid-split { grid-template-columns: 1fr; gap: 32px; }
-
-  /* Hero stats row — 4-col → 2×2 grid */
-  .hero-stats-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-    padding-top: 32px !important;
-  }
-
-  /* Homepage section intro grids (The system / Proof) — 2-col → single col */
-  .home-2col-intro {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-    margin-bottom: 32px !important;
-  }
-
-  /* Homepage market exclusivity + 2-col content splits */
-  .home-2col-split {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-
-  /* ROI teaser card — stack copy above stat chips, reduce padding */
-  .home-roi-card {
-    grid-template-columns: 1fr !important;
-    padding: 36px 24px !important;
-    gap: 32px !important;
-  }
-
-  /* System diagram purple card — tighter padding on mobile */
-  .home-system-card { padding: 28px 20px !important; }
-
-  /* Trust band items — tighter gap so they wrap cleanly */
-  .home-trust-items { gap: 14px !important; }
-
-  /* Footer — reduce padding on narrow viewports */
-  .alloy-footer-inner-v2 { padding: 48px 20px 28px; }
-  .site-footer-bottom    { padding: 16px 20px; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
-  .site-footer-bottom-links { justify-content: center; }
-
-  /* Newsletter signup — stack pitch above form */
-  .site-footer-newsletter { grid-template-columns: 1fr; gap: 24px; }
-
-  /* System diagram — stack tabs above detail panel */
-  .system-diagram { grid-template-columns: 1fr !important; gap: 32px !important; }
-
-  /* Audit quiz — reduce card padding, stack circle above text on results */
-  .audit-quiz-card { padding: 28px 20px !important; }
-  .audit-quiz-result-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
-  .audit-quiz-circle { margin: 0 auto; }
-
-  /* Resource hub — single column, remove row/col spans */
-  .resource-hub-grid { grid-template-columns: 1fr !important; }
-  .resource-hub-grid .card { grid-column: auto !important; grid-row: auto !important; min-height: 0 !important; }
-
-  /* RiseCaseStudy — stack left/right panels */
-  .case-study-grid { grid-template-columns: 1fr !important; }
-  .case-study-panel-left { padding: 28px 20px !important; }
-  .case-study-panel-right { padding: 28px 20px !important; }
-
-  /* MarketChecker — tighter padding, stack waitlist form, wrap result row */
-  .market-checker-card { padding: 24px 20px !important; }
-  .market-checker-waitlist-grid { grid-template-columns: 1fr !important; }
-  .market-checker-result .btn { width: 100%; justify-content: center; }
-
-  /* RiseCaseStudy — stats grid from 3-col to 2-col so labels don't clip */
-  .case-study-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
-
-  /* SystemDiagram — detail panel responsive */
-  .system-diagram-panel { padding: 24px 20px !important; min-height: 0 !important; }
-  .system-diagram-panel h3 { font-size: 26px !important; }
-  .system-diagram-proof { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
-  .system-diagram-services { grid-template-columns: 1fr !important; }
-}
