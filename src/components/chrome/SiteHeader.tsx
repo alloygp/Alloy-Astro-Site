@@ -836,7 +836,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
             Claim Your Market
           </a>
           <a
-            href="/login"
+            href="https://portal.alloygp.co"
             className="site-header-login"
             aria-label="Log in to your Alloy account"
           >
@@ -900,7 +900,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
           <a href="/get-started" className="btn btn-primary mobile-cta">
             Claim Your Market
           </a>
-          <a href="/login" className="mobile-login-link">
+          <a href="https://portal.alloygp.co" className="mobile-login-link">
             Log in to your account →
           </a>
         </div>
