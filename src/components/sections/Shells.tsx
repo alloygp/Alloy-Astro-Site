@@ -103,7 +103,6 @@ export function PillarCard({ color, brand, label, headline, items, href, pillar 
   return (
     <div className="card card-pad pillar-card" style={{ borderTop: `5px solid ${color}`, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <PillarMark pillar={p} size={48} />
         <Tag color={tagColor as any}>{label}</Tag>
       </div>
       <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, color: PURPLE, letterSpacing: '-0.018em', lineHeight: 1.1 }}>{brand}</div>
