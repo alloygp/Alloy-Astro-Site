@@ -267,7 +267,7 @@ export default function GetStartedPage() {
       <section className="hero" style={{ background: PURPLE, color: '#fff', overflow: 'hidden', position: 'relative' }}>
         <div className="hero-bg-grid"></div>
         <div className="hero-inner" style={{ position: 'relative', paddingTop: 88, paddingBottom: 72 } as CSSProperties}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 72, alignItems: 'start' }}>
+          <div className="gs-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 72, alignItems: 'start' }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
                 <span style={{ width: 8, height: 8, borderRadius: 999, background: PINK, boxShadow: `0 0 0 4px ${PINK}30` }}></span>
@@ -311,12 +311,12 @@ export default function GetStartedPage() {
           </div>
 
           {/* STEP 1 — SIZE */}
-          <div style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', marginBottom: 24, border: '1px solid var(--border-subtle)' }}>
+          <div className="gs-step-card" style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', marginBottom: 24, border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22 }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: PINK, fontSize: 12, letterSpacing: '0.2em' }}>01</div>
               <div className="display-md" style={{ fontSize: 22, color: PURPLE }}>How big is your portfolio?</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+            <div className="gs-size-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
               {sizes.map(s => (
                 <button key={s.v} onClick={() => setSize(s.v)} style={{
                   textAlign: 'left', padding: '16px 18px',
@@ -332,12 +332,12 @@ export default function GetStartedPage() {
           </div>
 
           {/* STEP 2 — STAGE */}
-          <div style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', marginBottom: 24, border: '1px solid var(--border-subtle)' }}>
+          <div className="gs-step-card" style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', marginBottom: 24, border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22 }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: YELLOW, fontSize: 12, letterSpacing: '0.2em' }}>02</div>
               <div className="display-md" style={{ fontSize: 22, color: PURPLE }}>Where are you on marketing today?</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
+            <div className="gs-stage-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
               {stages.map(s => (
                 <button key={s.v} onClick={() => setStage(s.v)} style={{
                   textAlign: 'left', padding: '16px 14px',
@@ -353,7 +353,7 @@ export default function GetStartedPage() {
           </div>
 
           {/* STEP 3 — PROBLEMS */}
-          <div style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', marginBottom: 24, border: '1px solid var(--border-subtle)' }}>
+          <div className="gs-step-card" style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', marginBottom: 24, border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 6 }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: GREEN, fontSize: 12, letterSpacing: '0.2em' }}>03</div>
               <div className="display-md" style={{ fontSize: 22, color: PURPLE }}>Which problems are real for you right now?</div>
@@ -386,7 +386,7 @@ export default function GetStartedPage() {
 
           {/* LIVE READOUT */}
           {readout && (
-            <div style={{ background: PURPLE, color: '#fff', borderRadius: 16, padding: '32px 40px', marginBottom: 24, position: 'relative', overflow: 'hidden' }}>
+            <div className="gs-step-card" style={{ background: PURPLE, color: '#fff', borderRadius: 16, padding: '32px 40px', marginBottom: 24, position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: readout.color }}></div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: readout.color, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 10 }}>Diagnostic readout · Updates as you select</div>
               <div className="display-md" style={{ fontSize: 26, color: '#fff', marginBottom: 8, lineHeight: 1.2 }}>{readout.h}</div>
@@ -395,12 +395,12 @@ export default function GetStartedPage() {
           )}
 
           {/* STEP 4 — CONTACT */}
-          <div style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', border: '1px solid var(--border-subtle)' }}>
+          <div className="gs-step-card" style={{ background: '#fff', borderRadius: 16, padding: '36px 40px', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22 }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: BLUE, fontSize: 12, letterSpacing: '0.2em' }}>04</div>
               <div className="display-md" style={{ fontSize: 22, color: PURPLE }}>Where do we send the calendar link?</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="gs-contact-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <FormField label="Your name"       value={name}    onChange={setName}    placeholder="Pat Operator" />
               <FormField label="Company"         value={company} onChange={setCompany} placeholder="Cypress Lakes Management" />
               <FormField label="Work email"      value={email}   onChange={setEmail}   placeholder="pat@cypresslakes.com" type="email" />
@@ -409,8 +409,8 @@ export default function GetStartedPage() {
             {error && (
               <div style={{ marginTop: 16, padding: '12px 16px', background: '#fff0f3', borderLeft: `3px solid ${PINK}`, borderRadius: 4, fontSize: 14, color: PINK }}>{error}</div>
             )}
-            <div style={{ marginTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-              <div style={{ fontSize: 12, color: '#888', maxWidth: 480, lineHeight: 1.5 }}>
+            <div className="gs-submit-row" style={{ marginTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+              <div className="gs-submit-disclaimer" style={{ fontSize: 12, color: '#888', maxWidth: 480, lineHeight: 1.5 }}>
                 We'll respond within one business day with a calendar link. No mailing list. No drip sequence. We hate them too.
               </div>
               <button
@@ -439,7 +439,7 @@ export default function GetStartedPage() {
             <Eyebrow>What happens next</Eyebrow>
             <h2 className="display-lg" style={{ margin: '14px 0 0', color: PURPLE }}>The next 14 days, mapped.</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }}>
+          <div className="gs-timeline-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }}>
             {[
               { d: 'Day 0',   c: PINK,   h: 'You submit',      b: "We confirm market availability and lock your ZIP exclusivity for 30 days while we diagnose. No charge." },
               { d: 'Day 1–3', c: YELLOW, h: 'Pre-review prep',  b: "We pull your local pack, AI citations, RFP win-rate proxy, and review velocity. You see the data we'll discuss before the call." },

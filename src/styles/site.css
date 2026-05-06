@@ -954,10 +954,21 @@ img { max-width: 100%; display: block; }
   .system-diagram-proof { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
   .system-diagram-services { grid-template-columns: 1fr !important; }
 
-  /* ContactPage / Get Started — stack 2-col fields, reduce padding, full-width button */
+  /* ContactPage — stack 2-col fields, reduce padding, full-width button */
   .contact-form-card { padding: 28px 20px !important; }
   .contact-form-2col { grid-template-columns: 1fr !important; }
   .contact-form-submit { flex-direction: column !important; align-items: stretch !important; }
   .contact-form-disclaimer { max-width: 100% !important; }
   .contact-form-submit .btn { width: 100%; justify-content: center; }
+
+  /* GetStartedPage — hero, step cards, all grids */
+  .gs-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .gs-step-card { padding: 24px 20px !important; }
+  .gs-size-grid { grid-template-columns: 1fr 1fr !important; }
+  .gs-stage-grid { grid-template-columns: 1fr 1fr !important; }
+  .gs-contact-2col { grid-template-columns: 1fr !important; }
+  .gs-submit-row { flex-direction: column !important; align-items: stretch !important; }
+  .gs-submit-disclaimer { max-width: 100% !important; }
+  .gs-submit-row button { width: 100% !important; }
+  .gs-timeline-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
 }
