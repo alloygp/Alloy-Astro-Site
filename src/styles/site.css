@@ -943,4 +943,13 @@ img { max-width: 100%; display: block; }
   .market-checker-card { padding: 24px 20px !important; }
   .market-checker-waitlist-grid { grid-template-columns: 1fr !important; }
   .market-checker-result .btn { width: 100%; justify-content: center; }
+
+  /* RiseCaseStudy — stats grid from 3-col to 2-col so labels don't clip */
+  .case-study-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+
+  /* SystemDiagram — detail panel responsive */
+  .system-diagram-panel { padding: 24px 20px !important; min-height: 0 !important; }
+  .system-diagram-panel h3 { font-size: 26px !important; }
+  .system-diagram-proof { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+  .system-diagram-services { grid-template-columns: 1fr !important; }
 }

@@ -46,7 +46,7 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             </div>
             <RiseGrowthChart />
             <div style={{ height: 1, background: 'rgba(255,255,255,0.10)', margin: '18px 0 16px' }}></div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+            <div className="case-study-stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
               <RiseStatCompact color={PINK} label="Lead intake" value={<AnimatedNumber value={535} prefix="+" suffix="%" />} />
               <RiseStatCompact color={YELLOW} label="Proposals" value={<AnimatedNumber value={3} suffix="×" />} />
               <RiseStatCompact color={GREEN} label="YoY opps" value={<AnimatedNumber value={1580} prefix="+" suffix="%" />} />
@@ -103,7 +103,7 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             </div>
             <RiseGrowthChart />
             <div style={{ height: 1, background: 'rgba(255,255,255,0.10)', margin: '24px 0 22px' }}></div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 18 }}>
+            <div className="case-study-stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 18 }}>
               <RiseStatCompact color={PINK} label="Lead intake" value={<AnimatedNumber value={535} prefix="+" suffix="%" />} />
               <RiseStatCompact color={YELLOW} label="Proposals" value={<AnimatedNumber value={3} suffix="×" />} />
               <RiseStatCompact color={GREEN} label="YoY opportunities" value={<AnimatedNumber value={1580} prefix="+" suffix="%" />} />
