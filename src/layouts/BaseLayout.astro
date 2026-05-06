@@ -144,6 +144,15 @@ const orgLd = {
       <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     )}
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FSCT09DV7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0FSCT09DV7');
+    </script>
+
     <ViewTransitions />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
