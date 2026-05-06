@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Let's see what opens up · Alloy</title>
+
+<link rel="stylesheet" href="/colors_and_type.css" />
+<style>
+  /* ===== reset / base ===== */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--alloy-purple-deep);
+    color: var(--fg-on-purple);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+  }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+  input, textarea, select { font: inherit; color: inherit; }
+  a { color: inherit; }
+
+  /* ===== layout shell — mobile first ===== */
+  .stage {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(120% 80% at 85% -10%, rgba(217, 53, 110, 0.28), transparent 55%),
+      radial-gradient(110% 70% at 0% 100%, rgba(245, 216, 128, 0.10), transparent 60%),
+      var(--alloy-purple-deep);
+    position: relative;
+    overflow: hidden;
+  }
+  .stage::before {
+    /* a soft circle echo of the card art */
+    content: "";
+    position: absolute;
+    width: 520px; height: 520px;
+    right: -180px; top: -180px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(217, 53, 110, 0.35), rgba(217, 53, 110, 0) 70%);
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 28px 22px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== top bar ===== */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .top .logo { height: 28px; width: auto; display: block; }
+  .top .logo.logo-dark { display: none; }
+  body.theme-light .top .logo.logo-light { display: none; }
+  body.theme-light .top .logo.logo-dark { display: block; }
+  .top .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* ===== hero ===== */
+  .eyebrow {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--alloy-yellow);
+    margin: 0 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px; height: 2px;
+    background: var(--alloy-yellow);
+    display: inline-block;
+  }
+  h1.headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(34px, 9vw, 48px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    color: #fff;
+  }
+  h1.headline .pop { color: var(--alloy-yellow); display: inline-block; }
+  .sub {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.78);
+    margin: 0 0 30px;
+    max-width: 44ch;
+  }
+
+  /* ===== step indicator ===== */
+  .step-row {
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 18px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .step-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 10px 6px 7px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    font-size: 11px;
+  }
+  .step-pill .num {
+    width: 18px; height: 18px;
+    border-radius: 999px;
+    background: var(--alloy-pink);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  /* ===== drink picker ===== */
+  .drinks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 0 0 24px;
+  }
+  .drink {
+    appearance: none;
+    width: 100%;
+    text-align: left;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 18px 18px 18px 84px;
+    position: relative;
+    transition: border-color 180ms var(--ease-standard),
+                background 180ms var(--ease-standard),
+                transform 120ms var(--ease-standard);
+    cursor: pointer;
+    display: block;
+  }
+  .drink:hover { background: rgba(255,255,255,0.07); }
+  .drink:active { transform: scale(0.99); }
+  .drink[aria-pressed="true"] {
+    border-color: var(--alloy-yellow);
+    background: rgba(245, 216, 128, 0.10);
+  }
+  .drink[aria-pressed="true"] .check { opacity: 1; transform: scale(1); }
+
+  .drink .icon {
+    position: absolute;
+    left: 18px; top: 50%;
+    transform: translateY(-50%);
+    width: 52px; height: 64px;
+    display: grid; place-items: center;
+  }
+  .drink .icon svg { width: 100%; height: 100%; display: block; }
+
+  .drink .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    margin: 0 0 2px;
+    letter-spacing: -0.005em;
+  }
+  .drink .desc {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+  }
+  .drink .check {
+    position: absolute;
+    right: 16px; top: 50%;
+    transform: translateY(-50%) scale(0.6);
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    background: var(--alloy-yellow);
+    color: var(--alloy-purple-deep);
+    display: grid; place-items: center;
+    opacity: 0;
+    transition: opacity 160ms var(--ease-standard),
+                transform 200ms var(--ease-emphasis);
+  }
+  .drink .check svg { width: 14px; height: 14px; }
+
+  /* preference field that appears once a drink is picked */
+  .pref {
+    margin: -8px 0 22px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 280ms var(--ease-standard), opacity 200ms var(--ease-standard), margin 200ms var(--ease-standard);
+  }
+  .pref.show {
+    max-height: 130px;
+    opacity: 1;
+    margin: 6px 0 22px;
+  }
+  .pref label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    display: block;
+    margin: 0 0 8px;
+  }
+
+  /* ===== form ===== */
+  .form {
+    display: grid;
+    gap: 12px;
+    margin: 0 0 18px;
+  }
+  .field { position: relative; }
+  .field label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin: 0 0 6px;
+  }
+  .field input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #fff;
+    font-size: 16px; /* prevents iOS zoom */
+    font-weight: 500;
+    transition: border-color 160ms var(--ease-standard), background 160ms var(--ease-standard);
+  }
+  .field input::placeholder { color: rgba(255,255,255,0.35); }
+  .field input:focus {
+    outline: none;
+    border-color: var(--alloy-yellow);
+    background: rgba(255,255,255,0.09);
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 460px) {
+    .field-row { grid-template-columns: 1fr; }
+  }
+
+  /* ===== submit / sticky ===== */
+  .submit-wrap {
+    position: sticky;
+    bottom: 0;
+    margin: 18px -22px 0;
+    padding: 16px 22px calc(20px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(41, 13, 65, 0) 0%, rgba(41, 13, 65, 0.92) 35%, var(--alloy-purple-deep) 100%);
+    z-index: 5;
+  }
+  .submit {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    background: var(--alloy-pink);
+    color: #fff;
+    border-radius: 14px;
+    padding: 17px 22px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-pink);
+    transition: background 160ms var(--ease-standard), transform 120ms var(--ease-standard), opacity 160ms;
+  }
+  .submit:hover:not(:disabled) { background: var(--alloy-pink-hover); }
+  .submit:active:not(:disabled) { transform: scale(0.985); }
+  .submit:disabled {
+    background: rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.45);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .submit svg { width: 16px; height: 16px; }
+
+  /* ===== accent stripe (echoing card foot) ===== */
+  .accent-strip {
+    display: flex;
+    height: 6px;
+    margin-top: auto;
+  }
+  .accent-strip span { flex: 1; }
+  .accent-strip span:nth-child(1) { background: var(--alloy-pink); }
+  .accent-strip span:nth-child(2) { background: var(--alloy-blue); }
+  .accent-strip span:nth-child(3) { background: var(--alloy-yellow); }
+  .accent-strip span:nth-child(4) { background: var(--alloy-green); }
+  .accent-strip span:nth-child(5) { background: var(--alloy-purple); }
+
+  /* footer note */
+  .foot {
+    padding: 18px 22px 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+  }
+
+  /* ===== confirmation screen ===== */
+  .confirm { display: none; }
+  body.is-confirmed .order-screen { display: none; }
+  body.is-confirmed .confirm { display: flex; flex-direction: column; flex: 1; }
+
+  .confirm-hero {
+    padding: 8px 0 24px;
+  }
+  .confirm-tick {
+    width: 64px; height: 64px;
+    border-radius: 999px;
+    background: var(--alloy-yellow);
+    color: var(--alloy-purple-deep);
+    display: grid; place-items: center;
+    margin: 0 0 22px;
+    animation: pop 380ms var(--ease-emphasis) both;
+  }
+  .confirm-tick svg { width: 30px; height: 30px; }
+  @keyframes pop {
+    from { transform: scale(0.4); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .confirm h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(30px, 7.5vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    color: #fff;
+  }
+  .confirm h2 .pop { color: var(--alloy-yellow); }
+  .confirm .sub { color: rgba(255,255,255,0.78); }
+
+  .order-card {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 4px 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .order-card .order-icon {
+    width: 44px; height: 56px;
+    flex: 0 0 auto;
+  }
+  .order-card .order-icon svg { width: 100%; height: 100%; }
+  .order-card .order-text { flex: 1; min-width: 0; }
+  .order-card .order-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin: 0 0 3px;
+  }
+  .order-card .order-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* teaser block */
+  .teaser {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 16px;
+    padding: 22px;
+    margin: 0 0 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .teaser::before {
+    content: "";
+    position: absolute;
+    width: 240px; height: 240px;
+    right: -90px; bottom: -120px;
+    background: radial-gradient(circle, rgba(245, 216, 128, 0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .teaser .eyebrow {
+    color: var(--alloy-yellow);
+    margin-bottom: 10px;
+  }
+  .teaser h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .teaser h3 .pop { color: var(--alloy-yellow); }
+  .teaser p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.72);
+    margin: 0 0 16px;
+    max-width: 42ch;
+    position: relative;
+  }
+  .teaser .market-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(0,0,0,0.22);
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.78);
+    position: relative;
+  }
+  .market-line .dot {
+    width: 7px; height: 7px;
+    border-radius: 999px;
+    background: var(--alloy-green);
+    box-shadow: 0 0 0 4px rgba(174, 215, 208, 0.18);
+    flex: 0 0 auto;
+  }
+  .market-line .market-name { color: #fff; }
+
+  /* secondary action under teaser */
+  .secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    border-radius: 14px;
+    padding: 15px 22px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    transition: border-color 160ms, background 160ms;
+  }
+  .secondary:hover { border-color: var(--alloy-yellow); background: rgba(255,255,255,0.04); }
+
+  /* ===== light mode (tweak) ===== */
+  body.theme-light { background: var(--alloy-off-white); color: var(--fg-1); }
+  body.theme-light .stage {
+    background:
+      radial-gradient(120% 80% at 85% -10%, rgba(217, 53, 110, 0.10), transparent 55%),
+      radial-gradient(110% 70% at 0% 100%, rgba(245, 216, 128, 0.16), transparent 60%),
+      var(--alloy-off-white);
+  }
+  body.theme-light .stage::before { display: none; }
+  body.theme-light h1.headline,
+  body.theme-light .confirm h2 { color: var(--fg-1); }
+  body.theme-light h1.headline .pop,
+  body.theme-light .confirm h2 .pop,
+  body.theme-light .teaser h3 .pop { color: var(--alloy-pink); }
+  body.theme-light .sub,
+  body.theme-light .teaser p { color: var(--fg-3); }
+  body.theme-light .top .meta { color: var(--alloy-purple); }
+  body.theme-light .eyebrow { color: var(--alloy-pink); }
+  body.theme-light .eyebrow::before { background: var(--alloy-pink); }
+  body.theme-light .step-row { color: var(--alloy-purple); }
+  body.theme-light .step-pill { background: var(--alloy-purple-tint); border-color: var(--border-subtle); }
+  body.theme-light .drink {
+    background: #fff;
+    border-color: var(--border-subtle);
+    box-shadow: var(--shadow-xs);
+  }
+  body.theme-light .drink:hover { background: #fff; border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
+  body.theme-light .drink[aria-pressed="true"] {
+    border-color: var(--alloy-pink);
+    background: var(--alloy-pink-tint);
+  }
+  body.theme-light .drink .name { color: var(--fg-1); }
+  body.theme-light .drink .desc { color: var(--fg-3); }
+  body.theme-light .drink .check { background: var(--alloy-pink); color: #fff; }
+  body.theme-light .pref label,
+  body.theme-light .field label { color: var(--alloy-purple); }
+  body.theme-light .field input {
+    background: #fff;
+    border-color: var(--border-subtle);
+    color: var(--fg-1);
+    box-shadow: var(--shadow-xs);
+  }
+  body.theme-light .field input::placeholder { color: var(--fg-muted); }
+  body.theme-light .field input:focus { border-color: var(--alloy-pink); background: #fff; }
+  body.theme-light .submit-wrap {
+    background: linear-gradient(180deg, rgba(248, 247, 252, 0) 0%, rgba(248, 247, 252, 0.92) 35%, var(--alloy-off-white) 100%);
+  }
+  body.theme-light .order-card { background: #fff; border-color: var(--border-subtle); box-shadow: var(--shadow-sm); }
+  body.theme-light .order-card .order-label { color: var(--fg-muted); }
+  body.theme-light .order-card .order-name { color: var(--fg-1); }
+  body.theme-light .teaser { background: #fff; border-color: var(--border-subtle); box-shadow: var(--shadow-sm); }
+  body.theme-light .teaser h3 { color: var(--fg-1); }
+  body.theme-light .market-line { background: var(--alloy-purple-tint); color: var(--alloy-purple); }
+  body.theme-light .market-line .market-name { color: var(--fg-1); }
+  body.theme-light .secondary { color: var(--alloy-purple); border-color: var(--border-strong); }
+  body.theme-light .secondary:hover { background: #fff; border-color: var(--alloy-pink); color: var(--alloy-pink); }
+  body.theme-light .foot { color: var(--fg-muted); }
+  body.theme-light .confirm-tick { background: var(--alloy-pink); color: #fff; }
+
+  /* logo color flip in light mode is already handled by SVG; if it's purple already, leave it. */
+
+  /* ===== drag/spin micro-interaction on bottle icons ===== */
+  .drink .icon svg { transition: transform 220ms var(--ease-emphasis); }
+  .drink:hover .icon svg { transform: rotate(-4deg) translateY(-1px); }
+  .drink[aria-pressed="true"] .icon svg { transform: rotate(0); }
+</style>
+</head>
+<body>
+
+<main class="stage">
+  <div class="wrap">
+
+    <!-- ===== top bar ===== -->
+    <div class="top">
+      <a class="site-logo-link" href="https://alloygp.co" aria-label="Alloy Growth Partners">
+        <img class="logo logo-light" src="/assets/alloy-logo-light.svg" alt="Alloy Growth Partners" />
+        <img class="logo logo-dark" src="/assets/alloy-logo-dark.svg" alt="" aria-hidden="true" />
+      </a>
+      <span class="meta">Think Tank · 2026</span>
+    </div>
+
+    <!-- ===== ORDER SCREEN ===== -->
+    <section class="order-screen">
+
+      <p class="eyebrow">Welcome — let's open something</p>
+      <h1 class="headline">What can we<br/><span class="pop">open for you?</span></h1>
+      <p class="sub">You scanned. Cheers. Pick a drink and we'll bring it over — then we'll show you who's currently winning in your market.</p>
+
+      <div class="step-row" aria-hidden="true">
+        <span class="step-pill"><span class="num">1</span>Pick a drink</span>
+        <span class="step-pill"><span class="num">2</span>Tell us who you are</span>
+      </div>
+
+      <!-- drinks -->
+      <div class="drinks" role="radiogroup" aria-label="Drink selection">
+
+        <button type="button" class="drink" role="radio" aria-checked="false" aria-pressed="false" data-drink="Sparkling water">
+          <span class="icon" aria-hidden="true">
+            <!-- Topo-Chico-shaped sparkling water bottle (generic, no branding) -->
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- cap -->
+              <rect x="20" y="3" width="12" height="6" rx="1.4" fill="#a1c8e7"/>
+              <rect x="19" y="8" width="14" height="3" rx="1" fill="#7faecd"/>
+              <!-- neck -->
+              <path d="M22 11 H30 V18 C30 20 31 21 31 23 V26 H21 V23 C21 21 22 20 22 18 Z" fill="#dcecf7" opacity="0.85"/>
+              <!-- body -->
+              <path d="M14 28 C14 24 18 24 18 22 H34 C34 24 38 24 38 28 V56 C38 60 35 62 31 62 H21 C17 62 14 60 14 56 Z" fill="#c8e0f1" opacity="0.78"/>
+              <!-- highlight -->
+              <path d="M18 30 V54" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+              <!-- bubbles -->
+              <circle cx="26" cy="38" r="1.2" fill="#ffffff" opacity="0.9"/>
+              <circle cx="29" cy="44" r="0.9" fill="#ffffff" opacity="0.8"/>
+              <circle cx="23" cy="48" r="1.0" fill="#ffffff" opacity="0.85"/>
+              <circle cx="27" cy="52" r="0.7" fill="#ffffff" opacity="0.75"/>
+              <!-- label band -->
+              <rect x="16" y="34" width="20" height="14" rx="1.5" fill="#ffffff" opacity="0.18"/>
+            </svg>
+          </span>
+          <p class="name">Sparkling water</p>
+          <p class="desc">Topo Chico, LaCroix, Liquid Death — your call.</p>
+          <span class="check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>
+          </span>
+        </button>
+
+        <button type="button" class="drink" role="radio" aria-checked="false" aria-pressed="false" data-drink="Soda">
+          <span class="icon" aria-hidden="true">
+            <!-- soda bottle, glass with red cap -->
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="3" width="12" height="7" rx="1.5" fill="#d9356e"/>
+              <rect x="19" y="9" width="14" height="3" rx="1" fill="#a82451"/>
+              <!-- neck taper -->
+              <path d="M21 12 H31 V20 C31 22 33 22 33 25 V28 H19 V25 C19 22 21 22 21 20 Z" fill="#3a2240"/>
+              <!-- body classic coke contour -->
+              <path d="M14 30 C14 27 18 27 18 24 H34 C34 27 38 27 38 30 C38 36 36 38 36 44 C36 50 38 52 38 56 C38 60 35 62 31 62 H21 C17 62 14 60 14 56 C14 52 16 50 16 44 C16 38 14 36 14 30 Z" fill="#3a2240"/>
+              <!-- shimmer -->
+              <path d="M19 32 V52" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+              <!-- label -->
+              <rect x="16" y="36" width="20" height="14" rx="1.5" fill="#d9356e"/>
+              <rect x="18" y="40" width="16" height="2" rx="1" fill="#ffffff" opacity="0.85"/>
+              <rect x="20" y="44" width="12" height="1.5" rx="0.7" fill="#ffffff" opacity="0.55"/>
+            </svg>
+          </span>
+          <p class="name">Soda</p>
+          <p class="desc">Coke, Diet Coke, Dr Pepper, root beer…</p>
+          <span class="check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>
+          </span>
+        </button>
+
+        <button type="button" class="drink" role="radio" aria-checked="false" aria-pressed="false" data-drink="Beer">
+          <span class="icon" aria-hidden="true">
+            <!-- beer bottle, amber glass with yellow label -->
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- crown cap -->
+              <path d="M19 4 H33 V8 L31 10 H21 L19 8 Z" fill="#f5d880"/>
+              <path d="M19 5 L21 7 H31 L33 5" stroke="#a98c2a" stroke-width="0.6" fill="none" opacity="0.6"/>
+              <!-- neck -->
+              <path d="M22 10 H30 V20 C30 23 32 23 32 26 V28 H20 V26 C20 23 22 23 22 20 Z" fill="#7a3a17"/>
+              <!-- body -->
+              <path d="M14 30 C14 27 18 27 18 24 H34 C34 27 38 27 38 30 V56 C38 60 35 62 31 62 H21 C17 62 14 60 14 56 Z" fill="#7a3a17"/>
+              <!-- highlight -->
+              <path d="M19 32 V54" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity="0.32"/>
+              <!-- label -->
+              <rect x="16" y="36" width="20" height="16" rx="1.5" fill="#f5d880"/>
+              <rect x="19" y="40" width="14" height="2.2" rx="1" fill="#381c4f"/>
+              <rect x="21" y="44.5" width="10" height="1.6" rx="0.8" fill="#381c4f" opacity="0.55"/>
+              <rect x="22" y="48" width="8" height="1.4" rx="0.7" fill="#381c4f" opacity="0.4"/>
+            </svg>
+          </span>
+          <p class="name">Beer</p>
+          <p class="desc">Lager, IPA, Modelo, NA — let us know.</p>
+          <span class="check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>
+          </span>
+        </button>
+
+      </div>
+
+      <!-- preferred brand -->
+      <div class="pref" id="pref">
+        <label for="brand">Got a preference? (optional)</label>
+        <div class="field">
+          <input id="brand" type="text" placeholder="e.g. Topo Chico, Modelo Especial, Diet Coke" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- form -->
+      <form class="form" id="orderForm" novalidate>
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" placeholder="First & last" />
+        </div>
+
+        <div class="field">
+          <label for="company">CAM firm</label>
+          <input id="company" name="company" type="text" required autocomplete="organization" placeholder="Company name" />
+        </div>
+
+        <div class="field">
+          <label for="role">Role</label>
+          <input id="role" name="role" type="text" required autocomplete="organization-title" placeholder="Owner, COO, Director of Ops…" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@firm.com" />
+          </div>
+          <div class="field">
+            <label for="phone">Mobile (SMS)</label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555" />
+          </div>
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit" class="submit" id="submitBtn" disabled>
+            <span class="label">Send it over</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+          </button>
+        </div>
+      </form>
+
+    </section>
+    <!-- /ORDER SCREEN -->
+
+
+    <!-- ===== CONFIRMATION ===== -->
+    <section class="confirm" aria-live="polite">
+
+      <div class="confirm-hero">
+        <div class="confirm-tick" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>
+        </div>
+        <p class="eyebrow">Order in</p>
+        <h2>It's <span class="pop">opening up.</span></h2>
+        <p class="sub">An Alloy team member is on their way over. Look for the lanyard — and the bottle opener. <strong id="confirmName" style="color:#fff;font-weight:600;"></strong></p>
+      </div>
+
+      <div class="order-card">
+        <div class="order-icon" id="orderIcon" aria-hidden="true"></div>
+        <div class="order-text">
+          <p class="order-label">Your order</p>
+          <p class="order-name" id="orderName">—</p>
+        </div>
+      </div>
+
+      <div class="teaser">
+        <p class="eyebrow">While you wait</p>
+        <h3>Here's who's <span class="pop">winning your market</span> right now.</h3>
+        <p>We pulled a quick snapshot on <strong id="marketLine" style="color:#fff;font-weight:600;">your market</strong>. We'll send the full report and where you can break through.</p>
+        <div class="market-line" aria-hidden="true">
+          <span class="dot"></span>
+          <span>Snapshot ready · </span>
+          <span class="market-name" id="marketName">your market</span>
+          <span style="margin-left:auto;color:rgba(255,255,255,0.5);">→</span>
+        </div>
+      </div>
+
+      <a class="secondary" href="https://alloygp.co" target="_blank" rel="noopener">
+        <span>Visit alloygp.co</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </a>
+
+    </section>
+    <!-- /CONFIRMATION -->
+
+  </div>
+
+  <p class="foot">Built by Alloy · The only growth partner for CAM</p>
+
+  <div class="accent-strip" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</main>
+
+<!-- (dev tweaks removed) -->
+
+<script>
+  // ===== drink picker =====
+  const drinkBtns = document.querySelectorAll('.drink');
+  const submitBtn = document.getElementById('submitBtn');
+  const pref = document.getElementById('pref');
+  const brandInput = document.getElementById('brand');
+  let selectedDrink = null;
+
+  drinkBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      drinkBtns.forEach(b => {
+        b.setAttribute('aria-pressed', 'false');
+        b.setAttribute('aria-checked', 'false');
+      });
+      btn.setAttribute('aria-pressed', 'true');
+      btn.setAttribute('aria-checked', 'true');
+      selectedDrink = btn.dataset.drink;
+      pref.classList.add('show');
+      revalidate();
+    });
+  });
+
+  // ===== form validation gating =====
+  const form = document.getElementById('orderForm');
+  const requiredFields = ['name','company','role','email','phone'].map(id => document.getElementById(id));
+  function revalidate() {
+    const allFilled = requiredFields.every(f => f.value.trim().length > 1);
+    const ok = !!selectedDrink && allFilled;
+    submitBtn.disabled = !ok;
+  }
+  requiredFields.forEach(f => f.addEventListener('input', revalidate));
+
+  // ===== submit -> mailto + confirmation =====
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (submitBtn.disabled) return;
+
+    const data = {
+      drink: selectedDrink,
+      brand: brandInput.value.trim(),
+      name:    document.getElementById('name').value.trim(),
+      company: document.getElementById('company').value.trim(),
+      role:    document.getElementById('role').value.trim(),
+      email:   document.getElementById('email').value.trim(),
+      phone:   document.getElementById('phone').value.trim(),
+    };
+
+    // Build mailto
+    const subject = encodeURIComponent(`🥤 Drink request — ${data.drink}${data.brand ? ' (' + data.brand + ')' : ''} — ${data.name}`);
+    const bodyLines = [
+      `New drink request from the Think Tank event:`,
+      ``,
+      `Drink:    ${data.drink}${data.brand ? ' — ' + data.brand : ''}`,
+      ``,
+      `Name:     ${data.name}`,
+      `CAM firm: ${data.company}`,
+      `Role:     ${data.role}`,
+      `Email:    ${data.email}`,
+      `Mobile:   ${data.phone}`,
+      ``,
+      `— Sent from thinktank.html / Alloy QR card`,
+    ];
+    const body = encodeURIComponent(bodyLines.join('\n'));
+    const mailto = `mailto:admin@alloygp.co?subject=${subject}&body=${body}`;
+
+    // Open user's mail client
+    window.location.href = mailto;
+
+    // Show confirmation immediately (don't make them wait for mail client)
+    showConfirmation(data);
+  });
+
+  function showConfirmation(data) {
+    document.body.classList.add('is-confirmed');
+    document.getElementById('orderName').textContent = data.brand ? `${data.drink} — ${data.brand}` : data.drink;
+    document.getElementById('confirmName').textContent = data.name ? `Cheers, ${data.name.split(' ')[0]}.` : '';
+    document.getElementById('marketName').textContent = data.company || 'your market';
+    document.getElementById('marketLine').textContent = data.company || 'your market';
+
+    // copy the chosen bottle SVG into the order card
+    const chosenBtn = [...drinkBtns].find(b => b.dataset.drink === data.drink);
+    if (chosenBtn) {
+      const svg = chosenBtn.querySelector('.icon').innerHTML;
+      document.getElementById('orderIcon').innerHTML = svg;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+
+
+</body>
+</html>
