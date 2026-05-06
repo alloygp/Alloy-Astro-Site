@@ -1,0 +1,100 @@
+/* =============================================================================
+   mobile.css — ALL mobile/responsive overrides for alloygp.co
+   Single source of truth. Never add responsive rules to site.css or chrome.css.
+   Breakpoints: 980px (nav), 720px (layout), 480px (compact)
+   ============================================================================= */
+
+/* ── 980px: Navigation collapses to hamburger ────────────────────────────── */
+@media (max-width: 980px) {
+  .site-nav-desktop  { display: none; }
+  .site-header-cta   { display: none; }
+  .site-header-burger { display: inline-flex; grid-column: 3; }
+  .site-header-inner  { grid-template-columns: auto 1fr auto; }
+  .site-nav-mobile   { display: flex; }
+  body.has-fixed-header { padding-top: 70px; }
+}
+
+/* ── 1100px: Header padding + nav link sizing ─────────────────────────────── */
+@media (max-width: 1100px) {
+  .site-header-inner { padding: 14px 24px; }
+  .site-nav-link     { padding: 8px 10px; font-size: 13px; }
+}
+
+/* ── 720px: Layout, sections, components ─────────────────────────────────── */
+@media (max-width: 720px) {
+
+  /* Containers */
+  .container,
+  .container-narrow { padding-left: 20px; padding-right: 20px; }
+
+  /* Section rhythm */
+  .section        { padding-top: 60px; padding-bottom: 60px; }
+  .section-tight  { padding-top: 40px; padding-bottom: 40px; }
+
+  /* Hero */
+  .hero-inner       { padding: 56px 20px; }
+  .hero-grid-split  { grid-template-columns: 1fr; gap: 32px; }
+  .hero-stats-grid  { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; padding-top: 32px !important; }
+
+  /* Footer */
+  .alloy-footer-inner-v2    { padding: 48px 20px 28px; }
+  .site-footer-bottom       { padding: 16px 20px; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .site-footer-bottom-links { justify-content: center; }
+  .site-footer-newsletter   { grid-template-columns: 1fr; gap: 24px; }
+  .site-footer-newsletter-pitch h3 { white-space: normal; font-size: 18px; }
+
+  /* HomePage */
+  .home-2col-intro   { grid-template-columns: 1fr !important; gap: 24px !important; margin-bottom: 32px !important; }
+  .home-2col-split   { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .home-roi-card     { grid-template-columns: 1fr !important; padding: 36px 24px !important; gap: 32px !important; }
+  .home-system-card  { padding: 28px 20px !important; }
+  .home-trust-items  { gap: 14px !important; }
+
+  /* SystemDiagram */
+  .system-diagram          { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .system-diagram-panel    { padding: 24px 20px !important; min-height: 0 !important; }
+  .system-diagram-panel h3 { font-size: 26px !important; }
+  .system-diagram-proof    { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+  .system-diagram-services { grid-template-columns: 1fr !important; }
+
+  /* AuditQuiz */
+  .audit-quiz-card        { padding: 28px 20px !important; }
+  .audit-quiz-result-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .audit-quiz-circle      { margin: 0 auto; }
+
+  /* ResourceHub */
+  .resource-hub-grid      { grid-template-columns: 1fr !important; }
+  .resource-hub-grid .card { grid-column: auto !important; grid-row: auto !important; min-height: 0 !important; }
+
+  /* RiseCaseStudy */
+  .case-study-grid        { grid-template-columns: 1fr !important; }
+  .case-study-panel-left  { padding: 28px 20px !important; }
+  .case-study-panel-right { padding: 28px 20px !important; }
+  .case-study-stats-grid  { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+
+  /* MarketChecker */
+  .market-checker-card          { padding: 24px 20px !important; }
+  .market-checker-waitlist-grid { grid-template-columns: 1fr !important; }
+  .market-checker-result .btn   { width: 100%; justify-content: center; }
+
+  /* ContactPage (/contact) */
+  .contact-form-card        { padding: 28px 20px !important; }
+  .contact-form-2col        { grid-template-columns: 1fr !important; }
+  .contact-form-submit      { flex-direction: column !important; align-items: stretch !important; }
+  .contact-form-disclaimer  { max-width: 100% !important; }
+  .contact-form-submit .btn { width: 100%; justify-content: center; }
+
+  /* GetStartedPage (/get-started) */
+  .gs-hero-grid      { grid-template-columns: 1fr; gap: 32px; }
+  .gs-zip-input      { padding: 10px 12px !important; font-size: 15px !important; }
+  .gs-zip-btn        { padding: 0 14px !important; min-width: 60px !important; font-size: 13px !important; }
+  .gs-step-card      { padding: 24px 20px !important; }
+  .gs-size-grid      { grid-template-columns: 1fr 1fr !important; }
+  .gs-stage-grid     { grid-template-columns: 1fr 1fr !important; }
+  .gs-contact-2col   { grid-template-columns: 1fr !important; }
+  .gs-submit-row     { flex-direction: column !important; align-items: stretch !important; }
+  .gs-submit-disclaimer { max-width: 100% !important; }
+  .gs-submit-row button { width: 100% !important; }
+  .gs-timeline-grid  { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+
+}

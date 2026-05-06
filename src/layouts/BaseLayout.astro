@@ -19,6 +19,7 @@
 import '../styles/colors_and_type.css';
 import '../styles/site.css';
 import '../styles/chrome.css';
+import '../styles/mobile.css';
 import '../styles/courses.css';
 
 import { ViewTransitions } from 'astro:transitions';
@@ -144,10 +145,19 @@ const orgLd = {
       <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     )}
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FSCT09DV7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0FSCT09DV7');
+    </script>
+
     <ViewTransitions />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
-    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load transition:persist />}
+    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />}
     <main>
       <slot />
     </main>
