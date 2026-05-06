@@ -9,6 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+html { overflow-x: hidden; }
 * { box-sizing: border-box; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
@@ -932,4 +933,14 @@ img { max-width: 100%; display: block; }
   /* Resource hub — single column, remove row/col spans */
   .resource-hub-grid { grid-template-columns: 1fr !important; }
   .resource-hub-grid .card { grid-column: auto !important; grid-row: auto !important; min-height: 0 !important; }
+
+  /* RiseCaseStudy — stack left/right panels */
+  .case-study-grid { grid-template-columns: 1fr !important; }
+  .case-study-panel-left { padding: 28px 20px !important; }
+  .case-study-panel-right { padding: 28px 20px !important; }
+
+  /* MarketChecker — tighter padding, stack waitlist form, wrap result row */
+  .market-checker-card { padding: 24px 20px !important; }
+  .market-checker-waitlist-grid { grid-template-columns: 1fr !important; }
+  .market-checker-result .btn { width: 100%; justify-content: center; }
 }
