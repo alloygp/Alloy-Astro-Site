@@ -928,4 +928,8 @@ img { max-width: 100%; display: block; }
   .audit-quiz-card { padding: 28px 20px !important; }
   .audit-quiz-result-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
   .audit-quiz-circle { margin: 0 auto; }
+
+  /* Resource hub — single column, remove row/col spans */
+  .resource-hub-grid { grid-template-columns: 1fr !important; }
+  .resource-hub-grid .card { grid-column: auto !important; grid-row: auto !important; min-height: 0 !important; }
 }
