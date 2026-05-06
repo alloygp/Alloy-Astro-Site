@@ -33,10 +33,10 @@ export const POST: APIRoute = async ({ request }) => {
       await resend.emails.send({
         from: "Alloy Growth Partners <hello@alloygp.co>",
         to: email,
-        subject: "Your drink request — Alloy Think Tank",
+        subject: "Your drink request from Alloy — Think Tank HOA",
         html: `
           <p>Hi ${name.split(" ")[0]},</p>
-          <p>We've got your request for <strong>${drink}</strong> — see you there.</p>
+          <p>We've got your request for <strong>${drink}</strong> — Cheers!</p>
           <p>— The Alloy Team</p>
         `,
       });
