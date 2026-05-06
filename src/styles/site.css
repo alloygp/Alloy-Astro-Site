@@ -917,7 +917,8 @@ img { max-width: 100%; display: block; }
 
   /* Footer — reduce padding on narrow viewports */
   .alloy-footer-inner-v2 { padding: 48px 20px 28px; }
-  .site-footer-bottom    { padding: 16px 20px; }
+  .site-footer-bottom    { padding: 16px 20px; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .site-footer-bottom-links { justify-content: center; }
 
   /* Newsletter signup — stack pitch above form */
   .site-footer-newsletter { grid-template-columns: 1fr; gap: 24px; }
