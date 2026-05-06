@@ -1,4 +1,4 @@
-// src/components/modules/MosaicCmgCaseStudy.tsx
+// src/components/modules/MicroHoaCaseStudy.tsx
 import { useState } from 'react';
 import Eyebrow from '~/components/Eyebrow';
 import Button from '~/components/Button';
@@ -22,9 +22,9 @@ const MONTHS: Month[] = [
   { label: "Mar '26", total: 91, parts: { google: 51, direct: 11, bing: 3, hoausa: 4, other: 9, unmatched: 13 } },
 ];
 
-export interface MosaicCmgCaseStudyProps { compact?: boolean; }
+export interface MicroHoaCaseStudyProps { compact?: boolean; }
 
-export default function MosaicCmgCaseStudy({ compact = false }: MosaicCmgCaseStudyProps) {
+export default function MicroHoaCaseStudy({ compact = false }: MicroHoaCaseStudyProps) {
   const months = MONTHS;
   const baseline = months[0].total;
   const peak = Math.max(...months.map(m => m.total));
@@ -58,7 +58,7 @@ export default function MosaicCmgCaseStudy({ compact = false }: MosaicCmgCaseStu
     <div className="case-study-card" style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 60px rgba(56,28,79,0.14)', border: '1px solid var(--border-subtle)' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr' }}>
         <div style={{ padding: '44px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Eyebrow noLine>Signature client · Mosaic CMG</Eyebrow>
+          <Eyebrow noLine>Signature client · MicroHOA</Eyebrow>
           <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 32, lineHeight: 1.15, letterSpacing: '-0.02em', color: PURPLE, margin: '14px 0 18px' }}>
             "We finally stopped guessing where leads came from — and watched the system compound."
           </h3>
@@ -96,7 +96,7 @@ function Avatar({ size }: { size: number }) {
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: PURPLE, letterSpacing: '-0.02em' }}>M</span>
       </div>
       <div>
-        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Mosaic CMG</div>
+        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>MicroHOA</div>
         <div style={{ fontSize: 12, color: '#888' }}>Small-association portfolio specialists</div>
       </div>
     </div>
@@ -112,7 +112,7 @@ function DarkPanel({ months, baseline, peak, growthPct, compact = false }: { mon
           <div style={{ fontFamily: 'var(--font-display)', fontSize: compact ? 10.5 : 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, opacity: 0.7 }}>{compact ? 'Monthly inquiries' : '7-month trajectory'}</div>
           <div style={{ fontFamily: 'var(--font-display)', fontSize: compact ? 10.5 : 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 600, opacity: 0.55 }}>Sep '25 → Mar '26</div>
         </div>
-        <MosaicCmgInquiryChart months={months} />
+        <MicroHoaInquiryChart months={months} />
         <div style={{ height: 1, background: 'rgba(255,255,255,0.10)', margin: compact ? '18px 0 16px' : '24px 0 22px' }}></div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: compact ? 14 : 18 }}>
           <RiseStatCompact color={PINK} label="Sep baseline" value={<AnimatedNumber value={baseline} />} />
@@ -124,7 +124,7 @@ function DarkPanel({ months, baseline, peak, growthPct, compact = false }: { mon
   );
 }
 
-function MosaicCmgInquiryChart({ months }: { months: Month[] }) {
+function MicroHoaInquiryChart({ months }: { months: Month[] }) {
   const [activeMonth, setActiveMonth] = useState<Month | null>(null);
   const segments = [
     { key: 'google', label: 'Google', color: '#5fa3e8' },
@@ -162,7 +162,7 @@ function MosaicCmgInquiryChart({ months }: { months: Month[] }) {
         ))}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: 'block' }} aria-label="Mosaic CMG monthly inbound inquiries by source, September 2025 to March 2026">
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: 'block' }} aria-label="MicroHOA monthly inbound inquiries by source, September 2025 to March 2026">
         {yTicks.map(t => {
           const y = padT + innerH - (t / yMax) * innerH;
           return (

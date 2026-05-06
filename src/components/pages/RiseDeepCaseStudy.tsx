@@ -111,11 +111,11 @@ function RiseSystemMap() {
               "I stopped explaining what we do. The website does it. The articles do it. The boards arrive already convinced."
             </h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
-              <div style={{ width: 56, height: 56, borderRadius: 999, border: '2px solid var(--alloy-yellow)', flexShrink: 0, background: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 17, color: '#fff', letterSpacing: '0.04em' }}>MG</span>
+              <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-yellow)', flexShrink: 0 }}>
+                <img src={ASSET('assets/apex-cmg-ceo.jpg')} alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: '#fff', fontSize: 14 }}>Marcus G.</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: '#fff', fontSize: 14 }}>Marcus Webb</div>
                 <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)' }}>CEO, Apex CMG* · month 9</div>
               </div>
             </div>
@@ -354,11 +354,11 @@ function RiseClosingQuote() {
             "We don't think about lead flow anymore. We think about which boards we want to take on next year. That's a completely different problem to have."
           </blockquote>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 12 }}>
-            <div style={{ width: 56, height: 56, borderRadius: 999, border: '2px solid var(--alloy-pink)', flexShrink: 0, background: 'var(--alloy-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 17, color: '#fff', letterSpacing: '0.04em' }}>MG</span>
+            <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
+              <img src={ASSET('assets/apex-cmg-ceo.jpg')} alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus G.</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus Webb</div>
               <div style={{ fontSize: 12, color: '#888' }}>CEO, Apex CMG* · post-engagement</div>
             </div>
           </div>

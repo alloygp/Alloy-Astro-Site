@@ -1,7 +1,7 @@
 // src/components/pages/ResultsPage.tsx
 import Eyebrow from '~/components/Eyebrow';
 import RiseCaseStudy from '~/components/modules/RiseCaseStudy';
-import MosaicCmgCaseStudy from '~/components/modules/MicroHoaCaseStudy';
+import MicroHoaCaseStudy from '~/components/modules/MicroHoaCaseStudy';
 import CaseStudyDivider from '~/components/modules/CaseStudyDivider';
 import { PageHero, CtaBand } from '~/components/sections/Shells';
 import { PURPLE, PINK, YELLOW, GREEN, BLUE } from '~/lib/tokens';
@@ -46,7 +46,7 @@ export default function ResultsPage() {
             duration="7 mo" durationDetail="Seven months of focused deployment"
             color={GREEN} colorDeep="#2c6a62" ribbonFill={7 / 36}
           />
-          <MosaicCmgCaseStudy />
+          <MicroHoaCaseStudy />
 
           <div style={{ marginTop: 40, textAlign: 'center', fontSize: 13, color: '#888', fontStyle: 'italic' }}>
             We choose depth over volume. New engagements get the same diagnostic rigor — and earn the same kind of disclosure.
@@ -63,7 +63,7 @@ export default function ResultsPage() {
             {[
               { color: PINK, k: '535%', v: 'Lead intake increase, Apex CMG*, 3 years' },
               { color: YELLOW, k: '3×', v: 'Proposal request growth, Apex CMG*' },
-              { color: GREEN, k: '+405%', v: 'Monthly inquiries growth, Mosaic CMG, 7 months' },
+              { color: GREEN, k: '+405%', v: 'Monthly inquiries growth, MicroHOA, 7 months' },
               { color: BLUE, k: '40‑60%', v: 'Groundwork qualified-to-close conversion' },
             ].map(s => (
               <div key={s.k} style={{ borderTop: `4px solid ${s.color}`, paddingTop: 18 }}>

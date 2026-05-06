@@ -836,10 +836,8 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
             Claim Your Market
           </a>
           <a
-            href="https://portal.alloygp.co/wp-login.php"
+            href="https://portal.alloygp.co"
             className="site-header-login"
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label="Log in to your Alloy account"
           >
             <img
@@ -902,7 +900,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
           <a href="/get-started" className="btn btn-primary mobile-cta">
             Claim Your Market
           </a>
-          <a href="https://portal.alloygp.co/wp-login.php" className="mobile-login-link" target="_blank" rel="noopener noreferrer">
+          <a href="https://portal.alloygp.co" className="mobile-login-link">
             Log in to your account →
           </a>
         </div>

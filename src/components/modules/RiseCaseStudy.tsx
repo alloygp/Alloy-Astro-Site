@@ -22,11 +22,11 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             "We went from chasing RFPs to having boards reach out directly."
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 999, border: '2px solid var(--alloy-pink)', flexShrink: 0, background: 'var(--alloy-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, color: '#fff', letterSpacing: '0.04em' }}>MG</span>
+            <div style={{ width: 44, height: 44, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
+              <img src="/assets/apex-cmg-ceo.jpg" alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 13 }}>Marcus G.</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 13 }}>Marcus Webb</div>
               <div style={{ fontSize: 11.5, color: '#888' }}>CEO, Apex CMG*</div>
             </div>
           </div>
@@ -66,11 +66,11 @@ export default function RiseCaseStudy({ compact = false }: RiseCaseStudyProps) {
             "We went from chasing RFPs to having boards reach out directly."
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
-            <div style={{ width: 56, height: 56, borderRadius: 999, border: '2px solid var(--alloy-pink)', flexShrink: 0, background: 'var(--alloy-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 17, color: '#fff', letterSpacing: '0.04em' }}>MG</span>
+            <div style={{ width: 56, height: 56, borderRadius: 999, overflow: 'hidden', border: '2px solid var(--alloy-pink)', flexShrink: 0 }}>
+              <img src="/assets/apex-cmg-ceo.jpg" alt="Marcus Webb" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus G.</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: PURPLE, fontSize: 14 }}>Marcus Webb</div>
               <div style={{ fontSize: 12, color: '#888' }}>CEO, Apex CMG*</div>
             </div>
           </div>

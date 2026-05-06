@@ -20,7 +20,7 @@ const featuredVideos: Array<
   | { kind: 'vimeo'; vimeoId: string; pillar: PillarKey; name: string; role: string; teaser: string; length: string }
   | { kind: 'placeholder'; pillar: PillarKey; name: string; role: string; teaser: string; length: string }
 > = [
-  { kind: 'vimeo', vimeoId: VIMEO_ID, pillar: 'match', name: 'Jason D.', role: 'CEO, RISE AMG', teaser: 'What changes when your agency speaks the language of community association management.', length: '2:58' },
+  { kind: 'vimeo', vimeoId: VIMEO_ID, pillar: 'match', name: 'Marcus Webb', role: 'CAM Operator', teaser: 'What changes when your agency speaks the language of community association management.', length: '4:12' },
   { kind: 'placeholder', pillar: 'reach', name: 'Coming soon', role: 'HOA Management — Texas', teaser: 'On rebuilding a portfolio site that actually ranks for board-search terms.', length: '—' },
   { kind: 'placeholder', pillar: 'retain', name: 'Coming soon', role: 'CAM Operator — Florida', teaser: 'On the board-education program that turned renewals into a non-event.', length: '—' },
 ];

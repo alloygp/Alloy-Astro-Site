@@ -1438,7 +1438,7 @@ body.has-fixed-header {
 @media (max-width: 980px) {
   .site-nav-desktop { display: none; }
   .site-header-cta { display: none; }
-  .site-header-burger { display: inline-flex; }
+  .site-header-burger { display: inline-flex; grid-column: 3; }
   .site-header-inner { grid-template-columns: auto 1fr auto; }
   .site-nav-mobile { display: flex; }
   body.has-fixed-header { padding-top: 70px; }
