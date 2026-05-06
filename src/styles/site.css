@@ -858,3 +858,55 @@ img { max-width: 100%; display: block; }
 
 /* Tweaks-panel positioning override (for our site) */
 .tweaks-panel { font-family: var(--font-body) !important; }
+
+/* ============================================================================
+   Mobile — global layout + homepage overrides
+   ============================================================================ */
+@media (max-width: 720px) {
+  /* Containers — less horizontal padding on narrow viewports */
+  .container,
+  .container-narrow { padding-left: 20px; padding-right: 20px; }
+
+  /* Section vertical rhythm — reduce from 96px */
+  .section        { padding-top: 60px; padding-bottom: 60px; }
+  .section-tight  { padding-top: 40px; padding-bottom: 40px; }
+
+  /* Hero inner — shorter vertical padding, narrower sides */
+  .hero-inner { padding: 56px 20px 56px; }
+
+  /* Hero split layout — stack copy above visual */
+  .hero-grid-split { grid-template-columns: 1fr; gap: 32px; }
+
+  /* Hero stats row — 4-col → 2×2 grid */
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    padding-top: 32px !important;
+  }
+
+  /* Homepage section intro grids (The system / Proof) — 2-col → single col */
+  .home-2col-intro {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-bottom: 32px !important;
+  }
+
+  /* Homepage market exclusivity + 2-col content splits */
+  .home-2col-split {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* ROI teaser card — stack copy above stat chips, reduce padding */
+  .home-roi-card {
+    grid-template-columns: 1fr !important;
+    padding: 36px 24px !important;
+    gap: 32px !important;
+  }
+
+  /* System diagram purple card — tighter padding on mobile */
+  .home-system-card { padding: 28px 20px !important; }
+
+  /* Trust band items — tighter gap so they wrap cleanly */
+  .home-trust-items { gap: 14px !important; }
+}

@@ -76,7 +76,7 @@ export default function Hero({
               <Button variant="secondary" onDark={isDark} href="/services">See the system</Button>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, paddingTop: 40, borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'var(--border-subtle)'}` }}>
+          <div className="hero-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, paddingTop: 40, borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'var(--border-subtle)'}` }}>
             <BigStat color={PINK} label="Lead intake (Apex CMG*)" value="535%" sub="vs prior baseline" onDark={isDark} />
             <BigStat color={YELLOW} label="Proposal requests" value="3×" sub="growth in 18 months" onDark={isDark} />
             <BigStat color={BLUE} label="Groundwork conversion" value="40‑60%" sub="qualified to closed" onDark={isDark} />
