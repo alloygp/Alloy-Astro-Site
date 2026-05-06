@@ -267,7 +267,7 @@ export default function GetStartedPage() {
       <section className="hero" style={{ background: PURPLE, color: '#fff', overflow: 'hidden', position: 'relative' }}>
         <div className="hero-bg-grid"></div>
         <div className="hero-inner" style={{ position: 'relative', paddingTop: 88, paddingBottom: 72 } as CSSProperties}>
-          <div className="gs-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 72, alignItems: 'start' }}>
+          <div className="gs-hero-grid" style={{ display: 'grid', alignItems: 'start' }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
                 <span style={{ width: 8, height: 8, borderRadius: 999, background: PINK, boxShadow: `0 0 0 4px ${PINK}30` }}></span>

@@ -864,6 +864,9 @@ img { max-width: 100%; display: block; }
 /* Tweaks-panel positioning override (for our site) */
 .tweaks-panel { font-family: var(--font-body) !important; }
 
+/* GetStartedPage hero grid — desktop default (mobile override in 720px block below) */
+.gs-hero-grid { grid-template-columns: 1.15fr 1fr; gap: 72px; }
+
 /* ============================================================================
    Mobile — global layout + homepage overrides
    ============================================================================ */
@@ -962,7 +965,7 @@ img { max-width: 100%; display: block; }
   .contact-form-submit .btn { width: 100%; justify-content: center; }
 
   /* GetStartedPage — hero, step cards, all grids */
-  .gs-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .gs-hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .gs-step-card { padding: 24px 20px !important; }
   .gs-size-grid { grid-template-columns: 1fr 1fr !important; }
   .gs-stage-grid { grid-template-columns: 1fr 1fr !important; }
