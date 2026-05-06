@@ -15,7 +15,6 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   redirects: {
-    '/thinktank': '/thinktank.html',
     '/index.html': '/',
     '/about.html': '/about',
     '/about/testimonials.html': '/about/testimonials',
