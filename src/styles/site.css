@@ -920,4 +920,7 @@ img { max-width: 100%; display: block; }
 
   /* Newsletter signup — stack pitch above form */
   .site-footer-newsletter { grid-template-columns: 1fr; gap: 24px; }
+
+  /* System diagram — stack tabs above detail panel */
+  .system-diagram { grid-template-columns: 1fr !important; gap: 32px !important; }
 }

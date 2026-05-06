@@ -1333,6 +1333,8 @@ body.has-fixed-header {
   border-radius: 8px;
   cursor: pointer;
   color: var(--alloy-purple-deep);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .site-header-burger:hover { background: var(--alloy-pink-tint); border-color: var(--alloy-pink); color: var(--alloy-pink); }
 
