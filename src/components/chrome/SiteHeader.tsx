@@ -371,6 +371,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuClosing, setMenuClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const lastY = useRef(0);
 
@@ -406,6 +407,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
     const onPageLoad = () => {
       setOpenMenu(null);
       setMobileOpen(false);
+      setMenuClosing(false);
     };
     document.addEventListener('astro:page-load', onPageLoad);
     return () => document.removeEventListener('astro:page-load', onPageLoad);
@@ -422,6 +424,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
       if (e.key === 'Escape') {
         setOpenMenu(null);
         setMobileOpen(false);
+        setMenuClosing(false);
       }
     };
     const onClick = (e: MouseEvent) => {
@@ -836,8 +839,10 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
             Claim Your Market
           </a>
           <a
-            href="https://portal.alloygp.co"
+            href="https://portal.alloygp.co/wp-login.php"
             className="site-header-login"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Log in to your Alloy account"
           >
             <img
@@ -850,19 +855,29 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
         </div>
 
         <button
-          className="site-header-burger"
+          type="button"
+          className={`site-header-burger${(mobileOpen && !menuClosing) ? ' is-open' : ''}`}
           aria-label="Toggle menu"
           aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => {
+            if (mobileOpen) {
+              setMenuClosing(true);
+              setTimeout(() => { setMobileOpen(false); setMenuClosing(false); }, 280);
+            } else {
+              setMobileOpen(true);
+            }
+          }}
         >
-          <Icon name={mobileOpen ? 'x' : 'menu'} size={22} strokeWidth={2} />
+          <span className="burger-bar burger-bar-1" />
+          <span className="burger-bar burger-bar-2" />
+          <span className="burger-bar burger-bar-3" />
         </button>
       </div>
 
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      {mobileOpen && (
-        <div className="site-nav-mobile">
+      {(mobileOpen || menuClosing) && (
+        <div className={`site-nav-mobile${menuClosing ? ' is-closing' : ' is-open'}`}>
           {NAV.map((it) => {
             const mobileChildren =
               it.megaServices && it.pillars
@@ -900,7 +915,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
           <a href="/get-started" className="btn btn-primary mobile-cta">
             Claim Your Market
           </a>
-          <a href="https://portal.alloygp.co" className="mobile-login-link">
+          <a href="https://portal.alloygp.co/wp-login.php" className="mobile-login-link" target="_blank" rel="noopener noreferrer">
             Log in to your account →
           </a>
         </div>
