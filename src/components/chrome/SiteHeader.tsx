@@ -322,6 +322,32 @@ function ResourceIcon({ name }: { name: string }) {
           <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
       );
+    case 'map-pin':
+      return (
+        <svg {...props}>
+          <path d="M12 2C8.7 2 6 4.7 6 8c0 4.5 6 13 6 13s6-8.5 6-13c0-3.3-2.7-6-6-6z" />
+          <circle cx="12" cy="8" r="2.2" />
+        </svg>
+      );
+    case 'zap':
+      return (
+        <svg {...props}>
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+      );
+    case 'calculator':
+      return (
+        <svg {...props}>
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <rect x="7" y="5" width="10" height="4" rx="0.5" />
+          <circle cx="8" cy="13" r="1" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="13" r="1" fill="currentColor" stroke="none" />
+          <circle cx="16" cy="13" r="1" fill="currentColor" stroke="none" />
+          <circle cx="8" cy="17" r="1" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none" />
+          <circle cx="16" cy="17" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      );
     default:
       return null;
   }
