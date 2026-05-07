@@ -116,4 +116,51 @@
   .gs-submit-row button { width: 100% !important; }
   .gs-timeline-grid  { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
 
+  /* ── Comparison tables: horizontal scroll on mobile ─────────────── */
+  .svc-compare-wrap              { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+  .svc-compare-wrap > div        { min-width: 540px; }
+
+  /* ── Lead gen pipeline: scroll + hide connector arrows ──────────── */
+  .svc-pipeline-wrap             { overflow-x: auto !important; -webkit-overflow-scrolling: touch; padding: 20px !important; }
+  .svc-pipeline-grid             { min-width: 520px; }
+  .pipeline-arrow                { display: none !important; }
+
+  /* ── AuditQuiz circle SVG safety ────────────────────────────────── */
+  .audit-quiz-circle svg         { max-width: 100%; height: auto; }
+
+  /* ── Asymmetric 2-col splits → single column ────────────────────── */
+  [style*="grid-template-columns: 1.05fr 1fr"],
+  [style*="grid-template-columns: 1.15fr 1fr"],
+  [style*="grid-template-columns: 1.1fr 1fr"],
+  [style*="grid-template-columns: 1.2fr 1fr"],
+  [style*="grid-template-columns: 1.3fr 1fr"],
+  [style*="grid-template-columns: 1.4fr 1fr"],
+  [style*="grid-template-columns: 1.5fr 1fr"],
+  [style*="grid-template-columns: 1fr 1.05fr"],
+  [style*="grid-template-columns: 1fr 1.1fr"],
+  [style*="grid-template-columns: 1fr 1.15fr"],
+  [style*="grid-template-columns: 1fr 1.2fr"],
+  [style*="grid-template-columns: 1fr 1.3fr"],
+  [style*="grid-template-columns: 1fr 1.4fr"],
+  [style*="grid-template-columns: 1fr 1.5fr"] { grid-template-columns: 1fr !important; }
+
+  /* ── 3-col grids → single column ────────────────────────────────── */
+  [style*="grid-template-columns: repeat(3, 1fr)"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"]  { grid-template-columns: 1fr !important; }
+
+  /* ── 4-col grids → 2-col grid ───────────────────────────────────── */
+  [style*="grid-template-columns: repeat(4, 1fr)"]           { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── ResourceHub 2fr 1fr 1fr featured layout → stack ────────────── */
+  [style*="grid-template-columns: 2fr 1fr 1fr"]              { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 2fr 1fr 1fr"] > *          { grid-column: auto !important; grid-row: auto !important; min-height: 0 !important; }
+
+  /* ── Stats / proof bands: 3-auto or auto-repeat → 2-col wrap ─────── */
+  [style*="grid-template-columns: repeat(3, auto)"],
+  [style*="grid-template-columns: repeat(4, auto)"]          { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── Prevent any inline-width from overflowing viewport ─────────── */
+  .container img, .container-narrow img, section img        { max-width: 100%; height: auto; }
+
+
 }

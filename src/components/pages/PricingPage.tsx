@@ -227,7 +227,7 @@ export default function PricingPage() {
             <Eyebrow noLine>Side by side</Eyebrow>
             <h2 className="display-lg" style={{ margin: '14px 0 0', color: PURPLE }}>What changes between tiers.</h2>
           </div>
-          <div style={{ background: '#fff', borderRadius: 14, border: '1px solid var(--border-subtle)', overflow: 'hidden' }}>
+          <div className="svc-compare-wrap" style={{ background: '#fff', borderRadius: 14, border: '1px solid var(--border-subtle)', overflow: 'hidden' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', padding: '18px 28px', background: PURPLE, color: '#fff', fontFamily: 'var(--font-display)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700 }}>
               <div></div>
               <div style={{ textAlign: 'center', color: BLUE }}>Foundation</div>
