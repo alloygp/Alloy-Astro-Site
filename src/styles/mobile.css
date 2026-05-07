@@ -21,6 +21,7 @@
   .site-header-burger { display: inline-flex; grid-column: 3; }
   .site-header-inner  { grid-template-columns: auto 1fr auto; }
   body.has-fixed-header { padding-top: 70px; }
+  body                   { overflow-x: hidden; }
 
   /* Mobile nav — animated in/out via is-open / is-closing classes */
   .site-nav-mobile { display: flex; }
@@ -129,35 +130,39 @@
   .audit-quiz-circle svg         { max-width: 100%; height: auto; }
 
   /* ── Asymmetric 2-col splits → single column ────────────────────── */
-  [style*="grid-template-columns: 1.05fr 1fr"],
-  [style*="grid-template-columns: 1.15fr 1fr"],
-  [style*="grid-template-columns: 1.1fr 1fr"],
-  [style*="grid-template-columns: 1.2fr 1fr"],
-  [style*="grid-template-columns: 1.3fr 1fr"],
-  [style*="grid-template-columns: 1.4fr 1fr"],
-  [style*="grid-template-columns: 1.5fr 1fr"],
-  [style*="grid-template-columns: 1fr 1.05fr"],
-  [style*="grid-template-columns: 1fr 1.1fr"],
-  [style*="grid-template-columns: 1fr 1.15fr"],
-  [style*="grid-template-columns: 1fr 1.2fr"],
-  [style*="grid-template-columns: 1fr 1.3fr"],
-  [style*="grid-template-columns: 1fr 1.4fr"],
-  [style*="grid-template-columns: 1fr 1.5fr"] { grid-template-columns: 1fr !important; }
+  /* Both space and no-space variants — SSR omits space after colon   */
+  [style*="grid-template-columns:1.05fr 1fr"],[style*="grid-template-columns: 1.05fr 1fr"],
+  [style*="grid-template-columns:1.15fr 1fr"],[style*="grid-template-columns: 1.15fr 1fr"],
+  [style*="grid-template-columns:1.1fr 1fr"], [style*="grid-template-columns: 1.1fr 1fr"],
+  [style*="grid-template-columns:1.2fr 1fr"], [style*="grid-template-columns: 1.2fr 1fr"],
+  [style*="grid-template-columns:1.3fr 1fr"], [style*="grid-template-columns: 1.3fr 1fr"],
+  [style*="grid-template-columns:1.4fr 1fr"], [style*="grid-template-columns: 1.4fr 1fr"],
+  [style*="grid-template-columns:1.5fr 1fr"], [style*="grid-template-columns: 1.5fr 1fr"],
+  [style*="grid-template-columns:1fr 1.05fr"],[style*="grid-template-columns: 1fr 1.05fr"],
+  [style*="grid-template-columns:1fr 1.1fr"], [style*="grid-template-columns: 1fr 1.1fr"],
+  [style*="grid-template-columns:1fr 1.15fr"],[style*="grid-template-columns: 1fr 1.15fr"],
+  [style*="grid-template-columns:1fr 1.2fr"], [style*="grid-template-columns: 1fr 1.2fr"],
+  [style*="grid-template-columns:1fr 1.3fr"], [style*="grid-template-columns: 1fr 1.3fr"],
+  [style*="grid-template-columns:1fr 1.4fr"], [style*="grid-template-columns: 1fr 1.4fr"],
+  [style*="grid-template-columns:1fr 1.5fr"], [style*="grid-template-columns: 1fr 1.5fr"] { grid-template-columns: 1fr !important; }
 
   /* ── 3-col grids → single column ────────────────────────────────── */
-  [style*="grid-template-columns: repeat(3, 1fr)"],
-  [style*="grid-template-columns: 1fr 1fr 1fr"]  { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns:repeat(3, 1fr)"],  [style*="grid-template-columns: repeat(3, 1fr)"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],     [style*="grid-template-columns: 1fr 1fr 1fr"]  { grid-template-columns: 1fr !important; }
 
   /* ── 4-col grids → 2-col grid ───────────────────────────────────── */
+  [style*="grid-template-columns:repeat(4, 1fr)"],
   [style*="grid-template-columns: repeat(4, 1fr)"]           { grid-template-columns: repeat(2, 1fr) !important; }
 
   /* ── ResourceHub 2fr 1fr 1fr featured layout → stack ────────────── */
+  [style*="grid-template-columns:2fr 1fr 1fr"],
   [style*="grid-template-columns: 2fr 1fr 1fr"]              { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns:2fr 1fr 1fr"] > *,
   [style*="grid-template-columns: 2fr 1fr 1fr"] > *          { grid-column: auto !important; grid-row: auto !important; min-height: 0 !important; }
 
   /* ── Stats / proof bands: 3-auto or auto-repeat → 2-col wrap ─────── */
-  [style*="grid-template-columns: repeat(3, auto)"],
-  [style*="grid-template-columns: repeat(4, auto)"]          { grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns:repeat(3, auto)"],  [style*="grid-template-columns: repeat(3, auto)"],
+  [style*="grid-template-columns:repeat(4, auto)"],  [style*="grid-template-columns: repeat(4, auto)"]  { grid-template-columns: repeat(2, 1fr) !important; }
 
   /* ── Prevent any inline-width from overflowing viewport ─────────── */
   .container img, .container-narrow img, section img        { max-width: 100%; height: auto; }
