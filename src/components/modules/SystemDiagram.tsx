@@ -129,7 +129,7 @@ export default function SystemDiagram(_props: SystemDiagramProps = {}) {
         </div>
       </div>
 
-      <div style={{ background: '#fff', borderRadius: 16, padding: 40, color: PURPLE, position: 'relative', overflow: 'hidden', minHeight: 460 }}>
+      <div className="system-diagram-panel" style={{ background: '#fff', borderRadius: 16, padding: 40, color: PURPLE, position: 'relative', overflow: 'hidden', minHeight: 460 }}>
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 5, background: a.color, transition: 'background 320ms var(--ease-standard)' }}></div>
         <div key={active} className="panel-swap">
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '8px 14px', background: a.colorTint, borderRadius: 999, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: PURPLE }}>
@@ -139,7 +139,7 @@ export default function SystemDiagram(_props: SystemDiagramProps = {}) {
           <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em', margin: '20px 0 14px', color: PURPLE }}>{a.headline}</h3>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: '#555', maxWidth: '55ch', margin: '0 0 28px' }}>{a.sub}</p>
 
-          <div style={{ display: 'flex', gap: 20, alignItems: 'center', marginBottom: 28, padding: '20px 24px', background: a.colorTint, borderRadius: 12 }}>
+          <div className="system-diagram-proof" style={{ display: 'flex', gap: 20, alignItems: 'center', marginBottom: 28, padding: '20px 24px', background: a.colorTint, borderRadius: 12 }}>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 56, lineHeight: 0.9, letterSpacing: '-0.025em', color: PURPLE }}>{a.proof}</div>
             <div style={{ fontSize: 13, color: '#555', lineHeight: 1.4, fontWeight: 500 }}>{a.proofLabel}</div>
           </div>
@@ -147,7 +147,7 @@ export default function SystemDiagram(_props: SystemDiagramProps = {}) {
           <div style={{ fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: a.color === YELLOW ? '#8a6d12' : a.color === GREEN ? '#2c6a62' : PINK, marginBottom: 14 }}>
             What's inside
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
+          <div className="system-diagram-services" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
             {a.services.map((s) => (
               <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#444' }}>
                 <Icon name="check" size={16} color={a.color === YELLOW ? '#8a6d12' : a.color === GREEN ? '#2c6a62' : PINK} strokeWidth={2.5} />

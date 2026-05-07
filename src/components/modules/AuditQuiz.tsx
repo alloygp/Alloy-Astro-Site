@@ -54,10 +54,10 @@ export default function AuditQuiz() {
 
   if (isDone) {
     return (
-      <div style={{ background: '#fff', borderRadius: 16, padding: 48, boxShadow: '0 16px 48px rgba(56,28,79,0.12)', border: '1px solid var(--border-subtle)' }} className="reveal">
+      <div style={{ background: '#fff', borderRadius: 16, padding: 48, boxShadow: '0 16px 48px rgba(56,28,79,0.12)', border: '1px solid var(--border-subtle)' }} className="reveal audit-quiz-card">
         <Eyebrow>Your BoardAttract™ snapshot</Eyebrow>
-        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 40, alignItems: 'center', marginTop: 24 }}>
-          <div style={{ position: 'relative', width: 180, height: 180 }}>
+        <div className="audit-quiz-result-grid" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 40, alignItems: 'center', marginTop: 24 }}>
+          <div className="audit-quiz-circle" style={{ position: 'relative', width: 180, height: 180 }}>
             <svg width="180" height="180" viewBox="0 0 180 180">
               <circle cx="90" cy="90" r="78" stroke="#e8e4ef" strokeWidth="14" fill="none" />
               <circle cx="90" cy="90" r="78" stroke={verdict.color} strokeWidth="14" fill="none"
@@ -89,7 +89,7 @@ export default function AuditQuiz() {
 
   const q = questions[step];
   return (
-    <div style={{ background: '#fff', borderRadius: 16, padding: 48, boxShadow: '0 16px 48px rgba(56,28,79,0.12)', border: '1px solid var(--border-subtle)' }}>
+    <div style={{ background: '#fff', borderRadius: 16, padding: 48, boxShadow: '0 16px 48px rgba(56,28,79,0.12)', border: '1px solid var(--border-subtle)' }} className="audit-quiz-card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
         <Eyebrow>BoardAttract™ Audit · 4 questions</Eyebrow>
         <div style={{ fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-display)', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#888' }}>
