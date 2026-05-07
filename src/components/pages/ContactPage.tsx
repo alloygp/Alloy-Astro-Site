@@ -89,7 +89,7 @@ export default function ContactPage({ variant = 'lead' }: Props) {
 
         {/* Form card — centered, single column */}
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
-          <div style={{ background: '#fff', borderRadius: 16, padding: 40, color: PURPLE, boxShadow: '0 24px 60px rgba(0,0,0,0.18)' }}>
+          <div className="contact-form-card" style={{ background: '#fff', borderRadius: 16, padding: 40, color: PURPLE, boxShadow: '0 24px 60px rgba(0,0,0,0.18)' }}>
             {submitted ? (
               <div className="reveal" style={{ textAlign: 'center', padding: '32px 0' }}>
                 <div style={{ width: 80, height: 80, borderRadius: 999, background: 'var(--alloy-green-tint)', color: '#2c6a62', margin: '0 auto 20px', display: 'grid', placeItems: 'center' }}>
@@ -126,7 +126,7 @@ export default function ContactPage({ variant = 'lead' }: Props) {
                 <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 16 }}>
                   {isContact ? (
                     <>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                      <div className="contact-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <Field label="Your name" value={contactForm.name} onChange={v => updateContact('name', v)} required />
                         <Field label="Work email" type="email" value={contactForm.email} onChange={v => updateContact('email', v)} required />
                       </div>
@@ -143,11 +143,11 @@ export default function ContactPage({ variant = 'lead' }: Props) {
                     </>
                   ) : (
                     <>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                      <div className="contact-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <Field label="Your name" value={leadForm.name} onChange={v => updateLead('name', v)} required />
                         <Field label="Work email" type="email" value={leadForm.email} onChange={v => updateLead('email', v)} required />
                       </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                      <div className="contact-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <Field label="CAM company" value={leadForm.company} onChange={v => updateLead('company', v)} required />
                         <Field label="Associations under management" value={leadForm.units} placeholder="e.g. 120" onChange={v => updateLead('units', v)} />
                       </div>
@@ -155,8 +155,8 @@ export default function ContactPage({ variant = 'lead' }: Props) {
                     </>
                   )}
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 16, flexWrap: 'wrap' }}>
-                    <div style={{ fontSize: 12, color: '#888', maxWidth: '60%' }}>By submitting, you agree to a real conversation. We won't spam you.</div>
+                  <div className="contact-form-submit" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 16, flexWrap: 'wrap' }}>
+                    <div className="contact-form-disclaimer" style={{ fontSize: 12, color: '#888', maxWidth: '60%' }}>By submitting, you agree to a real conversation. We won't spam you.</div>
                     <Button variant="primary" arrow type="submit">
                       {loading ? 'Sending…' : isContact ? 'Send message' : 'Request my diagnostic'}
                     </Button>

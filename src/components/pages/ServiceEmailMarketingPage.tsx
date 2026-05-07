@@ -179,7 +179,7 @@ export default function ServiceEmailMarketingPage() {
             <Eyebrow>The honest comparison</Eyebrow>
             <h2 className="display-lg" style={{ margin: '14px 0 0', color: PURPLE }}>Send-when-you-remember vs. an actual program.</h2>
           </div>
-          <div style={{ background: '#fff', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border-subtle)' }}>
+          <div className="svc-compare-wrap" style={{ background: '#fff', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr 1.6fr', padding: '16px 24px', background: PURPLE, color: '#fff', fontFamily: 'var(--font-display)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700 }}>
               <div>Dimension</div><div style={{ opacity: 0.6 }}>Most CAM email</div><div style={{ color: YELLOW }}>Alloy email program</div>
             </div>

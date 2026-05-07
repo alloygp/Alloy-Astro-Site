@@ -13,7 +13,7 @@ export default function BoardRetainPage() {
       <section className="hero" style={{ background: PURPLE, color: '#fff' }}>
         <div className="hero-bg-grid"></div>
         <div className="hero-inner">
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 64, alignItems: 'center' }}>
+          <div className="hero-grid-split" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 64, alignItems: 'center' }}>
             <div>
               <div className="pillar-eyebrow" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 <EngineLoop pillar="retain" active={true} size={48} />
