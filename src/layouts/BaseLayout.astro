@@ -1,94 +1,62 @@
 ---
 // src/layouts/BaseLayout.astro
-// Single layout for every Alloy page. All SEO defaults pulled from
-// src/config/site.ts — never hardcode site name, OG image path, or
-// twitter handle in page files.
+// Single layout for every Alloy page. Replaces the 24 nearly-identical
+// .html shells from the original SPA, plus the per-route <head> manager
+// that lived in app.jsx (applySeo).
 //
-// Usage (minimal):
-//   <BaseLayout title="…" description="…" pageId="services">
-//     …page sections…
-//   </BaseLayout>
-//
-// Usage (article with custom OG image + schema):
+// Usage:
+//   ---
+//   import BaseLayout from '~/layouts/BaseLayout.astro';
+//   ---
 //   <BaseLayout
-//     title="…"
-//     description="…"
-//     pageId="resources"
-//     ogType="article"
-//     ogImage="/assets/og/my-article.png"
-//     pageSchema={articleSchema}
+//     title="Services — One growth partner. Three engines."
+//     description="..."
+//     pageId="services"
 //   >
-//     …
+//     ...page sections...
 //   </BaseLayout>
-//
-// Usage (noindex):
-//   <BaseLayout title="…" description="…" robots="noindex,nofollow">
 
 import '../styles/colors_and_type.css';
 import '../styles/site.css';
 import '../styles/chrome.css';
-import '../styles/mobile.css';
 import '../styles/courses.css';
 
 import { ViewTransitions } from 'astro:transitions';
 import SiteHeader from '../components/chrome/SiteHeader.tsx';
 import SiteFooter from '../components/chrome/SiteFooter.tsx';
-import { SITE } from '../config/site.ts';
 
 interface Props {
-  /** <title> tag. Keep ≤ 60 chars for clean SERP display. Required. */
   title: string;
-
-  /** Meta description. Keep 120–160 chars. Required. */
   description: string;
-
   /**
-   * Which top-level nav item highlights as active.
-   * Values: home | about | services | boardsuite | approach | resources
+   * Which top-level nav item should highlight as active.
+   * One of: home, about, services, boardsuite, approach, resources.
    * Pass null/undefined to leave nothing highlighted.
    */
   pageId?: string | null;
-
   /**
-   * Header visual theme. Defaults to 'light'.
-   * Use 'purple' on interior pages whose hero starts on a light background.
+   * Header visual theme. Defaults to 'light'. Use 'purple' on dense interior
+   * pages whose hero starts on a light background and needs a stronger
+   * header anchor (services, FAQ, resource hub, etc).
    */
   headerTheme?: 'light' | 'purple';
-
   /**
    * Disable the animated 5-color accent bar at the top of the footer.
    * Defaults to true (enabled).
    */
   animatedBar?: boolean;
-
   /**
    * Hide the global SiteHeader entirely (e.g. course lesson/quiz pages
    * that ship their own contextual topbar).
    */
   hideHeader?: boolean;
-
   /**
-   * og:type. Defaults to 'website'. Use 'article' for resource hub articles.
+   * Override og:type. Defaults to 'website'. Use 'article' for resource hub pages.
    */
   ogType?: 'website' | 'article';
-
   /**
-   * Per-page OG image. Absolute path from /public, e.g. "/assets/og/my-page.png".
-   * Defaults to SITE.defaultOgImage (/assets/alloy-og.png).
-   * Image must be 1200×630px PNG.
-   */
-  ogImage?: string;
-
-  /**
-   * robots meta content. Omit entirely for normal indexed pages.
-   * Use "noindex,nofollow" for thank-you pages, staging, legal utilities, etc.
-   * Use "noindex,follow" to allow link-following without indexing.
-   */
-  robots?: string;
-
-  /**
-   * Page-specific JSON-LD schema object(s) injected alongside the base
-   * Organization schema. Pass a single object or an array.
+   * Optional page-specific JSON-LD schema object(s) injected alongside the
+   * base Organization schema. Pass a single object or an array.
    * E.g. FAQPage schema, Article schema, Service schema.
    */
   pageSchema?: Record<string, unknown> | Record<string, unknown>[];
@@ -102,36 +70,29 @@ const {
   animatedBar = true,
   hideHeader = false,
   ogType = 'website',
-  ogImage: ogImageProp,
-  robots,
   pageSchema,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? SITE.url).toString();
-
-// Resolve OG image to absolute URL — use page override if provided, else default
-const resolvedOgImage = new URL(
-  ogImageProp ?? SITE.defaultOgImage,
-  Astro.site ?? SITE.url
-).toString();
+const url = new URL(Astro.url.pathname, Astro.site ?? 'https://alloygp.co').toString();
+const ogImage = new URL('/assets/alloy-og.png', Astro.site ?? 'https://alloygp.co').toString();
 
 const orgLd = {
   '@context': 'https://schema.org',
-  '@type': SITE.org.type,
-  name: SITE.name,
-  url: SITE.url,
-  logo: SITE.org.logo,
+  '@type': 'ProfessionalService',
+  name: 'Alloy Growth Partners',
+  url: 'https://alloygp.co',
+  logo: 'https://alloygp.co/assets/alloy-logo-full-color.svg',
   description,
   address: {
     '@type': 'PostalAddress',
-    addressLocality: SITE.org.addressLocality,
-    addressRegion: SITE.org.addressRegion,
-    addressCountry: SITE.org.addressCountry,
+    addressLocality: 'Austin',
+    addressRegion: 'TX',
+    addressCountry: 'US',
   },
-  telephone: SITE.org.telephone,
-  email: SITE.org.email,
-  areaServed: SITE.org.areaServed,
-  priceRange: SITE.org.priceRange,
+  telephone: '+1-210-845-5989',
+  email: 'contact@alloygp.co',
+  areaServed: 'United States',
+  priceRange: '$$$',
 };
 ---
 
@@ -144,32 +105,29 @@ const orgLd = {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    <link rel="canonical" href={url} />
     <link rel="icon" type="image/png" href="/assets/alloy-icon-1500.png" />
-
-    <!-- Robots (only emitted when explicitly set — absence = index,follow) -->
-    {robots && <meta name="robots" content={robots} />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:url" content={url} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:locale" content={SITE.locale} />
-    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:site_name" content="Alloy Growth Partners" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content={SITE.ogImageWidth} />
-    <meta property="og:image:height" content={SITE.ogImageHeight} />
-    <meta property="og:image:alt" content={`${SITE.name} — The growth system for CAM companies`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Alloy Growth Partners — The growth system for CAM companies" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={SITE.twitterHandle} />
+    <meta name="twitter:site" content="@alloygp" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={resolvedOgImage} />
-    <meta name="twitter:image:alt" content={`${SITE.name} — The growth system for CAM companies`} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Alloy Growth Partners — The growth system for CAM companies" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -186,19 +144,10 @@ const orgLd = {
       <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     )}
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FSCT09DV7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-0FSCT09DV7');
-    </script>
-
     <ViewTransitions />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
-    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />}
+    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load transition:persist />}
     <main>
       <slot />
     </main>

@@ -691,7 +691,6 @@ export default function ServiceAnnualReportPage() {
             </h2>
           </div>
           <div
-            className="svc-compare-wrap"
             style={{
               background: '#fff',
               borderRadius: 12,

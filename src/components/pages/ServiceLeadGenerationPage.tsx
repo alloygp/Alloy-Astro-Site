@@ -38,8 +38,8 @@ function LeadPipelineDiagram() {
     { c: GREEN,  label: 'Outbound prospecting',  sub: 'Targeted board outreach via Groundwork' },
   ];
   return (
-    <div className="svc-pipeline-wrap" style={{ background: '#fff', borderRadius: 14, padding: 32, border: '1px solid var(--border-subtle)' }}>
-      <div className="svc-pipeline-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr auto 1fr auto 1fr', gap: 18, alignItems: 'stretch' }}>
+    <div style={{ background: '#fff', borderRadius: 14, padding: 32, border: '1px solid var(--border-subtle)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr auto 1fr auto 1fr', gap: 18, alignItems: 'stretch' }}>
         {/* Channels column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#999', letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 } as CSSProperties}>Inbound + outbound channels</div>
@@ -52,7 +52,7 @@ function LeadPipelineDiagram() {
         </div>
 
         {/* Arrow */}
-        <div className="pipeline-arrow" style={{ display: 'grid', placeItems: 'center' }}>
+        <div style={{ display: 'grid', placeItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
             <div style={{ width: 30, height: 2, background: 'var(--border-subtle)' }}></div>
             <Icon name="arrow-right" size={20} color="#999" />
@@ -86,7 +86,7 @@ function LeadPipelineDiagram() {
         </div>
 
         {/* Arrow */}
-        <div className="pipeline-arrow" style={{ display: 'grid', placeItems: 'center' }}>
+        <div style={{ display: 'grid', placeItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
             <div style={{ width: 30, height: 2, background: 'var(--border-subtle)' }}></div>
             <Icon name="arrow-right" size={20} color="#999" />
@@ -452,7 +452,7 @@ export default function ServiceLeadGenerationPage() {
             <Eyebrow>The honest comparison</Eyebrow>
             <h2 className="display-lg" style={{ margin: '14px 0 0', color: PURPLE }}>Contact form + CRM vs. an actual system.</h2>
           </div>
-          <div className="svc-compare-wrap" style={{ background: '#fff', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ background: '#fff', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr 1.6fr', padding: '16px 24px', background: PURPLE, color: '#fff', fontFamily: 'var(--font-display)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700 } as CSSProperties}>
               <div>Dimension</div>
               <div style={{ opacity: 0.6 }}>Contact form + CRM (most CAMs)</div>
