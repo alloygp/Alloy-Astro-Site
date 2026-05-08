@@ -31,6 +31,7 @@ import '../styles/mobile.css';
 import '../styles/courses.css';
 
 import { ViewTransitions } from 'astro:transitions';
+import { Analytics } from '@vercel/analytics/astro';
 import SiteHeader from '../components/chrome/SiteHeader.tsx';
 import SiteFooter from '../components/chrome/SiteFooter.tsx';
 import { SITE } from '../config/site.ts';
@@ -196,6 +197,7 @@ const orgLd = {
     </script>
 
     <ViewTransitions />
+    <Analytics />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
     {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />}
