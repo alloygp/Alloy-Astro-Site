@@ -1,0 +1,59 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import HOASoftwareGuide, { hoaSoftwareFAQ } from '~/components/pages/HOASoftwareGuide';
+
+const pageUrl = 'https://alloygp.co/resources/hoa-management-software-guide';
+const pageTitle = 'HOA Management Software: 2026 Buyer’s Guide for CAM Firms';
+const pageDesc = 'The 2026 guide to HOA management software for CAM firms — what to evaluate, pricing, integrations, and how to roll it out without disrupting boards.';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: pageTitle,
+  description: pageDesc,
+  datePublished: '2026-05-13',
+  dateModified: '2026-05-13',
+  author: { '@type': 'Organization', name: 'Alloy Growth Partners', url: 'https://alloygp.co' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Alloy Growth Partners',
+    logo: { '@type': 'ImageObject', url: 'https://alloygp.co/assets/alloy-logo-full-color.svg' },
+  },
+  mainEntityOfPage: pageUrl,
+  inLanguage: 'en-US',
+  about: [
+    { '@type': 'Thing', name: 'HOA management software' },
+    { '@type': 'Thing', name: 'Community association management' },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',      item: 'https://alloygp.co' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://alloygp.co/resources' },
+    { '@type': 'ListItem', position: 3, name: 'HOA Management Software Guide', item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: hoaSoftwareFAQ.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  pageId="resources"
+  headerTheme="purple"
+  ogType="article"
+  pageSchema={[articleSchema, breadcrumbSchema, faqSchema]}
+>
+  <HOASoftwareGuide client:load />
+</BaseLayout>
