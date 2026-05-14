@@ -274,57 +274,57 @@ export default function HOASoftwareGuide() {
   const categories: CategoryProps[] = [
     {
       accent: PINK,
-      label: 'HOA accounting software',
+      label: 'Accounting & financial',
       headline: 'Books, reserves, dues, audits.',
-      body: 'The non-negotiable layer. Every CAM firm runs HOA accounting software — the only question is whether it integrates with everything else or sits in a silo your team reconciles by hand each month.',
+      body: 'The foundation layer. Every CAM firm runs accounting software — the only question is whether it integrates with everything else or sits in a silo your team reconciles by hand each month. Dues billing, AR/AP, bank rec, reserve and fund accounting, audit-ready trial balances, 1099s, lockbox integration.',
       board: 'Clean financials at every meeting. Reserve studies that match the bank balance.',
       manager: 'Bank rec, AR aging, vendor 1099s, year-end audits. Where the auditor lives.',
-      examples: 'TOPS, CINC Financials, AppFolio HOA, Buildium, VMS',
+      examples: 'CINC Systems, Enumerate Central (formerly TOPS), FRONTSTEPS Caliber, AppFolio Property Manager, Buildium, VMS, Smartwebs, PayHOA',
     },
     {
       accent: YELLOW,
       label: 'Board portals & governance',
       headline: 'The room where the work happens.',
-      body: 'Where directors review packets, vote, sign documents, and find the agenda. This is the surface boards form their opinion of your firm on — more than your website, more than the manager.',
+      body: 'Where directors review packets, vote, sign documents, and find the agenda. The standalone-board-portal market that exists for corporate boards (Diligent, BoardEffect) has effectively zero footprint in HOA — every credible option here is a module inside an all-in-one platform. The board sees this surface more than they see your website. They form their opinion of your firm on it.',
       board: 'Find the packet, sign the doc, see what’s next — on a phone, at 9 PM, before the meeting.',
       manager: 'Packet assembly, agenda templates, motion tracking, document retention.',
-      examples: 'BoardEffect, BoardPaq, Diligent Boards, AssociationVoice, Caliber Portal',
+      examples: 'Vantaca Home, FRONTSTEPS Community, CINC Systems, Enumerate Engage, TownSq, BoardSpace',
     },
     {
       accent: BLUE,
       label: 'Resident communication',
       headline: 'Notices, requests, the inbox.',
-      body: 'Mass communication, work order intake, ARC submissions, violation tracking. Often bundled with the accounting platform — sometimes a standalone — usually the source of every "why didn’t anyone tell us?" complaint.',
+      body: 'Mass communication, work order intake, ARC submissions, violation tracking, community calendars, e-voting. Usually bundled into the accounting platform — and usually the source of every "why didn’t anyone tell us?" complaint.',
       board: 'Did our notice go out? Did homeowners actually see it?',
-      manager: 'Eblasts, robocalls, work orders, violations, ARC, gate codes, e-voting.',
-      examples: 'Smartwebs, FrontSteps, HOA Express, ClickPay, TownSq',
+      manager: 'Eblasts, SMS, push, work orders, violations, ARC, gate codes, e-voting.',
+      examples: 'TownSq, Condo Control, FRONTSTEPS Community, Smartwebs, AppFolio Property Manager, PayHOA',
     },
     {
       accent: GREEN,
       label: 'Maintenance & operations',
       headline: 'Inspections, vendors, work orders.',
-      body: 'Site inspections, vendor bid tracking, preventive maintenance schedules, and the photo evidence that proves the manager was there. The layer most underbuilt in the typical CAM stack.',
+      body: 'Site inspections (ideally offline-capable on a phone), vendor bid tracking, COI tracking, preventive maintenance schedules, and the photo evidence that proves the manager was actually there. The layer most underbuilt in the typical CAM stack — and the one Smartwebs originally won on with its "3 clicks and a pic" field workflow.',
       board: 'Was the property inspected? Were vendors invoiced for work that actually happened?',
       manager: 'Inspection routes, vendor management, COI tracking, PM schedules, photo logs.',
-      examples: 'Smartwebs Inspections, Vantaca, AppFolio Maintenance, ServiceFusion',
+      examples: 'Smartwebs, Vantaca, FRONTSTEPS Suite Manager, AppFolio Property Manager, CINC Systems',
     },
     {
       accent: PURPLE,
       label: 'Document management & voting',
       headline: 'Governing docs, retention, e-voting.',
-      body: 'CC&Rs, bylaws, meeting minutes, ballot logic, and the retention rules that get firms sued when they’re ignored. Frequently bundled into board portals, occasionally standalone.',
+      body: 'CC&Rs, bylaws, meeting minutes, ballot logic, proxy tracking, and the retention rules that get firms sued when they’re ignored. Nearly always a module inside the all-in-one platform; standalone e-voting tools sometimes get bolted on for contested elections.',
       board: 'Can we find the original CC&Rs in under a minute? Can we vote without paper?',
       manager: 'Document libraries, version control, statutory retention, e-ballot setup.',
-      examples: 'HOA Total Access, AssociationVoice, BoardPaq, Vantaca, Smartwebs',
+      examples: 'Vantaca, Smartwebs, Enumerate Central, CINC Systems, eUnify · standalone voting: eBallot, ElectionBuddy, AssociationVoting',
     },
     {
       accent: PINK,
       label: 'All-in-one HOA property management software',
       headline: 'One vendor, every layer.',
-      body: 'Single-vendor systems covering accounting, portal, communication, documents, and operations. Easier to buy. Harder to leave. Quality varies wildly module-by-module — the accounting can be excellent and the portal can feel like it shipped in 2014.',
+      body: 'Single-vendor systems covering accounting, portal, communication, documents, and operations. This is where the real competition is — the two clear market leaders for professional CAM firms are Vantaca and CINC Systems, with FRONTSTEPS, Enumerate, and AppFolio Property Manager rounding out the mid-market tier. Easier to buy. Harder to leave. Quality varies module-by-module — the accounting can be excellent and the portal can feel like it shipped in 2014.',
       board: 'One login. One bill. One throat to choke when something breaks.',
       manager: 'Everything in one dashboard. Or — depending on the vendor — five tabs of one dashboard.',
-      examples: 'Vantaca, AppFolio Community Manager, CINC Systems, Enumerate (formerly TOPS), Caliber',
+      examples: 'Vantaca · CINC Systems · FRONTSTEPS (Caliber + Community + Suite Manager) · Enumerate (formerly TOPS) · AppFolio Property Manager · Buildium · Smartwebs',
     },
   ];
 
@@ -349,9 +349,9 @@ export default function HOASoftwareGuide() {
     },
     {
       n: '04',
-      h: 'Compliance-aware communications',
-      what: 'Election-period rules, fair-housing language, statutory notice periods — the platform should warn you, not assume you remember. The cost of one bad eblast during a contested board election dwarfs the licensing fee for a decade.',
-      signal: 'Send a test notice in election mode. Watch what the system flags.',
+      h: 'Compliance-supporting communications',
+      what: 'No platform genuinely "warns you" about fair-housing wording or election-period rules in real time — anyone claiming that is overselling. What the right platform does is support the workflow: configurable templates, approval gates, communication restrictions during election windows, and timestamped audit trails. The cost of one bad eblast during a contested board election dwarfs the licensing fee for a decade; the platform should make the right path the path of least resistance.',
+      signal: 'Send a test notice in election mode. Watch what the system makes hard vs. easy.',
     },
     {
       n: '05',
@@ -448,62 +448,62 @@ export default function HOASoftwareGuide() {
   const pricing = [
     {
       color: BLUE, tier: 'Self-managed HOA software',
-      portfolio: 'Single HOA, board-run, no CAM firm.',
-      range: '$1\u2013$3 / door / mo',
-      range2: 'Or $50\u2013$300/mo flat per association',
-      gotchas: 'ACH processing fees (often 0.30\u20130.50% of dues), per-eblast credits, document storage tiers. Boards often discover the all-in cost is double the headline rate.',
+      portfolio: 'Single HOA, board-run, no management firm.',
+      range: '$0.50–$3 / door / mo',
+      range2: 'Or $39–$300/mo flat per association',
+      gotchas: 'Real examples: PayHOA ($49/mo up to 25 units → $275/mo for 500+), HOA Start ($39/mo flat), Effortless HOA ($3/home), Buildium Essential (~$55/mo min), EasyHOA (flat-rate tiers). Hidden costs: ACH fees ($1–$3/txn or 0.30–0.50% of dues), per-eblast credits, document storage tiers, monthly minimums on small communities. All-in cost is frequently 50–100% over the headline rate.',
     },
     {
       color: YELLOW, tier: 'CAM-managed · small',
       portfolio: 'Under 50 associations, single market.',
-      range: '$3\u2013$5 / door / mo',
-      range2: 'Plus $5K\u2013$15K onboarding',
-      gotchas: 'Module add-ons (inspections, e-voting, ARC), integration fees, per-user manager seats. Bundle math gets uglier as you grow.',
+      range: '$1–$3 / door / mo',
+      range2: 'Plus $3K–$10K onboarding',
+      gotchas: 'Most platforms at this tier use custom quotes. Module add-ons (inspections, e-voting, ARC), per-user manager seats, and integration fees stack up. Some vendors (Smartwebs, Buildium) skip formal onboarding fees — confirm what is actually included before signing.',
     },
     {
       color: PINK, tier: 'CAM-managed · mid-market',
-      portfolio: '50\u2013300 associations, multi-market.',
-      range: '$4\u2013$7 / door / mo',
-      range2: 'Plus $15K\u2013$50K onboarding',
-      gotchas: 'Negotiate the YoY price ceiling and the multi-year discount up front. The line items that move the most: ACH float, eblast credits, document storage, custom integrations.',
+      portfolio: '50–300 associations, multi-market.',
+      range: '$1.50–$3.50 / door / mo',
+      range2: 'Plus $15K–$40K onboarding',
+      gotchas: 'Volume discounts get meaningful here. Negotiate the YoY price ceiling and the multi-year discount up front. Line items that move the most: ACH float, eblast credits, document storage, custom integrations.',
     },
     {
       color: GREEN, tier: 'Enterprise · regional/national',
       portfolio: '300+ associations, complex stack.',
-      range: '$3\u2013$6 / door / mo',
-      range2: 'Custom MSAs; onboarding $50K+',
-      gotchas: 'Volume discounts are real but require contractual term commitments. Multi-system architecture (best-of-breed) often beats single-vendor TCO above 400 associations.',
+      range: '$1–$3 / door / mo',
+      range2: 'Custom MSAs; onboarding $30K–$75K+',
+      gotchas: 'Volume discounts are real but require contractual term commitments. At this scale software should be roughly 10–20% of per-door management fees — not more. Multi-system (best-of-breed across layers) sometimes beats single-vendor TCO above 400 associations.',
     },
   ];
 
   const faq: FAQItem[] = [
     {
       q: 'What is HOA management software?',
-      a: 'HOA management software is the operating system a community association management firm — or a self-managed HOA board — runs the day-to-day business on. It typically covers accounting (dues, reserves, AP/AR), board portals (packets, e-signature, voting), resident communication (notices, work orders, ARC requests), and document retention. Some platforms cover all of those; others specialize in one or two layers and integrate with the rest.',
+      a: 'HOA management software is the day-to-day operating layer a community association management firm — or a self-managed HOA board — runs the business on. It typically covers accounting (dues, reserves, AP/AR), board portals (packets, e-signature, voting), resident communication (notices, work orders, ARC requests), maintenance/inspections, and document retention. Some platforms cover all of those in one (all-in-one); others specialize in one or two layers and integrate.',
     },
     {
-      q: 'What’s the difference between HOA software and a board portal?',
-      a: 'HOA software is the broader operating system the management company runs on; a board portal is one surface inside it — the place directors log in to find packets, sign documents, and vote. Most management platforms include a portal; whether the portal is any good is a separate question. The portal is the surface boards judge your firm on, so portal quality matters out of proportion to portal cost.',
+      q: 'What is the difference between HOA software and a board portal?',
+      a: 'HOA software is the broader operating system the management company runs on; a board portal is one surface inside it — where directors log in to find packets, sign documents, and vote. In HOA, standalone board portals essentially do not exist; the corporate-governance board-portal market (Diligent, BoardEffect) serves Fortune 500s and nonprofits and has no real footprint in CAM. The portal you care about is the one inside Vantaca Home, FRONTSTEPS Community, CINC, Enumerate Engage, TownSq, or whichever all-in-one runs your portfolio.',
     },
     {
-      q: 'What’s the best HOA management software?',
-      a: 'There isn’t a single best HOA management software — the right answer depends on portfolio size, manager-to-association ratio, and whether you want one vendor or best-of-breed by layer. Firms under 100 associations almost always benefit from a single full-stack platform. Firms over 300 frequently outgrow it and assemble accounting + portal + communications from different vendors. The framework matters more than the brand: this guide gives you the framework.',
+      q: 'What is the best HOA management software?',
+      a: 'It depends on buyer type. For professional CAM firms, the two clear market leaders are Vantaca and CINC Systems, with FRONTSTEPS, Enumerate (formerly TOPS), and AppFolio Property Manager as the strongest alternatives at mid-market. For self-managed HOAs, the most-recommended platforms are PayHOA, Condo Control, HOA Start, EasyHOA, and Smartwebs. The framework matters more than the brand — use the 14-question RFP on this page to score whichever shortlist you build.',
     },
     {
       q: 'How much does HOA property management software cost?',
-      a: 'All-in pricing typically runs $3\u2013$8 per door per month for CAM-managed portfolios, but the headline rate is misleading. Add ACH fees (commonly 0.30\u20130.50% of dues processed), eblast credits, document storage, per-module add-ons, and onboarding of $5K\u2013$50K. Build a 36-month total cost of ownership before negotiating. The right question isn’t "what does it cost?" — it’s "what is the all-in cost for a portfolio that looks exactly like mine, and what is the contractual ceiling on year-over-year increases?"',
+      a: 'Self-managed HOAs typically pay $0.50–$3 per door per month or $39–$300 per month flat (PayHOA, HOA Start, EasyHOA, Effortless HOA). CAM firms typically pay $1–$3.50 per door per month depending on portfolio size, plus onboarding from $3K (small firms) up to $75K+ (enterprise). The headline rate is misleading: ACH fees (commonly 0.30–0.50% of dues processed) are often the single biggest hidden cost. Build a 36-month TCO before negotiating.',
     },
     {
       q: 'Can self-managed HOAs use the same software CAM firms use?',
-      a: 'Most platforms offer a self-managed tier — usually a stripped-down version of the same product. The economics rarely make sense for a single association; the value of these platforms scales with the number of associations and the integration density. If you’re a self-managed HOA board, look at lightweight self-managed HOA software with strong document and communication features and adequate accounting. If you’re a CAM firm, do not buy a self-managed tier and try to grow into the operator tier — start where you’re going.',
+      a: 'Most CAM-grade platforms offer a self-managed tier, but the economics rarely work for a single association — these platforms are priced for portfolio scale and integration density. If you are a self-managed board, look at purpose-built tools: PayHOA, HOA Start, EasyHOA, Effortless HOA, or Yardi Breeze Premier. If you are a CAM firm, skip the self-managed tier of any vendor and start where you are going.',
     },
     {
       q: 'How long does HOA software implementation actually take?',
-      a: 'Vendors quote 60\u201390 days. Plan for six months of dual-system operation and a full year before the platform is genuinely your operating system instead of "the new thing we’re still figuring out." Productivity dips meaningfully during months 2\u20134. Manager turnover during implementation is the single most common reason migrations fail — lock in retention bonuses before kickoff, not after.',
+      a: 'It depends on scope. A self-managed HOA can be up and running in days to a few weeks (PayHOA cites days; HOA Start is similar). A small CAM firm typically takes 30–90 days. A mid-to-large CAM portfolio migration is honestly four to six months — vendors quote 60–90 days but the field reality is longer once you account for the dual-system pilot and cohort rollout. Manager turnover during implementation is the single most common reason migrations fail; lock retention bonuses before kickoff, not after.',
     },
     {
       q: 'Will switching HOA software fix our growth or retention problem?',
-      a: 'Almost never. If boards are leaving for competitors, the problem is positioning, communication, and service — not software. If RFPs are losing to firms with better proposals, the problem is sales messaging. If you’re invisible to boards shopping for a new manager, the problem is visibility. Software fixes operations problems. It does not fix system problems. That is what BoardSuite is for.',
+      a: 'Almost never. Software fixes operations problems — slow bank rec, late packets, lost vendor invoices, ARC backlog. It helps with service problems where communication and transparency are bottlenecks. It does not fix positioning problems (invisible to boards shopping for new management) or retention problems (quiet churn, transactional renewal conversations). Those require a growth system above the software layer. That is what BoardSuite is for.',
     },
   ];
 
@@ -641,9 +641,9 @@ export default function HOASoftwareGuide() {
           <div style={{ maxWidth: 800, marginBottom: 36 }}>
             <Eyebrow>The landscape</Eyebrow>
             <h2 className="display-lg" style={{ margin: '14px 0 16px', color: PURPLE }}>
-              Six software categories. Most firms touch all of them.
+              Six functional layers. One platform usually covers all of them.
             </h2>
-            <p className="lead" style={{ margin: 0 }}>HOA software is not one market — it’s six overlapping ones. The right stack depends on portfolio size, manager-to-association ratio, and whether you want one vendor or best-in-class by layer.</p>
+            <p className="lead" style={{ margin: 0 }}>HOA software is not really six independent markets with separate vendors — it is one all-in-one market dominated by a handful of platforms, with six functional layers inside each one. The interesting question is not “which vendor for each layer” but “which layers is this vendor actually strong in, and which ones were bolted on.”</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20 }}>
             {categories.map(c => <CategoryCard key={c.label} {...c} />)}
@@ -721,7 +721,7 @@ export default function HOASoftwareGuide() {
             <h2 className="display-lg" style={{ margin: '14px 0 16px', color: PURPLE }}>
               26 weeks. Four phases. Don’t skip Phase 1.
             </h2>
-            <p className="lead" style={{ margin: 0 }}>The vendor will quote you 60\u201390 days. The honest number is six months — and the board-side communication has to start before week one of dual-system operation, not after.</p>
+            <p className="lead" style={{ margin: 0 }}>The vendor will quote you 60\u201390 days. For a mid-to-large CAM portfolio migration, the honest number is closer to six months — and the board-side communication has to start before week one of dual-system operation, not after. (Self-managed HOAs and small firms onboarding their first platform compress this dramatically: PayHOA cites days, FRONTSTEPS quotes ~60-day averages. The phased shape still applies; the calendar shrinks.)</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
             {rollout.map(r => <RolloutPhase key={r.phase} {...r} />)}
@@ -824,7 +824,7 @@ export default function HOASoftwareGuide() {
             {[
               { color: PINK,   eyebrow: 'System',  title: 'BoardSuite™ — the integrated growth system', desc: 'How attract, close, and keep run as one playbook across the platform layer.', href: '/boardsuite' },
               { color: YELLOW, eyebrow: 'Article', title: 'The CAM Marketing Strategy That Actually Compounds', desc: '"Do more marketing" is the most expensive advice CAM firms hear. System is the lever.', href: '/resource-hub/cam-marketing-strategy' },
-              { color: GREEN,  eyebrow: 'Case study', title: 'RISE AMG — 18 months, 1,580% YoY opportunities', desc: 'What system-level growth looks like when the platform layer was already in place.', href: '/results/apex-cmg' },
+              { color: GREEN,  eyebrow: 'Case study', title: 'Apex CMG — 18 months, 1,580% YoY opportunities', desc: 'What system-level growth looks like when the platform layer was already in place.', href: '/results/apex-cmg' },
             ].map(r => (
               <a key={r.title} href={r.href} className="card card-pad" style={{
                 display: 'flex',
@@ -862,30 +862,30 @@ export default function HOASoftwareGuide() {
 export const hoaSoftwareFAQ: { q: string; a: string }[] = [
   {
     q: 'What is HOA management software?',
-    a: 'HOA management software is the operating system a community association management firm — or a self-managed HOA board — runs the day-to-day business on. It typically covers accounting (dues, reserves, AP/AR), board portals (packets, e-signature, voting), resident communication (notices, work orders, ARC requests), and document retention.',
+    a: 'HOA management software is the day-to-day operating layer a community association management firm — or a self-managed HOA board — runs the business on. It typically covers accounting, board portals, resident communication, maintenance/inspections, and document retention. Some platforms cover all of those in one (all-in-one); others specialize in one or two layers and integrate.',
   },
   {
-    q: 'What’s the difference between HOA software and a board portal?',
-    a: 'HOA software is the broader operating system the management company runs on; a board portal is one surface inside it — the place directors log in to find packets, sign documents, and vote. Most management platforms include a portal; whether the portal is any good is a separate question.',
+    q: 'What is the difference between HOA software and a board portal?',
+    a: 'HOA software is the broader operating system; a board portal is one surface inside it where directors log in to find packets, sign documents, and vote. Standalone board portals essentially do not exist in HOA; the corporate-governance board-portal market (Diligent, BoardEffect) serves Fortune 500s and nonprofits and has no real CAM footprint. The portal you care about is inside Vantaca Home, FRONTSTEPS Community, CINC, Enumerate Engage, or TownSq.',
   },
   {
-    q: 'What’s the best HOA management software?',
-    a: 'There isn’t a single best HOA management software — the right answer depends on portfolio size, manager-to-association ratio, and whether you want one vendor or best-of-breed by layer. Firms under 100 associations almost always benefit from a single full-stack platform. Firms over 300 frequently outgrow it.',
+    q: 'What is the best HOA management software?',
+    a: 'It depends on buyer type. For professional CAM firms, the two clear market leaders are Vantaca and CINC Systems, with FRONTSTEPS, Enumerate (formerly TOPS), and AppFolio Property Manager as strong alternatives. For self-managed HOAs, the most-recommended platforms are PayHOA, Condo Control, HOA Start, EasyHOA, and Smartwebs.',
   },
   {
     q: 'How much does HOA property management software cost?',
-    a: 'All-in pricing typically runs $3\u2013$8 per door per month for CAM-managed portfolios, but the headline rate is misleading. Add ACH fees (commonly 0.30\u20130.50% of dues processed), eblast credits, document storage, per-module add-ons, and onboarding of $5K\u2013$50K. Build a 36-month total cost of ownership before negotiating.',
+    a: 'Self-managed HOAs: $0.50–$3 per door per month or $39–$300 per month flat. CAM firms: $1–$3.50 per door per month depending on portfolio size, plus onboarding from $3K (small firms) to $75K+ (enterprise). ACH fees (commonly 0.30–0.50% of dues processed) are often the single biggest hidden cost. Build a 36-month TCO before negotiating.',
   },
   {
     q: 'Can self-managed HOAs use the same software CAM firms use?',
-    a: 'Most platforms offer a self-managed tier — usually a stripped-down version of the same product. The economics rarely make sense for a single association; the value of these platforms scales with the number of associations and the integration density.',
+    a: 'Most CAM-grade platforms offer a self-managed tier, but the economics rarely work for a single association. For self-managed boards, purpose-built tools (PayHOA, HOA Start, EasyHOA, Effortless HOA, Yardi Breeze Premier) are usually the right fit.',
   },
   {
     q: 'How long does HOA software implementation actually take?',
-    a: 'Vendors quote 60\u201390 days. Plan for six months of dual-system operation and a full year before the platform is genuinely your operating system. Manager turnover during implementation is the single most common reason migrations fail — lock in retention bonuses before kickoff, not after.',
+    a: 'A self-managed HOA: days to a few weeks. A small CAM firm: 30–90 days. A mid-to-large CAM portfolio migration: four to six months — vendors quote 60–90 days, but field reality is longer once you account for the dual-system pilot and cohort rollout. Manager turnover during implementation is the single most common reason migrations fail.',
   },
   {
     q: 'Will switching HOA software fix our growth or retention problem?',
-    a: 'Almost never. Software fixes operations problems. It does not fix system problems — positioning, sales messaging, retention systems. That is what BoardSuite is for.',
+    a: 'Almost never. Software fixes operations problems. It does not fix positioning problems (invisible to boards shopping for new management) or retention problems (quiet churn, transactional renewal). Those require a growth system above the software layer. That is what BoardSuite is for.',
   },
 ];
