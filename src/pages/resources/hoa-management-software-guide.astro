@@ -1,15 +1,25 @@
 ---
+// src/pages/resources/hoa-management-software-guide.astro
+// Pillar guide targeting the "hoa management software" keyword cluster
+// (vol 1,100 head, KD 2, opp 1,078). Funnels into /boardsuite.
+//
+// Per the May 2026 handoff:
+//   - One new page only — do not touch BaseLayout <head>, sitemap, robots, or vercel.json.
+//   - Page-specific JSON-LD (Article + BreadcrumbList + FAQPage) is rendered
+//     inside the page body. The site-wide ProfessionalService schema in
+//     BaseLayout is left untouched; additional JSON-LD blocks are valid and
+//     parsed by Google whether they live in <head> or <body>.
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import HOASoftwareGuide, { hoaSoftwareFAQ } from '~/components/pages/HOASoftwareGuide';
 
 const pageUrl = 'https://alloygp.co/resources/hoa-management-software-guide';
-const pageTitle = 'HOA Management Software: 2026 Buyer’s Guide for CAM Firms';
+const pageTitle = 'HOA Management Software: 2026 Buyer\u2019s Guide for CAM Firms';
 const pageDesc = 'The 2026 guide to HOA management software for CAM firms — what to evaluate, pricing, integrations, and how to roll it out without disrupting boards.';
 
-const articleSchema = {
+const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: pageTitle,
+  headline: 'HOA Management Software: 2026 Buyer\u2019s Guide for CAM Firms',
   description: pageDesc,
   datePublished: '2026-05-13',
   dateModified: '2026-05-13',
@@ -27,17 +37,22 @@ const articleSchema = {
   ],
 };
 
-const breadcrumbSchema = {
+const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home',      item: 'https://alloygp.co' },
-    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://alloygp.co/resources' },
-    { '@type': 'ListItem', position: 3, name: 'HOA Management Software Guide', item: pageUrl },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://alloygp.co/' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://alloygp.co/resource-hub' },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'HOA Management Software Guide',
+      item: pageUrl,
+    },
   ],
 };
 
-const faqSchema = {
+const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: hoaSoftwareFAQ.map((f) => ({
@@ -47,13 +62,18 @@ const faqSchema = {
   })),
 };
 ---
+
 <BaseLayout
   title={pageTitle}
   description={pageDesc}
   pageId="resources"
   headerTheme="purple"
-  ogType="article"
-  pageSchema={[articleSchema, breadcrumbSchema, faqSchema]}
 >
+  {/* Page-specific JSON-LD. Rendered in <body> rather than <head> so this
+      page does not modify BaseLayout. Google parses JSON-LD from either. */}
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
   <HOASoftwareGuide client:load />
 </BaseLayout>

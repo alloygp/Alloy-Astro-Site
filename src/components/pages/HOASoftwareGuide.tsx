@@ -757,7 +757,7 @@ export default function HOASoftwareGuide() {
                 If you’re invisible to boards shopping for a new manager — software won’t help. If your proposals lose to firms running the same platform with a better pitch — software won’t help. If a 12% churn rate is quietly undoing a 20% growth rate — software won’t help.
               </p>
               <p style={{ fontSize: 16, lineHeight: 1.75, color: 'rgba(255,255,255,0.88)', marginBottom: 28 }}>
-                That’s what <strong style={{ color: '#fff' }}>BoardSuite™</strong> is for: the system above the software layer that engineers attract, close, and keep into one connected playbook. Most of our clients run Vantaca, CINC, or AppFolio. The platform is rarely the constraint. The system around it is. See <a href="/results/apex-cmg" style={{ color: YELLOW, textDecoration: 'underline', textUnderlineOffset: 3 }}>the Apex CMG case study</a> for an 18-month example.
+                That’s what <strong style={{ color: '#fff' }}>BoardSuite™</strong> is for: the system above the software layer that engineers attract, close, and keep into one connected playbook. Most of our clients run Vantaca, CINC, or AppFolio. The platform is rarely the constraint. The system around it is. See <a href="/results/rise-amg" style={{ color: YELLOW, textDecoration: 'underline', textUnderlineOffset: 3 }}>the RISE AMG case study</a> for an 18-month example.
               </p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <Button variant="primary" arrow href="/boardsuite">See BoardSuite™</Button>
@@ -824,7 +824,7 @@ export default function HOASoftwareGuide() {
             {[
               { color: PINK,   eyebrow: 'System',  title: 'BoardSuite™ — the integrated growth system', desc: 'How attract, close, and keep run as one playbook across the platform layer.', href: '/boardsuite' },
               { color: YELLOW, eyebrow: 'Article', title: 'The CAM Marketing Strategy That Actually Compounds', desc: '"Do more marketing" is the most expensive advice CAM firms hear. System is the lever.', href: '/resource-hub/cam-marketing-strategy' },
-              { color: GREEN,  eyebrow: 'Case study', title: 'Apex CMG — 18 months, 1,580% YoY opportunities', desc: 'What system-level growth looks like when the platform layer was already in place.', href: '/results/apex-cmg' },
+              { color: GREEN,  eyebrow: 'Case study', title: 'RISE AMG — 18 months, 1,580% YoY opportunities', desc: 'What system-level growth looks like when the platform layer was already in place.', href: '/results/rise-amg' },
             ].map(r => (
               <a key={r.title} href={r.href} className="card card-pad" style={{
                 display: 'flex',
