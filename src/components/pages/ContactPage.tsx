@@ -1,5 +1,5 @@
 // src/components/pages/ContactPage.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import Eyebrow from '~/components/Eyebrow';
 import Button from '~/components/Button';
@@ -17,6 +17,19 @@ export default function ContactPage({ variant = 'lead' }: Props) {
 
   const [contactForm, setContactForm] = useState<ContactFormState>({ name: '', email: '', message: '', subscribe: false });
   const [leadForm, setLeadForm] = useState<LeadFormState>({ name: '', email: '', company: '', units: '', goal: '' });
+  const [sourceData, setSourceData] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    const utms = utmKeys.filter(k => params.get(k)).map(k => `${k}=${params.get(k)}`).join(' | ');
+    const parts = [
+      `Page: ${window.location.href}`,
+      document.referrer ? `Referrer: ${document.referrer}` : 'Referrer: direct',
+      utms ? `UTMs: ${utms}` : null,
+    ].filter(Boolean) as string[];
+    setSourceData(parts.join('\n'));
+  }, []);
 
   const updateContact = (k: keyof ContactFormState, v: string | boolean) =>
     setContactForm(f => ({ ...f, [k]: v }));
@@ -43,6 +56,7 @@ export default function ContactPage({ variant = 'lead' }: Props) {
       fd.append('units', leadForm.units);
       fd.append('goal', leadForm.goal);
     }
+    fd.append('source', sourceData);
 
     try {
       const res = await fetch(endpoint, { method: 'POST', body: fd });
