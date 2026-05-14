@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>alloygp.co · Technical SEO Audit · May 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d14;
+      --surface: #13131f;
+      --surface-raised: #1a1a2e;
+      --border: rgba(255,255,255,0.07);
+      --border-strong: rgba(255,255,255,0.12);
+      --pink: #d9356e;
+      --pink-dim: rgba(217,53,110,0.15);
+      --purple: #381c4f;
+      --purple-light: #7c5fa8;
+      --yellow: #f5d880;
+      --yellow-dim: rgba(245,216,128,0.15);
+      --green: #10b981;
+      --green-dim: rgba(16,185,129,0.15);
+      --amber: #f59e0b;
+      --amber-dim: rgba(245,158,11,0.15);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.15);
+      --blue: #60a5fa;
+      --blue-dim: rgba(96,165,250,0.15);
+      --text: #f0eef5;
+      --text-muted: #8a8395;
+      --text-dim: #6b6478;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,20,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 52px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-sep { color: var(--text-dim); font-size: 12px; padding: 0 2px; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .cover {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+    .cover-logo { height: 36px; margin-bottom: 32px; opacity: 0.9; }
+    .cover-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+    .cover-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .cover-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+    .cover-stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stat-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.04em; }
+    .stat-pill-value { font-size: 18px; font-weight: 700; }
+    .stat-pink { color: var(--pink); }
+    .stat-yellow { color: var(--yellow); }
+    .stat-green { color: var(--green); }
+    .stat-blue { color: var(--blue); }
+    .stat-red { color: var(--red); }
+    .stat-amber { color: var(--amber); }
+
+    .audit-section { margin-bottom: 56px; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+      flex-shrink: 0;
+    }
+
+    .score-grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+    .score-main-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .score-gauge-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
+    .score-main-label { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+    .score-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .score-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .score-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+    }
+    .score-card-title { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 8px; }
+    .score-card-num { font-size: 28px; font-weight: 800; line-height: 1; }
+    .score-card-grade { font-size: 12px; font-weight: 600; margin-top: 4px; }
+    .grade-f { color: var(--red); }
+    .grade-f::before { background: var(--red); }
+    .grade-d { color: var(--amber); }
+    .grade-d::before { background: var(--amber); }
+    .grade-c { color: var(--yellow); }
+    .grade-c::before { background: var(--yellow); }
+    .grade-b { color: var(--green); }
+    .grade-b::before { background: var(--green); }
+
+    .banner {
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .banner-red { background: var(--red-dim); border: 1px solid rgba(239,68,68,0.3); }
+    .banner-green { background: var(--green-dim); border: 1px solid rgba(16,185,129,0.3); }
+    .banner-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .banner-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .banner-red .banner-title { color: var(--red); }
+    .banner-green .banner-title { color: var(--green); }
+    .banner-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .banner-list li { font-size: 13px; color: var(--text-muted); padding-left: 12px; position: relative; }
+    .banner-list li::before { content: '-'; position: absolute; left: 0; color: var(--text-dim); }
+
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: rgba(255,255,255,0.03); }
+    th {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    td.td-url { font-family: 'Courier New', monospace; font-size: 12px; color: var(--text); }
+    td.td-highlight { color: var(--text); font-weight: 500; }
+    td.td-num { font-weight: 600; color: var(--text); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    .badge-red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+    .badge-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+    .badge-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+    .badge-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+    .badge-pink { background: var(--pink-dim); color: var(--pink); border: 1px solid rgba(217,53,110,0.25); }
+    .badge-purple { background: rgba(124,95,168,0.15); color: var(--purple-light); border: 1px solid rgba(124,95,168,0.25); }
+    .badge-yellow { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(245,216,128,0.25); }
+
+    .code-block {
+      background: #0a0a12;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-top: 16px;
+      overflow-x: auto;
+    }
+    .code-block pre { font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7; color: #c4b8d8; }
+    .code-key { color: #60a5fa; }
+    .code-val { color: #10b981; }
+    .code-str { color: #f5d880; }
+
+    .kw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .kw-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .kw-term { font-size: 13px; font-weight: 500; color: var(--text); }
+    .kw-meta { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+    .rec-list { display: flex; flex-direction: column; gap: 10px; }
+    .rec-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
+    .rec-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .rec-dot-red { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.5); }
+    .rec-dot-amber { background: var(--amber); box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+    .rec-dot-green { background: var(--green); box-shadow: 0 0 6px rgba(16,185,129,0.4); }
+    .rec-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .rec-desc { font-size: 12px; color: var(--text-muted); }
+    .rec-meta { display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+
+    .report-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-logo { height: 20px; opacity: 0.4; }
+    .footer-pink { color: var(--pink); }
+
+    .accent-bar { height: 4px; display: flex; }
+    .accent-bar span { flex: 1; }
+    .ab-pink { background: #d9356e; }
+    .ab-yellow { background: #f5d880; }
+    .ab-blue { background: #a1c8e7; }
+    .ab-green { background: #aed7d0; }
+    .ab-purple { background: #381c4f; }
+
+    @media (max-width: 800px) {
+      .score-grid { grid-template-columns: 1fr; }
+      .score-cards { grid-template-columns: repeat(2, 1fr); }
+      .kw-grid { grid-template-columns: 1fr; }
+      .cover-title { font-size: 26px; }
+    }
+    @media (max-width: 560px) {
+      .page { padding: 0 16px 60px; }
+      .score-cards { grid-template-columns: 1fr 1fr; }
+      .rec-item { grid-template-columns: 24px 1fr; }
+      .rec-meta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="accent-bar">
+  <span class="ab-pink"></span>
+  <span class="ab-yellow"></span>
+  <span class="ab-blue"></span>
+  <span class="ab-green"></span>
+  <span class="ab-purple"></span>
+</div>
+
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#cover" class="nav-link">Cover</a>
+    <span class="nav-sep">·</span>
+    <a href="#health" class="nav-link">Health Scores</a>
+    <span class="nav-sep">·</span>
+    <a href="#findings" class="nav-link">Findings</a>
+    <span class="nav-sep">·</span>
+    <a href="#sitemap" class="nav-link">Sitemap Gaps</a>
+    <span class="nav-sep">·</span>
+    <a href="#wp-debt" class="nav-link">WP Debt</a>
+    <span class="nav-sep">·</span>
+    <a href="#security" class="nav-link">Security</a>
+    <span class="nav-sep">·</span>
+    <a href="#gsc" class="nav-link">GSC Performance</a>
+    <span class="nav-sep">·</span>
+    <a href="#keyword-gap" class="nav-link">Keyword Gap</a>
+    <span class="nav-sep">·</span>
+    <a href="#recs" class="nav-link">Recommendations</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- COVER -->
+  <section id="cover" class="cover">
+    <img src="https://alloygp.co/assets/alloy-logo-full-color.svg" alt="Alloy Growth Partners" class="cover-logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';" />
+    <div id="logo-fallback" style="display:none; font-size:22px; font-weight:800; color:var(--pink); margin-bottom:32px;">Alloy Growth Partners</div>
+    <div class="cover-eyebrow">Internal Report · Confidential</div>
+    <h1 class="cover-title">alloygp.co · Technical SEO Audit</h1>
+    <p class="cover-subtitle">May 2026 &nbsp;·&nbsp; Data period: Apr 13 – May 13, 2026 &nbsp;·&nbsp; Prepared by Alloy Growth Partners</p>
+    <div class="cover-stats">
+      <div class="stat-pill">
+        <div>
+          <div class="stat-pill-label">Domain Rating</div>
+          <div class="stat-pill-value stat-green">26</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div>
+          <div class="stat-pill-label">Referring Domains</div>
+          <div class="stat-pill-value stat-blue">70</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div>
+          <div class="stat-pill-label">Live Backlinks</div>
+          <div class="stat-pill-value stat-blue">116</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div>
+          <div class="stat-pill-label">Clicks (30d)</div>
+          <div class="stat-pill-value stat-yellow">10</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div>
+          <div class="stat-pill-label">Impressions (30d)</div>
+          <div class="stat-pill-value stat-yellow">600+</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div>
+          <div class="stat-pill-label">Sitemap Gaps</div>
+          <div class="stat-pill-value stat-red">8</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEALTH SCORES -->
+  <section id="health" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>Health Scores</div>
+    <div class="score-grid">
+      <div class="score-main-card">
+        <p class="score-main-label">Overall Site Health</p>
+        <div class="score-gauge-wrap">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#d9356e"/>
+                <stop offset="100%" stop-color="#f59e0b"/>
+              </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="66" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-dasharray="345 70" stroke-dashoffset="-35" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+            <circle cx="80" cy="80" r="66" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-dasharray="210 205" stroke-dashoffset="-35" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+            <text x="80" y="74" text-anchor="middle" fill="#f0eef5" font-size="32" font-weight="800" font-family="Inter, sans-serif">61</text>
+            <text x="80" y="92" text-anchor="middle" fill="#8a8395" font-size="12" font-family="Inter, sans-serif">out of 100</text>
+          </svg>
+        </div>
+        <div style="font-size:28px; font-weight:800; color:var(--amber);">C</div>
+        <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Needs Improvement</div>
+        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted); line-height:1.6;">
+          Site is technically sound at the infrastructure level but has meaningful gaps in content coverage, keyword ranking, and legacy URL management that limit organic growth.
+        </div>
+      </div>
+      <div class="score-cards">
+        <div class="score-card grade-d">
+          <div class="score-card-title">Local SEO</div>
+          <div class="score-card-num grade-d">45</div>
+          <div class="score-card-grade grade-d">D</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">No geo pages live; GBP not verified</div>
+        </div>
+        <div class="score-card grade-c">
+          <div class="score-card-title">AI Visibility</div>
+          <div class="score-card-num grade-c">52</div>
+          <div class="score-card-grade grade-c">C</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Schema present; no entity citations yet</div>
+        </div>
+        <div class="score-card grade-f">
+          <div class="score-card-title">Content &amp; Rankings</div>
+          <div class="score-card-num grade-f">30</div>
+          <div class="score-card-grade grade-f">F</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Zero target keyword rankings; brand only</div>
+        </div>
+        <div class="score-card grade-c">
+          <div class="score-card-title">Technical Health</div>
+          <div class="score-card-num grade-c">58</div>
+          <div class="score-card-grade grade-c">C</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">8 sitemap gaps; WP 404s indexed</div>
+        </div>
+        <div class="score-card grade-c">
+          <div class="score-card-title">Core Web Vitals</div>
+          <div class="score-card-num grade-c">72</div>
+          <div class="score-card-grade grade-c">C</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Vercel edge; Astro SSR — good baseline</div>
+        </div>
+        <div class="score-card grade-b">
+          <div class="score-card-title">On-Page SEO</div>
+          <div class="score-card-num grade-b">78</div>
+          <div class="score-card-grade grade-b">B</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Titles, metas, schema all present</div>
+        </div>
+        <div class="score-card grade-c">
+          <div class="score-card-title">Backlinks</div>
+          <div class="score-card-num grade-c">62</div>
+          <div class="score-card-grade grade-c">C</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">DR 26; 70 ref domains — solid for age</div>
+        </div>
+        <div class="score-card grade-c">
+          <div class="score-card-title">Security</div>
+          <div class="score-card-num grade-c">70</div>
+          <div class="score-card-grade grade-c">C</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:8px;">HSTS present; 3 headers missing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FINDINGS -->
+  <section id="findings" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>Key Findings</div>
+    <div class="banner banner-red">
+      <div class="banner-icon">&#128308;</div>
+      <div>
+        <div class="banner-title">Critical Issues &mdash; Requires Immediate Action</div>
+        <ul class="banner-list">
+          <li>8 live service pages are missing from sitemap.xml &mdash; Google cannot discover or index them through crawl</li>
+          <li>6 old WordPress URLs are still indexed in Google (147 + 31 + 18+ impressions) and returning 404 &mdash; wasting crawl budget and losing ranking equity</li>
+          <li>CLAUDE.md is significantly out of date &mdash; 11 live Astro pages are undocumented, creating routing risk and dev confusion</li>
+        </ul>
+      </div>
+    </div>
+    <div class="banner banner-green">
+      <div class="banner-icon">&#128994;</div>
+      <div>
+        <div class="banner-title">Wins &mdash; Strong Foundation for Growth</div>
+        <ul class="banner-list">
+          <li>DR 26 with 70 referring domains is a solid authority baseline for a site of this age &mdash; indicates healthy off-page activity</li>
+          <li>Brand search performing well: 9 clicks on "alloy growth partners" with ~50% CTR, position 1.7 &mdash; brand is known and trusted in search</li>
+          <li>Infrastructure is clean: SSL/HSTS configured, robots.txt correct, sitemap accessible, Organization schema + FAQ schema deployed, Vercel Analytics installed</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SITEMAP GAPS -->
+  <section id="sitemap" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>Sitemap Gaps &mdash; 8 Live Pages Not in sitemap.xml</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">These Astro routes return HTTP 200 and contain indexable content, but are absent from <code style="font-size:12px; background:rgba(255,255,255,0.07); padding:2px 6px; border-radius:4px;">/public/sitemap.xml</code>. Google cannot reliably discover them via sitemap submission.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Page Name</th>
+            <th>URL</th>
+            <th>Pillar</th>
+            <th>Priority</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">1</td>
+            <td class="td-highlight">Proposal Optimization</td>
+            <td class="td-url">/boardmatch/proposal-optimization</td>
+            <td><span class="badge badge-yellow">BoardMatch</span></td>
+            <td><span class="badge badge-red">High</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">2</td>
+            <td class="td-highlight">RFP Response System</td>
+            <td class="td-url">/boardmatch/rfp-response-system</td>
+            <td><span class="badge badge-yellow">BoardMatch</span></td>
+            <td><span class="badge badge-red">High</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">3</td>
+            <td class="td-highlight">Sales Messaging</td>
+            <td class="td-url">/boardmatch/sales-messaging</td>
+            <td><span class="badge badge-yellow">BoardMatch</span></td>
+            <td><span class="badge badge-red">High</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">4</td>
+            <td class="td-highlight">Thought Leadership</td>
+            <td class="td-url">/boardretain/thought-leadership</td>
+            <td><span class="badge badge-green">BoardRetain</span></td>
+            <td><span class="badge badge-red">High</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">5</td>
+            <td class="td-highlight">HOA Website Design</td>
+            <td class="td-url">/boardreach/hoa-website-design</td>
+            <td><span class="badge badge-pink">BoardReach</span></td>
+            <td><span class="badge badge-red">High</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">6</td>
+            <td class="td-highlight">HOA Management Branding</td>
+            <td class="td-url">/boardreach/hoa-management-branding</td>
+            <td><span class="badge badge-pink">BoardReach</span></td>
+            <td><span class="badge badge-red">High</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">7</td>
+            <td class="td-highlight">Careers</td>
+            <td class="td-url">/careers</td>
+            <td><span class="badge badge-purple">Company</span></td>
+            <td><span class="badge badge-amber">Medium</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dim); font-size:12px;">8</td>
+            <td class="td-highlight">Partners</td>
+            <td class="td-url">/partners</td>
+            <td><span class="badge badge-purple">Company</span></td>
+            <td><span class="badge badge-amber">Medium</span></td>
+            <td style="font-size:12px; color:var(--text-dim);">Add to sitemap</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); font-size:12px; color:var(--text-muted);">
+      <strong style="color:var(--text);">Fix:</strong> In <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">astro.config.mjs</code>, confirm the sitemap integration is set to crawl all pages. If using <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">@astrojs/sitemap</code>, verify no <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">customPages</code> filter is excluding these routes. After the fix, resubmit sitemap in GSC.
+    </div>
+  </section>
+
+  <!-- WP MIGRATION DEBT -->
+  <section id="wp-debt" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>WordPress Migration Debt &mdash; Old URLs Still Indexed</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">These legacy WordPress URLs are still crawled and indexed by Google. They return 308 (trailing slash strip) then 404, wasting crawl budget and leaking ranking equity. Add permanent 301 redirects in <code style="font-size:12px; background:rgba(255,255,255,0.07); padding:2px 6px; border-radius:4px;">astro.config.mjs</code> under the <code style="font-size:12px; background:rgba(255,255,255,0.07); padding:2px 6px; border-radius:4px;">redirects</code> key.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Old URL (WP)</th>
+            <th>GSC Impressions</th>
+            <th>Current Status</th>
+            <th>Recommended Redirect Target</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-url">/austin-texas/</td>
+            <td class="td-num" style="color:var(--red);">147</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/boardreach/</td>
+            <td><span class="badge badge-red">Critical</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/services/organic-local-seo-for-cam-companies/</td>
+            <td class="td-num" style="color:var(--red);">31</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/property-management-seo</td>
+            <td><span class="badge badge-red">Critical</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/the-hidden-side-of-seo/</td>
+            <td class="td-num" style="color:var(--amber);">18</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/resources/</td>
+            <td><span class="badge badge-amber">High</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/about-alloy/</td>
+            <td class="td-num" style="color:var(--amber);">16</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/about</td>
+            <td><span class="badge badge-amber">High</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/how-todays-boards-evaluate-hoa-management-companies/</td>
+            <td class="td-num" style="color:var(--text-dim);">&mdash;</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/resources/</td>
+            <td><span class="badge badge-amber">High</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/services-hub/</td>
+            <td class="td-num" style="color:var(--text-dim);">&mdash;</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/services</td>
+            <td><span class="badge badge-amber">Medium</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/category/cam-marketing/</td>
+            <td class="td-num" style="color:var(--text-dim);">&mdash;</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/resources/</td>
+            <td><span class="badge badge-amber">Medium</span></td>
+          </tr>
+          <tr>
+            <td class="td-url">/growth-audit/</td>
+            <td class="td-num" style="color:var(--text-dim);">&mdash;</td>
+            <td><span class="badge badge-red">404</span></td>
+            <td class="td-url">/get-started</td>
+            <td><span class="badge badge-amber">Medium</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px;">
+      <div style="font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em;">Also note &mdash; broken internal link</div>
+      <div style="padding:14px 16px; background:var(--red-dim); border:1px solid rgba(239,68,68,0.2); border-radius:var(--radius-sm); font-size:13px; color:var(--text-muted);">
+        <strong style="color:var(--red);">Issue #6:</strong> CLAUDE.md documents the branding service URL as <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">/boardreach/branding</code>, but the actual Astro route file is at <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">/boardreach/hoa-management-branding</code>. Any internal links built to <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">/boardreach/branding</code> will 404. Add a redirect from <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">/boardreach/branding</code> to <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">/boardreach/hoa-management-branding</code> in <code style="background:rgba(255,255,255,0.07); padding:1px 5px; border-radius:3px;">astro.config.mjs</code>.
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY HEADERS -->
+  <section id="security" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>Security Headers</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Vercel response headers were checked against OWASP recommendations. HSTS is correctly configured. Three additional headers are missing and should be added via <code style="font-size:12px; background:rgba(255,255,255,0.07); padding:2px 6px; border-radius:4px;">vercel.json</code>.</p>
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Header</th>
+            <th>Current State</th>
+            <th>Required Value</th>
+            <th>Risk if Missing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-highlight">Strict-Transport-Security</td>
+            <td><span class="badge badge-green">Present</span></td>
+            <td style="font-size:12px; color:var(--text-muted);">max-age=63072000 (2yr)</td>
+            <td style="font-size:12px; color:var(--text-muted);">N/A &mdash; configured correctly</td>
+          </tr>
+          <tr>
+            <td class="td-highlight">X-Frame-Options</td>
+            <td><span class="badge badge-red">Missing</span></td>
+            <td style="font-size:12px; color:var(--text-muted);">SAMEORIGIN</td>
+            <td style="font-size:12px; color:var(--text-muted);">Clickjacking vulnerability</td>
+          </tr>
+          <tr>
+            <td class="td-highlight">X-Content-Type-Options</td>
+            <td><span class="badge badge-red">Missing</span></td>
+            <td style="font-size:12px; color:var(--text-muted);">nosniff</td>
+            <td style="font-size:12px; color:var(--text-muted);">MIME-type sniffing attacks</td>
+          </tr>
+          <tr>
+            <td class="td-highlight">Referrer-Policy</td>
+            <td><span class="badge badge-red">Missing</span></td>
+            <td style="font-size:12px; color:var(--text-muted);">strict-origin-when-cross-origin</td>
+            <td style="font-size:12px; color:var(--text-muted);">Referrer data leakage</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Add to vercel.json</div>
+    <div class="code-block">
+<pre>{
+  <span class="code-key">"headers"</span>: [
+    {
+      <span class="code-key">"source"</span>: <span class="code-str">"/(.*)"</span>,
+      <span class="code-key">"headers"</span>: [
+        {
+          <span class="code-key">"key"</span>: <span class="code-str">"X-Frame-Options"</span>,
+          <span class="code-key">"value"</span>: <span class="code-str">"SAMEORIGIN"</span>
+        },
+        {
+          <span class="code-key">"key"</span>: <span class="code-str">"X-Content-Type-Options"</span>,
+          <span class="code-key">"value"</span>: <span class="code-str">"nosniff"</span>
+        },
+        {
+          <span class="code-key">"key"</span>: <span class="code-str">"Referrer-Policy"</span>,
+          <span class="code-key">"value"</span>: <span class="code-str">"strict-origin-when-cross-origin"</span>
+        }
+      ]
+    }
+  ]
+}</pre>
+    </div>
+  </section>
+
+  <!-- GSC PERFORMANCE -->
+  <section id="gsc" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>GSC Performance &mdash; Apr 13 to May 13, 2026</div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:24px;">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 18px;">
+        <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); font-weight:600; margin-bottom:4px;">Total Clicks</div>
+        <div style="font-size:24px; font-weight:800; color:var(--yellow);">~10</div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 18px;">
+        <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); font-weight:600; margin-bottom:4px;">Total Impressions</div>
+        <div style="font-size:24px; font-weight:800; color:var(--yellow);">600+</div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 18px;">
+        <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); font-weight:600; margin-bottom:4px;">Brand CTR</div>
+        <div style="font-size:24px; font-weight:800; color:var(--green);">~50%</div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 18px;">
+        <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); font-weight:600; margin-bottom:4px;">Non-brand CTR</div>
+        <div style="font-size:24px; font-weight:800; color:var(--red);">0%</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <div>
+        <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">Top Keywords by Impressions</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Clicks</th>
+                <th>Impr.</th>
+                <th>Pos.</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-highlight">alloy growth partners</td>
+                <td class="td-num" style="color:var(--green);">9</td>
+                <td class="td-num">18</td>
+                <td style="font-size:12px; color:var(--green); font-weight:600;">1.7</td>
+                <td><span class="badge badge-blue">Brand</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">geo roadmap</td>
+                <td class="td-num">0</td>
+                <td class="td-num">86</td>
+                <td style="font-size:12px; color:var(--text-muted);">26.5</td>
+                <td><span class="badge badge-purple">Content</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">alloy</td>
+                <td class="td-num">0</td>
+                <td class="td-num">51</td>
+                <td style="font-size:12px; color:var(--text-muted);">5.0</td>
+                <td><span class="badge badge-blue">Brand</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">cam site seo</td>
+                <td class="td-num">0</td>
+                <td class="td-num">33</td>
+                <td style="font-size:12px; color:var(--amber);">17.4</td>
+                <td><span class="badge badge-pink">Target</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">how do i leverage reddit...</td>
+                <td class="td-num">0</td>
+                <td class="td-num">15</td>
+                <td style="font-size:12px; color:var(--text-muted);">8.8</td>
+                <td><span class="badge badge-purple">Content</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">best seo firms for cam...</td>
+                <td class="td-num">0</td>
+                <td class="td-num">6</td>
+                <td style="font-size:12px; color:var(--green);">5.8</td>
+                <td><span class="badge badge-pink">Target</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">seo for cam sites</td>
+                <td class="td-num">0</td>
+                <td class="td-num">5</td>
+                <td style="font-size:12px; color:var(--green);">8.8</td>
+                <td><span class="badge badge-pink">Target</span></td>
+              </tr>
+              <tr>
+                <td class="td-highlight">marketing for cam</td>
+                <td class="td-num">0</td>
+                <td class="td-num">3</td>
+                <td style="font-size:12px; color:var(--text-muted);">14.7</td>
+                <td><span class="badge badge-pink">Target</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">Top Pages by Impressions</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Page</th>
+                <th>Impr.</th>
+                <th>Clicks</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-url">/austin-texas/</td>
+                <td class="td-num" style="color:var(--red);">147</td>
+                <td class="td-num">1</td>
+                <td><span class="badge badge-red">404</span></td>
+              </tr>
+              <tr>
+                <td class="td-url">/courses/.../geo-roadmap</td>
+                <td class="td-num" style="color:var(--red);">88</td>
+                <td class="td-num">0</td>
+                <td><span class="badge badge-red">404</span></td>
+              </tr>
+              <tr>
+                <td class="td-url">/ (homepage)</td>
+                <td class="td-num">66</td>
+                <td class="td-num" style="color:var(--green);">9</td>
+                <td><span class="badge badge-green">200</span></td>
+              </tr>
+              <tr>
+                <td class="td-url">/services/organic-local-seo.../</td>
+                <td class="td-num" style="color:var(--amber);">31</td>
+                <td class="td-num">0</td>
+                <td><span class="badge badge-red">404</span></td>
+              </tr>
+              <tr>
+                <td class="td-url">/the-hidden-side-of-seo/</td>
+                <td class="td-num" style="color:var(--amber);">18</td>
+                <td class="td-num">0</td>
+                <td><span class="badge badge-red">404</span></td>
+              </tr>
+              <tr>
+                <td class="td-url">/about-alloy/</td>
+                <td class="td-num">16</td>
+                <td class="td-num">0</td>
+                <td><span class="badge badge-red">404</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:10px; padding:12px 14px; background:var(--red-dim); border:1px solid rgba(239,68,68,0.2); border-radius:var(--radius-sm); font-size:12px; color:var(--text-muted);">
+          <strong style="color:var(--red);">Key insight:</strong> 5 of the top 6 impression-generating pages are 404s from the old WordPress site. These impressions represent real search demand that is being completely wasted. Fixing these redirects is the fastest impression-to-click improvement available.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYWORD GAP -->
+  <section id="keyword-gap" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>Target Keyword Gap &mdash; Priority Tracking Setup</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Zero impressions for all primary commercial target keywords. This is expected at this stage of site authority, but a tracking baseline must be established now. Add all of the following to the Ahrefs rank tracker project (ID: 9497923) and to GSC keyword annotations. <strong style="color:var(--amber);">Also: submit sitemap directly to Ahrefs &mdash; the new site is not yet in their index (0 organic keywords showing).</strong></p>
+    <div class="kw-grid">
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">CAM marketing services</div>
+          <div class="kw-meta">Primary commercial intent &middot; BoardReach</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">HOA management marketing</div>
+          <div class="kw-meta">Primary commercial intent &middot; BoardReach</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">property management lead generation</div>
+          <div class="kw-meta">High-intent service keyword &middot; BoardReach</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">community association management marketing</div>
+          <div class="kw-meta">Primary commercial intent &middot; BoardReach</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">HOA management company branding</div>
+          <div class="kw-meta">Service keyword &middot; BoardReach</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">property management newsletter service</div>
+          <div class="kw-meta">Service keyword &middot; BoardRetain</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">HOA management sales tools</div>
+          <div class="kw-meta">Intent keyword &middot; BoardMatch</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">win HOA management contracts</div>
+          <div class="kw-meta">Intent keyword &middot; BoardMatch</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">HOA management company SEO</div>
+          <div class="kw-meta">Service keyword &middot; SEO page</div>
+        </div>
+        <span class="badge badge-amber">Emerging (pos. 17)</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">property management reputation management</div>
+          <div class="kw-meta">Service keyword &middot; BoardRetain</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">CAM company annual report production</div>
+          <div class="kw-meta">Long-tail service &middot; BoardRetain</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+      <div class="kw-card">
+        <div>
+          <div class="kw-term">HOA management email marketing</div>
+          <div class="kw-meta">Service keyword &middot; BoardReach</div>
+        </div>
+        <span class="badge badge-red">No Data</span>
+      </div>
+    </div>
+    <div style="margin-top:16px; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); font-size:12px; color:var(--text-muted);">
+      <strong style="color:var(--text);">Next step:</strong> Create a keyword list in Ahrefs for these 12 terms. Set up a monthly rank tracking report. Expectation: positions 15&ndash;40 by month 3, top-10 for long-tail terms by month 6, assuming consistent content publication and link building.
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section id="recs" class="audit-section">
+    <div class="section-title"><span class="section-title-dot"></span>Prioritized Recommendations</div>
+    <div class="rec-list">
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-red"></div>
+        <div class="rec-content">
+          <div class="rec-title">Fix sitemap.xml &mdash; add 8 missing pages</div>
+          <div class="rec-desc">Add all undiscovered routes to the sitemap integration in astro.config.mjs. Resubmit sitemap in GSC after deploy.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-red">Critical</span>
+          <span class="badge badge-blue">Dev</span>
+          <span class="badge badge-purple">1 hour</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-red"></div>
+        <div class="rec-content">
+          <div class="rec-title">Add 301 redirects for all legacy WordPress URLs</div>
+          <div class="rec-desc">8 legacy WP paths still indexed, 3 with meaningful impression counts. Add to astro.config.mjs redirects config. Prioritize /austin-texas/ (147 impr.) and /services/organic-local-seo-for-cam-companies/ (31 impr.) first.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-red">Critical</span>
+          <span class="badge badge-blue">Dev</span>
+          <span class="badge badge-purple">1 hour</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-red"></div>
+        <div class="rec-content">
+          <div class="rec-title">Update CLAUDE.md &mdash; document 11 missing pages</div>
+          <div class="rec-desc">Pages in boardmatch/, boardretain/, boardreach/, results/, careers.astro, and partners.astro are live but undocumented. This creates routing ambiguity for all future development and AI-assisted work sessions.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-red">Critical</span>
+          <span class="badge badge-blue">Dev</span>
+          <span class="badge badge-purple">1 hour</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-amber"></div>
+        <div class="rec-content">
+          <div class="rec-title">Add missing security headers in vercel.json</div>
+          <div class="rec-desc">Add X-Frame-Options, X-Content-Type-Options, and Referrer-Policy headers. Copy the vercel.json snippet from the Security section above.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-amber">Important</span>
+          <span class="badge badge-blue">Dev</span>
+          <span class="badge badge-purple">1 hour</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-amber"></div>
+        <div class="rec-content">
+          <div class="rec-title">Add redirect: /boardreach/branding &rarr; /boardreach/hoa-management-branding</div>
+          <div class="rec-desc">CLAUDE.md documents the wrong URL for the branding service page. Add a redirect to protect any external links or internal navigation built to the documented path before it causes a real crawl issue.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-amber">Important</span>
+          <span class="badge badge-blue">Dev</span>
+          <span class="badge badge-purple">15 min</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-amber"></div>
+        <div class="rec-content">
+          <div class="rec-title">Submit sitemap to Ahrefs &mdash; Ahrefs shows 0 organic keywords</div>
+          <div class="rec-desc">The new Astro site is not yet indexed by Ahrefs. Log into Ahrefs, open project ID 9497923, go to Site Audit and verify the domain. Then manually submit the sitemap URL in the Ahrefs dashboard.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-amber">Important</span>
+          <span class="badge badge-pink">SEO</span>
+          <span class="badge badge-purple">15 min</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-amber"></div>
+        <div class="rec-content">
+          <div class="rec-title">Set up rank tracking for 12 target keywords</div>
+          <div class="rec-desc">Add all keywords from the Target Keyword Gap section to the Ahrefs rank tracker. Establish a monthly rank tracking cadence. Without baseline data, growth cannot be measured or reported to stakeholders.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-amber">Important</span>
+          <span class="badge badge-pink">SEO</span>
+          <span class="badge badge-purple">Half-day</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-amber"></div>
+        <div class="rec-content">
+          <div class="rec-title">Request URL removal in GSC for highest-impression 404 pages</div>
+          <div class="rec-desc">While redirects are the long-term fix, submitting /austin-texas/ and /services/organic-local-seo-for-cam-companies/ for removal in GSC (Removals tool) will accelerate Google's re-evaluation. Do after redirects are live.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-amber">Important</span>
+          <span class="badge badge-pink">SEO</span>
+          <span class="badge badge-purple">30 min</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-green"></div>
+        <div class="rec-content">
+          <div class="rec-title">Develop first geo-targeting content page (Texas/Austin market)</div>
+          <div class="rec-desc">/austin-texas/ had 147 impressions &mdash; Google clearly associated the old site with Austin-area searches. The new site has no geo pages. A /texas/ or /austin/ landing page for CAM marketing services is a clear content gap and quick Local SEO win.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-green">Growth</span>
+          <span class="badge badge-yellow">Content</span>
+          <span class="badge badge-purple">1 day</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-green"></div>
+        <div class="rec-content">
+          <div class="rec-title">Verify Google Business Profile and add local schema</div>
+          <div class="rec-desc">No Local schema detected. If Alloy GP has a business address, add LocalBusiness schema to BaseLayout and verify/claim the GBP listing. This directly impacts Local SEO score (currently 45/D).</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-green">Growth</span>
+          <span class="badge badge-pink">SEO</span>
+          <span class="badge badge-purple">Half-day</span>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-dot rec-dot-green"></div>
+        <div class="rec-content">
+          <div class="rec-title">Build first non-brand content asset targeting "geo roadmap" (86 impressions)</div>
+          <div class="rec-desc">"Geo roadmap" ranks at position 26.5 with 86 impressions &mdash; the old WP course page created real search demand. A new resource hub article targeting GEO/AI visibility terms would recapture this traffic and build content depth.</div>
+        </div>
+        <div class="rec-meta">
+          <span class="badge badge-green">Growth</span>
+          <span class="badge badge-yellow">Content</span>
+          <span class="badge badge-purple">1 day</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="footer-brand">
+      <img src="https://alloygp.co/assets/alloy-logo-full-color.svg" alt="Alloy Growth Partners" class="footer-logo" onerror="this.style.display='none';" />
+      <span>Alloy Growth Partners &nbsp;&middot;&nbsp; <span class="footer-pink">alloygp.co</span></span>
+    </div>
+    <div>Technical SEO Audit &nbsp;&middot;&nbsp; May 2026 &nbsp;&middot;&nbsp; Internal use only</div>
+  </footer>
+
+</div>
+
+<div class="accent-bar">
+  <span class="ab-pink"></span>
+  <span class="ab-yellow"></span>
+  <span class="ab-blue"></span>
+  <span class="ab-green"></span>
+  <span class="ab-purple"></span>
+</div>
+
+</body>
+</html>
