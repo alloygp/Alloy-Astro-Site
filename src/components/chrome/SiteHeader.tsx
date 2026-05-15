@@ -489,7 +489,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
     >
       <div className="site-header-inner">
         <a className="site-logo" href="/">
-          <img src="/assets/alloy-logo-full-color.svg" alt="Alloy Growth Partners" />
+          <img src="/assets/alloy-logo-full-color.svg" alt="Alloy Growth Partners" width={101} height={32} />
         </a>
 
         <nav className="site-nav-desktop" aria-label="Primary">
@@ -848,6 +848,8 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
             <img
               src="/assets/alloy-icon-1500.png"
               alt=""
+              width={22}
+              height={22}
               className="site-header-login-icon"
             />
             <span>Log in</span>
