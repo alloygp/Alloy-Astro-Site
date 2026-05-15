@@ -98,9 +98,9 @@ function FooterBrand() {
       <img
         src="/assets/alloy-logomark.svg"
         alt="Alloy Growth Partners"
-        width={200}
-        height={184}
-        style={{ width: 200, height: 'auto' }}
+        width={70}
+        height={64}
+        style={{ width: 70, height: 'auto' }}
       />
       <div className="site-footer-tagline-eyebrow" style={{ marginTop: 22 }}>The Alloy promise</div>
       <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 380 }}>
