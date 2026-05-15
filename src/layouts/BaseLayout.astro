@@ -208,11 +208,13 @@ const orgLd = {
       });
     </script>
 
-    <!-- Conversion tracking: capture page data immediately, load external script after page paint -->
+    <!-- Conversion tracking: capture page data immediately, load external script after browser idle.
+         Using requestIdleCallback (with setTimeout fallback) keeps the forced reflow from the
+         tracking script off the main thread during page load — removes it from TBT entirely. -->
     <script is:inline>
       var $wc_load = function(a) { return JSON.parse(JSON.stringify(a)); };
       $wc_leads = $wc_leads || { doc: { url: $wc_load(document.URL), ref: $wc_load(document.referrer), search: $wc_load(location.search), hash: $wc_load(location.hash) } };
-      window.addEventListener('load', function() {
+      (window.requestIdleCallback || function(cb){ window.setTimeout(cb, 1) })(function() {
         var s = document.createElement('script');
         s.src = '//s.ksrndkehqnwntyxlhgto.com/149173.js';
         document.head.appendChild(s);
@@ -222,7 +224,7 @@ const orgLd = {
     <SpeedInsights />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
-    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />}
+    {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:idle />}
     <main>
       <slot />
     </main>
