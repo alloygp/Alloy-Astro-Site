@@ -170,14 +170,14 @@ const orgLd = {
     <meta name="twitter:image" content={resolvedOgImage} />
     <meta name="twitter:image:alt" content={`${SITE.name} — The growth system for CAM companies`} />
 
-    <!-- Fonts: preload the three weights used above the fold on most pages.
-         Gotham-Black (800) is the weight used by display-xxl (the homepage h1 / LCP element).
-         Download starts with HTML parse — critical for LCP since font-display:optional on 800
-         means the browser uses fallback if Black isn't ready within the block period. -->
+    <!-- Fonts: preload Book (400) and Bold (700) — the two weights used for body copy and
+         UI elements above the fold. Gotham-Black (800) is intentionally NOT preloaded:
+         display-xxl uses font-display:optional, and Chrome extends optional's block period
+         to wait for any preloaded font. Without the preload, optional falls back at ~100ms
+         consistently regardless of network speed, giving predictable LCP timing. -->
     <!-- WOFF2 is ~30% smaller than OTF; OTF is the fallback for any browser that needs it (none in 2026) -->
     <link rel="preload" href="/fonts/Gotham-Book.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Gotham-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/Gotham-Black.woff2" as="font" type="font/woff2" crossorigin />
     <!-- No Google Fonts: Manrope/Sora unused in CSS; Gotham is self-hosted; system fonts cover the swap period -->
 
     <!-- No manual critical CSS block needed — build.inlineStylesheets:'always' in astro.config.mjs
