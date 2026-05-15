@@ -43,7 +43,7 @@
   font-family: "Gotham";
   font-weight: 800;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   src: url("/fonts/Gotham-Black.woff2") format("woff2"),
        url("/fonts/Gotham-Black.otf") format("opentype");
 }
