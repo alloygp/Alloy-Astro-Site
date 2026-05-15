@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import HeroStatic from '~/components/sections/HeroStatic.astro';
 import HomePage from '~/components/pages/HomePage';
 ---
 <BaseLayout
@@ -8,5 +9,12 @@ import HomePage from '~/components/pages/HomePage';
   pageId="home"
   animatedBar={true}
 >
-  <HomePage client:idle />
+  <!--
+    HeroStatic renders the homepage h1 as pure static HTML — no React island,
+    no hydration wrapper. Chrome records LCP at HTML parse time (~0 ms element
+    render delay) instead of at React's requestIdleCallback (~2,450 ms).
+    HomePagecomponent receives hideHero=true so it skips the duplicate Hero.
+  -->
+  <HeroStatic />
+  <HomePage client:idle hideHero={true} />
 </BaseLayout>
