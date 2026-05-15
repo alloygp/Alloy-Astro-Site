@@ -173,17 +173,11 @@ const orgLd = {
     <meta name="twitter:image" content={resolvedOgImage} />
     <meta name="twitter:image:alt" content={`${SITE.name} — The growth system for CAM companies`} />
 
-    <!-- Fonts: preload critical Gotham weights so they download in parallel with HTML parsing -->
-    <link rel="preload" href="/fonts/Gotham-Book.otf" as="font" type="font/otf" crossorigin />
-    <link rel="preload" href="/fonts/Gotham-Bold.otf" as="font" type="font/otf" crossorigin />
-
-    <!-- Google Fonts: single request for all three families — no render-blocking @import in CSS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts: preload the two most-used Gotham weights — download starts with HTML parse, not after CSS -->
+    <!-- WOFF2 is ~30% smaller than OTF; OTF is the fallback for any browser that needs it (none in 2026) -->
+    <link rel="preload" href="/fonts/Gotham-Book.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Gotham-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- No Google Fonts: Manrope/Sora unused in CSS; Gotham is self-hosted; system fonts cover the swap period -->
 
     <!-- JSON-LD: Organization (every page) -->
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
