@@ -28,7 +28,6 @@ import '../styles/colors_and_type.css';
 import '../styles/site.css';
 import '../styles/chrome.css';
 import '../styles/mobile.css';
-import '../styles/courses.css';
 
 import SpeedInsights from '@vercel/speed-insights/astro';
 import SiteHeader from '../components/chrome/SiteHeader.tsx';
@@ -176,6 +175,18 @@ const orgLd = {
     <link rel="preload" href="/fonts/Gotham-Book.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Gotham-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <!-- No Google Fonts: Manrope/Sora unused in CSS; Gotham is self-hosted; system fonts cover the swap period -->
+
+    <!-- Inline @font-face so browser connects preloaded WOFF2s to "Gotham" before the CSS bundle arrives.
+         Without this, preload hints fire but the browser can't use them until @font-face in the CSS bundle loads.
+         The CSS bundle also declares these — browser handles duplicates fine. -->
+    <style>
+      @font-face { font-family:"Gotham"; font-weight:300; font-style:normal; font-display:swap; src:url("/fonts/Gotham-Light.woff2") format("woff2"), url("/fonts/Gotham-Light.otf") format("opentype"); }
+      @font-face { font-family:"Gotham"; font-weight:400; font-style:normal; font-display:swap; src:url("/fonts/Gotham-Book.woff2") format("woff2"), url("/fonts/Gotham-Book.otf") format("opentype"); }
+      @font-face { font-family:"Gotham"; font-weight:500; font-style:normal; font-display:swap; src:url("/fonts/Gotham-Medium.woff2") format("woff2"), url("/fonts/Gotham-Medium.otf") format("opentype"); }
+      @font-face { font-family:"Gotham"; font-weight:700; font-style:normal; font-display:swap; src:url("/fonts/Gotham-Bold.woff2") format("woff2"), url("/fonts/Gotham-Bold.otf") format("opentype"); }
+      @font-face { font-family:"Gotham"; font-weight:800; font-style:normal; font-display:swap; src:url("/fonts/Gotham-Black.woff2") format("woff2"), url("/fonts/Gotham-Black.otf") format("opentype"); }
+      @font-face { font-family:"Gotham"; font-weight:900; font-style:normal; font-display:swap; src:url("/fonts/Gotham-Ultra.woff2") format("woff2"), url("/fonts/Gotham-Ultra.otf") format("opentype"); }
+    </style>
 
     <!-- Preconnect for conversion tracking domains — establishes connections early for post-load script -->
     <link rel="preconnect" href="https://js.surebizpayments.com" />
