@@ -12,7 +12,10 @@ export default defineConfig({
   prefetch: { prefetchAll: true },
   security: { checkOrigin: false },
   build: {
-    inlineStylesheets: 'auto',
+    // 'always' embeds all CSS as inline <style> tags — eliminates the render-blocking
+    // external stylesheet link that Astro generates with 'auto'. Total bytes are the same
+    // but the browser doesn't block paint waiting for an external CSS request.
+    inlineStylesheets: 'always',
   },
   redirects: {
     '/index.html': '/',

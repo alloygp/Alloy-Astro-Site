@@ -176,47 +176,10 @@ const orgLd = {
     <link rel="preload" href="/fonts/Gotham-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <!-- No Google Fonts: Manrope/Sora unused in CSS; Gotham is self-hosted; system fonts cover the swap period -->
 
-    <!-- Critical CSS — inlined so the LCP element (h1.display-xxl in the hero) can paint before the
-         CSS bundle arrives. Covers: CSS vars, body baseline, has-fixed-header offset, hero layout,
-         display type scale, eyebrow, lead. The full CSS bundle still loads and takes over — no duplication issues.
-         @font-face declarations also included so preloaded WOFF2s connect to "Gotham" immediately. -->
-    <style>
-      /* @font-face — must come before any font-family references */
-      @font-face{font-family:"Gotham";font-weight:300;font-style:normal;font-display:swap;src:url("/fonts/Gotham-Light.woff2") format("woff2"),url("/fonts/Gotham-Light.otf") format("opentype")}
-      @font-face{font-family:"Gotham";font-weight:400;font-style:normal;font-display:swap;src:url("/fonts/Gotham-Book.woff2") format("woff2"),url("/fonts/Gotham-Book.otf") format("opentype")}
-      @font-face{font-family:"Gotham";font-weight:500;font-style:normal;font-display:swap;src:url("/fonts/Gotham-Medium.woff2") format("woff2"),url("/fonts/Gotham-Medium.otf") format("opentype")}
-      @font-face{font-family:"Gotham";font-weight:700;font-style:normal;font-display:swap;src:url("/fonts/Gotham-Bold.woff2") format("woff2"),url("/fonts/Gotham-Bold.otf") format("opentype")}
-      @font-face{font-family:"Gotham";font-weight:800;font-style:normal;font-display:swap;src:url("/fonts/Gotham-Black.woff2") format("woff2"),url("/fonts/Gotham-Black.otf") format("opentype")}
-      @font-face{font-family:"Gotham";font-weight:900;font-style:normal;font-display:swap;src:url("/fonts/Gotham-Ultra.woff2") format("woff2"),url("/fonts/Gotham-Ultra.otf") format("opentype")}
-      /* CSS custom properties — only what above-the-fold elements reference */
-      :root{--alloy-purple:#381c4f;--alloy-purple-deep:#290d41;--alloy-pink:#d9356e;--alloy-yellow:#f5d880;--alloy-off-white:#f8f7fc;--alloy-body-gray:#555555;--fg-3:#555555;--bg-page:#f8f7fc;--font-display:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;--font-body:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif}
-      /* Base */
-      *,*::before,*::after{box-sizing:border-box}
-      html,body{margin:0;padding:0;overflow-x:hidden}
-      body{background:#f8f7fc;font-family:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;color:#555;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-      body.has-fixed-header{padding-top:76px}
-      img{max-width:100%;display:block}
-      /* Layout */
-      .container{max-width:1240px;margin:0 auto;padding:0 32px}
-      /* Hero */
-      .hero{position:relative;background:#381c4f;color:#fff;overflow:hidden;isolation:isolate}
-      .hero.bg-ivory{background:#f8f7fc;color:#381c4f}
-      .hero.bg-deep{background:#290d41;color:#fff}
-      .hero-inner{max-width:1240px;margin:0 auto;padding:96px 32px;position:relative;z-index:2}
-      .hero-grid-split{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center}
-      /* Display type — LCP element */
-      .display-xxl{font-family:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:clamp(48px,7vw,96px);line-height:0.98;letter-spacing:-0.025em}
-      .display-xl{font-family:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:clamp(40px,5vw,72px);line-height:1.02;letter-spacing:-0.022em}
-      .display-lg{font-family:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:clamp(32px,3.6vw,52px);line-height:1.05;letter-spacing:-0.018em}
-      /* Eyebrow */
-      .eyebrow{font-family:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.14em;color:#d9356e;display:inline-flex;align-items:center;gap:10px}
-      .eyebrow::before{content:"";width:24px;height:2px;background:currentColor;display:inline-block}
-      .eyebrow.no-line::before{display:none}
-      .eyebrow.on-dark{color:#f5d880}
-      /* Lead */
-      .lead{font-family:"Gotham","Poppins","Helvetica Neue",Arial,sans-serif;font-size:clamp(17px,1.4vw,20px);line-height:1.55;color:#555;font-weight:400;max-width:56ch;text-wrap:pretty}
-      .lead.on-dark{color:rgba(255,255,255,0.82)}
-    </style>
+    <!-- No manual critical CSS block needed — build.inlineStylesheets:'always' in astro.config.mjs
+         causes Astro to embed all CSS as inline <style> tags, eliminating the render-blocking
+         external stylesheet entirely. The font preloads below give WOFF2 downloads a head start
+         before the inlined @font-face declarations are parsed. -->
 
     <!-- Preconnect for conversion tracking domains — establishes connections early for post-load script -->
     <link rel="preconnect" href="https://js.surebizpayments.com" />
