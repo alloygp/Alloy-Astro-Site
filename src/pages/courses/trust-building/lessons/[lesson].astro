@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import CourseTrustBuildingLessonPage from '~/components/pages/CourseTrustBuildingLessonPage';
 import { getLessonBySlug } from '~/data/courseTrustBuilding';
+import '~/styles/courses.css';
 
 const { lesson } = Astro.params;
 const lessonData = lesson ? getLessonBySlug(lesson) : undefined;

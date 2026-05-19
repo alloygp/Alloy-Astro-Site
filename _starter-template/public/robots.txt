@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
 
-Sitemap: https://TODO.com/sitemap.xml
+Sitemap: https://clientsite.com/sitemap-index.xml

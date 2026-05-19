@@ -1,12 +1,3 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import CourseTrustBuildingLessonPage from '../../components/pages/CourseTrustBuildingLessonPage';
-import '../../styles/courses.css';
+return Astro.redirect('/courses/trust-building/lessons/intro', 301);
 ---
-<BaseLayout
-  title="Lesson — Building Trust as a CAM | Alloy Growth Partners"
-  description="Lesson view for the Building Trust course at Alloy Growth Partners."
-  pageId="resources"
->
-  <CourseTrustBuildingLessonPage client:load />
-</BaseLayout>

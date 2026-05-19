@@ -1,0 +1,12 @@
+dist/
+.astro/
+node_modules/
+.env
+.env.*
+!.env.example
+.vercel/
+.DS_Store
+*.log
+
+# Generated client files — do not commit
+_build/*.xlsx

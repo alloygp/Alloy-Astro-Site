@@ -1,108 +1,47 @@
 ---
 // src/layouts/BaseLayout.astro
-// ─────────────────────────────────────────────────────────────────────────────
-// Single root layout for every page.
-// SEO defaults pulled from src/config/site.ts — never hardcode site name,
-// OG image path, or org data in page files.
+// Generic root layout — works for any AGP client site.
+// All SEO defaults pulled from src/config/site.ts.
 //
 // Usage (minimal):
-//   <BaseLayout title="Page Title" description="Meta description." pageId="about">
-//     …page sections…
+//   <BaseLayout title="Page Title" description="Page description.">
+//     ...page content...
 //   </BaseLayout>
 //
-// Usage (article with custom OG + schema):
-//   <BaseLayout
-//     title="…"
-//     description="…"
-//     pageId="resources"
-//     ogType="article"
-//     ogImage="/assets/og/my-article.png"
-//     pageSchema={[articleSchema, breadcrumbSchema, faqSchema]}
-//   >
-//     …
+// Usage (article with custom OG image + schema):
+//   <BaseLayout title="..." description="..." ogType="article" ogImage="/assets/og/article.png" pageSchema={articleSchema}>
+//     ...
 //   </BaseLayout>
-//
-// Usage (noindex):
-//   <BaseLayout title="…" description="…" robots="noindex,nofollow">
-// ─────────────────────────────────────────────────────────────────────────────
 
-// TODO: import your style sheets here
-// import '../styles/global.css';
-
-import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
 import { SITE } from '../config/site.ts';
-
-// TODO: import your SiteHeader and SiteFooter components
-// import SiteHeader from '../components/chrome/SiteHeader.tsx';
-// import SiteFooter from '../components/chrome/SiteFooter.tsx';
 
 interface Props {
   /** <title> tag. Keep ≤ 60 chars. Required. */
   title: string;
-
   /** Meta description. Keep 120–160 chars. Required. */
   description: string;
-
-  /**
-   * Which top-level nav item highlights as active.
-   * Match to your own nav item keys.
-   */
-  pageId?: string | null;
-
-  /**
-   * Header visual theme. Extend as needed for your design system.
-   */
-  headerTheme?: 'light' | 'dark';
-
-  /**
-   * og:type. Defaults to 'website'. Use 'article' for blog/resource pages.
-   */
+  /** og:type. Default: 'website'. Use 'article' for blog/resource pages. */
   ogType?: 'website' | 'article';
-
-  /**
-   * Per-page OG image. Absolute path from /public, e.g. "/assets/og/my-page.png".
-   * Defaults to SITE.defaultOgImage.
-   * Must be 1200×630px PNG.
-   */
+  /** Per-page OG image path from /public. Default: SITE.defaultOgImage. Must be 1200×630 PNG. */
   ogImage?: string;
-
-  /**
-   * robots meta content. Omit for normal indexed pages.
-   * Use "noindex,nofollow" for thank-you pages, staging, legal utilities, etc.
-   */
+  /** robots meta. Omit for normal indexed pages. Use 'noindex,nofollow' for thank-you pages etc. */
   robots?: string;
-
-  /**
-   * Page-specific JSON-LD schema injected into <head> alongside the base
-   * Organization schema. Pass a single object or an array.
-   * Use builders from src/lib/schema.ts.
-   */
+  /** Page-specific JSON-LD schema. Pass a single object or array. */
   pageSchema?: Record<string, unknown> | Record<string, unknown>[];
-
-  /**
-   * Hide the global SiteHeader entirely.
-   */
-  hideHeader?: boolean;
 }
 
 const {
   title,
   description,
-  pageId = null,
-  headerTheme = 'light',
   ogType = 'website',
   ogImage: ogImageProp,
   robots,
   pageSchema,
-  hideHeader = false,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? SITE.url).toString();
-
-const resolvedOgImage = new URL(
-  ogImageProp ?? SITE.defaultOgImage,
-  Astro.site ?? SITE.url
-).toString();
+const canonicalUrl    = new URL(Astro.url.pathname, Astro.site ?? SITE.url).toString();
+const resolvedOgImage = new URL(ogImageProp ?? SITE.defaultOgImage, Astro.site ?? SITE.url).toString();
 
 const orgLd = {
   '@context': 'https://schema.org',
@@ -114,14 +53,16 @@ const orgLd = {
   address: {
     '@type': 'PostalAddress',
     addressLocality: SITE.org.addressLocality,
-    addressRegion: SITE.org.addressRegion,
-    addressCountry: SITE.org.addressCountry,
+    addressRegion:   SITE.org.addressRegion,
+    addressCountry:  SITE.org.addressCountry,
   },
   telephone: SITE.org.telephone,
-  email: SITE.org.email,
+  email:     SITE.org.email,
   areaServed: SITE.org.areaServed,
   priceRange: SITE.org.priceRange,
 };
+
+const gaMeasurementId = import.meta.env.GA_MEASUREMENT_ID;
 ---
 
 <!DOCTYPE html>
@@ -136,65 +77,59 @@ const orgLd = {
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
 
-    <!-- Robots (only emitted when explicitly set) -->
     {robots && <meta name="robots" content={robots} />}
 
     <!-- Open Graph -->
-    <meta property="og:title" content={title} />
+    <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:type" content={ogType} />
-    <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:locale" content={SITE.locale} />
-    <meta property="og:image" content={resolvedOgImage} />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:url"         content={canonicalUrl} />
+    <meta property="og:type"        content={ogType} />
+    <meta property="og:site_name"   content={SITE.name} />
+    <meta property="og:locale"      content={SITE.locale} />
+    <meta property="og:image"       content={resolvedOgImage} />
+    <meta property="og:image:type"  content="image/png" />
     <meta property="og:image:width" content={SITE.ogImageWidth} />
     <meta property="og:image:height" content={SITE.ogImageHeight} />
-    <meta property="og:image:alt" content={SITE.name} />
+    <meta property="og:image:alt"   content={SITE.name} />
 
     <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={SITE.twitterHandle} />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:site"        content={SITE.twitterHandle} />
+    <meta name="twitter:title"       content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={resolvedOgImage} />
-    <meta name="twitter:image:alt" content={SITE.name} />
+    <meta name="twitter:image"       content={resolvedOgImage} />
+    <meta name="twitter:image:alt"   content={SITE.name} />
 
-    <!-- Fonts — TODO: swap for your project's fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- <link href="https://fonts.googleapis.com/css2?family=..." rel="stylesheet" /> -->
+    <!-- Font preloads — update hrefs to match client's actual font files -->
+    <!-- <link rel="preload" href="/fonts/ClientFont-Regular.woff2" as="font" type="font/woff2" crossorigin /> -->
+    <!-- <link rel="preload" href="/fonts/ClientFont-Bold.woff2" as="font" type="font/woff2" crossorigin /> -->
 
     <!-- JSON-LD: Organization (every page) -->
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
-
-    <!-- JSON-LD: Page-specific schema (optional) -->
     {pageSchema && (
       <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     )}
 
-    <!-- Analytics — TODO: add GA4 or your analytics provider here -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    -->
-
-    <ViewTransitions />
+    <!-- Google Analytics: deferred until after page paint to avoid forced reflow -->
+    {gaMeasurementId && (
+      <script is:inline define:vars={{ gaMeasurementId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaMeasurementId);
+        window.addEventListener('load', function() {
+          var s = document.createElement('script');
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaMeasurementId;
+          document.head.appendChild(s);
+        });
+      </script>
+    )}
   </head>
   <body>
-    <!-- TODO: uncomment when SiteHeader is ready -->
-    <!-- {!hideHeader && <SiteHeader active={pageId ?? undefined} theme={headerTheme} client:load />} -->
-
+    <!-- Add your SiteHeader component here -->
     <main>
       <slot />
     </main>
-
-    <!-- TODO: uncomment when SiteFooter is ready -->
-    <!-- <SiteFooter client:visible /> -->
+    <!-- Add your SiteFooter component here -->
   </body>
 </html>
