@@ -26,6 +26,7 @@ export const POST: APIRoute = async ({ request }) => {
       await resend.emails.send({
         from: "Alloy Growth Partners <notifications@alloygp.co>",
         to: [import.meta.env.INTERNAL_NOTIFY_EMAIL, 'admin@alloygp.co'],
+        cc: ['cameron@alloygp.co', 'nicole@alloygp.co'],
         subject: `New contact form submission from ${name}`,
         html: `<h2>New Contact Form Submission</h2><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong></p><p>${message.replace(/\n/g, "<br>")}</p><p><strong>Subscribe:</strong> ${subscribe ? "Yes" : "No"}</p>${source ? `<hr><p style="color:#888;font-size:13px"><strong>Source</strong><br>${source.replace(/\n/g, '<br>')}</p>` : ''}`,
       });
