@@ -846,7 +846,7 @@ export default function SiteHeader({ active, theme = 'light' }: SiteHeaderProps)
             aria-label="Log in to your Alloy account"
           >
             <img
-              src="/assets/alloy-icon-1500.png"
+              src="/assets/alloy-logomark.svg"
               alt=""
               width={22}
               height={22}
