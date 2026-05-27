@@ -79,7 +79,7 @@ src/
 │   │   ├── RiseDeepCaseStudy.tsx    # /results/rise-amg
 │   │   ├── SeoPage.tsx              # /property-management-seo
 │   │   ├── ServiceAnnualReportPage.tsx  # /boardretain/annual-report-production
-│   │   ├── ServiceBrandingPage.tsx      # /boardreach/branding
+│   │   ├── ServiceBrandingPage.tsx      # /boardreach/hoa-management-branding
 │   │   ├── ServiceEmailMarketingPage.tsx # /boardreach/email-marketing
 │   │   ├── ServiceNewsletterPage.tsx    # /boardretain/newsletter-production (canonical)
 │   │   ├── ServicePrintProductionPage.tsx # /boardreach/print-production
@@ -123,10 +123,10 @@ src/
     │   ├── testimonials.astro       → TestimonialsPage
     │   └── we-know-cam.astro        → WeKnowCamPage  (canonical)
     ├── boardreach/
-    │   ├── index.astro              → CamMarketingPage  (canonical /boardreach)
-    │   ├── branding.astro           → ServiceBrandingPage
-    │   ├── email-marketing.astro    → ServiceEmailMarketingPage
-    │   ├── print-production.astro   → ServicePrintProductionPage
+    │   ├── index.astro                       → CamMarketingPage  (canonical /boardreach)
+    │   ├── hoa-management-branding.astro     → ServiceBrandingPage  (canonical; /boardreach/branding redirects here)
+    │   ├── email-marketing.astro             → ServiceEmailMarketingPage
+    │   ├── print-production.astro            → ServicePrintProductionPage
     │   └── property-management-lead-generation.astro → ServiceLeadGenerationPage
     ├── boardmatch/
     │   └── groundwork.astro         → GroundworkPage  (canonical)
@@ -185,6 +185,8 @@ import YourPageName from '~/components/pages/YourPageName';
 **`pageId`** controls which nav item highlights as active. Valid values: `home`, `about`, `services`, `boardsuite`, `approach`, `resources`.
 
 **Service detail pages** live under pillar subdirectories: `src/pages/boardreach/`, `src/pages/boardretain/`. Legacy paths under `src/pages/services/` remain for backwards compatibility.
+
+**Sitemap is automatic.** The `@astrojs/sitemap` integration (`astro.config.mjs`) auto-generates `/sitemap-index.xml` + `/sitemap-0.xml` on every build from the route tree. Do NOT add new URLs to `public/sitemap.xml` — that file is being phased out and will be deleted once the plugin output is verified in production. If the new page needs a non-default priority or changefreq, edit the `serialize` callback in `astro.config.mjs`.
 
 ---
 
@@ -661,6 +663,7 @@ Always use:
 Managed in `astro.config.mjs` under `redirects`. Current service-page redirects:
 ```
 /services/newsletter-production-for-hoa-management  →  /services/hoa-newsletter-production
+/boardreach/branding                                →  /boardreach/hoa-management-branding
 ```
 
 When adding new service pages that replace old Claude Design URLs, add redirects here.
@@ -706,3 +709,6 @@ When adding new service pages that replace old Claude Design URLs, add redirects
 | 2026-05 | Moved Pricing into About nav dropdown; removed as standalone nav item |
 | 2026-05 | Added canonical routes: `/boardreach/`, `/boardmatch/groundwork`, `/boardretain/board-education`, `/boardretain/newsletter-production`, `/about/we-know-cam`, `/resources/`, `/resources/courses/`, `/resources/courses/trust-building`, `/get-started` |
 | 2026-05 | Added redirects in `astro.config.mjs` from all legacy URLs to new canonical paths |
+| 2026-05-27 | Fixed `/pricing` broken link to `/boardreach/branding` → now points to `/boardreach/hoa-management-branding`; added 301 redirect for the short-form URL as a safety net; updated file-tree (`branding.astro` was renamed `hoa-management-branding.astro`) |
+| 2026-05-27 | Added 18 missing pages to `public/sitemap.xml` (5 service pages, /partners, /careers, 11 course/lesson pages) — went from 39 to 57 URLs |
+| 2026-05-27 | Installed `@astrojs/sitemap` (^3.7.3) and configured it in `astro.config.mjs` with a `serialize` callback that mirrors prior priority/changefreq values. Plugin auto-generates `/sitemap-index.xml` from the route tree on every build, eliminating sitemap drift. Static `public/sitemap.xml` retained as fallback until plugin output is verified in production; after that, delete `public/sitemap.xml` and update `robots.txt` to point at `/sitemap-index.xml`. Also bumped starter-template's `@astrojs/sitemap` from ^3.0.0 to ^3.7.3 for consistency. |

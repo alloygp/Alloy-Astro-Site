@@ -278,7 +278,7 @@ export default function PricingPage() {
             {[
               { h: 'Strategic Review',        p: 'Free',          c: PINK,   d: '30-min diagnostic with a CAM operator. Written 90-day plan. Yours to keep.',                                                           href: '/get-started' },
               { h: 'RFP Response Sprint',     p: 'Project-based', c: YELLOW, d: 'End-to-end RFP response: research, narrative, deck, financials, exhibits. 10-day turnaround.',                                          href: '/contact' },
-              { h: 'Brand + Website Refresh', p: 'Project-based', c: BLUE,   d: 'Standalone identity + website project. 60–90 days. Foundation tier without the ongoing retainer.',                                      href: '/boardreach/branding' },
+              { h: 'Brand + Website Refresh', p: 'Project-based', c: BLUE,   d: 'Standalone identity + website project. 60–90 days. Foundation tier without the ongoing retainer.',                                      href: '/boardreach/hoa-management-branding' },
             ].map(o => (
               <a key={o.h} href={o.href} style={{ display: 'block', background: '#fff', borderRadius: 12, padding: 28, border: '1px solid var(--border-subtle)', textDecoration: 'none', color: 'inherit', borderTop: `3px solid ${o.c}`, transition: 'transform 0.15s, box-shadow 0.15s' }}>
                 <div className="display-md" style={{ fontSize: 22, color: PURPLE, marginBottom: 8 }}>{o.h}</div>
