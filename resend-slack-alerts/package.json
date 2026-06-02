@@ -1,0 +1,14 @@
+{
+  "name": "resend-slack-alerts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "One Vercel webhook endpoint that posts Resend email failures to Slack, for all Alloy client domains.",
+  "dependencies": {
+    "svix": "^1.45.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

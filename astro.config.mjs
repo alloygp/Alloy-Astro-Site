@@ -167,6 +167,7 @@ export default defineConfig({
 
     // Standalone old pages
     '/about-alloy': '/about',
+    '/boardmatch': '/our-approach/boardmatch',
     '/academy': '/resources/courses',
     '/austin-texas': '/about',
     '/boardappeal-audit-client-intake': '/get-started',
