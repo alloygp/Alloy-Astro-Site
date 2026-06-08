@@ -1,0 +1,453 @@
+---
+// src/pages/boardstart.astro
+// BoardStart™ — CAM Marketing Starter landing page.
+// Vanilla HTML/CSS/JS rendered inside the standard BaseLayout (header, footer,
+// fonts, and global CSS are provided by the layout — no new dependencies).
+import BaseLayout from '~/layouts/BaseLayout.astro';
+
+// Pick which framing + pricing layout to ship. Both variants live in the markup;
+// these two props decide which one is shown (CSS handles the visibility).
+const HERO = 'outcome';    // 'outcome' | 'problem'
+const PRICING = 'tiers';   // 'tiers'  | 'single'
+
+const MAIN = "<!-- ============ HERO: OUTCOME-LED ============ -->\n  <section class=\"hero\" data-variant-hero=\"outcome\">\n    <div class=\"hero-bg-grid\"></div>\n    <div class=\"hero-inner bs-hero-inner\">\n      <div class=\"hero-grid-split\">\n        <div>\n          <div class=\"bs-eyebrow-dot\">\n            <span class=\"dot\"></span>\n            <span class=\"eyebrow on-dark no-line\">BoardStart™ · CAM Marketing Starter</span>\n          </div>\n          <h1 class=\"display-xl\" style=\"margin:0 0 22px;color:#fff;\">\n            Get your CAM company <span style=\"color:var(--alloy-yellow);\">found, followed,</span> and remembered.\n          </h1>\n          <p class=\"lead on-dark\" style=\"margin-bottom:26px;max-width:560px;\">\n            BoardStart™ is the entry point to engineered growth — the marketing essentials your firm needs running now, built and run by the people who actually know community association management. One fixed price. No long contract. Real momentum in months, not years.\n          </p>\n          <div style=\"display:flex;align-items:center;gap:18px;flex-wrap:wrap;\">\n            <div class=\"bs-price-pill\" style=\"margin-bottom:0;\">\n              <span class=\"from\">Starting at</span>\n              <span class=\"amt\">$950</span>\n              <span class=\"per\">/ month</span>\n            </div>\n            <a class=\"btn btn-secondary on-dark\" href=\"#included\">See what's included</a>\n          </div>\n          <div class=\"bs-hero-trust\">\n            <div class=\"item\"><div class=\"v\">6</div><div class=\"k\">core services</div></div>\n            <div class=\"item\"><div class=\"v\">1</div><div class=\"k\">brand interview</div></div>\n            <div class=\"item\"><div class=\"v\">4–6 mo</div><div class=\"k\">ramp, then you choose</div></div>\n          </div>\n        </div>\n        <div class=\"bs-hero-visual\">\n          <div class=\"bs-form-card\">\n            <div class=\"ttl\">Takes 30 seconds</div>\n            <h3>Get the details</h3>\n            <form class=\"bs-form\">\n              <select class=\"bs-input bs-pkg\" name=\"package\">\n                <option value=\"\">Which package? (optional)</option>\n                <option value=\"Trial — $950/mo\">Trial — $950/mo</option>\n                <option value=\"Starter — $1,500/mo\">Starter — $1,500/mo</option>\n                <option value=\"Starter+ — $2,000/mo\">Starter+ — $2,000/mo</option>\n              </select>\n              <input class=\"bs-input\" name=\"name\" placeholder=\"First name\" required>\n              <input class=\"bs-input\" name=\"email\" type=\"email\" placeholder=\"Work email\" required>\n              <input class=\"bs-input\" name=\"company\" placeholder=\"CAM company\" required>\n              <input class=\"bs-input\" name=\"market\" placeholder=\"Primary market (city, state)\">\n              <button class=\"btn btn-primary btn-arrow\" type=\"submit\">Start BoardStart</button>\n              <div class=\"bs-form-msg\" aria-live=\"polite\"></div>\n            </form>\n          </div>\n          <div class=\"bs-form-trust\">\n            <span><span class=\"d\"></span> The only CAM marketing experts</span>\n            <span><span class=\"d\"></span> No long-term contract</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"accent-bar\"><div></div><div></div><div></div><div></div><div></div></div>\n  </section>\n\n  <!-- ============ HERO: PROBLEM-LED ============ -->\n  <section class=\"hero\" data-variant-hero=\"problem\">\n    <div class=\"hero-bg-grid\"></div>\n    <div class=\"hero-inner bs-hero-inner\">\n      <div class=\"hero-grid-split\">\n        <div>\n          <div class=\"bs-eyebrow-dot\">\n            <span class=\"dot\"></span>\n            <span class=\"eyebrow on-dark no-line\">BoardStart™ · CAM Marketing Starter</span>\n          </div>\n          <h1 class=\"display-xl\" style=\"margin:0 0 22px;color:#fff;\">\n            Not ready for the full system?<br><span style=\"color:var(--alloy-pink);\">Start with the essentials.</span>\n          </h1>\n          <p class=\"lead on-dark\" style=\"margin-bottom:26px;max-width:560px;\">\n            Most CAM firms know they need to market — they're just not ready for a full BoardSuite engagement. BoardStart™ is the on-ramp: the handful of things that actually move the needle, packaged at one fixed price, run by Alloy's CAM operators. Prove it works, then decide where to go next.\n          </p>\n          <div style=\"display:flex;align-items:center;gap:18px;flex-wrap:wrap;\">\n            <div class=\"bs-price-pill\" style=\"margin-bottom:0;\">\n              <span class=\"from\">Starting at</span>\n              <span class=\"amt\">$950</span>\n              <span class=\"per\">/ month</span>\n            </div>\n            <a class=\"btn btn-secondary on-dark\" href=\"#included\">See what's included</a>\n          </div>\n          <div class=\"bs-hero-trust\">\n            <div class=\"item\"><div class=\"v\">$1,500</div><div class=\"k\">all-in, per month</div></div>\n            <div class=\"item\"><div class=\"v\">6</div><div class=\"k\">essentials, done for you</div></div>\n            <div class=\"item\"><div class=\"v\">No</div><div class=\"k\">12-month lock-in</div></div>\n          </div>\n        </div>\n        <div class=\"bs-hero-visual\">\n          <div class=\"bs-form-card\">\n            <div class=\"ttl\">Takes 30 seconds</div>\n            <h3>Get the details</h3>\n            <form class=\"bs-form\">\n              <select class=\"bs-input bs-pkg\" name=\"package\">\n                <option value=\"\">Which package? (optional)</option>\n                <option value=\"Trial — $950/mo\">Trial — $950/mo</option>\n                <option value=\"Starter — $1,500/mo\">Starter — $1,500/mo</option>\n                <option value=\"Starter+ — $2,000/mo\">Starter+ — $2,000/mo</option>\n              </select>\n              <input class=\"bs-input\" name=\"name\" placeholder=\"First name\" required>\n              <input class=\"bs-input\" name=\"email\" type=\"email\" placeholder=\"Work email\" required>\n              <input class=\"bs-input\" name=\"company\" placeholder=\"CAM company\" required>\n              <input class=\"bs-input\" name=\"market\" placeholder=\"Primary market (city, state)\">\n              <button class=\"btn btn-primary btn-arrow\" type=\"submit\">Start BoardStart</button>\n              <div class=\"bs-form-msg\" aria-live=\"polite\"></div>\n            </form>\n          </div>\n          <div class=\"bs-form-trust\">\n            <span><span class=\"d\"></span> The only CAM marketing experts</span>\n            <span><span class=\"d\"></span> No long-term contract</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"accent-bar\"><div></div><div></div><div></div><div></div><div></div></div>\n  </section>\n\n  <!-- ============ WHO IT'S FOR ============ -->\n  <section class=\"section section-white\">\n    <div class=\"container\">\n      <div class=\"bs-head\">\n        <span class=\"eyebrow no-line\">Who BoardStart is for</span>\n        <h2 class=\"display-lg\">Built for firms who want momentum<br>before a full commitment.</h2>\n        <p class=\"lead\">If you've been meaning to \"get serious about marketing\" but a full retainer feels like a leap, this is your starting block.</p>\n      </div>\n      <div class=\"bs-aud-grid\">\n        <div class=\"bs-aud-card\">\n          <div class=\"ic\">◔</div>\n          <h3>Not ready for BoardSuite</h3>\n          <p>You know you need a growth system, but a full engagement isn't the right step today. Start smaller — without starting from scratch.</p>\n        </div>\n        <div class=\"bs-aud-card\">\n          <div class=\"ic\">◑</div>\n          <h3>You want proof first</h3>\n          <p>You'd rather see real work and real traction before you commit. BoardStart is a working proof of concept, not a sales deck.</p>\n        </div>\n        <div class=\"bs-aud-card\">\n          <div class=\"ic\">◕</div>\n          <h3>The essentials, running now</h3>\n          <p>Your website, search presence, social, and communications need to be live and consistent. We get the fundamentals working — fast.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ WHAT'S INCLUDED ============ -->\n  <section id=\"included\" class=\"section section-ivory\">\n    <div class=\"container\">\n      <div class=\"bs-head\">\n        <span class=\"eyebrow no-line\">What's included</span>\n        <h2 class=\"display-lg\">Six essentials. One package.<br>All done by the industry's experts.</h2>\n        <p class=\"lead\">Every BoardStart engagement includes the core five. Ads management is an optional add-on when you're ready to put fuel on the fire.</p>\n      </div>\n      <div class=\"bs-inc-grid\">\n        <div class=\"bs-inc-card\">\n          <div class=\"num\">01</div>\n          <h3>Growth Roadmap</h3>\n          <p>It begins with a chat, then a planned brand interview — a structured deep-dive into your firm, your market, and where the growth is. You leave with a written strategy you'd keep even if you walked away.</p>\n          <div class=\"meta\">Brand interview · strategy doc</div>\n        </div>\n        <div class=\"bs-inc-card\">\n          <div class=\"num\">02</div>\n          <h3>Local Starter SEO</h3>\n          <p>Get found where boards are actually searching. We optimize for 1–2 priority keywords in your primary location and clean up your Google Business Profile.</p>\n          <div class=\"meta\">1–2 keywords · 1 location</div>\n        </div>\n        <div class=\"bs-inc-card\">\n          <div class=\"num\">03</div>\n          <h3>Social Media</h3>\n          <p>A consistent, on-brand presence your firm doesn't have to manage. We plan, write, and publish on a schedule so you finally look as professional online as you are in person.</p>\n          <div class=\"meta\">Managed cadence · on-brand</div>\n        </div>\n        <div class=\"bs-inc-card\">\n          <div class=\"num\">04</div>\n          <h3>Newsletter &amp; Retention</h3>\n          <p>A templatized newsletter for the boards and homeowners you already serve — the cheapest retention touchpoint there is, set up so it actually goes out every month.</p>\n          <div class=\"meta\">Templatized · monthly</div>\n        </div>\n        <div class=\"bs-inc-card\">\n          <div class=\"num\">05</div>\n          <h3>Brand Video</h3>\n          <p>One polished company video that tells boards who you are, plus three short social clips cut from the shoot — the asset that makes a small firm look established.</p>\n          <div class=\"meta\">1 company video · 3 clips</div>\n        </div>\n        <div class=\"bs-inc-card is-optional\">\n          <span class=\"bs-chip-opt\">Optional add-on</span>\n          <div class=\"num\" style=\"color:var(--alloy-purple);\">06</div>\n          <h3>Ads Management</h3>\n          <p>When you're ready to accelerate, we'll build and manage your paid campaigns. Optional buy-up — you cover the ad spend, we run the strategy and optimization.</p>\n          <div class=\"meta\">Buy-up · you cover ad spend</div>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ MOMENTUM TIMELINE ============ -->\n  <section id=\"timeline\" class=\"section section-dark\">\n    <div class=\"container\">\n      <div class=\"bs-head\">\n        <span class=\"eyebrow on-dark\">The payoff</span>\n        <h2 class=\"display-lg\" style=\"color:#fff;\">From unknown to <span style=\"color:var(--alloy-yellow);\">in-demand</span> — month by month.</h2>\n        <p class=\"lead on-dark\">Here's what the essentials do once they're working together. One ramp, six months, a firm boards actually come looking for.</p>\n      </div>\n      <div class=\"bs-tl\">\n        <div class=\"bs-tl-chart\">\n          <svg viewBox=\"0 0 1200 260\" role=\"img\" aria-label=\"Momentum rising over six months of BoardStart\">\n            <defs>\n              <linearGradient id=\"tlLine\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\">\n                <stop offset=\"0\" stop-color=\"#d9356e\"></stop>\n                <stop offset=\"0.5\" stop-color=\"#f5d880\"></stop>\n                <stop offset=\"1\" stop-color=\"#aed7d0\"></stop>\n              </linearGradient>\n              <linearGradient id=\"tlArea\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n                <stop offset=\"0\" stop-color=\"#f5d880\" stop-opacity=\"0.26\"></stop>\n                <stop offset=\"1\" stop-color=\"#f5d880\" stop-opacity=\"0\"></stop>\n              </linearGradient>\n            </defs>\n            <line class=\"bs-tl-axis\" x1=\"0\" y1=\"248\" x2=\"1200\" y2=\"248\"></line>\n            <path class=\"bs-tl-area\" d=\"\"></path>\n            <path class=\"bs-tl-line\" d=\"\"></path>\n            <g>\n              <circle cx=\"100\" cy=\"213\" r=\"6\" fill=\"#fff\"></circle>\n              <circle cx=\"300\" cy=\"188\" r=\"6\" fill=\"#fff\"></circle>\n              <circle cx=\"500\" cy=\"150\" r=\"6\" fill=\"#fff\"></circle>\n              <circle cx=\"700\" cy=\"108\" r=\"6\" fill=\"#fff\"></circle>\n              <circle cx=\"900\" cy=\"62\" r=\"6\" fill=\"#fff\"></circle>\n              <circle cx=\"1100\" cy=\"20\" r=\"5\" fill=\"#290d41\" stroke=\"#f5d880\" stroke-width=\"5\"></circle>\n            </g>\n            <text class=\"bs-tl-cap\" x=\"0\" y=\"240\" text-anchor=\"start\">Day one</text>\n            <text class=\"bs-tl-cap\" x=\"1200\" y=\"40\" text-anchor=\"end\">Boards come looking</text>\n          </svg>\n        </div>\n        <div class=\"bs-tl-track\">\n          <div class=\"bs-tl-col\" style=\"--node:var(--alloy-pink)\">\n            <div class=\"bs-tl-month\">Month 1</div>\n            <h4>The plan</h4>\n            <p>Intro chat, then the brand interview. We map your firm, your market, and the boards worth winning.</p>\n            <div class=\"pay\">“A real plan — finally.”</div>\n          </div>\n          <div class=\"bs-tl-col\" style=\"--node:var(--alloy-blue)\">\n            <div class=\"bs-tl-month\">Month 2</div>\n            <h4>You appear</h4>\n            <p>Local SEO and your Google profile go live. Social starts posting on a steady, on-brand cadence.</p>\n            <div class=\"pay\">“Boards start finding you.”</div>\n          </div>\n          <div class=\"bs-tl-col\" style=\"--node:var(--alloy-green)\">\n            <div class=\"bs-tl-month\">Month 3</div>\n            <h4>You look the part</h4>\n            <p>Your company video drops, three social clips roll out, and newsletter #1 lands in inboxes.</p>\n            <div class=\"pay\">“As established as you really are.”</div>\n          </div>\n          <div class=\"bs-tl-col\" style=\"--node:var(--alloy-pink)\">\n            <div class=\"bs-tl-month\">Month 4</div>\n            <h4>Momentum</h4>\n            <p>Content and social compound. Rankings climb. The first inbound conversations start landing.</p>\n            <div class=\"pay\">“The inbox changes tone.”</div>\n          </div>\n          <div class=\"bs-tl-col\" style=\"--node:var(--alloy-yellow)\">\n            <div class=\"bs-tl-month\">Month 5</div>\n            <h4>Proof</h4>\n            <p>Engagement and reviews tick upward. Add paid ads to pour fuel on what's already working.</p>\n            <div class=\"pay\">“You can see it working.”</div>\n          </div>\n          <div class=\"bs-tl-col\" style=\"--node:var(--alloy-yellow)\">\n            <div class=\"bs-tl-month\">Month 6</div>\n            <h4>You choose</h4>\n            <p>Real, measured traction. Step up to the full BoardSuite engine — or settle into autopilot.</p>\n            <div class=\"pay\">“Pick your next gear.”</div>\n          </div>\n        </div>\n        <p style=\"margin:28px 0 0;font-family:var(--font-mono);font-size:12px;line-height:1.55;letter-spacing:0.02em;color:rgba(255,255,255,0.45);max-width:70ch;\">Illustrative ramp. Actual pace and results vary with your firm's current marketing performance and what we uncover in your growth audit and brand interview.</p>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ PRICE: SINGLE ============ -->\n  <section id=\"price\" class=\"section section-white\" data-variant-pricing=\"single\">\n    <div class=\"container\">\n      <div class=\"bs-head\" style=\"text-align:center;margin-left:auto;margin-right:auto;\">\n        <span class=\"eyebrow no-line\" style=\"justify-content:center;\">One simple price</span>\n        <h2 class=\"display-lg\">Everything you need to start, for one flat monthly fee.</h2>\n      </div>\n      <div class=\"bs-price-single\">\n        <div class=\"left\">\n          <span class=\"tag tag-purple\">BoardStart™</span>\n          <div style=\"margin:18px 0 2px;\" class=\"amount\">$1,500<span class=\"per\"> / month</span></div>\n          <p style=\"font-size:14px;color:var(--fg-3);line-height:1.6;margin:6px 0 0;\">All-in for the five core services. A 4–6 month ramp with a built-in decision point — no twelve-month lock-in.</p>\n          <ul class=\"bs-feat-list\">\n            <li><span class=\"ck\">✓</span> Growth roadmap + brand interview</li>\n            <li><span class=\"ck\">✓</span> Local starter SEO (1–2 keywords, 1 location)</li>\n            <li><span class=\"ck\">✓</span> Social media, planned &amp; published</li>\n            <li><span class=\"ck\">✓</span> Templatized newsletter &amp; retention</li>\n            <li><span class=\"ck\">✓</span> 1 company video + 3 social clips</li>\n            <li><span class=\"ck\">✓</span> Run by Alloy's CAM operators</li>\n          </ul>\n        </div>\n        <div class=\"right\">\n          <div class=\"eyebrow on-dark no-line\">Ready when you are</div>\n          <h3 style=\"font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-0.02em;margin:14px 0 10px;color:#fff;\">Start the conversation that starts the work.</h3>\n          <p style=\"font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.78);margin:0 0 22px;\">Your first step is just a quick chat about the plan — no prep, no commitment. From there we map out the brand interview and get your roadmap moving.</p>\n          <a class=\"btn btn-primary btn-arrow\" href=\"#cta\" style=\"align-self:flex-start;\">Start BoardStart</a>\n          <div class=\"bs-addon-box\">\n            <div class=\"ttl\">Optional add-on</div>\n            <p style=\"font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.72);margin:0;\"><b style=\"color:#fff;\">Ads management</b> — add paid campaigns when you're ready. You cover the ad spend; we run the strategy.</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ PRICE: TIERS ============ -->\n  <section id=\"price\" class=\"section section-white\" data-variant-pricing=\"tiers\">\n    <div class=\"container\">\n      <div class=\"bs-head\" style=\"text-align:center;margin-left:auto;margin-right:auto;\">\n        <span class=\"eyebrow no-line\" style=\"justify-content:center;\">Choose your starting point</span>\n        <h2 class=\"display-lg\">Three ways to start. One clear path forward.</h2>\n        <p class=\"lead\" style=\"margin-left:auto;margin-right:auto;\">Every tier includes the brand interview and growth roadmap. Step up for more reach, more content, and a faster cadence.</p>\n      </div>\n      <div class=\"bs-tier-grid\">\n        <!-- Trial -->\n        <div class=\"bs-tier\">\n          <div class=\"t-tag\" style=\"color:var(--alloy-blue);\">Promotional · limited run</div>\n          <div class=\"t-name\">Trial</div>\n          <div class=\"t-amt\">$950<span class=\"per\"> / mo</span></div>\n          <div class=\"t-best\">Test the waters. The essentials at an introductory rate to prove the concept.</div>\n          <a class=\"t-cta\" href=\"#boardstart-top\" data-pkg=\"Trial — $950/mo\" style=\"background:#fff;color:var(--alloy-purple);border:1.5px solid var(--alloy-purple);\">Start Trial →</a>\n          <ul class=\"bs-tier-feats\">\n            <li><span class=\"ck\" style=\"color:var(--alloy-blue);\">✓</span> Growth roadmap + brand interview</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-blue);\">✓</span> Local SEO — 1 keyword, 1 location</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-blue);\">✓</span> Social media — light cadence</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-blue);\">✓</span> 3 social video clips</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-blue);\">✓</span> Quarterly strategy check-in</li>\n          </ul>\n        </div>\n        <!-- Starter (popular) -->\n        <div class=\"bs-tier is-pop\">\n          <div class=\"pop-badge\">Most chosen</div>\n          <div class=\"t-tag\" style=\"color:var(--alloy-purple);\">Better value than Big Rock</div>\n          <div class=\"t-name\">Starter</div>\n          <div class=\"t-amt\">$1,500<span class=\"per\"> / mo</span></div>\n          <div class=\"t-best\">The full essentials package — the sweet spot for firms serious about momentum.</div>\n          <a class=\"t-cta\" href=\"#boardstart-top\" data-pkg=\"Starter — $1,500/mo\" style=\"background:var(--alloy-pink);color:#fff;\">Start BoardStart →</a>\n          <ul class=\"bs-tier-feats\">\n            <li><span class=\"ck\" style=\"color:var(--alloy-pink);\">✓</span> <span class=\"bs-tier-divider\">Everything in Trial, plus —</span></li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-pink);\">✓</span> 1 company video + 3 clips</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-pink);\">✓</span> Local SEO — 2 keywords</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-pink);\">✓</span> Social media — full cadence</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-pink);\">✓</span> Templatized monthly newsletter</li>\n            <li><span class=\"ck\" style=\"color:var(--alloy-pink);\">✓</span> Monthly strategy check-in</li>\n          </ul>\n        </div>\n        <!-- Starter+ -->\n        <div class=\"bs-tier\">\n          <div class=\"t-tag\" style=\"color:#8a6d12;\">Sustainable sub-product</div>\n          <div class=\"t-name\">Starter+</div>\n          <div class=\"t-amt\">$2,000<span class=\"per\"> / mo</span></div>\n          <div class=\"t-best\">Maximum starter momentum, with paid acquisition and the fastest cadence.</div>\n          <a class=\"t-cta\" href=\"#boardstart-top\" data-pkg=\"Starter+ — $2,000/mo\" style=\"background:#fff;color:var(--alloy-purple);border:1.5px solid var(--alloy-purple);\">Start Starter+ →</a>\n          <ul class=\"bs-tier-feats\">\n            <li><span class=\"ck\" style=\"color:#8a6d12;\">✓</span> <span class=\"bs-tier-divider\">Everything in Starter, plus —</span></li>\n            <li><span class=\"ck\" style=\"color:#8a6d12;\">✓</span> Ads management (you cover spend)</li>\n            <li><span class=\"ck\" style=\"color:#8a6d12;\">✓</span> Expanded social + extra clips</li>\n            <li><span class=\"ck\" style=\"color:#8a6d12;\">✓</span> Bi-weekly strategy check-in</li>\n            <li><span class=\"ck\" style=\"color:#8a6d12;\">✓</span> Priority BoardSuite upgrade path</li>\n          </ul>\n        </div>\n      </div>\n      <p style=\"text-align:center;font-size:13px;color:var(--fg-muted);font-family:var(--font-mono);letter-spacing:0.04em;margin-top:28px;\">Ad spend billed at cost, separately · 4–6 month ramp on every tier</p>\n    </div>\n  </section>\n\n  <!-- ============ BRAND INTERVIEW SPOTLIGHT ============ -->\n  <section class=\"section section-ivory\">\n    <div class=\"container\">\n      <div class=\"bs-interview\">\n        <div class=\"bs-interview-card\">\n          <img class=\"ph\" src=\"/assets/cam-operator.jpg\" alt=\"Cameron, Alloy CAM operator\" style=\"width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 22%;display:block;\">\n          <div class=\"cap\">\n            <div class=\"av\" style=\"overflow:hidden;padding:0;\"><img src=\"/assets/cam-operator.jpg\" alt=\"\" style=\"width:100%;height:100%;object-fit:cover;object-position:center 22%;\"></div>\n            <div>\n              <div style=\"font-family:var(--font-display);font-weight:700;color:var(--alloy-purple);font-size:14px;\">Cameron — Alloy CAM operator</div>\n              <div style=\"font-size:12px;color:var(--fg-muted);\">Conducts your brand interview</div>\n            </div>\n          </div>\n        </div>\n        <div>\n          <span class=\"eyebrow no-line\">Done by the industry's experts</span>\n          <h2 class=\"display-md\" style=\"color:var(--alloy-purple);margin:14px 0 16px;\">First a conversation.<br>Then the deep dive.</h2>\n          <p style=\"font-size:16px;line-height:1.7;color:var(--fg-3);margin:0 0 16px;\">Step one is just a chat. We walk you through the plan, answer your questions, and gather the basics about your firm — no prep required on your end. It is how we figure out, together, whether BoardStart is the right fit.</p>\n          <p style=\"font-size:16px;line-height:1.7;color:var(--fg-3);margin:0 0 24px;\">The brand interview comes later, once you are in. It is a structured, planned session — the elaborate discovery that anchors your entire growth roadmap, led by an operator who actually knows CAM.</p>\n          <div style=\"display:flex;gap:28px;flex-wrap:wrap;\">\n            <div><div style=\"font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--alloy-purple);letter-spacing:-0.02em;\">CAM-only</div><div style=\"font-size:12px;color:var(--fg-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin-top:4px;\">all we do</div></div>\n            <div><div style=\"font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--alloy-purple);letter-spacing:-0.02em;\">Structured</div><div style=\"font-size:12px;color:var(--fg-muted);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;margin-top:4px;\">the brand interview</div></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ HOW IT WORKS / RAMP ============ -->\n  <section id=\"how\" class=\"section section-dark\">\n    <div class=\"container\">\n      <div class=\"bs-head\">\n        <span class=\"eyebrow on-dark\">How it works</span>\n        <h2 class=\"display-lg\" style=\"color:#fff;\">A ramp-up plan, not a forever plan.</h2>\n        <p class=\"lead on-dark\">BoardStart runs as a 4–6 month ramp with a built-in decision point. Get the essentials working, see the results, then choose your next move.</p>\n      </div>\n      <div class=\"bs-ramp\">\n        <div class=\"bs-ramp-line\"></div>\n        <div class=\"bs-ramp-step\">\n          <div class=\"bs-ramp-dot\" style=\"background:var(--alloy-pink);\">1</div>\n          <h4>Intro chat</h4>\n          <p>A quick call to walk through the plan and learn the basics about your firm — this is where you decide BoardStart is a fit.</p>\n        </div>\n        <div class=\"bs-ramp-step\">\n          <div class=\"bs-ramp-dot\" style=\"background:var(--alloy-yellow);color:var(--alloy-purple);\">2</div>\n          <h4>Brand interview</h4>\n          <p>The planned deep dive. We block real time with your team to interview, discover, and build the growth roadmap everything else runs on.</p>\n        </div>\n        <div class=\"bs-ramp-step\">\n          <div class=\"bs-ramp-dot\" style=\"background:var(--alloy-green);color:var(--alloy-purple);\">3</div>\n          <h4>Essentials live</h4>\n          <p>SEO, social, newsletter, and video go into production. Over 4–6 months we tune the mix and compound the early wins.</p>\n        </div>\n        <div class=\"bs-ramp-step\">\n          <div class=\"bs-ramp-dot\" style=\"background:var(--alloy-blue);color:var(--alloy-purple);\">4</div>\n          <h4>You choose</h4>\n          <p>Step up to a full BoardSuite engagement, or settle into autopilot maintenance. Your call.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ BOARDSTART VS BOARDSUITE ============ -->\n  <section class=\"section section-ivory\">\n    <div class=\"container\">\n      <div class=\"bs-head\">\n        <span class=\"eyebrow no-line\">Where it fits</span>\n        <h2 class=\"display-lg\">BoardStart vs. BoardSuite.</h2>\n        <p class=\"lead\">Two different tools for two different moments. BoardStart gets you moving; BoardSuite is the full growth engine when you're ready to dominate your market.</p>\n      </div>\n      <div class=\"bs-compare\">\n        <div class=\"bs-compare-card start\">\n          <h3>BoardStart™</h3>\n          <div class=\"sub\">The on-ramp · $1,500/mo</div>\n          <ul class=\"bs-compare-list\">\n            <li><span style=\"color:var(--alloy-pink);\">●</span> <span><b>Fixed monthly price</b> — six essential services, no surprises.</span></li>\n            <li><span style=\"color:var(--alloy-pink);\">●</span> <span><b>4–6 month ramp</b> with a built-in decision point.</span></li>\n            <li><span style=\"color:var(--alloy-pink);\">●</span> <span><b>Proof of concept</b> — see the work, then commit.</span></li>\n            <li><span style=\"color:var(--alloy-pink);\">●</span> <span><b>Best for</b> firms getting serious about marketing.</span></li>\n          </ul>\n        </div>\n        <div class=\"bs-compare-card suite\">\n          <h3>BoardSuite™</h3>\n          <div class=\"sub\">The full system · scoped retainer</div>\n          <ul class=\"bs-compare-list\">\n            <li><span style=\"color:var(--fg-muted);\">●</span> <span><b>All three engines</b> — attract, close, and keep, in unison.</span></li>\n            <li><span style=\"color:var(--fg-muted);\">●</span> <span><b>Market exclusivity</b> — one CAM firm per metro.</span></li>\n            <li><span style=\"color:var(--fg-muted);\">●</span> <span><b>12-month system</b> built to compound through plateaus.</span></li>\n            <li><span style=\"color:var(--fg-muted);\">●</span> <span><b>Best for</b> firms ready to outgrow their market by design.</span></li>\n          </ul>\n          <a class=\"btn btn-ghost btn-arrow\" href=\"/boardsuite\" style=\"margin-top:18px;padding-left:0;\">Explore BoardSuite</a>\n        </div>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ FAQ ============ -->\n  <section id=\"faq\" class=\"section section-white\">\n    <div class=\"container-narrow\">\n      <div class=\"bs-head\" style=\"text-align:center;margin-left:auto;margin-right:auto;\">\n        <span class=\"eyebrow no-line\" style=\"justify-content:center;\">Common questions</span>\n        <h2 class=\"display-lg\">Honest answers, plainly.</h2>\n      </div>\n      <div class=\"bs-faq\">\n        <details open>\n          <summary>What exactly do I get for $1,500 a month? <span class=\"pm\">+</span></summary>\n          <p>The five core services: your growth roadmap and brand interview, local starter SEO, managed social media, a templatized newsletter, and one company video with three social clips — all produced and run by Alloy. Ads management is an optional add-on, and you cover the ad spend directly.</p>\n        </details>\n        <details>\n          <summary>How is this different from BoardSuite? <span class=\"pm\">+</span></summary>\n          <p>BoardStart is the on-ramp — a fixed-price package of the essentials, designed to get you moving and prove the concept. BoardSuite is the full growth engine: all three pillars working together, market exclusivity, and a longer commitment built to compound. Many firms start here and step up when they're ready.</p>\n        </details>\n        <details>\n          <summary>Is there a long-term contract? <span class=\"pm\">+</span></summary>\n          <p>No twelve-month lock-in. BoardStart runs as a 4–6 month ramp-up with a built-in decision point. At the end, you choose: step up to a full BoardSuite engagement, or move to a lighter autopilot maintenance plan.</p>\n        </details>\n        <details>\n          <summary>Who actually does the work? <span class=\"pm\">+</span></summary>\n          <p>Alloy operators who work exclusively in community association management. Your brand interview is led by someone who knows the industry — not a generalist account manager reading from a script. That expertise is the whole point.</p>\n        </details>\n        <details>\n          <summary>Do I have to pay for ads? <span class=\"pm\">+</span></summary>\n          <p>Only if you want them. Ads management is an optional buy-up. If you add it, you pay the ad platforms directly for media spend, and we handle the strategy, setup, and optimization.</p>\n        </details>\n        <details>\n          <summary>What happens after the ramp? <span class=\"pm\">+</span></summary>\n          <p>At your decision point we review the results together. If the momentum's there and you want more, we map an upgrade to BoardSuite. If you'd rather keep the essentials ticking over, we move you to autopilot maintenance. Either way, you keep everything we built.</p>\n        </details>\n      </div>\n    </div>\n  </section>\n\n  <!-- ============ FINAL CTA ============ -->\n  <section id=\"cta\" class=\"section bs-cta\">\n    <div class=\"hero-bg-grid\"></div>\n    <div class=\"container-narrow\" style=\"position:relative;z-index:2;text-align:center;\">\n      <span class=\"eyebrow on-dark no-line\" style=\"justify-content:center;\">Start BoardStart™</span>\n      <h2 class=\"display-lg\" style=\"color:#fff;margin:16px auto 16px;max-width:18ch;\">Let's get your firm's marketing moving.</h2>\n      <p class=\"lead on-dark\" style=\"margin:0 auto 30px;\">It starts with a quick chat about the plan — no prep, no pressure. Just a conversation to see if BoardStart is the right fit.</p>\n      <a class=\"btn btn-primary btn-arrow\" href=\"#boardstart-top\">Start BoardStart</a>\n    </div>\n    <div class=\"accent-bar\"><div></div><div></div><div></div><div></div><div></div></div>\n  </section>";
+---
+<BaseLayout
+  title="BoardStart™ — The CAM Marketing Starter | Alloy"
+  description="BoardStart™ is Alloy's entry-level marketing package for community association management companies — a fixed-price ramp-up of the essentials, run by the people who actually know CAM."
+  hideHeader
+  hideFooter
+>
+  <!-- Minimal landing-page header: brand mark + a single CTA, no nav. -->
+  <header class="bs-lp-header">
+    <div class="bs-lp-header-inner">
+      <a class="bs-lp-logo" href="/" aria-label="Alloy Growth Partners — home">
+        <img src="/assets/alloy-logo-on-dark.svg" alt="Alloy Growth Partners" width="150" height="30" />
+      </a>
+      <a class="btn btn-primary btn-sm btn-arrow bs-lp-cta" href="#boardstart-top">Start BoardStart</a>
+    </div>
+  </header>
+
+  <div class="boardstart-page" id="boardstart-top" data-hero={HERO} data-pricing={PRICING} set:html={MAIN}></div>
+
+  <!-- Minimal landing-page footer: brand, one line, copyright + legal only. -->
+  <footer class="bs-lp-footer">
+    <div class="bs-lp-footer-inner">
+      <a class="bs-lp-logo" href="/" aria-label="Alloy Growth Partners — home">
+        <img src="/assets/alloy-logo-on-dark.svg" alt="Alloy Growth Partners" width="130" height="26" />
+      </a>
+      <p class="bs-lp-footer-tag">The growth system for CAM companies.</p>
+      <div class="bs-lp-footer-meta">
+        <span>© 2026 Alloy Growth Partners</span>
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/terms-conditions">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <style is:global>
+/* ---- Minimal landing-page chrome (replaces global header/footer) ---- */
+  /* Fixed (not sticky): the global overflow-x:hidden on html/body makes them
+     the scroll container, which breaks position:sticky descendants. Fixed keeps
+     the bar pinned for the whole scroll. The hero's 84px top padding clears the
+     66px bar, and both share the dark brand background, so there's no jump. */
+  .bs-lp-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--alloy-purple-deep);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .bs-lp-header-inner {
+    max-width: 1240px; margin: 0 auto; padding: 13px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .bs-lp-logo { display: inline-flex; align-items: center; }
+  .bs-lp-logo img { height: 30px; width: auto; display: block; }
+  /* Header CTA stays hidden (and unclickable) until you scroll past the hero
+     form, then slides in from the right. */
+  .bs-lp-cta {
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(28px);
+    pointer-events: none;
+    transition: opacity 340ms var(--ease-emphasis), transform 340ms var(--ease-emphasis);
+  }
+  .bs-lp-cta.is-shown {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bs-lp-cta { transition: opacity 200ms linear; transform: none; }
+  }
+
+  .bs-lp-footer {
+    background: var(--alloy-purple-deep);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .bs-lp-footer-inner {
+    max-width: 1240px; margin: 0 auto; padding: 38px 32px;
+    display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+  }
+  .bs-lp-footer-inner .bs-lp-logo img { height: 26px; }
+  .bs-lp-footer-tag {
+    flex: 0 1 auto; margin: 0; max-width: 40ch;
+    font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.55);
+  }
+  .bs-lp-footer-meta {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 20px;
+    font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.02em;
+  }
+  .bs-lp-footer-meta span { color: rgba(255,255,255,0.42); }
+  .bs-lp-footer-meta a { color: rgba(255,255,255,0.72); text-decoration: none; transition: color 140ms; }
+  .bs-lp-footer-meta a:hover { color: #fff; }
+  @media (max-width: 720px) {
+    .bs-lp-header-inner { padding: 12px 20px; }
+    .bs-lp-footer-inner { padding: 30px 20px; gap: 18px; }
+  }
+
+/* ---- Page-specific layer ---- */
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Variant visibility toggles */
+  [data-hero="outcome"] [data-variant-hero="problem"],
+  [data-hero="problem"] [data-variant-hero="outcome"] { display: none !important; }
+  [data-pricing="single"] [data-variant-pricing="tiers"],
+  [data-pricing="tiers"] [data-variant-pricing="single"] { display: none !important; }
+
+  /* Sticky header CTA */
+  .bs-header-cta { padding: 11px 20px; font-size: 12px; }
+
+  /* Hero */
+  .bs-hero-inner { padding-top: 84px; padding-bottom: 80px; }
+  .bs-eyebrow-dot {
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .bs-eyebrow-dot span.dot {
+    width: 8px; height: 8px; border-radius: 999px; background: var(--alloy-green);
+    box-shadow: 0 0 0 4px rgba(174,215,208,0.18);
+  }
+  .bs-price-pill {
+    display: inline-flex; align-items: baseline; gap: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px; padding: 14px 20px; margin-bottom: 28px;
+  }
+  .bs-price-pill .from { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 700; align-self: center; }
+  .bs-price-pill .amt {
+    font-family: var(--font-display); font-weight: 800; font-size: 34px;
+    letter-spacing: -0.02em; color: #fff; line-height: 1;
+  }
+  .bs-price-pill .per { font-size: 13px; color: rgba(255,255,255,0.62); font-weight: 500; }
+  .bs-price-pill .note { font-size: 12px; color: var(--alloy-yellow); font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+  .bs-hero-trust {
+    display: flex; align-items: center; gap: 26px; flex-wrap: wrap;
+    padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.10); margin-top: 30px;
+  }
+  .bs-hero-trust .item .v { font-family: var(--font-display); font-weight: 800; color: #fff; font-size: 22px; letter-spacing: -0.02em; }
+  .bs-hero-trust .item .k { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-top: 3px; }
+
+  /* Hero visual — stacked "starter card" */
+  .bs-hero-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; min-height: 460px; }
+  .bs-form-trust { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+  .bs-form-trust span { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.62); font-weight: 600; }
+  .bs-form-trust .d { width: 5px; height: 5px; border-radius: 999px; background: var(--alloy-green); flex-shrink: 0; }
+  .bs-starter-card {
+    background: #fff; color: var(--alloy-purple); border-radius: 16px;
+    box-shadow: 0 40px 90px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.2);
+    width: 100%; max-width: 380px; overflow: hidden; position: relative; z-index: 2;
+  }
+  .bs-starter-card .top {
+    background: linear-gradient(155deg, #381c4f 0%, #290d41 100%); color: #fff; padding: 24px 26px 22px;
+  }
+  .bs-starter-card .top .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--alloy-yellow); font-weight: 700; margin-bottom: 10px; }
+  .bs-starter-card .top .name { font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.02em; }
+  .bs-starter-card .rows { padding: 8px 26px 22px; }
+  .bs-starter-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--border-subtle); font-size: 14px; color: #3a2f47; font-weight: 500; }
+  .bs-starter-row:last-child { border-bottom: none; }
+  .bs-starter-row .ck { width: 22px; height: 22px; border-radius: 999px; background: var(--alloy-purple-tint); color: var(--alloy-purple); display: grid; place-items: center; flex-shrink: 0; }
+  .bs-hero-tag {
+    position: absolute; background: #fff; color: var(--alloy-purple); padding: 8px 14px; border-radius: 999px;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    display: flex; align-items: center; gap: 8px; z-index: 8; pointer-events: none;
+  }
+
+  /* Get-started forms (hero card + footer band) */
+  .bs-form-card { background: #fff; border-radius: 16px; box-shadow: 0 40px 90px rgba(0,0,0,0.35), 0 8px 20px rgba(0,0,0,0.18); padding: 30px 30px 26px; width: 100%; max-width: 400px; position: relative; z-index: 2; }
+  .bs-form-card .ttl { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--alloy-pink); font-weight: 700; margin-bottom: 8px; }
+  .bs-form-card h3 { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.015em; color: var(--alloy-purple); margin: 0 0 18px; }
+  .bs-form-card .fine { font-size: 12px; color: var(--fg-muted); line-height: 1.5; margin: 14px 0 0; }
+  .bs-form { display: flex; flex-direction: column; gap: 10px; }
+  .bs-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .bs-input { width: 100%; padding: 13px 15px; border-radius: 10px; border: 1px solid var(--border-strong); font-family: var(--font-body); font-size: 14.5px; color: var(--alloy-purple); outline: none; background: #fff; transition: border-color 140ms, box-shadow 140ms; }
+  .bs-input::placeholder { color: var(--fg-muted); }
+  .bs-input:focus { border-color: var(--alloy-pink); box-shadow: 0 0 0 3px rgba(217,53,110,0.14); }
+  .bs-pkg.bs-pkg-set { border-color: var(--alloy-pink); box-shadow: 0 0 0 3px rgba(217,53,110,0.16); color: var(--alloy-purple); font-weight: 600; }
+  .bs-form .btn { width: 100%; justify-content: center; margin-top: 4px; }
+  .bs-form-msg { font-size: 13.5px; font-weight: 600; color: #2c6a62; line-height: 1.5; }
+  .bs-form-msg.show { padding-top: 4px; }
+  .bs-form.on-dark .bs-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff; }
+  .bs-form.on-dark .bs-input::placeholder { color: rgba(255,255,255,0.45); }
+  .bs-form.on-dark .bs-input:focus { border-color: var(--alloy-pink); background: rgba(255,255,255,0.10); }
+  .bs-form.on-dark .bs-form-msg { color: var(--alloy-yellow); }
+
+  /* Footer get-started band */
+  .bs-foot-inner { max-width: 1240px; margin: 0 auto; padding: 72px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .bs-foot-inner h2 { margin: 14px 0 12px; color: #fff; }
+  .bs-foot-inner p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.6; max-width: 42ch; margin: 0; }
+  @media (max-width: 860px) { .bs-foot-inner { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* Generic section heading block */
+  .bs-head { max-width: 760px; margin-bottom: 40px; }
+  .bs-head h2 { margin: 14px 0 12px; color: var(--alloy-purple); }
+  .bs-head p { margin: 0; }
+
+  /* Audience triplet */
+  .bs-aud-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .bs-aud-card { background: #fff; border: 1px solid var(--border-subtle); border-top: 4px solid var(--alloy-purple); border-radius: var(--radius-lg); padding: 30px 28px; box-shadow: var(--shadow-xs); }
+  .bs-aud-card .ic { width: 46px; height: 46px; border-radius: 12px; background: var(--alloy-purple-tint); color: var(--alloy-purple); display: grid; place-items: center; margin-bottom: 18px; }
+  .bs-aud-card h3 { font-family: var(--font-display); font-weight: 800; font-size: 19px; color: var(--alloy-purple); margin: 0 0 8px; letter-spacing: -0.01em; }
+  .bs-aud-card p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-3); }
+
+  /* Included grid */
+  .bs-inc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .bs-inc-card { background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 30px 28px; position: relative; transition: all 200ms var(--ease-standard); }
+  .bs-inc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .bs-inc-card .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--alloy-pink); font-weight: 700; }
+  .bs-inc-card h3 { font-family: var(--font-display); font-weight: 800; font-size: 19px; color: var(--alloy-purple); margin: 14px 0 10px; letter-spacing: -0.01em; }
+  .bs-inc-card p { margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: var(--fg-3); }
+  .bs-inc-card .meta { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); letter-spacing: 0.04em; }
+  .bs-inc-card.is-optional { border-style: dashed; background: var(--alloy-off-white); }
+  .bs-chip-opt { display: inline-block; font-family: var(--font-display); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--alloy-purple); background: var(--alloy-yellow-tint); padding: 4px 10px; border-radius: 999px; margin-bottom: 6px; }
+
+  /* Single price card */
+  .bs-price-single {
+    max-width: 940px; margin: 0 auto; background: #fff; border-radius: 20px;
+    border: 1px solid var(--border-subtle); box-shadow: 0 30px 70px rgba(56,28,79,0.12);
+    overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr;
+  }
+  .bs-price-single .left { padding: 44px 44px 40px; }
+  .bs-price-single .right { background: linear-gradient(160deg, #381c4f 0%, #290d41 100%); color: #fff; padding: 44px 40px; display: flex; flex-direction: column; }
+  .bs-price-single .amount { font-family: var(--font-display); font-weight: 800; font-size: 64px; letter-spacing: -0.03em; color: var(--alloy-purple); line-height: 0.95; }
+  .bs-price-single .amount .per { font-size: 17px; color: var(--fg-muted); font-weight: 500; letter-spacing: 0; }
+  .bs-feat-list { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 13px; }
+  .bs-feat-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; color: #3a2f47; line-height: 1.5; }
+  .bs-feat-list li .ck { color: var(--alloy-pink); flex-shrink: 0; margin-top: 2px; }
+  .bs-addon-box { margin-top: auto; padding-top: 22px; }
+  .bs-addon-box .ttl { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--alloy-yellow); font-weight: 700; margin-bottom: 10px; }
+
+  /* Tier cards */
+  .bs-tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; max-width: 1100px; margin: 0 auto; }
+  .bs-tier { background: #fff; border-radius: 18px; border: 1px solid var(--border-subtle); padding: 34px 30px; display: flex; flex-direction: column; position: relative; box-shadow: var(--shadow-xs); }
+  .bs-tier.is-pop { border: 2px solid var(--alloy-purple); box-shadow: 0 30px 60px rgba(56,28,79,0.18); transform: translateY(-10px); }
+  .bs-tier .pop-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--alloy-purple); color: #fff; padding: 6px 16px; border-radius: 999px; font-family: var(--font-display); font-weight: 700; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+  .bs-tier .t-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+  .bs-tier .t-name { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--alloy-purple); letter-spacing: -0.015em; }
+  .bs-tier .t-from { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); font-weight: 700; margin-top: 14px; }
+  .bs-tier .t-amt { font-family: var(--font-display); font-weight: 800; font-size: 44px; color: var(--alloy-purple); letter-spacing: -0.025em; line-height: 1; margin: 2px 0 4px; }
+  .bs-tier .t-amt .per { font-size: 14px; color: var(--fg-muted); font-weight: 500; }
+  .bs-tier .t-best { font-size: 12.5px; color: var(--fg-3); line-height: 1.5; min-height: 54px; margin-bottom: 18px; }
+  .bs-tier .t-cta { display: block; text-align: center; padding: 12px 18px; border-radius: 999px; font-family: var(--font-display); font-weight: 700; font-size: 13px; text-decoration: none; margin-bottom: 24px; transition: all 160ms; }
+  .bs-tier-feats { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
+  .bs-tier-feats li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #3a2f47; line-height: 1.5; }
+  .bs-tier-feats li .ck { flex-shrink: 0; margin-top: 2px; }
+  .bs-tier-divider { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); font-weight: 700; }
+
+  /* Brand interview spotlight */
+  .bs-interview { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+  .bs-interview-card { background: #fff; border-radius: 16px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-md); overflow: hidden; }
+  .bs-interview-card .ph { aspect-ratio: 4/3; background:
+      repeating-linear-gradient(135deg, #ece8f1 0 14px, #f4f1f8 14px 28px);
+      display: grid; place-items: center; }
+  .bs-interview-card .ph .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--alloy-purple); opacity: 0.55; text-transform: uppercase; }
+  .bs-interview-card .cap { padding: 20px 24px; display: flex; align-items: center; gap: 14px; }
+  .bs-interview-card .cap .av { width: 44px; height: 44px; border-radius: 999px; background: var(--alloy-purple-tint); display: grid; place-items: center; color: var(--alloy-purple); font-family: var(--font-display); font-weight: 800; flex-shrink: 0; }
+
+  /* Ramp timeline */
+  .bs-ramp { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .bs-ramp-step { padding: 0 22px; position: relative; }
+  .bs-ramp-step:not(:last-child)::after { content: ""; position: absolute; top: 13px; right: -2px; width: 4px; height: 4px; }
+  .bs-ramp-dot { width: 28px; height: 28px; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 12px; color: #fff; margin-bottom: 16px; }
+  .bs-ramp-line { position: absolute; top: 13px; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.14); z-index: 0; }
+  .bs-ramp-step h4 { font-family: var(--font-display); font-weight: 800; font-size: 17px; color: #fff; margin: 0 0 8px; }
+  .bs-ramp-step p { margin: 0; font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.7); }
+
+  /* Compare BoardStart vs BoardSuite */
+  .bs-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .bs-compare-card { border-radius: 16px; padding: 36px 34px; }
+  .bs-compare-card.start { background: #fff; border: 2px solid var(--alloy-purple); }
+  .bs-compare-card.suite { background: var(--alloy-off-white); border: 1px solid var(--border-subtle); }
+  .bs-compare-card h3 { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--alloy-purple); margin: 0 0 4px; letter-spacing: -0.015em; }
+  .bs-compare-card .sub { font-size: 13px; color: var(--fg-muted); margin-bottom: 22px; font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .bs-compare-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .bs-compare-list li { display: flex; gap: 12px; font-size: 14px; line-height: 1.5; color: #3a2f47; align-items: flex-start; }
+  .bs-compare-list li b { color: var(--alloy-purple); }
+
+  /* Momentum timeline */
+  .bs-tl { position: relative; }
+  .bs-tl-chart { position: relative; margin: 4px 0 30px; }
+  .bs-tl-chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .bs-tl-line { fill: none; stroke: url(#tlLine); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .bs-tl-area { fill: url(#tlArea); opacity: 0; transition: opacity 900ms ease 250ms; }
+  .bs-tl.in .bs-tl-area { opacity: 1; }
+  .bs-tl-axis { stroke: rgba(255,255,255,0.12); stroke-width: 1; }
+  .bs-tl-cap { fill: rgba(255,255,255,0.6); font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; }
+  .bs-tl-track { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .bs-tl-col { position: relative; padding-top: 24px; transform: translateY(14px); transition: transform 520ms var(--ease-emphasis); }
+  .bs-tl.in .bs-tl-col { transform: none; }
+  .bs-tl.in .bs-tl-col:nth-child(2) { transition-delay: 60ms; }
+  .bs-tl.in .bs-tl-col:nth-child(3) { transition-delay: 120ms; }
+  .bs-tl.in .bs-tl-col:nth-child(4) { transition-delay: 180ms; }
+  .bs-tl.in .bs-tl-col:nth-child(5) { transition-delay: 240ms; }
+  .bs-tl.in .bs-tl-col:nth-child(6) { transition-delay: 300ms; }
+  .bs-tl-col::before { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-radius: 999px; background: var(--node, #fff); box-shadow: 0 0 0 4px rgba(255,255,255,0.06); }
+  .bs-tl-col::after { content: ""; position: absolute; top: 5px; left: 18px; right: 0; height: 2px; background: rgba(255,255,255,0.10); }
+  .bs-tl-col:last-child::after { display: none; }
+  .bs-tl-month { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--alloy-yellow); margin-bottom: 8px; }
+  .bs-tl-col h4 { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: #fff; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .bs-tl-col p { margin: 0; font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.66); }
+  .bs-tl-col .pay { margin-top: 10px; font-size: 12.5px; font-style: italic; color: rgba(255,255,255,0.9); }
+  @media (prefers-reduced-motion: reduce) { .bs-tl-col { transform: none; } .bs-tl-area { opacity: 1; } }
+  @media (max-width: 980px) { .bs-tl-track { grid-template-columns: repeat(3, 1fr); row-gap: 30px; } .bs-tl-col:nth-child(3)::after { display: none; } }
+  @media (max-width: 560px) { .bs-tl-track { grid-template-columns: repeat(2, 1fr); } .bs-tl-col::after { display: none; } }
+
+  /* FAQ */
+  .bs-faq { border-top: 1px solid var(--border-subtle); }
+  .bs-faq details { border-bottom: 1px solid var(--border-subtle); }
+  .bs-faq summary { list-style: none; cursor: pointer; padding: 24px 0; display: flex; justify-content: space-between; gap: 24px; align-items: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--alloy-purple); }
+  .bs-faq summary::-webkit-details-marker { display: none; }
+  .bs-faq summary .pm { width: 26px; height: 26px; flex-shrink: 0; border-radius: 999px; border: 1.5px solid var(--border-strong); display: grid; place-items: center; color: var(--alloy-pink); font-size: 18px; transition: all 200ms; }
+  .bs-faq details[open] summary .pm { background: var(--alloy-pink); color: #fff; border-color: var(--alloy-pink); transform: rotate(45deg); }
+  .bs-faq details p { margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: var(--fg-3); max-width: 70ch; }
+
+  /* Final CTA band */
+  .bs-cta { background: linear-gradient(135deg, #381c4f 0%, #290d41 100%); color: #fff; text-align: center; position: relative; overflow: hidden; }
+  .bs-cta .hero-bg-grid { mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1), rgba(0,0,0,0) 75%); -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1), rgba(0,0,0,0) 75%); }
+  .bs-cta { padding-bottom: 0; }
+  .bs-cta .container-narrow { padding-bottom: 76px; }
+
+  /* Variant switcher */
+  .bs-switch {
+    position: fixed; top: 16px; right: 16px; z-index: 1000;
+    background: #fff; border: 1px solid var(--border-subtle); border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(56,28,79,0.18); padding: 14px 16px;
+    width: 248px; font-family: var(--font-display);
+  }
+  .bs-switch .sw-title { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--alloy-pink); font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .bs-switch .sw-row { margin-bottom: 12px; }
+  .bs-switch .sw-row:last-child { margin-bottom: 0; }
+  .bs-switch .sw-lbl { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-muted); font-weight: 700; margin-bottom: 6px; }
+  .bs-seg { display: flex; gap: 4px; background: var(--alloy-off-white); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 3px; }
+  .bs-seg button { flex: 1; border: none; background: transparent; padding: 7px 6px; border-radius: 7px; font-family: var(--font-display); font-weight: 700; font-size: 11px; color: var(--fg-3); cursor: pointer; transition: all 140ms; white-space: nowrap; }
+  .bs-seg button.on { background: var(--alloy-purple); color: #fff; }
+  .bs-switch .sw-collapse { position: absolute; top: 12px; right: 12px; cursor: pointer; color: var(--fg-muted); font-size: 16px; line-height: 1; background: none; border: none; }
+  .bs-switch.is-min { width: auto; padding: 10px 14px; }
+  .bs-switch.is-min .sw-body { display: none; }
+  .bs-switch.is-min .sw-title { margin-bottom: 0; }
+
+  @media (max-width: 980px) {
+    .hero-grid-split { grid-template-columns: 1fr; gap: 48px; }
+    .bs-aud-grid, .bs-inc-grid, .bs-tier-grid { grid-template-columns: 1fr; }
+    .bs-price-single, .bs-interview, .bs-compare, .bs-ramp { grid-template-columns: 1fr; }
+    .bs-tier.is-pop { transform: none; }
+    .bs-ramp-line { display: none; }
+    .bs-ramp-step { padding: 0 0 26px; }
+    .bs-switch { display: none; }
+  }
+  </style>
+
+  <script is:inline>
+(function () {
+  var root = document.querySelector('.boardstart-page');
+  if (!root) return;
+
+  // Get-started form — front-end only. Wire this to your endpoint (CRM / email / Calendly).
+  root.querySelectorAll('.bs-form').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof f.checkValidity === 'function' && !f.checkValidity()) { f.reportValidity(); return; }
+      var nameEl = f.querySelector('[name="name"]');
+      var first = nameEl && nameEl.value ? nameEl.value.trim().split(' ')[0] : '';
+      var msg = f.querySelector('.bs-form-msg');
+      Array.prototype.forEach.call(f.children, function (c) {
+        if (!c.classList.contains('bs-form-msg')) c.style.display = 'none';
+      });
+      if (msg) {
+        msg.textContent = "Thanks" + (first ? ", " + first : "") + " — we'll reach out within one business day with the details.";
+        msg.classList.add('show');
+      }
+    });
+  });
+
+  // Pricing tier -> preselect package in the hero form, then scroll up
+  root.querySelectorAll('.t-cta[data-pkg]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var pkg = a.getAttribute('data-pkg');
+      root.querySelectorAll('.bs-pkg').forEach(function (sel) {
+        sel.value = pkg; sel.classList.add('bs-pkg-set');
+      });
+      setTimeout(function () {
+        var input = root.querySelector('.bs-form input[name="name"]');
+        if (input) { try { input.focus({ preventScroll: true }); } catch (e) {} }
+      }, 650);
+    });
+  });
+
+  // Header CTA — hidden until the hero form scrolls out of view above the
+  // fold, then slides in from the right. Hides again if you scroll back up.
+  var heroForm = root.querySelector('[data-variant-hero="' + (root.dataset.hero || 'outcome') + '"] .bs-form-card');
+  var lpCta = document.querySelector('.bs-lp-cta');
+  if (heroForm && lpCta) {
+    if ('IntersectionObserver' in window) {
+      var ctaIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          // Reveal only once the form has scrolled up past the top of the viewport.
+          if (!e.isIntersecting && e.boundingClientRect.top < 0) {
+            lpCta.classList.add('is-shown');
+          } else if (e.isIntersecting) {
+            lpCta.classList.remove('is-shown');
+          }
+        });
+      }, { threshold: 0 });
+      ctaIO.observe(heroForm);
+    } else {
+      lpCta.classList.add('is-shown');
+    }
+  }
+
+  // Momentum timeline — build the curve + draw it in on scroll
+  var tl = root.querySelector('.bs-tl');
+  if (tl) {
+    var line = tl.querySelector('.bs-tl-line');
+    var area = tl.querySelector('.bs-tl-area');
+    var pts = [[100,213],[300,188],[500,150],[700,108],[900,62],[1100,20]];
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    for (var i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[i-1] || pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2] || p2;
+      d += ' C' + (p1[0]+(p2[0]-p0[0])/6) + ' ' + (p1[1]+(p2[1]-p0[1])/6) + ' ' +
+                  (p2[0]-(p3[0]-p1[0])/6) + ' ' + (p2[1]-(p3[1]-p1[1])/6) + ' ' + p2[0] + ' ' + p2[1];
+    }
+    line.setAttribute('d', d);
+    area.setAttribute('d', d + ' L1100 248 L100 248 Z');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var len = line.getTotalLength ? line.getTotalLength() : 0;
+    if (!reduce && len) { line.style.strokeDasharray = len; line.style.strokeDashoffset = len; }
+    var go = function () {
+      tl.classList.add('in');
+      if (!reduce && len) {
+        line.style.transition = 'stroke-dashoffset 1700ms cubic-bezier(0.16,1,0.3,1)';
+        requestAnimationFrame(function () { line.style.strokeDashoffset = '0'; });
+      }
+    };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { go(); io.disconnect(); } });
+      }, { threshold: 0.25 });
+      io.observe(tl);
+    } else { go(); }
+  }
+})();
+  </script>
+</BaseLayout>

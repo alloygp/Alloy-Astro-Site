@@ -67,6 +67,12 @@ interface Props {
   hideHeader?: boolean;
 
   /**
+   * Hide the global SiteFooter entirely (e.g. focused landing pages that
+   * ship their own minimal, low-distraction footer).
+   */
+  hideFooter?: boolean;
+
+  /**
    * og:type. Defaults to 'website'. Use 'article' for resource hub articles.
    */
   ogType?: 'website' | 'article';
@@ -100,6 +106,7 @@ const {
   headerTheme = 'light',
   animatedBar = true,
   hideHeader = false,
+  hideFooter = false,
   ogType = 'website',
   ogImage: ogImageProp,
   robots,
@@ -236,6 +243,6 @@ const orgLd = {
     <main>
       <slot />
     </main>
-    <SiteFooter animatedBar={animatedBar} client:visible />
+    {!hideFooter && <SiteFooter animatedBar={animatedBar} client:visible />}
   </body>
 </html>
