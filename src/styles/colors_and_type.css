@@ -12,46 +12,52 @@
   font-weight: 300;
   font-style: normal;
   font-display: swap;
-  src: url("/fonts/Gotham-Light.otf") format("opentype");
+  src: url("/fonts/Gotham-Light.woff2") format("woff2"),
+       url("/fonts/Gotham-Light.otf") format("opentype");
 }
 @font-face {
   font-family: "Gotham";
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url("/fonts/Gotham-Book.otf") format("opentype");
+  src: url("/fonts/Gotham-Book.woff2") format("woff2"),
+       url("/fonts/Gotham-Book.otf") format("opentype");
 }
 @font-face {
   font-family: "Gotham";
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  src: url("/fonts/Gotham-Medium.otf") format("opentype");
+  src: url("/fonts/Gotham-Medium.woff2") format("woff2"),
+       url("/fonts/Gotham-Medium.otf") format("opentype");
 }
 @font-face {
   font-family: "Gotham";
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: url("/fonts/Gotham-Bold.otf") format("opentype");
+  src: url("/fonts/Gotham-Bold.woff2") format("woff2"),
+       url("/fonts/Gotham-Bold.otf") format("opentype");
 }
 @font-face {
   font-family: "Gotham";
   font-weight: 800;
   font-style: normal;
-  font-display: swap;
-  src: url("/fonts/Gotham-Black.otf") format("opentype");
+  font-display: optional;
+  src: url("/fonts/Gotham-Black.woff2") format("woff2"),
+       url("/fonts/Gotham-Black.otf") format("opentype");
 }
 @font-face {
   font-family: "Gotham";
   font-weight: 900;
   font-style: normal;
   font-display: swap;
-  src: url("/fonts/Gotham-Ultra.otf") format("opentype");
+  src: url("/fonts/Gotham-Ultra.woff2") format("woff2"),
+       url("/fonts/Gotham-Ultra.otf") format("opentype");
 }
 
-/* Digital substitute (per brand guide): Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&display=swap");
+/* Poppins (digital substitute) loaded via <link> in BaseLayout.astro — not here.
+   CSS @import is render-blocking; the <link> in <head> is not. */
 
 :root {
   /* ---------- Brand colors ---------- */

@@ -1,5 +1,5 @@
 // src/components/pages/ServiceBrandingPage.tsx
-// Branding for HOA Management Companies — /boardreach/branding
+// Branding for HOA Management Companies — /boardreach/hoa-management-branding
 import { useState } from 'react';
 import AccentBar from '~/components/AccentBar';
 import Button from '~/components/Button';

@@ -28,10 +28,7 @@ import '../styles/colors_and_type.css';
 import '../styles/site.css';
 import '../styles/chrome.css';
 import '../styles/mobile.css';
-import '../styles/courses.css';
 
-import { ViewTransitions } from 'astro:transitions';
-import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import SiteHeader from '../components/chrome/SiteHeader.tsx';
 import SiteFooter from '../components/chrome/SiteFooter.tsx';
@@ -70,6 +67,12 @@ interface Props {
   hideHeader?: boolean;
 
   /**
+   * Hide the global SiteFooter entirely (e.g. focused landing pages that
+   * ship their own minimal, low-distraction footer).
+   */
+  hideFooter?: boolean;
+
+  /**
    * og:type. Defaults to 'website'. Use 'article' for resource hub articles.
    */
   ogType?: 'website' | 'article';
@@ -103,6 +106,7 @@ const {
   headerTheme = 'light',
   animatedBar = true,
   hideHeader = false,
+  hideFooter = false,
   ogType = 'website',
   ogImage: ogImageProp,
   robots,
@@ -147,7 +151,11 @@ const orgLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" type="image/png" href="/assets/alloy-icon-1500.png" />
+    <!-- SVG favicon: 6.9 KB vs prior 215 KB PNG. Modern browsers (Chrome/Firefox/Safari)
+         all support SVG favicons; ancient browsers fall back to a default icon, which is
+         acceptable. The 215 KB icon was a high-priority download that saturated mobile
+         bandwidth and pushed LCP from ~1 s to ~5 s on simulated slow 4G. -->
+    <link rel="icon" type="image/svg+xml" href="/assets/alloy-logomark.svg" />
 
     <!-- Robots (only emitted when explicitly set — absence = index,follow) -->
     {robots && <meta name="robots" content={robots} />}
@@ -173,13 +181,25 @@ const orgLd = {
     <meta name="twitter:image" content={resolvedOgImage} />
     <meta name="twitter:image:alt" content={`${SITE.name} — The growth system for CAM companies`} />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts: preload Book (400) and Bold (700) — the two weights used for body copy and
+         UI elements above the fold. Gotham-Black (800) is intentionally NOT preloaded:
+         display-xxl uses font-display:optional, and Chrome extends optional's block period
+         to wait for any preloaded font. Without the preload, optional falls back at ~100ms
+         consistently regardless of network speed, giving predictable LCP timing. -->
+    <!-- WOFF2 is ~30% smaller than OTF; OTF is the fallback for any browser that needs it (none in 2026) -->
+    <link rel="preload" href="/fonts/Gotham-Book.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Gotham-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- No Google Fonts: Manrope/Sora unused in CSS; Gotham is self-hosted; system fonts cover the swap period -->
+
+    <!-- No manual critical CSS block needed — build.inlineStylesheets:'always' in astro.config.mjs
+         causes Astro to embed all CSS as inline <style> tags, eliminating the render-blocking
+         external stylesheet entirely. The font preloads below give WOFF2 downloads a head start
+         before the inlined @font-face declarations are parsed. -->
+
+    <!-- Preconnect for conversion tracking domains — establishes connections early for post-load script -->
+    <link rel="preconnect" href="https://js.surebizpayments.com" />
+    <link rel="preconnect" href="https://jssecure.ksrndkeh.com" />
+    <link rel="dns-prefetch" href="//s.ksrndkehqnwntyxlhgto.com" />
 
     <!-- JSON-LD: Organization (every page) -->
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
@@ -188,17 +208,34 @@ const orgLd = {
       <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     )}
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FSCT09DV7"></script>
-    <script>
+    <!-- Google Analytics: deferred to after page paint — eliminates forced reflow from gtag.js.
+         dataLayer + gtag() are set up inline so any early gtag() calls on the page don't throw.
+         The actual gtag/js script loads after the load event fires (same pattern as conversion tracking). -->
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-0FSCT09DV7');
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FSCT09DV7';
+        document.head.appendChild(s);
+      });
     </script>
 
-    <ViewTransitions />
-    <Analytics />
+    <!-- Conversion tracking: capture page data immediately, load external script after browser idle.
+         Using requestIdleCallback (with setTimeout fallback) keeps the forced reflow from the
+         tracking script off the main thread during page load — removes it from TBT entirely. -->
+    <script is:inline>
+      var $wc_load = function(a) { return JSON.parse(JSON.stringify(a)); };
+      $wc_leads = $wc_leads || { doc: { url: $wc_load(document.URL), ref: $wc_load(document.referrer), search: $wc_load(location.search), hash: $wc_load(location.hash) } };
+      (window.requestIdleCallback || function(cb){ window.setTimeout(cb, 1) })(function() {
+        var s = document.createElement('script');
+        s.src = '//s.ksrndkehqnwntyxlhgto.com/149173.js';
+        document.head.appendChild(s);
+      });
+    </script>
+
     <SpeedInsights />
   </head>
   <body class={hideHeader ? '' : 'has-fixed-header'}>
@@ -206,6 +243,6 @@ const orgLd = {
     <main>
       <slot />
     </main>
-    <SiteFooter animatedBar={animatedBar} client:visible />
+    {!hideFooter && <SiteFooter animatedBar={animatedBar} client:visible />}
   </body>
 </html>

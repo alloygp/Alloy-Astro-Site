@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import CoursesPage from '~/components/pages/CoursesPage';
+import '~/styles/courses.css';
 ---
 <BaseLayout
   title="CAM Growth Courses | Alloy"
   description="Free micro-courses for CAM operators. Learn how to win more boards, build trust, and grow your portfolio with field-tested frameworks."
   pageId="resources"
 >
-  <CoursesPage client:load />
+  <CoursesPage client:idle />
 </BaseLayout>

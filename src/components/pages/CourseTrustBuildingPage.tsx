@@ -44,7 +44,7 @@ export default function CourseTrustBuildingPage() {
               <div className="enroll-card-price">$0</div>
               <div className="enroll-card-price-note">No card. No upsell. Just the course.</div>
 
-              <a href="/courses/trust-building-lesson" className="btn btn-primary">Start the course →</a>
+              <a href="/courses/trust-building/lessons/intro" className="btn btn-primary">Start the course →</a>
 
               <ul className="enroll-includes">
                 <li><Check />10 short, focused lessons</li>
@@ -111,12 +111,12 @@ export default function CourseTrustBuildingPage() {
                 <div className="module-meta">2 lessons</div>
               </div>
               <div className="module-body">
-                <a className="lesson" href="/courses/trust-building-lesson">
+                <a className="lesson" href="/courses/trust-building/lessons/intro">
                   <span className="lesson-num">01</span>
                   <span className="lesson-title">Intro to <em>Trust-Building for CAM Firms</em></span>
                   <span className="lesson-type"><span className="dot"></span>Lesson · 4 min</span>
                 </a>
-                <a className="lesson" href="/courses/trust-building-lesson">
+                <a className="lesson" href="/courses/trust-building/lessons/why-trust-signals-matter">
                   <span className="lesson-num">02</span>
                   <span className="lesson-title">Why trust signals matter to HOA boards</span>
                   <span className="lesson-type"><span className="dot"></span>Lesson · 6 min</span>
@@ -203,7 +203,7 @@ export default function CourseTrustBuildingPage() {
           <h2>Show the right proof at the right moment.</h2>
           <p>10 lessons. ~60 minutes. No card, no upsell. Just the framework — and a knowledge check at the end.</p>
           <div className="final-cta-actions">
-            <a href="/courses/trust-building-lesson" className="btn btn-primary-on-dark">Start the course →</a>
+            <a href="/courses/trust-building/lessons/intro" className="btn btn-primary-on-dark">Start the course →</a>
             <a href="/courses" className="btn btn-secondary-on-dark">Browse all courses</a>
           </div>
         </div>

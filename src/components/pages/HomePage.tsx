@@ -13,10 +13,20 @@ import MarketChecker from '~/components/modules/MarketChecker';
 import ResourceHub from '~/components/modules/ResourceHub';
 import { PURPLE, PINK, YELLOW, GREEN } from '~/lib/tokens';
 
-export default function HomePage() {
+interface HomePageProps {
+  /**
+   * When true the Hero component is suppressed — the Astro page layer renders
+   * HeroStatic.astro instead so the h1 appears in initial HTML without being
+   * wrapped in a React island. This moves LCP from ~2,450 ms (hydration time)
+   * to initial HTML parse/paint.
+   */
+  hideHero?: boolean;
+}
+
+export default function HomePage({ hideHero = false }: HomePageProps) {
   return (
     <>
-      <Hero variant="refined" layout="split" color="deep" animatedBar={true} statsHero={true} />
+      {!hideHero && <Hero variant="refined" layout="split" color="deep" animatedBar={true} statsHero={true} />}
 
       {/* Trust band */}
       <section style={{ background: '#fff', borderBottom: '1px solid var(--border-subtle)' }}>

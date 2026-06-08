@@ -176,6 +176,7 @@ export default function CoursesPage() {
       level: 'Foundations',
       badge: 'Trust Operator',
       free: true,
+      live: true,
       imgLabel: 'Reviews · testimonials · case studies',
       badgeImg: '/assets/badges/badge-citation.svg',
       desc: 'Why trust — not service quality — decides which CAM firms boards renew, refer, and rave about. Ten lessons plus a knowledge check.',
@@ -189,6 +190,7 @@ export default function CoursesPage() {
       level: 'Intermediate',
       badge: 'Proposal Architect',
       free: false,
+      live: false,
       imgLabel: 'RFP framework breakdown',
       badgeImg: '/assets/badges/badge-proposal.svg',
       desc: 'The 7-section RFP framework that flips your win rate. Templates, narrative builds, and pricing presentation.',
@@ -202,6 +204,7 @@ export default function CoursesPage() {
       level: 'Foundations',
       badge: 'Board Educator',
       free: false,
+      live: false,
       imgLabel: 'Learning library mockup',
       badgeImg: '/assets/badges/badge-board.svg',
       desc: 'How to launch a branded learning library that boards return to — and how to use it as a retention engine.',
@@ -215,6 +218,7 @@ export default function CoursesPage() {
       level: 'Practical',
       badge: 'Retention Specialist',
       free: false,
+      live: false,
       imgLabel: 'Transition checklist',
       badgeImg: '/assets/badges/badge-retention.svg',
       desc: 'Reduce manager-turnover-driven churn with a transition checklist, comms cadence, and 90-day plan.',
@@ -256,8 +260,8 @@ export default function CoursesPage() {
 
   // Featured course card — rendered in the hero right column (dark-mode variant)
   const featuredCard = (
-    <a
-      href={featured.href}
+    <div
+      aria-disabled="true"
       style={{
         display: 'block',
         background: 'rgba(255,255,255,0.04)',
@@ -265,9 +269,10 @@ export default function CoursesPage() {
         borderTop: `5px solid ${featured.color}`,
         borderRadius: 12,
         overflow: 'hidden',
-        textDecoration: 'none',
         color: '#fff',
-        transition: 'transform 0.18s ease, border-color 0.18s ease, background 0.18s ease',
+        cursor: 'default',
+        filter: 'grayscale(0.5)',
+        opacity: 0.82,
       }}
     >
       {/* Image band */}
@@ -293,11 +298,11 @@ export default function CoursesPage() {
         </div>
         <div style={{
           position: 'absolute', top: 12, left: 12,
-          background: PURPLE, color: featured.color,
+          background: '#9a9a9a', color: '#fff',
           fontFamily: 'var(--font-display)', fontWeight: 800,
           fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
           padding: '5px 10px', borderRadius: 999,
-        }}>Free</div>
+        }}>Coming Soon</div>
       </div>
       {/* Text */}
       <div style={{ padding: '24px 26px 22px', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -319,12 +324,12 @@ export default function CoursesPage() {
             }}>★</span>
             <span>Earns: {featured.badge}</span>
           </div>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13, color: featured.color }}>
-            Start the course →
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 12, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.02em' }}>
+            In production
           </span>
         </div>
       </div>
-    </a>
+    </div>
   );
 
   return (
@@ -360,6 +365,7 @@ export default function CoursesPage() {
           {/* 3-col grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {courses.map((c, i) => (
+              c.live ? (
               <a
                 key={c.title}
                 href={c.href}
@@ -443,6 +449,79 @@ export default function CoursesPage() {
                   </div>
                 </div>
               </a>
+              ) : (
+              <div
+                key={c.title}
+                aria-disabled="true"
+                style={{
+                  display: 'flex', flexDirection: 'column',
+                  background: '#fafafa',
+                  border: '1px solid var(--border-subtle)',
+                  borderTop: `5px solid ${c.color}`,
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  cursor: 'default',
+                  filter: 'grayscale(0.85)',
+                  opacity: 0.78,
+                }}
+              >
+                {/* Image band */}
+                <div style={{
+                  position: 'relative',
+                  background: `linear-gradient(135deg, ${c.color} 0%, ${c.color}cc 100%)`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  minHeight: 160, overflow: 'hidden',
+                }}>
+                  <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.35 } as CSSProperties} aria-hidden="true">
+                    <StripeDefs id={`stripes-${i}`} />
+                    <rect width="100%" height="100%" fill={`url(#stripes-${i})`} />
+                  </svg>
+                  <div style={{
+                    position: 'relative',
+                    fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
+                    fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
+                    color: PURPLE, background: 'rgba(255,255,255,0.85)',
+                    padding: '6px 10px', borderRadius: 4, fontWeight: 600,
+                    textAlign: 'center', maxWidth: '80%',
+                  }}>
+                    {c.imgLabel}
+                  </div>
+                  <div style={{
+                    position: 'absolute', top: 12, left: 12,
+                    background: '#9a9a9a', color: '#fff',
+                    fontFamily: 'var(--font-display)', fontWeight: 800,
+                    fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
+                    padding: '5px 10px', borderRadius: 999,
+                  }}>Coming Soon</div>
+                </div>
+                {/* Text */}
+                <div style={{ padding: '26px 28px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, color: '#888' }}>
+                    <span>{c.level}</span>
+                    <span style={{ width: 3, height: 3, background: '#bbb', borderRadius: 999 }} />
+                    <span>{c.lessons} lessons</span>
+                    <span style={{ width: 3, height: 3, background: '#bbb', borderRadius: 999 }} />
+                    <span>{c.time}</span>
+                  </div>
+                  <div className="display-md" style={{ fontSize: 24, color: PURPLE, lineHeight: 1.15 }}>{c.title}</div>
+                  <div style={{ fontSize: 14, color: '#555', lineHeight: 1.6 }}>{c.desc}</div>
+                  <div style={{ marginTop: 'auto', paddingTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#888', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+                      <span style={{
+                        width: 18, height: 18, borderRadius: 999, background: '#cfcfcf',
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 10, color: '#fff', fontWeight: 800,
+                      }}>★</span>
+                      <span>Earns: {c.badge}</span>
+                    </div>
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 12, color: '#999', letterSpacing: '0.02em' }}>
+                      In production
+                    </span>
+                  </div>
+                </div>
+              </div>
+              )
             ))}
           </div>
 

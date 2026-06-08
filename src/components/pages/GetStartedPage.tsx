@@ -3,7 +3,7 @@
 // Diagnostic intake: not a generic contact form. The page itself does work —
 // it shows operators which engine is leaking before the call happens.
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { CSSProperties } from 'react';
 import AccentBar from '~/components/AccentBar';
 import Eyebrow from '~/components/Eyebrow';
@@ -178,6 +178,19 @@ export default function GetStartedPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [sourceData, setSourceData] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    const utms = utmKeys.filter(k => params.get(k)).map(k => `${k}=${params.get(k)}`).join(' | ');
+    const parts = [
+      `Page: ${window.location.href}`,
+      document.referrer ? `Referrer: ${document.referrer}` : 'Referrer: direct',
+      utms ? `UTMs: ${utms}` : null,
+    ].filter(Boolean) as string[];
+    setSourceData(parts.join('\n'));
+  }, []);
 
   const sizes = [
     { v: 'starter',    label: 'Under 1,500 doors',    sub: 'Solo PM or small team' },
@@ -233,6 +246,7 @@ export default function GetStartedPage() {
     fd.append('phone', phone);
     fd.append('units', size);
     fd.append('goal', `Stage: ${stage} | Problems: ${problem.join(', ')}`);
+    fd.append('source', sourceData);
     try {
       const res = await fetch('/api/lead', { method: 'POST', body: fd });
       if (!res.ok) {

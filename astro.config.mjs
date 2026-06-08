@@ -2,17 +2,107 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://alloygp.co',
   output: 'server',
   adapter: vercel(),
   trailingSlash: 'never',
-  integrations: [react()],
+  integrations: [
+    react(),
+    sitemap({
+      // Filter out:
+      //   1. API endpoints (form handlers under /api/*)
+      //   2. Legacy URL routes that exist only to Astro.redirect() to a canonical URL.
+      //      Astro's build picks them up as "routes", but they should never be in the
+      //      sitemap — Google would see a 301 and drop them anyway.
+      filter: (page) => {
+        if (page.includes('/api/')) return false;
+        const legacyRedirectRoutes = [
+          'https://alloygp.co/groundwork',
+          'https://alloygp.co/hoa-board-education-programs',
+          'https://alloygp.co/hoa-cam-marketing-services',
+          'https://alloygp.co/strategic-review-request',
+          'https://alloygp.co/we-know-cam',
+          'https://alloygp.co/services/hoa-newsletter-production',
+          'https://alloygp.co/resource-hub',
+          'https://alloygp.co/courses',
+          'https://alloygp.co/courses/trust-building',
+        ];
+        // Normalize trailing slash for the comparison
+        return !legacyRedirectRoutes.includes(page.replace(/\/$/, ''));
+      },
+      // Dynamic routes (e.g. /courses/trust-building/lessons/[lesson]) aren't
+      // auto-enumerated by the plugin. Add them explicitly so they get indexed.
+      customPages: [
+        'https://alloygp.co/courses/trust-building/lessons/intro',
+        'https://alloygp.co/courses/trust-building/lessons/why-trust-signals-matter',
+        'https://alloygp.co/courses/trust-building/lessons/what-reviews-are',
+        'https://alloygp.co/courses/trust-building/lessons/reviews-extra-factors',
+        'https://alloygp.co/courses/trust-building/lessons/what-testimonials-are',
+        'https://alloygp.co/courses/trust-building/lessons/testimonials-extra-factors',
+        'https://alloygp.co/courses/trust-building/lessons/what-case-studies-are',
+        'https://alloygp.co/courses/trust-building/lessons/case-studies-extra-factors',
+        'https://alloygp.co/courses/trust-building/lessons/recapping-trust-signals',
+        'https://alloygp.co/courses/trust-building/lessons/from-proof-to-persuasion',
+      ],
+      // Emit a per-page changefreq + priority that roughly mirrors the
+      // hand-maintained public/sitemap.xml we used to keep:
+      //   - homepage / get-started: highest priority
+      //   - service & approach pages: 0.85
+      //   - results, about, resources: 0.75
+      //   - course lessons + legal: lower
+      // Note: Google largely ignores these hints, but matching prior values
+      // keeps continuity with the old static sitemap for any tools that read them.
+      serialize: (item) => {
+        const url = item.url.replace('https://alloygp.co', '');
+        if (url === '' || url === '/') {
+          item.changefreq = 'weekly';
+          item.priority = 1.0;
+        } else if (url === '/get-started') {
+          item.changefreq = 'monthly';
+          item.priority = 0.95;
+        } else if (url === '/pricing' || url.startsWith('/boardsuite')) {
+          item.changefreq = 'monthly';
+          item.priority = 0.9;
+        } else if (
+          url.startsWith('/boardreach') ||
+          url.startsWith('/boardmatch') ||
+          url.startsWith('/boardretain') ||
+          url.startsWith('/our-approach') ||
+          url.startsWith('/services')
+        ) {
+          item.changefreq = 'monthly';
+          item.priority = 0.85;
+        } else if (url.startsWith('/resources') || url.startsWith('/resource-hub')) {
+          item.changefreq = 'weekly';
+          item.priority = 0.8;
+        } else if (url.startsWith('/results') || url.startsWith('/about')) {
+          item.changefreq = 'monthly';
+          item.priority = 0.75;
+        } else if (url.startsWith('/courses')) {
+          item.changefreq = 'monthly';
+          item.priority = 0.6;
+        } else if (url === '/terms-conditions' || url === '/privacy-policy') {
+          item.priority = 0.3;
+          // omit changefreq for legal — matches prior sitemap
+          delete item.changefreq;
+        } else {
+          item.changefreq = 'monthly';
+          item.priority = 0.6;
+        }
+        return item;
+      },
+    }),
+  ],
   prefetch: { prefetchAll: true },
   security: { checkOrigin: false },
   build: {
-    inlineStylesheets: 'auto',
+    // 'always' embeds all CSS as inline <style> tags — eliminates the render-blocking
+    // external stylesheet link that Astro generates with 'auto'. Total bytes are the same
+    // but the browser doesn't block paint waiting for an external CSS request.
+    inlineStylesheets: 'always',
   },
   redirects: {
     '/index.html': '/',
@@ -24,6 +114,8 @@ export default defineConfig({
     '/services.html': '/services',
     '/hoa-cam-marketing-services.html': '/hoa-cam-marketing-services',
     '/services/newsletter-production-for-hoa-management': '/boardretain/newsletter-production',
+    // Catch the short-form branding URL — actual page is /boardreach/hoa-management-branding
+    '/boardreach/branding': '/boardreach/hoa-management-branding',
     '/property-management-seo.html': '/property-management-seo',
     '/hoa-board-education-programs.html': '/hoa-board-education-programs',
     '/groundwork.html': '/groundwork',

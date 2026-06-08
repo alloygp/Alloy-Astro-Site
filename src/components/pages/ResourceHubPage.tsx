@@ -14,6 +14,7 @@ export default function ResourceHubPage() {
     { type: 'Micro-course', color: GREEN, title: 'Building Trust as a CAM', excerpt: '6 lessons + knowledge check. Free. Why trust — not service quality — decides which CAM firms boards renew, refer, and rave about.', href: '/courses/trust-building', read: '6 lessons' },
   ];
   const more = [
+    { type: 'Buyer\'s guide', color: BLUE, title: 'HOA Management Software: 2026 Buyer\'s Guide for CAM Firms', read: '12 min', href: '/resources/hoa-management-software-guide' },
     { type: 'Article', color: PINK, title: 'The 26 questions every board really wants answered', read: '8 min' },
     { type: 'Field guide', color: BLUE, title: 'Manager-transition checklist that prevents account churn', read: '6 min' },
     { type: 'Article', color: YELLOW, title: 'Why your proposal loses before you submit it', read: '10 min' },
@@ -66,16 +67,24 @@ export default function ResourceHubPage() {
             <h2 className="display-lg" style={{ margin: '14px 0 0', color: PURPLE }}>Recent articles & guides.</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-            {more.map(it => (
-              <div key={it.title} className="card card-pad" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <Tag color={tagFor(it.color) as any}>{it.type}</Tag>
-                  <span style={{ fontSize: 12, color: '#888', fontFamily: 'var(--font-display)' }}>{it.read}</span>
-                </div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: PURPLE, letterSpacing: '-0.01em', lineHeight: 1.3 }}>{it.title}</div>
-                <div style={{ marginTop: 'auto', fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: it.color }}>Read →</div>
-              </div>
-            ))}
+            {more.map(it => {
+              const cardStyle: React.CSSProperties = { display: 'flex', flexDirection: 'column', gap: 12, textDecoration: 'none', color: 'inherit' };
+              const inner = (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Tag color={tagFor(it.color) as any}>{it.type}</Tag>
+                    <span style={{ fontSize: 12, color: '#888', fontFamily: 'var(--font-display)' }}>{it.read}</span>
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: PURPLE, letterSpacing: '-0.01em', lineHeight: 1.3 }}>{it.title}</div>
+                  <div style={{ marginTop: 'auto', fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: it.color }}>
+                    {'href' in it ? 'Read →' : 'Coming soon'}
+                  </div>
+                </>
+              );
+              return 'href' in it
+                ? <a key={it.title} href={(it as any).href} className="card card-pad" style={cardStyle}>{inner}</a>
+                : <div key={it.title} className="card card-pad" style={cardStyle}>{inner}</div>;
+            })}
           </div>
         </div>
       </section>

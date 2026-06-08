@@ -2,15 +2,21 @@
 // Ported from pages.jsx AboutPage().
 import Eyebrow from '~/components/Eyebrow';
 import AccentBar from '~/components/AccentBar';
+import Icon from '~/components/Icon';
 import { PURPLE, PINK, YELLOW, GREEN } from '~/lib/tokens';
 
 export default function AboutPage() {
+  // Each partner gets a designed gradient card with an icon representing their role
+  // — not a "photo placeholder" — until real headshots are commissioned.
   const partners = [
     { name: 'Skyler Nelson', role: 'Managing Partner · Marketing', color: PINK,
+      icon: 'target', roleLabel: 'Marketing',
       bio: 'Spent years inside HOA management running marketing — knows what boards search for, what makes a proposal land, and what fails.' },
     { name: 'Justin Guenther', role: 'Managing Partner · Learning & Development', color: YELLOW,
+      icon: 'book', roleLabel: 'Learning & Development',
       bio: 'Built training and education programs inside a management company. Translates that capability into authority content no other agency can produce.' },
     { name: 'Cameron Lange', role: 'Managing Partner · Executive', color: GREEN,
+      icon: 'compass', roleLabel: 'Executive',
       bio: 'Operated at the executive level inside CAM. Brings the operator\'s view of growth, retention, and what really drives portfolio value.' },
   ];
 
@@ -35,17 +41,44 @@ export default function AboutPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {partners.map((p, i) => (
               <div key={i} className="card card-pad" style={{ display: 'flex', flexDirection: 'column', gap: 16, borderTop: `5px solid ${p.color}` }}>
+                {/* Role card — designed graphic, not a photo placeholder. The icon represents
+                    each partner's domain (target = marketing, book = L&D, compass = executive).
+                    Replace with real headshots when they're commissioned. */}
                 <div style={{
                   aspectRatio: '1 / 1', borderRadius: 12,
                   background: `linear-gradient(135deg, ${p.color} 0%, ${PURPLE} 130%)`,
-                  display: 'grid', placeItems: 'center',
-                  fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 96, color: '#fff',
-                  letterSpacing: '-0.04em',
                   position: 'relative', overflow: 'hidden',
+                  display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                  padding: 22,
                 }}>
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.30) 100%)' }}></div>
-                  <span style={{ position: 'relative' }}>{p.name.split(' ').map(n => n[0]).join('')}</span>
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', opacity: 0.85 }}>Photo placeholder</div>
+                  {/* Subtle radial highlight + bottom darken for depth */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 25%, rgba(255,255,255,0.18) 0%, transparent 55%), linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.28) 100%)' }} aria-hidden="true"></div>
+
+                  {/* Monogram — small, top-right, watermark-like */}
+                  <div style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end' }}>
+                    <span style={{
+                      fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 22, color: '#fff',
+                      letterSpacing: '0.02em', opacity: 0.85,
+                      background: 'rgba(255,255,255,0.10)', backdropFilter: 'blur(4px)',
+                      borderRadius: 999, padding: '4px 10px', border: '1px solid rgba(255,255,255,0.18)',
+                    }}>{p.name.split(' ').map(n => n[0]).join('')}</span>
+                  </div>
+
+                  {/* Icon — centered hero element, the visual focus */}
+                  <div style={{ position: 'relative', flex: 1, display: 'grid', placeItems: 'center' }} aria-hidden="true">
+                    <div style={{
+                      width: 96, height: 96, borderRadius: '50%',
+                      background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.22)',
+                      display: 'grid', placeItems: 'center', color: '#fff',
+                    }}>
+                      <Icon name={p.icon} size={48} strokeWidth={1.5} />
+                    </div>
+                  </div>
+
+                  {/* Role caption — bottom-left, tasteful, replaces the "Photo placeholder" text */}
+                  <div style={{ position: 'relative', fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.92)' }}>
+                    {p.roleLabel}
+                  </div>
                 </div>
                 <div>
                   <div className="display-md" style={{ fontSize: 22, color: PURPLE, margin: '8px 0 4px' }}>{p.name}</div>
