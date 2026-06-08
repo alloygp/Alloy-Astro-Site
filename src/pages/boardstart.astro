@@ -319,8 +319,12 @@ const MAIN = "<!-- ============ HERO: OUTCOME-LED ============ -->\n  <section c
   .bs-faq summary { list-style: none; cursor: pointer; padding: 24px 0; display: flex; justify-content: space-between; gap: 24px; align-items: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--alloy-purple); }
   .bs-faq summary::-webkit-details-marker { display: none; }
   .bs-faq summary .pm { width: 26px; height: 26px; flex-shrink: 0; border-radius: 999px; border: 1.5px solid var(--border-strong); display: grid; place-items: center; color: var(--alloy-pink); font-size: 18px; transition: all 200ms; }
-  .bs-faq details[open] summary .pm { background: var(--alloy-pink); color: #fff; border-color: var(--alloy-pink); transform: rotate(45deg); }
+  .bs-faq details.is-open summary .pm { background: var(--alloy-pink); color: #fff; border-color: var(--alloy-pink); transform: rotate(45deg); }
   .bs-faq details p { margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: var(--fg-3); max-width: 70ch; }
+  /* Animated answer wrapper (added at runtime); height is driven by JS for a
+     smooth open/close ease. */
+  .bs-faq-body { overflow: hidden; transition: height 300ms var(--ease-standard); will-change: height; }
+  @media (prefers-reduced-motion: reduce) { .bs-faq-body { transition: none; } }
 
   /* Final CTA band */
   .bs-cta { background: linear-gradient(135deg, #381c4f 0%, #290d41 100%); color: #fff; text-align: center; position: relative; overflow: hidden; }
@@ -415,6 +419,78 @@ const MAIN = "<!-- ============ HERO: OUTCOME-LED ============ -->\n  <section c
     } else {
       lpCta.classList.add('is-shown');
     }
+  }
+
+  // FAQ accordion — ease open/close, and only one panel open at a time.
+  var faq = root.querySelector('.bs-faq');
+  if (faq) {
+    var faqReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var faqItems = Array.prototype.slice.call(faq.querySelectorAll('details'));
+    faqItems.forEach(function (d) {
+      var summary = d.querySelector('summary');
+      if (!summary) return;
+      // Wrap everything after the summary in an animatable body element.
+      var body = document.createElement('div');
+      body.className = 'bs-faq-body';
+      while (summary.nextSibling) body.appendChild(summary.nextSibling);
+      d.appendChild(body);
+      if (d.open) d.classList.add('is-open');
+
+      var animate = function (open) {
+        if (d.classList.contains('bs-animating')) return;
+        if (faqReduce) {                     // no motion: just toggle
+          d.open = open;
+          d.classList.toggle('is-open', open);
+          body.style.height = '';
+          return;
+        }
+        d.classList.add('bs-animating');
+        if (open) {
+          d.open = true;
+          d.classList.add('is-open');
+          var target = body.scrollHeight;
+          body.style.height = '0px';
+          requestAnimationFrame(function () { body.style.height = target + 'px'; });
+        } else {
+          d.classList.remove('is-open');
+          body.style.height = body.scrollHeight + 'px';
+          requestAnimationFrame(function () { body.style.height = '0px'; });
+        }
+        var done = function (ev) {
+          if (ev.propertyName !== 'height') return;
+          body.removeEventListener('transitionend', done);
+          d.classList.remove('bs-animating');
+          if (open) { body.style.height = 'auto'; }
+          else { d.open = false; body.style.height = ''; }
+        };
+        body.addEventListener('transitionend', done);
+      };
+
+      summary.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (d.open) { animate(false); return; }
+        // Close any other open panel first (one at a time).
+        faqItems.forEach(function (other) {
+          if (other !== d && other.open) {
+            var ob = other.querySelector('.bs-faq-body');
+            other.classList.remove('is-open');
+            if (faqReduce || !ob) { other.open = false; if (ob) ob.style.height = ''; }
+            else {
+              other.classList.add('bs-animating');
+              ob.style.height = ob.scrollHeight + 'px';
+              requestAnimationFrame(function () { ob.style.height = '0px'; });
+              var oDone = function (ev) {
+                if (ev.propertyName !== 'height') return;
+                ob.removeEventListener('transitionend', oDone);
+                other.open = false; ob.style.height = ''; other.classList.remove('bs-animating');
+              };
+              ob.addEventListener('transitionend', oDone);
+            }
+          }
+        });
+        animate(true);
+      });
+    });
   }
 
   // Momentum timeline — build the curve + draw it in on scroll
