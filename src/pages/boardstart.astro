@@ -149,10 +149,14 @@ const MAIN = "<!-- ============ HERO: OUTCOME-LED ============ -->\n  <section c
     display: flex; align-items: center; gap: 26px; flex-wrap: wrap;
     padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.10); margin-top: 30px;
   }
-  /* Keep the three metric columns in a single row even with longer captions. */
+  /* Three metric columns with vertical separator bars, matching the design. */
   [data-variant-hero="problem"] .bs-hero-trust {
-    display: grid; grid-template-columns: repeat(3, 1fr); align-items: start;
+    display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; gap: 0;
   }
+  [data-variant-hero="problem"] .bs-hero-trust .item { padding-left: 30px; border-left: 1px solid rgba(255,255,255,0.18); }
+  [data-variant-hero="problem"] .bs-hero-trust .item:first-child { padding-left: 0; border-left: none; }
+  [data-variant-hero="problem"] .bs-hero-trust .item .v { font-size: 28px; line-height: 1.1; }
+  [data-variant-hero="problem"] .bs-hero-trust .item .k { font-size: 13px; line-height: 1.55; margin-top: 10px; }
   .bs-hero-trust .item .v { font-family: var(--font-display); font-weight: 800; color: #fff; font-size: 22px; letter-spacing: -0.02em; }
   .bs-hero-trust .item .k { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-top: 3px; }
 
