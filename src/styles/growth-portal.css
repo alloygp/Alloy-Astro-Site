@@ -563,6 +563,21 @@ html { scroll-behavior: smooth; scroll-padding-top: 84px; }
   .gp-tour-note { position: static; width: 100%; max-width: 540px; text-align: left !important; }
   .gp-tour-note::after, .gp-tour-note::before { display: none; }
 }
+/* Below the tablet breakpoint the dense tour mockups (Playbook project rows,
+   Messages 2-col inbox) are too cramped at 1:1 in a ~350px column and overflow
+   the frame. Pin them to a comfortable design width so fitMocks scales the
+   whole frame down to fit — same treatment as the hero carousel. The simpler
+   Home/Roadmap mockups read fine and keep their own width. */
+@media (max-width: 720px) {
+  /* Left-align so the top-left scale origin keeps the scaled frame flush to
+     the column's left edge (centering a non-shrinking 560px box would push it
+     off-screen left). */
+  .gp-tour-stage .gp-showcase-art { justify-content: flex-start; }
+  .gp-tour-stage .gp-showcase-art .gp-frame { width: 560px; flex-shrink: 0; align-self: flex-start; }
+  /* Floating overlay cards are positioned for the wide desktop frame; at the
+     scaled-down width they collide/clip, so drop them on phones. */
+  .gp-msgcard, .gp-leadcard, .gp-ib-newreq { display: none; }
+}
 .gp-feat-list { list-style: none; padding: 0; margin: 26px 0 0; display: grid; grid-template-columns: 1fr; gap: 14px; text-align: left; }
 .gp-shot-num { display: none; }
 .gp-showcase-head h3 { font-family: var(--font-display); font-weight: 800; font-size: clamp(24px, 2.3vw, 34px); line-height: 1.1; letter-spacing: -0.02em; color: var(--alloy-purple); margin: 14px 0 0; }
@@ -833,18 +848,49 @@ html { scroll-behavior: smooth; scroll-padding-top: 84px; }
    Responsive
 ---------------------------------------------------------------------------- */
 @media (max-width: 1080px) {
-  .gp-hero-inner { grid-template-columns: 1fr; gap: 48px; }
-  .gp-showcase, .gp-showcase--big { grid-template-columns: 1fr; grid-template-areas: "head" "art" "side"; row-gap: 26px; }
+  /* minmax(0,1fr) lets the single column shrink below the fixed-width mock's
+     min-content — without it the 564/780px mock forces the track (and the
+     copy/stats sharing it) to that width and overflows the viewport. */
+  .gp-hero-inner { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .gp-hero-inner > * { min-width: 0; }
+  .gp-showcase, .gp-showcase--big { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "art" "side"; row-gap: 26px; }
+  .gp-showcase > *, .gp-showcase--big > * { min-width: 0; }
   .gp-showcase-side { grid-template-columns: 1fr; gap: 22px; }
   .gp-cta-inner { grid-template-columns: 1fr; gap: 36px; }
+  .gp-cta-inner > * { min-width: 0; }
   .gp-proof-grid { grid-template-columns: 1fr 1fr; }
   .gp-tri, .gp-steps { grid-template-columns: 1fr; }
+
+  /* Mock containers shrink to the real column width; fitMocks scales the
+     fixed-width inner mock (.gp-frame / .gp-carousel) to fit and sets the
+     container height. overflow:hidden clips any sub-pixel scale rounding so
+     the scaled box can't push horizontal overflow. */
+  .gp-hero-art, .gp-showcase-art { width: 100%; min-width: 0; overflow: hidden; }
+  .gp-carousel { margin-left: 0; }
 }
 @media (max-width: 720px) {
+  /* Hero: stack copy full-width, scale the headline down, full-width CTAs,
+     and lay the three stats out vertically so nothing clips. */
+  .gp-hero-inner { gap: 40px; padding: 116px 24px 64px; }
+  .gp-hero-inner > *, .gp-hero-copy { min-width: 0; max-width: 100%; }
+  .gp-hero #heroTitle, .gp-hero .display-xl { font-size: clamp(34px, 11vw, 46px); line-height: 1.05; }
+  .gp-hero .lead { max-width: 100% !important; }
+  .gp-incl-pill { max-width: 100%; }
+  .gp-hero-cta-row { width: 100%; }
+  .gp-hero-cta-row .btn { flex: 1 1 100%; justify-content: center; }
+  .gp-hero-stats { grid-template-columns: 1fr; gap: 18px; }
+  .gp-hero-stats .item { padding: 0 0 0 16px; }
+  .gp-hero-stats .item:first-child { padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.15); }
+
   .gp-dash-grid { grid-template-columns: 1fr; }
   .gp-cycle-grid { grid-template-columns: 1fr 1fr; }
   .gp-proof-grid { grid-template-columns: 1fr 1fr; }
   .gp-welcome-head h3 { font-size: 22px; }
   .gp-journey-head { display: none; }
   .gp-journey-row { grid-template-columns: 1fr; }
+}
+
+/* Stack the first-name / company row on phones so placeholders do not truncate. */
+@media (max-width: 540px) {
+  .gp-form-row { grid-template-columns: 1fr; }
 }
