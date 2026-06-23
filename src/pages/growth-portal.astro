@@ -1,0 +1,42 @@
+---
+// src/pages/growth-portal.astro
+// Alloy Growth Portal — focused landing page (not in main nav). Mirrors the
+// /boardstart chrome pattern: runs with hideHeader hideFooter and ships its own
+// minimal brand bar + slim footer. Reachable only by direct URL.
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import GrowthPortalPage from '~/components/pages/GrowthPortalPage';
+import '~/styles/growth-portal.css';
+---
+<BaseLayout
+  title="Alloy Growth Portal — See exactly what our partnership is worth"
+  description="The live dashboard behind every BoardSuite and BoardStart plan — every lead, project, and dollar of revenue we've created together, in the open. Included free with every plan."
+  hideHeader
+  hideFooter
+>
+  <!-- Minimal landing-page header: brand mark + a single CTA, no nav. -->
+  <header class="gp-lp-header">
+    <div class="gp-lp-header-inner">
+      <a class="gp-lp-logo" href="/" aria-label="Alloy Growth Partners — home">
+        <img src="/assets/alloy-logo-on-dark.svg" alt="Alloy Growth Partners" width="150" height="30" />
+      </a>
+      <a class="btn btn-primary btn-sm btn-arrow gp-lp-cta" href="#get-started">Get started</a>
+    </div>
+  </header>
+
+  <GrowthPortalPage client:load />
+
+  <!-- Minimal landing-page footer: brand, one line, copyright + legal only. -->
+  <footer class="gp-lp-footer">
+    <div class="gp-lp-footer-inner">
+      <a class="gp-lp-logo" href="/" aria-label="Alloy Growth Partners — home">
+        <img src="/assets/alloy-logo-on-dark.svg" alt="Alloy Growth Partners" width="130" height="26" />
+      </a>
+      <p class="gp-lp-footer-tag">The Growth Portal is included with every BoardSuite™ &amp; BoardStart™ plan.</p>
+      <div class="gp-lp-footer-meta">
+        <span>© 2026 Alloy Growth Partners</span>
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/terms-conditions">Terms</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>
