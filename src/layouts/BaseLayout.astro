@@ -228,7 +228,7 @@ const orgLd = {
          tracking script off the main thread during page load — removes it from TBT entirely. -->
     <script is:inline>
       var $wc_load = function(a) { return JSON.parse(JSON.stringify(a)); };
-      $wc_leads = $wc_leads || { doc: { url: $wc_load(document.URL), ref: $wc_load(document.referrer), search: $wc_load(location.search), hash: $wc_load(location.hash) } };
+      var $wc_leads = $wc_leads || { doc: { url: $wc_load(document.URL), ref: $wc_load(document.referrer), search: $wc_load(location.search), hash: $wc_load(location.hash) } };
       (window.requestIdleCallback || function(cb){ window.setTimeout(cb, 1) })(function() {
         var s = document.createElement('script');
         s.src = '//s.ksrndkehqnwntyxlhgto.com/149173.js';
