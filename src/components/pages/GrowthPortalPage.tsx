@@ -945,7 +945,7 @@ export default function GrowthPortalPage() {
                 Thanks{formFirst ? ', ' + formFirst : ''} — we&rsquo;ll be in touch within one business day to set up your walkthrough.
               </div>
             ) : (
-              <form className="gp-form" id="gp-walkthrough-form" name="growth-portal-walkthrough" onSubmit={onFormSubmit}>
+              <form className="gp-form" id="gp-walkthrough-form" name="growth-portal-walkthrough" action="/api/lead" method="post" onSubmit={onFormSubmit}>
                 <div className="gp-form-row">
                   <input className="gp-input" name="name" placeholder="First name" required />
                   <input className="gp-input" name="company" placeholder="CAM company" required />
