@@ -6,7 +6,7 @@ import type { CSSProperties } from 'react';
 // ---------------------------------------------------------------------------
 const heroCopyMap: Record<string, { t: string; l: string }> = {
   'wid-pv': {
-    t: 'See exactly what<br>our partnership<br>is <span style="color:var(--alloy-yellow);">worth.</span>',
+    t: 'Finally,<br>growth you can<br><span style="color:var(--alloy-yellow);">actually see.</span>',
     l: 'Revenue created, leads qualified, and ROI you can watch climb — the live numbers that prove the partnership pays for itself.',
   },
   'wid-aq': {
@@ -35,6 +35,9 @@ export default function GrowthPortalPage() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [czIdx, setCzIdx] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'done'>('idle');
+  const [formError, setFormError] = useState('');
+  const [formFirst, setFormFirst] = useState('');
   const animatedWidgets = useRef<Set<number>>(new Set());
   const heroCopyRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
@@ -52,6 +55,10 @@ export default function GrowthPortalPage() {
     root.querySelectorAll<HTMLElement>('.gp-hero-art, .gp-showcase-art').forEach((c) => {
       const f = c.querySelector<HTMLElement>('.gp-frame, .gp-carousel');
       if (!f) return;
+      // Clear any height we set on a prior run: when the container is a flex
+      // box (showcase-art) a stale height collapses the mock via align-items
+      // stretch, so the natH read below would be wrong. Reset, measure, scale.
+      c.style.height = '';
       f.style.transform = 'none';
       const natW = f.offsetWidth;
       const natH = f.offsetHeight;
@@ -255,8 +262,10 @@ export default function GrowthPortalPage() {
     });
   };
 
-  // ---- walkthrough form: front-end only ----
-  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // ---- walkthrough form: posts to /api/lead (same pipeline as Get Started) ----
+  // State-driven so React owns the UI — imperative DOM writes get wiped by the
+  // carousel/animation re-renders, so status + message live in state.
+  const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = e.currentTarget;
     if (typeof f.checkValidity === 'function' && !f.checkValidity()) {
@@ -265,15 +274,42 @@ export default function GrowthPortalPage() {
     }
     const nameEl = f.querySelector<HTMLInputElement>('[name="name"]');
     const first = nameEl && nameEl.value ? nameEl.value.trim().split(' ')[0] : '';
-    const msg = f.querySelector<HTMLElement>('.gp-form-msg');
-    Array.prototype.forEach.call(f.children, (c: HTMLElement) => {
-      if (!c.classList.contains('gp-form-msg')) c.style.display = 'none';
-    });
-    if (msg) {
-      msg.textContent =
-        'Thanks' + (first ? ', ' + first : '') +
-        " — we'll be in touch within one business day to set up your walkthrough.";
-      msg.style.paddingTop = '4px';
+
+    // Reuse the site's existing lead pipeline (/api/lead → Resend + Mailchimp,
+    // same recipients as the Get Started form). Map the walkthrough-specific
+    // fields (market + interest) into the `goal` field that endpoint reads.
+    const fd = new FormData(f);
+    const plan = (fd.get('plan') || '').toString().trim();
+    const market = (fd.get('market') || '').toString().trim();
+    const goalParts = ['Growth Portal walkthrough request'];
+    if (plan) goalParts.push('interested in: ' + plan);
+    if (market) goalParts.push('primary market: ' + market);
+    fd.append('goal', goalParts.join(' · '));
+    try {
+      const utm = new URLSearchParams(window.location.search).toString();
+      fd.append('source', [
+        'page: ' + window.location.href,
+        'referrer: ' + (document.referrer || '—'),
+        utm ? 'utm: ' + utm : '',
+      ].filter(Boolean).join('\n'));
+    } catch {
+      /* ignore */
+    }
+
+    setFormError('');
+    setFormStatus('sending');
+    try {
+      const res = await fetch('/api/lead', { method: 'POST', body: fd });
+      if (!res.ok) {
+        let err = `Something went wrong (${res.status}). Please try again.`;
+        try { const j = await res.json(); if (j?.error) err = j.error; } catch { /* ignore */ }
+        throw new Error(err);
+      }
+      setFormFirst(first);
+      setFormStatus('done');
+    } catch (err) {
+      setFormStatus('idle');
+      setFormError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     }
   };
 
@@ -287,13 +323,13 @@ export default function GrowthPortalPage() {
           <div>
             <div className="gp-eyebrow-dot">
               <span className="dot"></span>
-              <span className="lbl">CAM Growth Portal <span className="by">by Alloy</span></span>
+              <span className="lbl">Introducing CAM Growth Portal <span className="by">by Alloy</span></span>
             </div>
 
             <div className="gp-hero-copy" id="heroCopy" ref={heroCopyRef}>
               <h1 className="display-xl" id="heroTitle" ref={heroTitleRef} style={{ margin: '0 0 22px' }}>
-                See exactly what<br />our partnership<br />is{' '}
-                <span style={{ color: 'var(--alloy-yellow)' }}>worth.</span>
+                Finally,<br />growth you can<br />
+                <span style={{ color: 'var(--alloy-yellow)' }}>actually see.</span>
               </h1>
               <p className="lead on-dark" id="heroLead" ref={heroLeadRef} style={{ marginBottom: 28, maxWidth: 540 }}>
                 Revenue created, leads qualified, and ROI you can watch climb — the live numbers that prove the partnership pays for itself, updated in real time.
@@ -864,22 +900,34 @@ export default function GrowthPortalPage() {
           <div className="gp-form-card">
             <div className="ttl">Takes 30 seconds</div>
             <h3>Request a walkthrough</h3>
-            <form className="gp-form" onSubmit={onFormSubmit}>
-              <div className="gp-form-row">
-                <input className="gp-input" name="name" placeholder="First name" required />
-                <input className="gp-input" name="company" placeholder="CAM company" required />
+            {formStatus === 'done' ? (
+              <div className="gp-form-msg" aria-live="polite" style={{ paddingTop: 4 }}>
+                Thanks{formFirst ? ', ' + formFirst : ''} — we&rsquo;ll be in touch within one business day to set up your walkthrough.
               </div>
-              <input className="gp-input" name="email" type="email" placeholder="Work email" required />
-              <input className="gp-input" name="market" placeholder="Primary market (city, state)" />
-              <select className="gp-input" name="plan" defaultValue="">
-                <option value="">Interested in… (optional)</option>
-                <option value="Growth plan">Growth plan</option>
-                <option value="Just exploring">Just exploring</option>
-                <option value="Not sure yet">Not sure yet</option>
-              </select>
-              <button className="btn btn-primary btn-arrow" type="submit">Request walkthrough</button>
-              <div className="gp-form-msg" aria-live="polite"></div>
-            </form>
+            ) : (
+              <form className="gp-form" onSubmit={onFormSubmit}>
+                <div className="gp-form-row">
+                  <input className="gp-input" name="name" placeholder="First name" required />
+                  <input className="gp-input" name="company" placeholder="CAM company" required />
+                </div>
+                <input className="gp-input" name="email" type="email" placeholder="Work email" required />
+                <input className="gp-input" name="market" placeholder="Primary market (city, state)" />
+                <select className="gp-input" name="plan" defaultValue="">
+                  <option value="">Interested in… (optional)</option>
+                  <option value="Growth plan">Growth plan</option>
+                  <option value="Just exploring">Just exploring</option>
+                  <option value="Not sure yet">Not sure yet</option>
+                </select>
+                <button className="btn btn-primary btn-arrow" type="submit" disabled={formStatus === 'sending'}>
+                  {formStatus === 'sending' ? 'Sending…' : 'Request walkthrough'}
+                </button>
+                {formError && (
+                  <div className="gp-form-msg" aria-live="polite" style={{ color: '#ffb4c6', paddingTop: 4 }}>
+                    {formError}
+                  </div>
+                )}
+              </form>
+            )}
             <p className="gp-fine">No long-term contract required. We'll reach out within one business day.</p>
           </div>
         </div>
