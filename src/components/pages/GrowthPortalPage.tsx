@@ -799,7 +799,7 @@ export default function GrowthPortalPage() {
             <div className="gp-step">
               <div className="n" style={{ background: 'var(--alloy-pink)' }}>1</div>
               <h3>Start a plan</h3>
-              <p>Pick BoardStart or BoardSuite. A quick conversation gets the partnership moving — no prep, no pressure.</p>
+              <p>Start a BoardSuite plan. A quick conversation gets the partnership moving — no prep, no pressure.</p>
             </div>
             <div className="gp-step">
               <div className="n" style={{ background: 'var(--alloy-yellow)', color: 'var(--alloy-purple)' }}>2</div>
@@ -825,11 +825,11 @@ export default function GrowthPortalPage() {
           <div className="gp-faq">
             <details open onToggle={onFaqToggle}>
               <summary>How much does the Growth Portal cost? <span className="pm">+</span></summary>
-              <p>Nothing extra. The portal is included free with every BoardSuite and BoardStart plan — it's simply how we run the work and report on it. There's no separate license, seat fee, or add-on.</p>
+              <p>Nothing extra. The portal is included free with every BoardSuite plan — it's simply how we run the work and report on it. There's no separate license, seat fee, or add-on.</p>
             </details>
             <details onToggle={onFaqToggle}>
               <summary>Can I get the portal without a plan? <span className="pm">+</span></summary>
-              <p>The portal exists to show the work we're doing for you, so it's tied to an active engagement. Start with BoardStart or BoardSuite and your portal comes with it. If you'd like a walkthrough first, we're happy to give you a live tour.</p>
+              <p>The portal exists to show the work we're doing for you, so it's tied to an active engagement. Start a BoardSuite plan and your portal comes with it. If you'd like a walkthrough first, we're happy to give you a live tour.</p>
             </details>
             <details onToggle={onFaqToggle}>
               <summary>Where does the data come from? <span className="pm">+</span></summary>
@@ -842,10 +842,6 @@ export default function GrowthPortalPage() {
             <details onToggle={onFaqToggle}>
               <summary>How current is the information? <span className="pm">+</span></summary>
               <p>Leads and project status update in real time. Value metrics like revenue created and projected firm value refresh continuously as quotes are sent, deals close, and work ships — not once a month in a deck.</p>
-            </details>
-            <details onToggle={onFaqToggle}>
-              <summary>What's the difference between BoardStart and BoardSuite? <span className="pm">+</span></summary>
-              <p>BoardStart is the fixed-price on-ramp — the marketing essentials to get you moving. BoardSuite is the full growth engine across all three pillars. Both include the Growth Portal, so you get full transparency either way.</p>
             </details>
           </div>
         </div>
