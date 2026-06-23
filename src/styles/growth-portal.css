@@ -100,10 +100,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 }
 .gp-hero-inner {
   position: relative; z-index: 2;
-  max-width: 1300px; margin: 0 auto; padding: 76px 32px 88px;
+  max-width: 1300px; margin: 0 auto; padding: 128px 32px 88px;
   display: grid; grid-template-columns: 1.18fr 0.82fr; gap: 56px; align-items: center;
 }
 .gp-eyebrow-dot { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.gp-eyebrow-dot .lbl .by { font-size: 0.82em; font-weight: 600; opacity: 0.7; letter-spacing: 0.04em; }
 .gp-hero-copy { transition: opacity .24s ease; }
 .gp-eyebrow-dot .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--alloy-green); box-shadow: 0 0 0 4px rgba(174,215,208,0.18); }
 .gp-eyebrow-dot .lbl { font-family: var(--font-display); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--alloy-yellow); }

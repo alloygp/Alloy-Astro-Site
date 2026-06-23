@@ -287,7 +287,7 @@ export default function GrowthPortalPage() {
           <div>
             <div className="gp-eyebrow-dot">
               <span className="dot"></span>
-              <span className="lbl">Alloy Growth Portal</span>
+              <span className="lbl">CAM Growth Portal <span className="by">by Alloy</span></span>
             </div>
 
             <div className="gp-hero-copy" id="heroCopy" ref={heroCopyRef}>
