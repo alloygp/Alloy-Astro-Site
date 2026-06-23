@@ -281,6 +281,8 @@ export default function GrowthPortalPage() {
     const fd = new FormData(f);
     const plan = (fd.get('plan') || '').toString().trim();
     const market = (fd.get('market') || '').toString().trim();
+    const email = (fd.get('email') || '').toString().trim();
+    const company = (fd.get('company') || '').toString().trim();
     const goalParts = ['Growth Portal walkthrough request'];
     if (plan) goalParts.push('interested in: ' + plan);
     if (market) goalParts.push('primary market: ' + market);
@@ -304,6 +306,24 @@ export default function GrowthPortalPage() {
         let err = `Something went wrong (${res.status}). Please try again.`;
         try { const j = await res.json(); if (j?.error) err = j.error; } catch { /* ignore */ }
         throw new Error(err);
+      }
+      // Fire a WhatConverts lead explicitly — it can't auto-capture this AJAX
+      // submit (no page navigation). $wc_leads.track is added by the WC script.
+      try {
+        const wc = (window as unknown as {
+          $wc_leads?: { track?: { event?: (c: string, a: string, l: string, v: string, f?: Record<string, string>) => void } };
+        }).$wc_leads;
+        if (wc?.track?.event) {
+          wc.track.event('Form', 'Submit', 'CAM Growth Portal — Request a walkthrough', '', {
+            'First Name': first,
+            'Email': email,
+            'CAM Company': company,
+            'Primary Market': market,
+            'Interested In': plan,
+          });
+        }
+      } catch {
+        /* never block the success UI on tracking */
       }
       setFormFirst(first);
       setFormStatus('done');
