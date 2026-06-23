@@ -106,6 +106,8 @@ export default defineConfig({
   },
   redirects: {
     '/index.html': '/',
+    // Growth Portal landing page renamed → /cam-growth-portal
+    '/growth-portal': '/cam-growth-portal',
     '/about.html': '/about',
     '/about/testimonials.html': '/about/testimonials',
     '/we-know-cam.html': '/we-know-cam',
