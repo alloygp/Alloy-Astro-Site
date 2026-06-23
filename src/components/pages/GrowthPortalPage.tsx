@@ -505,6 +505,10 @@ export default function GrowthPortalPage() {
           <div className="gp-tabpanels">
             {/* 01 Home (annotated) */}
             <div className={'gp-showcase gp-tour gp-bare' + (activeTab === 0 ? ' is-active' : '')}>
+              <div className="gp-panel-head">
+                <h3>{gpMeta[0].t}</h3>
+                <p>{gpMeta[0].d}</p>
+              </div>
               <div className="gp-tour-stage">
                 <div className="gp-tour-note left p1"><b>Welcome, by name</b><span>Your quarter, goal and date the moment you land.</span></div>
                 <div className="gp-tour-note left p2"><b>Value, always on</b><span>Revenue created and firm value, totalled live.</span></div>
@@ -550,6 +554,10 @@ export default function GrowthPortalPage() {
 
             {/* 02 Partnership (annotated) */}
             <div className={'gp-showcase gp-tour gp-bare' + (activeTab === 1 ? ' is-active' : '')}>
+              <div className="gp-panel-head">
+                <h3>{gpMeta[1].t}</h3>
+                <p>{gpMeta[1].d}</p>
+              </div>
               <div className="gp-tour-stage">
                 <div className="gp-tour-note left p1"><b>Leads waiting on you</b><span>12 ready to qualify in a single click.</span></div>
                 <div className="gp-tour-note left p2"><b>Win rate, live</b><span>26% of quotes signed — tracked continuously.</span></div>
@@ -609,6 +617,10 @@ export default function GrowthPortalPage() {
 
             {/* 03 Roadmap (annotated) */}
             <div className={'gp-showcase gp-tour gp-bare' + (activeTab === 2 ? ' is-active' : '')}>
+              <div className="gp-panel-head">
+                <h3>{gpMeta[2].t}</h3>
+                <p>{gpMeta[2].d}</p>
+              </div>
               <div className="gp-tour-stage">
                 <div className="gp-tour-note left p1"><b>Foundation → Dominance</b><span>Every market you serve, mapped across all five stages.</span></div>
                 <div className="gp-tour-note left p2"><b>Delivered &amp; counted</b><span>Quarter-by-quarter initiatives — 126 in Q1, 79 this quarter.</span></div>
@@ -658,6 +670,10 @@ export default function GrowthPortalPage() {
 
             {/* 04 Playbook (annotated) */}
             <div className={'gp-showcase gp-tour gp-bare' + (activeTab === 3 ? ' is-active' : '')}>
+              <div className="gp-panel-head">
+                <h3>{gpMeta[3].t}</h3>
+                <p>{gpMeta[3].d}</p>
+              </div>
               <div className="gp-tour-stage">
                 <div className="gp-tour-note left p1"><b>Live project list</b><span>Every initiative with subtasks and due dates.</span></div>
                 <div className="gp-tour-note left p2"><b>Tagged by engine</b><span>Reach, Match, Retain — filter to what matters.</span></div>
@@ -735,6 +751,10 @@ export default function GrowthPortalPage() {
 
             {/* 05 Messages (annotated) */}
             <div className={'gp-showcase gp-tour gp-bare' + (activeTab === 4 ? ' is-active' : '')}>
+              <div className="gp-panel-head">
+                <h3>{gpMeta[4].t}</h3>
+                <p>{gpMeta[4].d}</p>
+              </div>
               <div className="gp-tour-stage">
                 <div className="gp-tour-note left p1"><b>Tracked inbox</b><span>Every ticket — Pending, In-progress, Resolved.</span></div>
                 <div className="gp-tour-note left p2"><b>Full history kept</b><span>Attach files, CC teammates — nothing lost.</span></div>
