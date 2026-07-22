@@ -1,0 +1,13 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import FindYourPathPage from '~/components/pages/FindYourPathPage';
+---
+<BaseLayout
+  title="Find Your Path | Alloy GP"
+  description="An interactive walkthrough of what growth with Alloy looks like for your CAM firm."
+  robots="noindex,nofollow"
+  hideHeader
+  hideFooter
+>
+  <FindYourPathPage client:load />
+</BaseLayout>

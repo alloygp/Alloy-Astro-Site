@@ -19,6 +19,8 @@ export default defineConfig({
       //      sitemap — Google would see a 301 and drop them anyway.
       filter: (page) => {
         if (page.includes('/api/')) return false;
+        // Standalone, unlinked, noindex walkthrough — keep it out of the sitemap.
+        if (page.replace(/\/$/, '') === 'https://alloygp.co/find-your-path') return false;
         const legacyRedirectRoutes = [
           'https://alloygp.co/groundwork',
           'https://alloygp.co/hoa-board-education-programs',
